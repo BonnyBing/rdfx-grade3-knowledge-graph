@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>三年级上册数学与科学知识图谱</title>
-    <script src="https://cdn.staticfile.net/echarts/5.5.1/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
     <style>
       :root {
         --bg: #f5f6f8;
@@ -704,10 +704,11 @@
         </div>
       </div>
       <div class="header-actions">
+        <span class="sync-badge loading" id="syncBadge">同步中…</span>
         <span class="unsaved-badge" id="unsavedBadge">有未保存修改</span>
         <button type="button" id="btnEditMode">审核编辑</button>
-        <button type="button" id="btnSaveData" title="保存到浏览器本地">
-          保存
+        <button type="button" id="btnSaveData" title="保存到云端，所有人可见">
+          保存并同步
         </button>
         <button type="button" id="btnExportData">导出 JSON</button>
         <button type="button" id="btnImportData">导入 JSON</button>
@@ -737,8 +738,7 @@
         <section class="edit-section edit-section-top" id="editSidebar">
           <h2>数据管理</h2>
           <p class="edit-hint">
-            审核模式下可修改全部节点、关系与元数据。修改后请点击「保存」或「导出
-            JSON」备份。
+            审核模式下可修改全部节点、关系与元数据。修改后请点击「保存并同步」，所有人将立即看到更新。
           </p>
           <div class="edit-actions" style="margin-top: 10px">
             <button type="button" class="edit-btn primary" id="btnAddNode">
@@ -847,1016 +847,147 @@
     </div>
 
     <script>
-      const DEFAULT_GRAPH_DATA = {
-        metadata: {
-          title: '三年级上册数学与科学知识图谱',
-          version: '1.0',
-          generated_date: '2026-06-29',
-          grade: '三年级',
-          semester: '上册',
-          scope_note:
-            '教材节点表示本册实际学习内容；课标节点表示3—4年级第二学段要求。status=stage_later 的节点不能解释为本册已经完成。',
-          page_reference: 'textbook_printed_page/pdf_page；课程标准使用PDF页',
-          source_files: [
-            '数学三年级上.pdf',
-            '（5）义务教育数学课程标准日常修订版（2022年版2025年修订）.pdf',
-            '教科版3年级科学上册【高清教材】.pdf',
-            '（10）义务教育科学课程标准日常修订版（2022年版2025年修订）.pdf',
-          ],
-        },
-        node_types: [
-          'subject',
-          'domain',
-          'unit',
-          'lesson',
-          'knowledge',
-          'method',
-          'standard',
-          'competency',
-          'cross_disciplinary_theme',
-        ],
-        relation_types: [
-          'contains',
-          'teaches',
-          'uses_method',
-          'aligns_to',
-          'develops',
-          'prerequisite_of',
-          'applies_to',
-          'cross_links',
-        ],
-        nodes: [
-          {
-            id: 'M',
-            type: 'subject',
-            name: '数学三年级上',
-            status: 'current_book',
-          },
-          {
-            id: 'M-D-N',
-            type: 'domain',
-            name: '数与代数',
-            status: 'current_book',
-          },
-          {
-            id: 'M-D-G',
-            type: 'domain',
-            name: '图形与几何',
-            status: 'current_book',
-          },
-          {
-            id: 'M-D-D',
-            type: 'domain',
-            name: '统计与概率',
-            status: 'current_book',
-          },
-          {
-            id: 'M-D-P',
-            type: 'domain',
-            name: '综合与实践',
-            status: 'current_book',
-          },
-          {
-            id: 'M-U1',
-            type: 'unit',
-            name: '第一单元 混合运算',
-            source: '数学教材书内2—12/PDF6—16',
-            status: 'current_book',
-          },
-          {
-            id: 'M-U2',
-            type: 'unit',
-            name: '第二单元 测量（二）',
-            source: '数学教材书内13—23/PDF17—27',
-            status: 'current_book',
-          },
-          {
-            id: 'M-P-CAMPUS',
-            type: 'unit',
-            name: '综合实践 记录我们的校园',
-            source: '数学教材书内24—27/PDF28—31',
-            status: 'current_book',
-          },
-          {
-            id: 'M-U3',
-            type: 'unit',
-            name: '第三单元 大数加与减（二）',
-            source: '数学教材书内28—40/PDF32—44',
-            status: 'current_book',
-          },
-          {
-            id: 'M-U4',
-            type: 'unit',
-            name: '第四单元 我们生活的空间（一）',
-            source: '数学教材书内41—48/PDF45—52',
-            status: 'current_book',
-          },
-          {
-            id: 'M-U5',
-            type: 'unit',
-            name: '第五单元 认识图形',
-            source: '数学教材书内49—61/PDF53—65',
-            status: 'current_book',
-          },
-          {
-            id: 'M-FUN',
-            type: 'unit',
-            name: '数学好玩 搭配中的学问',
-            source: '数学教材书内62—63/PDF66—67',
-            status: 'current_book',
-          },
-          {
-            id: 'M-U6',
-            type: 'unit',
-            name: '第六单元 乘除法的应用（二）',
-            source: '数学教材书内64—74/PDF68—78',
-            status: 'current_book',
-          },
-          {
-            id: 'M-U7',
-            type: 'unit',
-            name: '第七单元 认识小数',
-            source: '数学教材书内75—89/PDF79—93',
-            status: 'current_book',
-          },
-          {
-            id: 'M-U8',
-            type: 'unit',
-            name: '第八单元 调查与记录',
-            source: '数学教材书内90—94/PDF94—98',
-            status: 'current_book',
-          },
-          {
-            id: 'M-P-DATE',
-            type: 'unit',
-            name: '综合实践 探索年月日的秘密',
-            source: '数学教材书内95—98/PDF99—102',
-            status: 'current_book',
-          },
-          {
-            id: 'M-K-MIX',
-            type: 'knowledge',
-            name: '乘加、乘减、除加、除减的两步混合运算',
-            status: 'current_book',
-          },
-          {
-            id: 'M-K-ORDER',
-            type: 'knowledge',
-            name: '先乘除后加减及小括号改变运算顺序',
-            status: 'current_book',
-          },
-          {
-            id: 'M-K-LENGTH',
-            type: 'knowledge',
-            name: '毫米、厘米、分米、米、千米及单位换算',
-            status: 'current_book',
-          },
-          {
-            id: 'M-K-ESTIMATE',
-            type: 'knowledge',
-            name: '长度和数量的估测及结果合理性',
-            status: 'current_book',
-          },
-          {
-            id: 'M-K-DIRECTION',
-            type: 'knowledge',
-            name: '八个方向与几点钟方向',
-            status: 'current_book',
-          },
-          {
-            id: 'M-K-ADDSUB',
-            type: 'knowledge',
-            name: '三位数连加、连减和加减混合及验算',
-            status: 'current_book',
-          },
-          {
-            id: 'M-K-INTERVAL',
-            type: 'knowledge',
-            name: '总量、分量、起点、终点和区间量关系',
-            status: 'current_book',
-          },
-          {
-            id: 'M-K-VIEW',
-            type: 'knowledge',
-            name: '观察位置、方向、高度、遮挡与所见图像',
-            status: 'current_book',
-          },
-          {
-            id: 'M-K-ANGLE',
-            type: 'knowledge',
-            name: '角的组成、大小及锐角直角钝角',
-            status: 'current_book',
-          },
-          {
-            id: 'M-K-RECT',
-            type: 'knowledge',
-            name: '长方形与正方形的边和角的特征',
-            status: 'current_book',
-          },
-          {
-            id: 'M-K-COMB',
-            type: 'knowledge',
-            name: '简单搭配的有序枚举与不重复不遗漏',
-            status: 'current_book',
-          },
-          {
-            id: 'M-K-MULDIV',
-            type: 'knowledge',
-            name: '整十整百及两位数乘除一位数',
-            status: 'current_book',
-          },
-          {
-            id: 'M-K-QUANTITY',
-            type: 'knowledge',
-            name: '倍、平均分、总价等乘除数量关系',
-            status: 'current_book',
-          },
-          {
-            id: 'M-K-DECIMAL',
-            type: 'knowledge',
-            name: '小数的意义、读写和现实量表示',
-            status: 'current_book',
-          },
-          {
-            id: 'M-K-DECCOMP',
-            type: 'knowledge',
-            name: '简单小数大小比较',
-            status: 'current_book',
-          },
-          {
-            id: 'M-K-DECOPS',
-            type: 'knowledge',
-            name: '生活情境中的小数加减',
-            status: 'current_book',
-          },
-          {
-            id: 'M-K-SURVEY',
-            type: 'knowledge',
-            name: '调查问题、数据收集和分类记录',
-            status: 'current_book',
-          },
-          {
-            id: 'M-K-DATA',
-            type: 'knowledge',
-            name: '比较、解释数据并据此作出决策',
-            status: 'current_book',
-          },
-          {
-            id: 'M-K-DATE',
-            type: 'knowledge',
-            name: '年、月、日、大小月和平闰年',
-            status: 'current_book',
-          },
-          {
-            id: 'M-K-24H',
-            type: 'knowledge',
-            name: '24时记时法',
-            status: 'current_book',
-          },
-          {
-            id: 'M-M-DRAW',
-            type: 'method',
-            name: '画图建立数量关系模型',
-            status: 'current_book',
-          },
-          {
-            id: 'M-M-MEASURE',
-            type: 'method',
-            name: '实际测量、估测与单位选择',
-            status: 'current_book',
-          },
-          {
-            id: 'M-M-ENUM',
-            type: 'method',
-            name: '列表、连线和符号化有序枚举',
-            status: 'current_book',
-          },
-          {
-            id: 'M-M-SURVEY',
-            type: 'method',
-            name: '调查、分类记录、核对总数和解释数据',
-            status: 'current_book',
-          },
-          {
-            id: 'M-STD-N',
-            type: 'standard',
-            name: '第二学段数与运算和数量关系要求',
-            source: '数学课标PDF24—26',
-            status: 'stage_standard',
-          },
-          {
-            id: 'M-STD-G',
-            type: 'standard',
-            name: '第二学段图形的认识与测量、位置与运动要求',
-            source: '数学课标PDF32—35',
-            status: 'stage_standard',
-          },
-          {
-            id: 'M-STD-D',
-            type: 'standard',
-            name: '第二学段数据收集、整理与表达要求',
-            source: '数学课标PDF41—42',
-            status: 'stage_standard',
-          },
-          {
-            id: 'M-STD-P',
-            type: 'standard',
-            name: '第二学段综合与实践要求',
-            source: '数学课标PDF49—52',
-            status: 'stage_standard',
-          },
-          {
-            id: 'M-LATER-FRACTION',
-            type: 'standard',
-            name: '分数及同分母分数加减',
-            status: 'stage_later',
-          },
-          {
-            id: 'M-LATER-GEO',
-            type: 'standard',
-            name: '线、量角器、三角形分类、周长面积、图形运动',
-            status: 'stage_later',
-          },
-          {
-            id: 'M-LATER-STATS',
-            type: 'standard',
-            name: '条形统计图与平均数',
-            status: 'stage_later',
-          },
-          {
-            id: 'M-C-NUMBER',
-            type: 'competency',
-            name: '数感与运算能力',
-            source: '数学课标PDF8—12',
-            status: 'stage_standard',
-          },
-          {
-            id: 'M-C-MEASURE',
-            type: 'competency',
-            name: '量感',
-            source: '数学课标PDF8—12',
-            status: 'stage_standard',
-          },
-          {
-            id: 'M-C-SPACE',
-            type: 'competency',
-            name: '几何直观与空间观念',
-            source: '数学课标PDF8—12',
-            status: 'stage_standard',
-          },
-          {
-            id: 'M-C-DATA',
-            type: 'competency',
-            name: '数据意识',
-            source: '数学课标PDF8—12',
-            status: 'stage_standard',
-          },
-          {
-            id: 'M-C-MODEL',
-            type: 'competency',
-            name: '推理意识、模型意识与应用意识',
-            source: '数学课标PDF8—12',
-            status: 'stage_standard',
-          },
-          {
-            id: 'S',
-            type: 'subject',
-            name: '科学三年级上',
-            status: 'current_book',
-          },
-          {
-            id: 'S-D-MAT',
-            type: 'domain',
-            name: '物质的结构、性质与变化',
-            status: 'current_book',
-          },
-          {
-            id: 'S-D-EARTH',
-            type: 'domain',
-            name: '地球系统：天气和气候',
-            status: 'current_book',
-          },
-          {
-            id: 'S-U-WATER',
-            type: 'unit',
-            name: '第一单元 水',
-            source: '科学教材书内2—20/PDF8—26',
-            status: 'current_book',
-          },
-          {
-            id: 'S-U-AIR',
-            type: 'unit',
-            name: '第二单元 空气',
-            source: '科学教材书内22—40/PDF28—45',
-            status: 'current_book',
-          },
-          {
-            id: 'S-U-WEATHER',
-            type: 'unit',
-            name: '第三单元 天气',
-            source: '科学教材书内41—59/PDF47—65',
-            status: 'current_book',
-          },
-          {
-            id: 'S-W1',
-            type: 'lesson',
-            name: '水到哪里去了',
-            source: '科学教材书内2—4/PDF8—10',
-            status: 'current_book',
-          },
-          {
-            id: 'S-W2',
-            type: 'lesson',
-            name: '水沸腾了',
-            source: '科学教材书内5—6/PDF11—12',
-            status: 'current_book',
-          },
-          {
-            id: 'S-W3',
-            type: 'lesson',
-            name: '水结冰了',
-            source: '科学教材书内7—9/PDF13—15',
-            status: 'current_book',
-          },
-          {
-            id: 'S-W4',
-            type: 'lesson',
-            name: '冰融化了',
-            source: '科学教材书内10—11/PDF16—17',
-            status: 'current_book',
-          },
-          {
-            id: 'S-W5',
-            type: 'lesson',
-            name: '水能溶解多少物质',
-            source: '科学教材书内12—14/PDF18—20',
-            status: 'current_book',
-          },
-          {
-            id: 'S-W6',
-            type: 'lesson',
-            name: '加快溶解',
-            source: '科学教材书内15—16/PDF21—22',
-            status: 'current_book',
-          },
-          {
-            id: 'S-W7',
-            type: 'lesson',
-            name: '混合与分离',
-            source: '科学教材书内17—18/PDF23—24',
-            status: 'current_book',
-          },
-          {
-            id: 'S-W8',
-            type: 'lesson',
-            name: '它们发生了什么变化',
-            source: '科学教材书内19—20/PDF25—26',
-            status: 'current_book',
-          },
-          {
-            id: 'S-A1',
-            type: 'lesson',
-            name: '感受空气',
-            source: '科学教材书内22—24/PDF28—30',
-            status: 'current_book',
-          },
-          {
-            id: 'S-A2',
-            type: 'lesson',
-            name: '空气能占据空间吗',
-            source: '科学教材书内25—26/PDF31—32',
-            status: 'current_book',
-          },
-          {
-            id: 'S-A3',
-            type: 'lesson',
-            name: '压缩空气',
-            source: '科学教材书内27—29/PDF33—35',
-            status: 'current_book',
-          },
-          {
-            id: 'S-A4',
-            type: 'lesson',
-            name: '空气有质量吗',
-            source: '科学教材书内30—31/PDF36—37',
-            status: 'current_book',
-          },
-          {
-            id: 'S-A5',
-            type: 'lesson',
-            name: '一袋空气的质量是多少',
-            source: '科学教材书内32—33/PDF38—39',
-            status: 'current_book',
-          },
-          {
-            id: 'S-A6',
-            type: 'lesson',
-            name: '我们来做热气球',
-            source: '科学教材书内34—35/PDF40—41',
-            status: 'current_book',
-          },
-          {
-            id: 'S-A7',
-            type: 'lesson',
-            name: '风的成因',
-            source: '科学教材书内36—37/PDF42—43',
-            status: 'current_book',
-          },
-          {
-            id: 'S-A8',
-            type: 'lesson',
-            name: '空气和我们的生活',
-            source: '科学教材书内38—40/PDF44—45',
-            status: 'current_book',
-          },
-          {
-            id: 'S-T1',
-            type: 'lesson',
-            name: '我们关心天气',
-            source: '科学教材书内41—42/PDF47—48',
-            status: 'current_book',
-          },
-          {
-            id: 'S-T2',
-            type: 'lesson',
-            name: '认识气温计',
-            source: '科学教材书内43—44/PDF49—50',
-            status: 'current_book',
-          },
-          {
-            id: 'S-T3',
-            type: 'lesson',
-            name: '测量气温',
-            source: '科学教材书内45—46/PDF51—52',
-            status: 'current_book',
-          },
-          {
-            id: 'S-T4',
-            type: 'lesson',
-            name: '测量降水量',
-            source: '科学教材书内47—49/PDF53—55',
-            status: 'current_book',
-          },
-          {
-            id: 'S-T5',
-            type: 'lesson',
-            name: '观测风',
-            source: '科学教材书内50—52/PDF56—58',
-            status: 'current_book',
-          },
-          {
-            id: 'S-T6',
-            type: 'lesson',
-            name: '观察云',
-            source: '科学教材书内53—54/PDF59—60',
-            status: 'current_book',
-          },
-          {
-            id: 'S-T7',
-            type: 'lesson',
-            name: '整理我们的天气日历',
-            source: '科学教材书内55—57/PDF61—63',
-            status: 'current_book',
-          },
-          {
-            id: 'S-T8',
-            type: 'lesson',
-            name: '天气预报是怎样制作出来的',
-            source: '科学教材书内58—59/PDF64—65',
-            status: 'current_book',
-          },
-          {
-            id: 'S-K-STATE',
-            type: 'knowledge',
-            name: '水、冰、水蒸气的状态区别、同一性与相互转化',
-            status: 'current_book',
-          },
-          {
-            id: 'S-K-TEMP',
-            type: 'knowledge',
-            name: '温度影响水的沸腾、结冰和融化',
-            status: 'current_book',
-          },
-          {
-            id: 'S-K-DISSOLVE',
-            type: 'knowledge',
-            name: '溶解程度及搅拌、温度对溶解快慢的影响',
-            status: 'current_book',
-          },
-          {
-            id: 'S-K-SEPARATE',
-            type: 'knowledge',
-            name: '溶解、过滤、蒸发分离混合物',
-            status: 'current_book',
-          },
-          {
-            id: 'S-K-PHYSICAL',
-            type: 'knowledge',
-            name: '形状、大小或状态改变但物质本身未改变',
-            status: 'current_book',
-          },
-          {
-            id: 'S-K-AIR',
-            type: 'knowledge',
-            name: '空气占据空间、具有质量、可压缩并会流动',
-            status: 'current_book',
-          },
-          {
-            id: 'S-K-WIND',
-            type: 'knowledge',
-            name: '空气受热上升与风的形成',
-            status: 'current_book',
-          },
-          {
-            id: 'S-K-WEATHER',
-            type: 'knowledge',
-            name: '天气由气温、降水、风、云等要素描述',
-            status: 'current_book',
-          },
-          {
-            id: 'S-K-INSTRUMENT',
-            type: 'knowledge',
-            name: '气温计、雨量器、风旗和风向标的使用',
-            status: 'current_book',
-          },
-          {
-            id: 'S-K-WDATA',
-            type: 'knowledge',
-            name: '天气日历、气象数据整理与变化描述',
-            status: 'current_book',
-          },
-          {
-            id: 'S-K-FORECAST',
-            type: 'knowledge',
-            name: '天气预报的信息、符号和制作流程',
-            status: 'current_book',
-          },
-          {
-            id: 'S-M-OBSERVE',
-            type: 'method',
-            name: '观察、测量和如实记录',
-            status: 'current_book',
-          },
-          {
-            id: 'S-M-CONTROL',
-            type: 'method',
-            name: '控制变量与公平对比实验',
-            status: 'current_book',
-          },
-          {
-            id: 'S-M-EVIDENCE',
-            type: 'method',
-            name: '比较证据、解释现象和得出结论',
-            status: 'current_book',
-          },
-          {
-            id: 'S-M-MODEL',
-            type: 'method',
-            name: '图示、微粒模型和模拟实验',
-            status: 'current_book',
-          },
-          {
-            id: 'S-STD-MAT',
-            type: 'standard',
-            name: '3—4年级空气与水的性质要求',
-            source: '科学课标PDF23、26—30',
-            status: 'stage_standard',
-          },
-          {
-            id: 'S-STD-CHANGE',
-            type: 'standard',
-            name: '3—4年级物质状态、溶解和变化要求',
-            source: '科学课标PDF32—37',
-            status: 'stage_standard',
-          },
-          {
-            id: 'S-STD-WEATHER',
-            type: 'standard',
-            name: '3—4年级天气和气候要求',
-            source: '科学课标PDF82—86',
-            status: 'stage_standard',
-          },
-          {
-            id: 'S-C-CONCEPT',
-            type: 'competency',
-            name: '科学观念',
-            source: '科学课标PDF7—9',
-            status: 'stage_standard',
-          },
-          {
-            id: 'S-C-THINK',
-            type: 'competency',
-            name: '科学思维',
-            source: '科学课标PDF7—9、13—14',
-            status: 'stage_standard',
-          },
-          {
-            id: 'S-C-INQUIRY',
-            type: 'competency',
-            name: '探究实践',
-            source: '科学课标PDF7—8、15—16',
-            status: 'stage_standard',
-          },
-          {
-            id: 'S-C-RESP',
-            type: 'competency',
-            name: '态度责任',
-            source: '科学课标PDF8—9、17—18',
-            status: 'stage_standard',
-          },
-          {
-            id: 'X-WEATHER-STATION',
-            type: 'cross_disciplinary_theme',
-            name: '校园微型气象站',
-            status: 'recommended',
-          },
-          {
-            id: 'X-WATER-TEMP',
-            type: 'cross_disciplinary_theme',
-            name: '水的温度与状态变化数据研究',
-            status: 'recommended',
-          },
-          {
-            id: 'X-DISSOLVE',
-            type: 'cross_disciplinary_theme',
-            name: '溶解速度公平实验',
-            status: 'recommended',
-          },
-          {
-            id: 'X-AIR-MASS',
-            type: 'cross_disciplinary_theme',
-            name: '一袋空气有多重',
-            status: 'recommended',
-          },
-          {
-            id: 'X-WIND-MAP',
-            type: 'cross_disciplinary_theme',
-            name: '校园风向地图',
-            status: 'recommended',
-          },
-        ],
-        edges: [
-          { source: 'M', relation: 'contains', target: 'M-D-N' },
-          { source: 'M', relation: 'contains', target: 'M-D-G' },
-          { source: 'M', relation: 'contains', target: 'M-D-D' },
-          { source: 'M', relation: 'contains', target: 'M-D-P' },
-          { source: 'M-D-N', relation: 'contains', target: 'M-U1' },
-          { source: 'M-D-G', relation: 'contains', target: 'M-U2' },
-          { source: 'M-D-P', relation: 'contains', target: 'M-P-CAMPUS' },
-          { source: 'M-D-N', relation: 'contains', target: 'M-U3' },
-          { source: 'M-D-G', relation: 'contains', target: 'M-U4' },
-          { source: 'M-D-G', relation: 'contains', target: 'M-U5' },
-          { source: 'M-D-P', relation: 'contains', target: 'M-FUN' },
-          { source: 'M-D-N', relation: 'contains', target: 'M-U6' },
-          { source: 'M-D-N', relation: 'contains', target: 'M-U7' },
-          { source: 'M-D-D', relation: 'contains', target: 'M-U8' },
-          { source: 'M-D-P', relation: 'contains', target: 'M-P-DATE' },
-          { source: 'M-U1', relation: 'teaches', target: 'M-K-MIX' },
-          { source: 'M-U1', relation: 'teaches', target: 'M-K-ORDER' },
-          { source: 'M-U1', relation: 'uses_method', target: 'M-M-DRAW' },
-          { source: 'M-U1', relation: 'aligns_to', target: 'M-STD-N' },
-          { source: 'M-U2', relation: 'teaches', target: 'M-K-LENGTH' },
-          { source: 'M-U2', relation: 'teaches', target: 'M-K-ESTIMATE' },
-          { source: 'M-U2', relation: 'uses_method', target: 'M-M-MEASURE' },
-          { source: 'M-U2', relation: 'aligns_to', target: 'M-STD-G' },
-          {
-            source: 'M-P-CAMPUS',
-            relation: 'teaches',
-            target: 'M-K-DIRECTION',
-          },
-          { source: 'M-P-CAMPUS', relation: 'aligns_to', target: 'M-STD-P' },
-          { source: 'M-U3', relation: 'teaches', target: 'M-K-ADDSUB' },
-          { source: 'M-U3', relation: 'teaches', target: 'M-K-INTERVAL' },
-          { source: 'M-U3', relation: 'aligns_to', target: 'M-STD-N' },
-          { source: 'M-U4', relation: 'teaches', target: 'M-K-VIEW' },
-          { source: 'M-U4', relation: 'aligns_to', target: 'M-STD-G' },
-          { source: 'M-U5', relation: 'teaches', target: 'M-K-ANGLE' },
-          { source: 'M-U5', relation: 'teaches', target: 'M-K-RECT' },
-          { source: 'M-U5', relation: 'aligns_to', target: 'M-STD-G' },
-          { source: 'M-FUN', relation: 'teaches', target: 'M-K-COMB' },
-          { source: 'M-FUN', relation: 'uses_method', target: 'M-M-ENUM' },
-          { source: 'M-U6', relation: 'teaches', target: 'M-K-MULDIV' },
-          { source: 'M-U6', relation: 'teaches', target: 'M-K-QUANTITY' },
-          { source: 'M-U6', relation: 'aligns_to', target: 'M-STD-N' },
-          { source: 'M-U7', relation: 'teaches', target: 'M-K-DECIMAL' },
-          { source: 'M-U7', relation: 'teaches', target: 'M-K-DECCOMP' },
-          { source: 'M-U7', relation: 'teaches', target: 'M-K-DECOPS' },
-          { source: 'M-U7', relation: 'aligns_to', target: 'M-STD-N' },
-          { source: 'M-U8', relation: 'teaches', target: 'M-K-SURVEY' },
-          { source: 'M-U8', relation: 'teaches', target: 'M-K-DATA' },
-          { source: 'M-U8', relation: 'uses_method', target: 'M-M-SURVEY' },
-          { source: 'M-U8', relation: 'aligns_to', target: 'M-STD-D' },
-          { source: 'M-P-DATE', relation: 'teaches', target: 'M-K-DATE' },
-          { source: 'M-P-DATE', relation: 'teaches', target: 'M-K-24H' },
-          { source: 'M-P-DATE', relation: 'aligns_to', target: 'M-STD-P' },
-          { source: 'M-K-ORDER', relation: 'develops', target: 'M-C-NUMBER' },
-          { source: 'M-K-LENGTH', relation: 'develops', target: 'M-C-MEASURE' },
-          {
-            source: 'M-K-DIRECTION',
-            relation: 'develops',
-            target: 'M-C-SPACE',
-          },
-          { source: 'M-K-VIEW', relation: 'develops', target: 'M-C-SPACE' },
-          { source: 'M-K-ANGLE', relation: 'develops', target: 'M-C-SPACE' },
-          { source: 'M-K-DATA', relation: 'develops', target: 'M-C-DATA' },
-          { source: 'M-K-QUANTITY', relation: 'develops', target: 'M-C-MODEL' },
-          {
-            source: 'M-K-MIX',
-            relation: 'prerequisite_of',
-            target: 'M-K-QUANTITY',
-          },
-          {
-            source: 'M-K-DECIMAL',
-            relation: 'prerequisite_of',
-            target: 'M-K-DECCOMP',
-          },
-          {
-            source: 'M-K-DECCOMP',
-            relation: 'prerequisite_of',
-            target: 'M-K-DECOPS',
-          },
-          {
-            source: 'M-K-SURVEY',
-            relation: 'prerequisite_of',
-            target: 'M-K-DATA',
-          },
-          { source: 'S', relation: 'contains', target: 'S-D-MAT' },
-          { source: 'S', relation: 'contains', target: 'S-D-EARTH' },
-          { source: 'S-D-MAT', relation: 'contains', target: 'S-U-WATER' },
-          { source: 'S-D-MAT', relation: 'contains', target: 'S-U-AIR' },
-          { source: 'S-D-EARTH', relation: 'contains', target: 'S-U-WEATHER' },
-          { source: 'S-U-WATER', relation: 'contains', target: 'S-W1' },
-          { source: 'S-U-WATER', relation: 'contains', target: 'S-W2' },
-          { source: 'S-U-WATER', relation: 'contains', target: 'S-W3' },
-          { source: 'S-U-WATER', relation: 'contains', target: 'S-W4' },
-          { source: 'S-U-WATER', relation: 'contains', target: 'S-W5' },
-          { source: 'S-U-WATER', relation: 'contains', target: 'S-W6' },
-          { source: 'S-U-WATER', relation: 'contains', target: 'S-W7' },
-          { source: 'S-U-WATER', relation: 'contains', target: 'S-W8' },
-          { source: 'S-U-AIR', relation: 'contains', target: 'S-A1' },
-          { source: 'S-U-AIR', relation: 'contains', target: 'S-A2' },
-          { source: 'S-U-AIR', relation: 'contains', target: 'S-A3' },
-          { source: 'S-U-AIR', relation: 'contains', target: 'S-A4' },
-          { source: 'S-U-AIR', relation: 'contains', target: 'S-A5' },
-          { source: 'S-U-AIR', relation: 'contains', target: 'S-A6' },
-          { source: 'S-U-AIR', relation: 'contains', target: 'S-A7' },
-          { source: 'S-U-AIR', relation: 'contains', target: 'S-A8' },
-          { source: 'S-U-WEATHER', relation: 'contains', target: 'S-T1' },
-          { source: 'S-U-WEATHER', relation: 'contains', target: 'S-T2' },
-          { source: 'S-U-WEATHER', relation: 'contains', target: 'S-T3' },
-          { source: 'S-U-WEATHER', relation: 'contains', target: 'S-T4' },
-          { source: 'S-U-WEATHER', relation: 'contains', target: 'S-T5' },
-          { source: 'S-U-WEATHER', relation: 'contains', target: 'S-T6' },
-          { source: 'S-U-WEATHER', relation: 'contains', target: 'S-T7' },
-          { source: 'S-U-WEATHER', relation: 'contains', target: 'S-T8' },
-          { source: 'S-W1', relation: 'teaches', target: 'S-K-STATE' },
-          { source: 'S-W2', relation: 'teaches', target: 'S-K-TEMP' },
-          { source: 'S-W3', relation: 'teaches', target: 'S-K-TEMP' },
-          { source: 'S-W4', relation: 'teaches', target: 'S-K-STATE' },
-          { source: 'S-W5', relation: 'teaches', target: 'S-K-DISSOLVE' },
-          { source: 'S-W6', relation: 'teaches', target: 'S-K-DISSOLVE' },
-          { source: 'S-W6', relation: 'uses_method', target: 'S-M-CONTROL' },
-          { source: 'S-W7', relation: 'teaches', target: 'S-K-SEPARATE' },
-          { source: 'S-W8', relation: 'teaches', target: 'S-K-PHYSICAL' },
-          { source: 'S-U-WATER', relation: 'aligns_to', target: 'S-STD-MAT' },
-          {
-            source: 'S-U-WATER',
-            relation: 'aligns_to',
-            target: 'S-STD-CHANGE',
-          },
-          { source: 'S-A1', relation: 'teaches', target: 'S-K-AIR' },
-          { source: 'S-A2', relation: 'teaches', target: 'S-K-AIR' },
-          { source: 'S-A3', relation: 'teaches', target: 'S-K-AIR' },
-          { source: 'S-A3', relation: 'uses_method', target: 'S-M-MODEL' },
-          { source: 'S-A4', relation: 'teaches', target: 'S-K-AIR' },
-          { source: 'S-A5', relation: 'teaches', target: 'S-K-AIR' },
-          { source: 'S-A6', relation: 'teaches', target: 'S-K-WIND' },
-          { source: 'S-A7', relation: 'teaches', target: 'S-K-WIND' },
-          { source: 'S-U-AIR', relation: 'aligns_to', target: 'S-STD-MAT' },
-          { source: 'S-T1', relation: 'teaches', target: 'S-K-WEATHER' },
-          { source: 'S-T2', relation: 'teaches', target: 'S-K-INSTRUMENT' },
-          { source: 'S-T3', relation: 'teaches', target: 'S-K-WDATA' },
-          { source: 'S-T4', relation: 'teaches', target: 'S-K-INSTRUMENT' },
-          { source: 'S-T5', relation: 'teaches', target: 'S-K-INSTRUMENT' },
-          { source: 'S-T6', relation: 'teaches', target: 'S-K-WEATHER' },
-          { source: 'S-T7', relation: 'teaches', target: 'S-K-WDATA' },
-          { source: 'S-T8', relation: 'teaches', target: 'S-K-FORECAST' },
-          {
-            source: 'S-U-WEATHER',
-            relation: 'aligns_to',
-            target: 'S-STD-WEATHER',
-          },
-          {
-            source: 'S-M-OBSERVE',
-            relation: 'develops',
-            target: 'S-C-INQUIRY',
-          },
-          { source: 'S-M-CONTROL', relation: 'develops', target: 'S-C-THINK' },
-          { source: 'S-M-EVIDENCE', relation: 'develops', target: 'S-C-THINK' },
-          { source: 'S-M-MODEL', relation: 'develops', target: 'S-C-CONCEPT' },
-          { source: 'S-K-AIR', relation: 'develops', target: 'S-C-CONCEPT' },
-          { source: 'S-K-WDATA', relation: 'develops', target: 'S-C-INQUIRY' },
-          { source: 'S-K-WEATHER', relation: 'develops', target: 'S-C-RESP' },
-          {
-            source: 'S-K-TEMP',
-            relation: 'prerequisite_of',
-            target: 'S-K-STATE',
-          },
-          {
-            source: 'S-K-AIR',
-            relation: 'prerequisite_of',
-            target: 'S-K-WIND',
-          },
-          {
-            source: 'S-K-WEATHER',
-            relation: 'prerequisite_of',
-            target: 'S-K-WDATA',
-          },
-          {
-            source: 'S-K-WDATA',
-            relation: 'prerequisite_of',
-            target: 'S-K-FORECAST',
-          },
-          {
-            source: 'X-WEATHER-STATION',
-            relation: 'cross_links',
-            target: 'M-K-LENGTH',
-          },
-          {
-            source: 'X-WEATHER-STATION',
-            relation: 'cross_links',
-            target: 'M-K-DIRECTION',
-          },
-          {
-            source: 'X-WEATHER-STATION',
-            relation: 'cross_links',
-            target: 'M-K-DATA',
-          },
-          {
-            source: 'X-WEATHER-STATION',
-            relation: 'cross_links',
-            target: 'S-K-INSTRUMENT',
-          },
-          {
-            source: 'X-WEATHER-STATION',
-            relation: 'cross_links',
-            target: 'S-K-WDATA',
-          },
-          {
-            source: 'X-WATER-TEMP',
-            relation: 'cross_links',
-            target: 'M-K-DATA',
-          },
-          {
-            source: 'X-WATER-TEMP',
-            relation: 'cross_links',
-            target: 'S-K-TEMP',
-          },
-          {
-            source: 'X-WATER-TEMP',
-            relation: 'cross_links',
-            target: 'S-K-STATE',
-          },
-          {
-            source: 'X-DISSOLVE',
-            relation: 'cross_links',
-            target: 'M-K-QUANTITY',
-          },
-          { source: 'X-DISSOLVE', relation: 'cross_links', target: 'M-K-DATA' },
-          {
-            source: 'X-DISSOLVE',
-            relation: 'cross_links',
-            target: 'S-K-DISSOLVE',
-          },
-          {
-            source: 'X-DISSOLVE',
-            relation: 'cross_links',
-            target: 'S-M-CONTROL',
-          },
-          {
-            source: 'X-AIR-MASS',
-            relation: 'cross_links',
-            target: 'M-K-ESTIMATE',
-          },
-          {
-            source: 'X-AIR-MASS',
-            relation: 'cross_links',
-            target: 'M-K-QUANTITY',
-          },
-          { source: 'X-AIR-MASS', relation: 'cross_links', target: 'S-K-AIR' },
-          {
-            source: 'X-WIND-MAP',
-            relation: 'cross_links',
-            target: 'M-K-DIRECTION',
-          },
-          { source: 'X-WIND-MAP', relation: 'cross_links', target: 'S-K-WIND' },
-          {
-            source: 'X-WIND-MAP',
-            relation: 'cross_links',
-            target: 'S-K-INSTRUMENT',
-          },
-        ],
+      const REMOTE_SYNC = {
+        enabled: true,
+        dataUrl: './data.json',
+        baselineUrl: './data.baseline.json',
+        saveApiUrl:
+          'https://rdfx-grade3-knowledge-graph.vercel.app/api/save-graph',
+        pollIntervalMs: 2000,
       }
+
+      let DEFAULT_GRAPH_DATA = null
+      let BASELINE_GRAPH_DATA = null
+      let remoteRevision = ''
+      let remoteSyncTimer = null
+      let remoteSyncState = 'loading'
+      let isSavingRemote = false
+
+      async function fetchGraphJson(url) {
+        const sep = url.includes('?') ? '&' : '?'
+        const res = await fetch(url + sep + '_=' + Date.now(), {
+          cache: 'no-store',
+        })
+        if (!res.ok) throw new Error('fetch failed: ' + url)
+        return res.json()
+      }
+
+      function getDataRevision(data) {
+        return data?.metadata?.updated_at || data?.metadata?.version || ''
+      }
+
+      async function ensureBaselineGraphData() {
+        if (BASELINE_GRAPH_DATA) return BASELINE_GRAPH_DATA
+        BASELINE_GRAPH_DATA = await fetchGraphJson(REMOTE_SYNC.baselineUrl)
+        DEFAULT_GRAPH_DATA = cloneGraphData(BASELINE_GRAPH_DATA)
+        return BASELINE_GRAPH_DATA
+      }
+
+      async function loadRemoteGraphData() {
+        if (!REMOTE_SYNC.enabled) {
+          await ensureBaselineGraphData()
+          return cloneGraphData(DEFAULT_GRAPH_DATA)
+        }
+        try {
+          const remote = await fetchGraphJson(REMOTE_SYNC.dataUrl)
+          if (remote?.nodes?.length && Array.isArray(remote.edges)) {
+            remoteRevision = getDataRevision(remote)
+            DEFAULT_GRAPH_DATA = cloneGraphData(remote)
+            return remote
+          }
+        } catch (err) {
+          console.warn('云端数据加载失败，使用基线数据', err)
+        }
+        await ensureBaselineGraphData()
+        return cloneGraphData(DEFAULT_GRAPH_DATA)
+      }
+
+      function setRemoteSyncState(state, detail) {
+        remoteSyncState = state
+        const el = document.getElementById('syncBadge')
+        if (!el) return
+        const labels = {
+          loading: '同步中…',
+          synced: '已同步',
+          saving: '保存中…',
+          dirty: '未同步',
+          error: '同步失败',
+          offline: '离线',
+        }
+        el.textContent = detail || labels[state] || state
+        el.className = 'sync-badge ' + state
+      }
+
+      function applyRemoteGraphData(data, options = {}) {
+        const { keepSelection = true, markDirty = false } = options
+        GRAPH_DATA = cloneGraphData(data)
+        rebuildNodeMap()
+        refreshFiltersUI()
+        updateHeaderMeta()
+        if (markDirty) setDataDirty(true)
+        else setDataDirty(false)
+        if (keepSelection && selectedNodeId && !nodeMap[selectedNodeId]) {
+          selectedNodeId = null
+          updateDetailIdleState()
+        }
+        updateMainDisplay()
+      }
+
+      async function pollRemoteGraphData() {
+        if (!REMOTE_SYNC.enabled || dataDirty || isSavingRemote || editMode) return
+        try {
+          const remote = await fetchGraphJson(REMOTE_SYNC.dataUrl)
+          const rev = getDataRevision(remote)
+          if (!rev || rev === remoteRevision) return
+          remoteRevision = rev
+          applyRemoteGraphData(remote, { keepSelection: true, markDirty: false })
+          setRemoteSyncState('synced')
+        } catch (_) {
+          setRemoteSyncState('offline')
+        }
+      }
+
+      function startRemoteSyncPolling() {
+        if (!REMOTE_SYNC.enabled || remoteSyncTimer) return
+        remoteSyncTimer = setInterval(
+          pollRemoteGraphData,
+          REMOTE_SYNC.pollIntervalMs,
+        )
+      }
+
+      async function saveGraphDataToCloud() {
+        if (!REMOTE_SYNC.enabled) {
+          alert('云端同步未启用')
+          return false
+        }
+        isSavingRemote = true
+        setRemoteSyncState('saving')
+        GRAPH_DATA.metadata = GRAPH_DATA.metadata || {}
+        GRAPH_DATA.metadata.updated_at = new Date().toISOString()
+        try {
+          const res = await fetch(REMOTE_SYNC.saveApiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ data: GRAPH_DATA }),
+          })
+          const payload = await res.json().catch(() => ({}))
+          if (!res.ok || !payload.ok) {
+            throw new Error(payload.error || '保存失败')
+          }
+          remoteRevision = payload.updated_at || getDataRevision(GRAPH_DATA)
+          setDataDirty(false)
+          setRemoteSyncState('synced')
+          return true
+        } catch (err) {
+          console.error(err)
+          setRemoteSyncState('error', '同步失败')
+          alert('保存到云端失败：' + (err.message || err))
+          return false
+        } finally {
+          isSavingRemote = false
+        }
+      }
+
 
       const TYPE_LABELS = {
         subject: '学科',
@@ -2009,27 +1140,13 @@
         cross: '#ea580c',
       }
 
-      const DATA_STORAGE_KEY = 'grade3-kg-data-edits-v1'
       const STATUS_OPTIONS = Object.keys(STATUS_LABELS)
 
       function cloneGraphData(data) {
         return JSON.parse(JSON.stringify(data))
       }
 
-      function loadPersistedGraphData() {
-        try {
-          const raw = localStorage.getItem(DATA_STORAGE_KEY)
-          if (raw) {
-            const parsed = JSON.parse(raw)
-            if (parsed?.nodes?.length && parsed?.edges) return parsed
-          }
-        } catch (_) {
-          /* ignore */
-        }
-        return cloneGraphData(DEFAULT_GRAPH_DATA)
-      }
-
-      let GRAPH_DATA = loadPersistedGraphData()
+      let GRAPH_DATA = null
       let nodeMap = {}
       let editMode = false
       let dataDirty = false
@@ -2037,13 +1154,14 @@
       function rebuildNodeMap() {
         nodeMap = Object.fromEntries(GRAPH_DATA.nodes.map((n) => [n.id, n]))
       }
-      rebuildNodeMap()
 
       function setDataDirty(dirty) {
         dataDirty = dirty
         document
           .getElementById('unsavedBadge')
           .classList.toggle('visible', dirty)
+        if (dirty) setRemoteSyncState('dirty')
+        else if (remoteSyncState !== 'saving') setRemoteSyncState('synced')
       }
 
       function updateHeaderMeta() {
@@ -2055,13 +1173,12 @@
           `版本 ${m.version || '—'} · ${m.generated_date || '—'} · 节点 ${GRAPH_DATA.nodes.length} · 关系 ${GRAPH_DATA.edges.length}`
       }
 
-      function persistGraphData() {
-        localStorage.setItem(DATA_STORAGE_KEY, JSON.stringify(GRAPH_DATA))
-        setDataDirty(false)
+      async function persistGraphData() {
         updateHeaderMeta()
+        return saveGraphDataToCloud()
       }
 
-      function exportGraphData() {
+      async function exportGraphData() {
         const blob = new Blob([JSON.stringify(GRAPH_DATA, null, 2)], {
           type: 'application/json',
         })
@@ -2075,7 +1192,7 @@
         a.download = `${title}.json`
         a.click()
         URL.revokeObjectURL(url)
-        persistGraphData()
+        await persistGraphData()
       }
 
       function applyImportedGraphData(data) {
@@ -2101,18 +1218,24 @@
         return true
       }
 
-      function resetGraphData() {
-        if (!confirm('确定恢复为原始内置数据？本地保存的修改将丢失。')) return
-        localStorage.removeItem(DATA_STORAGE_KEY)
-        GRAPH_DATA = cloneGraphData(DEFAULT_GRAPH_DATA)
+      async function resetGraphData() {
+        if (
+          !confirm(
+            '确定恢复为原始基线数据？此操作会同步到云端，所有人将看到恢复后的数据。',
+          )
+        )
+          return
+        await ensureBaselineGraphData()
+        GRAPH_DATA = cloneGraphData(BASELINE_GRAPH_DATA)
         rebuildNodeMap()
         clearSavedPositions()
         refreshFiltersUI()
         updateHeaderMeta()
-        setDataDirty(false)
+        setDataDirty(true)
         selectedNodeId = null
         updateDetailIdleState()
         updateMainDisplay()
+        await persistGraphData()
       }
 
       function refreshAfterDataChange(keepSelection = true) {
@@ -5189,9 +4312,9 @@
       document
         .getElementById('btnEditMode')
         .addEventListener('click', toggleEditMode)
-      document.getElementById('btnSaveData').addEventListener('click', () => {
-        persistGraphData()
-        alert('已保存到浏览器本地。')
+      document.getElementById('btnSaveData').addEventListener('click', async () => {
+        const ok = await persistGraphData()
+        if (ok) alert('已保存到云端，所有人将看到最新数据。')
       })
       document
         .getElementById('btnExportData')
@@ -5206,10 +4329,16 @@
           e.target.value = ''
           if (!file) return
           const reader = new FileReader()
-          reader.onload = () => {
+          reader.onload = async () => {
             try {
               const data = JSON.parse(reader.result)
-              if (applyImportedGraphData(data)) alert('导入成功。')
+              if (!applyImportedGraphData(data)) return
+              const ok = await persistGraphData()
+              alert(
+                ok
+                  ? '导入成功，已同步到云端。'
+                  : '导入成功，但云端同步失败，请稍后点击「保存并同步」。',
+              )
             } catch {
               alert('JSON 解析失败，请检查文件格式。')
             }
@@ -5241,11 +4370,20 @@
         .getElementById('btnBrowseDataToolbar')
         .addEventListener('click', showDataBrowserModal)
 
-      initFilters()
-      initLegend()
-      bindChartEvents()
-      updateHeaderMeta()
-      updateMainDisplay()
+      async function bootApp() {
+        setRemoteSyncState('loading')
+        GRAPH_DATA = await loadRemoteGraphData()
+        rebuildNodeMap()
+        initFilters()
+        initLegend()
+        bindChartEvents()
+        updateHeaderMeta()
+        updateMainDisplay()
+        setRemoteSyncState('synced')
+        startRemoteSyncPolling()
+      }
+
+      bootApp()
     </script>
   </body>
 </html>

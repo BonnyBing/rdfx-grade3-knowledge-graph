@@ -1,19 +1,21 @@
 # 三年级上册数学与科学知识图谱
 
-中国人民大学附属小学 · 三年级上册数学与科学课程知识图谱可视化。
+在线知识图谱，支持多人实时云端同步。
 
 ## 在线访问
 
 - GitHub Pages：https://bonnybing.github.io/rdfx-grade3-knowledge-graph/
-- 国内镜像（jsDelivr）：https://fastly.jsdelivr.net/gh/BonnyBing/rdfx-grade3-knowledge-graph@main/index.html
+- 国内镜像：https://fastly.jsdelivr.net/gh/BonnyBing/rdfx-grade3-knowledge-graph@main/index.html
 
-## 功能
+## 云端同步
 
-- 数学 / 科学 / 跨学科多视图
-- 节点搜索与筛选
-- 审核编辑模式（支持增删改节点与关系）
-- 数据导入导出
+- 图谱数据保存在 `data.json`
+- 点击「保存并同步」后，通过 Vercel API 写回 GitHub
+- 其他用户每 2 秒自动拉取最新数据
 
-## 本地使用
+## 目录
 
-直接用浏览器打开 `index.html` 即可。
+- `index.html` — 前端页面
+- `data.json` — 当前云端数据（可编辑）
+- `data.baseline.json` — 原始基线数据（用于恢复）
+- `api/save-graph.js` — Vercel 保存接口
