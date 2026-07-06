@@ -849,7 +849,11 @@
     <script>
       const REMOTE_SYNC = {
         enabled: true,
-        dataUrl: './data.json',
+        dataUrls: [
+          'https://raw.githubusercontent.com/BonnyBing/rdfx-grade3-knowledge-graph/main/data.json',
+          'https://fastly.jsdelivr.net/gh/BonnyBing/rdfx-grade3-knowledge-graph@main/data.json',
+          './data.json',
+        ],
         baselineUrl: './data.baseline.json',
         saveApiUrl:
           'https://rdfx-grade3-kg-deploy.vercel.app/api/save-graph',
@@ -872,6 +876,18 @@
         return res.json()
       }
 
+      async function fetchGraphJsonFromSources(urls = REMOTE_SYNC.dataUrls) {
+        let lastError = null
+        for (const url of urls) {
+          try {
+            return await fetchGraphJson(url)
+          } catch (err) {
+            lastError = err
+          }
+        }
+        throw lastError || new Error('all data sources failed')
+      }
+
       function getDataRevision(data) {
         return data?.metadata?.updated_at || data?.metadata?.version || ''
       }
@@ -889,7 +905,7 @@
           return cloneGraphData(DEFAULT_GRAPH_DATA)
         }
         try {
-          const remote = await fetchGraphJson(REMOTE_SYNC.dataUrl)
+          const remote = await fetchGraphJsonFromSources()
           if (remote?.nodes?.length && Array.isArray(remote.edges)) {
             remoteRevision = getDataRevision(remote)
             DEFAULT_GRAPH_DATA = cloneGraphData(remote)
@@ -936,7 +952,7 @@
       async function pollRemoteGraphData() {
         if (!REMOTE_SYNC.enabled || dataDirty || isSavingRemote || editMode) return
         try {
-          const remote = await fetchGraphJson(REMOTE_SYNC.dataUrl)
+          const remote = await fetchGraphJsonFromSources()
           const rev = getDataRevision(remote)
           if (!rev || rev === remoteRevision) return
           remoteRevision = rev
