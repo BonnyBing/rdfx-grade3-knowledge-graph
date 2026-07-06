@@ -3744,7 +3744,7 @@
               layout: useLayoutNone ? 'none' : 'force',
               data: nodes,
               links: edges,
-              roam: 'scale',
+              roam: true,
               draggable: false,
               animation: false,
               animationDurationUpdate: 0,
@@ -3753,7 +3753,7 @@
               edgeSymbol: ['none', 'arrow'],
               edgeSymbolSize: [0, 6],
               lineStyle: { color: '#cbd5e1', curveness: 0 },
-              emphasis: { focus: 'adjacency', lineStyle: { width: 3 } },
+              emphasis: { focus: 'none', lineStyle: { width: 3 } },
               force: useLayoutNone
                 ? undefined
                 : {
@@ -3814,18 +3814,31 @@
       function bindChartEvents() {
         if (chart._eventsBound) return
         chart._eventsBound = true
+
         const DRAG_THRESHOLD = 6
         let pointerDown = null
         let dragging = null
-        let canvasPan = null
         let paintRaf = null
         let suppressClick = false
+        let onGraphMove = null
+        let onGraphUp = null
 
-        function detachPointerListeners() {
-          window.removeEventListener('mousemove', onPointerMove)
-          window.removeEventListener('mouseup', onPointerUp)
-          window.removeEventListener('pointerup', onPointerUp)
-          window.removeEventListener('pointercancel', onPointerUp)
+        function detachGraphListeners() {
+          if (onGraphMove) graphEl.removeEventListener('mousemove', onGraphMove)
+          if (onGraphUp) {
+            graphEl.removeEventListener('mouseup', onGraphUp)
+            graphEl.removeEventListener('pointerup', onGraphUp)
+            graphEl.removeEventListener('pointercancel', onGraphUp)
+          }
+          onGraphMove = null
+          onGraphUp = null
+        }
+
+        function detachWindowListeners() {
+          window.removeEventListener('mousemove', onWindowMove)
+          window.removeEventListener('mouseup', onWindowUp, true)
+          window.removeEventListener('pointerup', onWindowUp, true)
+          window.removeEventListener('pointercancel', onWindowUp, true)
           window.removeEventListener('blur', onWindowBlur)
         }
 
@@ -3877,6 +3890,7 @@
             pointerId: pointerDown.pointerId,
           }
           pointerDown = null
+          detachGraphListeners()
 
           if (dragging.pointerId != null && graphEl.setPointerCapture) {
             try {
@@ -3888,126 +3902,95 @@
           graphEl.classList.add('is-dragging')
           chart.getZr().setCursorStyle('grabbing')
           chart.setOption({ tooltip: { show: false } }, { silent: true })
+          window.addEventListener('mousemove', onWindowMove)
+          window.addEventListener('mouseup', onWindowUp, true)
+          window.addEventListener('pointerup', onWindowUp, true)
+          window.addEventListener('pointercancel', onWindowUp, true)
+          window.addEventListener('blur', onWindowBlur)
         }
 
-        function onPointerMove(e) {
-          if (canvasPan) {
-            if (e.buttons === 0) {
-              finishInteraction(e)
-              return
-            }
-            const { x, y } = chartOffsetFromEvent(e)
-            const dx = x - canvasPan.lastX
-            const dy = y - canvasPan.lastY
-            if (dx === 0 && dy === 0) return
-            canvasPan.moved = true
-            chart.dispatchAction({
-              type: 'graphRoam',
-              seriesId: 'kg-graph',
-              dx,
-              dy,
-            })
-            canvasPan.lastX = x
-            canvasPan.lastY = y
-            return
-          }
-
-          if (dragging) {
-            if (e.buttons === 0) {
-              finishInteraction(e)
-              return
-            }
-            const { x, y } = chartOffsetFromEvent(e)
-            const pt0 = chart.convertFromPixel({ seriesIndex: 0 }, [
-              dragging.lastX,
-              dragging.lastY,
-            ])
-            const pt1 = chart.convertFromPixel({ seriesIndex: 0 }, [x, y])
-            if (!pt0 || !pt1) return
-            const dx = pt1[0] - pt0[0]
-            const dy = pt1[1] - pt0[1]
-            if (dx === 0 && dy === 0) return
-            dragging.moved = true
-            dragging.lastX = x
-            dragging.lastY = y
-            applyDragDelta(dx, dy)
-            return
-          }
-
-          if (!pointerDown) return
+        function onWindowMove(e) {
+          if (!dragging) return
           if (e.buttons === 0) {
-            finishInteraction(e)
+            endNodeDrag(e)
             return
           }
-
-          const dist = Math.hypot(
-            e.clientX - pointerDown.clientX,
-            e.clientY - pointerDown.clientY,
-          )
-          if (dist >= DRAG_THRESHOLD) beginNodeDrag()
+          const { x, y } = chartOffsetFromEvent(e)
+          const pt0 = chart.convertFromPixel({ seriesIndex: 0 }, [
+            dragging.lastX,
+            dragging.lastY,
+          ])
+          const pt1 = chart.convertFromPixel({ seriesIndex: 0 }, [x, y])
+          if (!pt0 || !pt1) return
+          const dx = pt1[0] - pt0[0]
+          const dy = pt1[1] - pt0[1]
+          if (dx === 0 && dy === 0) return
+          dragging.moved = true
+          dragging.lastX = x
+          dragging.lastY = y
+          applyDragDelta(dx, dy)
         }
 
-        function onWindowBlur() {
-          finishInteraction()
-        }
-
-        function finishInteraction(e) {
-          const wasNodeDragging = !!dragging
-          const wasCanvasPanning = !!canvasPan
-          const nodeDragMoved = !!dragging?.moved
-          const canvasPanMoved = !!canvasPan?.moved
-
-          detachPointerListeners()
+        function endNodeDrag(e) {
+          const moved = !!dragging?.moved
+          if (dragging?.pointerId != null && graphEl.releasePointerCapture) {
+            try {
+              graphEl.releasePointerCapture(dragging.pointerId)
+            } catch (_) {}
+          }
+          if (paintRaf) {
+            cancelAnimationFrame(paintRaf)
+            paintRaf = null
+            flushDragPaint()
+          }
+          detachWindowListeners()
           document.body.classList.remove('kg-dragging')
           graphEl.classList.remove('is-dragging')
           chart.getZr().setCursorStyle('default')
-
-          if (dragging) {
-            if (dragging.pointerId != null && graphEl.releasePointerCapture) {
-              try {
-                graphEl.releasePointerCapture(dragging.pointerId)
-              } catch (_) {}
-            }
-
-            if (paintRaf) {
-              cancelAnimationFrame(paintRaf)
-              paintRaf = null
-              flushDragPaint()
-            }
-
-            chart.setOption({ tooltip: { show: true } }, { silent: true })
+          chart.setOption({ tooltip: { show: true } }, { silent: true })
+          if (moved) {
             saveAllPositions()
-            if (dragging.moved) suppressClick = true
-            dragging = null
-          } else {
-            pointerDown = null
+            suppressClick = true
           }
-
-          if (canvasPan) {
-            if (canvasPan.moved) suppressClick = true
-            canvasPan = null
-          }
-
-          if (
-            e &&
-            ((wasNodeDragging && nodeDragMoved) ||
-              (wasCanvasPanning && canvasPanMoved))
-          ) {
+          dragging = null
+          if (e && moved) {
             e.preventDefault()
             e.stopPropagation()
           }
         }
 
-        function attachPointerListeners() {
-          window.addEventListener('mousemove', onPointerMove)
-          window.addEventListener('mouseup', onPointerUp, true)
-          window.addEventListener('pointerup', onPointerUp, true)
-          window.addEventListener('pointercancel', onPointerUp, true)
-          window.addEventListener('blur', onWindowBlur)
+        function onWindowUp(e) {
+          endNodeDrag(e)
         }
 
-        function onPointerUp(e) {
-          finishInteraction(e)
+        function onWindowBlur() {
+          detachGraphListeners()
+          pointerDown = null
+          if (dragging) endNodeDrag()
+        }
+
+        function cancelPointerDown() {
+          detachGraphListeners()
+          pointerDown = null
+        }
+
+        function onGraphMovePending(e) {
+          if (!pointerDown) return
+          if (e.buttons === 0) {
+            cancelPointerDown()
+            return
+          }
+          const dist = Math.hypot(
+            e.clientX - pointerDown.clientX,
+            e.clientY - pointerDown.clientY,
+          )
+          if (dist < DRAG_THRESHOLD) return
+          beginNodeDrag()
+          if (dragging) onWindowMove(e)
+        }
+
+        function onGraphUpPending() {
+          cancelPointerDown()
         }
 
         function startPointerDown(nodeId, offsetX, offsetY, domEvt) {
@@ -4022,39 +4005,26 @@
             lastY: offsetY,
             pointerId: domEvt?.pointerId,
           }
-          attachPointerListeners()
+          onGraphMove = onGraphMovePending
+          onGraphUp = onGraphUpPending
+          graphEl.addEventListener('mousemove', onGraphMove)
+          graphEl.addEventListener('mouseup', onGraphUp)
+          graphEl.addEventListener('pointerup', onGraphUp)
+          graphEl.addEventListener('pointercancel', onGraphUp)
         }
 
         chart.getZr().on(
           'mousedown',
           (e) => {
-            if (dragging || pointerDown || canvasPan) return
+            if (dragging || pointerDown) return
             const node = findNodeAtPixel(e.offsetX, e.offsetY)
-            if (node && liveGraphData) {
-              e.stop()
-              if (e.event) {
-                e.event.preventDefault()
-                e.event.stopPropagation()
-              }
-              startPointerDown(node.id, e.offsetX, e.offsetY, e.event)
-              return
-            }
+            if (!node || !liveGraphData) return
             e.stop()
             if (e.event) {
               e.event.preventDefault()
               e.event.stopPropagation()
             }
-            const { x, y } = chartOffsetFromEvent(e.event || e)
-            canvasPan = {
-              lastX: x,
-              lastY: y,
-              moved: false,
-              pointerId: e.event?.pointerId,
-            }
-            document.body.classList.add('kg-dragging')
-            graphEl.classList.add('is-dragging')
-            chart.getZr().setCursorStyle('grabbing')
-            attachPointerListeners()
+            startPointerDown(node.id, e.offsetX, e.offsetY, e.event)
           },
           { before: true },
         )
