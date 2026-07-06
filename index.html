@@ -1,0 +1,5251 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>三年级上册数学与科学知识图谱</title>
+    <script src="https://cdn.staticfile.net/echarts/5.5.1/echarts.min.js"></script>
+    <style>
+      :root {
+        --bg: #f5f6f8;
+        --surface: #ffffff;
+        --border: #e2e5ea;
+        --text: #1a1d23;
+        --text-secondary: #5c6370;
+        --accent: #2563eb;
+        --accent-light: #dbeafe;
+        --math: #3b82f6;
+        --science: #059669;
+        --cross: #d97706;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
+          'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      header {
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-shrink: 0;
+      }
+      header h1 {
+        font-size: 18px;
+        font-weight: 600;
+      }
+      header .meta {
+        font-size: 12px;
+        color: var(--text-secondary);
+      }
+      .layout {
+        display: flex;
+        flex: 1;
+        overflow: hidden;
+      }
+      .sidebar {
+        width: 300px;
+        background: var(--surface);
+        border-right: 1px solid var(--border);
+        overflow-y: auto;
+        flex-shrink: 0;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+      }
+      .sidebar h2 {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        margin-bottom: 10px;
+      }
+      .sidebar section {
+        margin-bottom: 20px;
+      }
+      .view-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .view-tabs button {
+        padding: 6px 12px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--surface);
+        font-size: 13px;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+      .view-tabs button:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .view-tabs button.active {
+        background: var(--accent);
+        color: #fff;
+        border-color: var(--accent);
+      }
+      .search-box {
+        width: 100%;
+        padding: 8px 12px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        font-size: 13px;
+        outline: none;
+      }
+      .search-box:focus {
+        border-color: var(--accent);
+      }
+      .filter-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .filter-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        cursor: pointer;
+      }
+      .filter-item input {
+        accent-color: var(--accent);
+      }
+      .swatch {
+        width: 12px;
+        height: 12px;
+        border-radius: 3px;
+        flex-shrink: 0;
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      .stat-card {
+        background: var(--bg);
+        border-radius: 6px;
+        padding: 10px;
+        text-align: center;
+      }
+      .stat-card .num {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--accent);
+      }
+      .stat-card .label {
+        font-size: 11px;
+        color: var(--text-secondary);
+        margin-top: 2px;
+      }
+      .main-area {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        position: relative;
+        min-width: 0;
+      }
+      #graph {
+        flex: 1;
+        min-height: 0;
+        width: 100%;
+      }
+      #graph.is-dragging {
+        cursor: grabbing !important;
+      }
+      body.kg-dragging {
+        user-select: none;
+        cursor: grabbing;
+      }
+      #crossPanel {
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px 24px;
+        display: none;
+        background: var(--bg);
+      }
+      .cross-link-intro {
+        font-size: 13px;
+        color: var(--text-secondary);
+        margin-bottom: 16px;
+        line-height: 1.5;
+      }
+      .cross-link-group {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        margin-bottom: 12px;
+        overflow: hidden;
+      }
+      .cross-link-row {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 14px;
+        border-bottom: 1px solid var(--border);
+        font-size: 13px;
+        line-height: 1.45;
+      }
+      .cross-link-row:last-child {
+        border-bottom: none;
+      }
+      .cross-link-math {
+        color: var(--math);
+        padding: 6px 10px;
+        background: #eff6ff;
+        border-radius: 4px;
+        border-left: 3px solid #93c5fd;
+      }
+      .cross-link-science {
+        color: #047857;
+        padding: 6px 10px;
+        background: #ecfdf5;
+        border-radius: 4px;
+        border-left: 3px solid #6ee7b7;
+        text-align: right;
+      }
+      .cross-link-arrow {
+        color: #ea580c;
+        font-weight: 600;
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+      .cross-theme-body {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+      .cross-col {
+        padding: 14px 16px;
+      }
+      .cross-col.math {
+        background: #f8fbff;
+        border-right: 1px solid var(--border);
+      }
+      .cross-col.science {
+        background: #f6fdf9;
+      }
+      .cross-col h4 {
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+      .cross-col.math h4 {
+        color: var(--math);
+      }
+      .cross-col.science h4 {
+        color: var(--science);
+      }
+      .cross-col li {
+        font-size: 13px;
+        line-height: 1.5;
+        margin-bottom: 6px;
+        list-style: none;
+        padding-left: 10px;
+        border-left: 2px solid transparent;
+      }
+      .cross-col.math li {
+        border-left-color: #93c5fd;
+      }
+      .cross-col.science li {
+        border-left-color: #6ee7b7;
+      }
+      .toggle-detail {
+        width: 100%;
+        padding: 8px 12px;
+        border: 1px dashed var(--border);
+        border-radius: 6px;
+        background: var(--bg);
+        font-size: 12px;
+        cursor: pointer;
+        color: var(--text-secondary);
+        margin-top: 4px;
+      }
+      .toggle-detail:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .toggle-detail.active {
+        background: var(--accent-light);
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .toolbar {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        display: flex;
+        gap: 6px;
+        z-index: 10;
+      }
+      .toolbar button {
+        padding: 6px 12px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--surface);
+        font-size: 12px;
+        cursor: pointer;
+      }
+      .toolbar button:hover {
+        background: var(--bg);
+      }
+      .detail-panel {
+        width: 340px;
+        background: var(--surface);
+        border-left: 1px solid var(--border);
+        overflow-y: auto;
+        flex-shrink: 0;
+        padding: 16px;
+      }
+      .detail-panel h2 {
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+      .detail-empty {
+        color: var(--text-secondary);
+        font-size: 13px;
+        line-height: 1.6;
+      }
+      .detail-field {
+        margin-bottom: 12px;
+      }
+      .detail-field .label {
+        font-size: 11px;
+        color: var(--text-secondary);
+        margin-bottom: 4px;
+      }
+      .detail-field .value {
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      .pill {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 500;
+      }
+      .edge-list {
+        list-style: none;
+        margin-top: 8px;
+      }
+      .edge-list li {
+        font-size: 12px;
+        padding: 6px 0;
+        border-bottom: 1px solid var(--border);
+        line-height: 1.4;
+      }
+      .edge-list li:last-child {
+        border-bottom: none;
+      }
+      .edge-relation {
+        color: var(--accent);
+        font-weight: 500;
+      }
+      .sidebar-legend {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        color: var(--text-secondary);
+      }
+      .legend-line {
+        width: 20px;
+        height: 2px;
+        flex-shrink: 0;
+      }
+      .subject-zone-hint {
+        font-size: 12px;
+        color: var(--text-secondary);
+        line-height: 1.5;
+        padding: 8px 10px;
+        background: var(--bg);
+        border-radius: 6px;
+        margin-top: 6px;
+      }
+      .cross-group {
+        margin-top: 10px;
+      }
+      .cross-group-title {
+        font-size: 11px;
+        font-weight: 600;
+        margin-bottom: 6px;
+        padding: 2px 0;
+      }
+      .cross-group-title.math {
+        color: var(--math);
+      }
+      .cross-group-title.science {
+        color: var(--science);
+      }
+      .cross-kp {
+        font-size: 12px;
+        padding: 6px 8px;
+        margin-bottom: 4px;
+        border-radius: 4px;
+        line-height: 1.4;
+        cursor: pointer;
+        border: 1px solid var(--border);
+      }
+      .cross-kp:hover {
+        border-color: var(--accent);
+      }
+      .cross-kp.math {
+        background: #eff6ff;
+        border-left: 3px solid var(--math);
+      }
+      .cross-kp.science {
+        background: #ecfdf5;
+        border-left: 3px solid var(--science);
+      }
+      .toolbar button.active-hint {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .drag-tip {
+        font-size: 11px;
+        color: var(--text-secondary);
+        margin-top: 6px;
+        line-height: 1.4;
+      }
+      .view-tabs button[data-view='math'].active {
+        background: var(--math);
+        border-color: var(--math);
+      }
+      .view-tabs button[data-view='science'].active {
+        background: var(--science);
+        border-color: var(--science);
+      }
+      .view-tabs button[data-view='cross'].active {
+        background: var(--cross);
+        border-color: var(--cross);
+      }
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .header-actions button,
+      .edit-btn {
+        padding: 6px 12px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--surface);
+        font-size: 12px;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      .header-actions button:hover,
+      .edit-btn:hover {
+        background: var(--bg);
+      }
+      .header-actions button.primary,
+      .edit-btn.primary {
+        background: var(--accent);
+        color: #fff;
+        border-color: var(--accent);
+      }
+      .header-actions button.primary:hover,
+      .edit-btn.primary:hover {
+        background: #1d4ed8;
+      }
+      .header-actions button.danger,
+      .edit-btn.danger {
+        color: #dc2626;
+        border-color: #fecaca;
+      }
+      .header-actions button.danger:hover,
+      .edit-btn.danger:hover {
+        background: #fef2f2;
+      }
+      .header-actions button.active-edit {
+        background: #fef3c7;
+        border-color: #f59e0b;
+        color: #b45309;
+      }
+      body.edit-mode-on .detail-panel {
+        border-left-color: #f59e0b;
+      }
+      .edit-section {
+        display: none;
+      }
+      body.edit-mode-on .edit-section {
+        display: block;
+      }
+      body.edit-mode-on .edit-section-top {
+        border-bottom: 2px solid #fde68a;
+        padding-bottom: 16px;
+        margin-bottom: 12px;
+      }
+      .edit-toolbar {
+        display: none;
+        top: 48px;
+      }
+      body.edit-mode-on .edit-toolbar {
+        display: flex;
+      }
+      .edit-toolbar button.primary {
+        background: var(--accent);
+        color: #fff;
+        border-color: var(--accent);
+        font-weight: 600;
+      }
+      .edit-toolbar button.primary:hover {
+        background: #1d4ed8;
+      }
+      .detail-edit-idle .edit-actions {
+        margin-top: 12px;
+      }
+      .edit-form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .edit-field label {
+        display: block;
+        font-size: 11px;
+        color: var(--text-secondary);
+        margin-bottom: 4px;
+      }
+      .edit-field input,
+      .edit-field select,
+      .edit-field textarea {
+        width: 100%;
+        padding: 7px 10px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        font-size: 13px;
+        font-family: inherit;
+      }
+      .edit-field textarea {
+        min-height: 72px;
+        resize: vertical;
+      }
+      .edit-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 4px;
+      }
+      .edge-edit-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 6px;
+        padding: 6px 0;
+        border-bottom: 1px solid var(--border);
+        font-size: 12px;
+        line-height: 1.4;
+      }
+      .edge-edit-row:last-child {
+        border-bottom: none;
+      }
+      .edge-edit-row .edge-text {
+        flex: 1;
+        min-width: 0;
+      }
+      .edge-edit-row button {
+        flex-shrink: 0;
+        padding: 2px 8px;
+        font-size: 11px;
+        border: 1px solid #fecaca;
+        border-radius: 4px;
+        background: #fff;
+        color: #dc2626;
+        cursor: pointer;
+      }
+      .edit-hint {
+        font-size: 11px;
+        color: var(--text-secondary);
+        line-height: 1.45;
+        padding: 8px 10px;
+        background: #fffbeb;
+        border: 1px solid #fde68a;
+        border-radius: 6px;
+      }
+      .unsaved-badge {
+        font-size: 11px;
+        color: #b45309;
+        background: #fef3c7;
+        padding: 2px 8px;
+        border-radius: 4px;
+        display: none;
+      }
+      .unsaved-badge.visible {
+        display: inline-block;
+      }
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.45);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        padding: 20px;
+      }
+      .modal-overlay.open {
+        display: flex;
+      }
+      .modal-box {
+        background: var(--surface);
+        border-radius: 10px;
+        width: min(520px, 100%);
+        max-height: 90vh;
+        overflow-y: auto;
+        padding: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      }
+      .modal-box h3 {
+        font-size: 16px;
+        margin-bottom: 14px;
+      }
+      .modal-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        margin-top: 16px;
+      }
+      .modal-box.wide {
+        width: min(900px, 100%);
+      }
+      .data-table-wrap {
+        max-height: 50vh;
+        overflow: auto;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+      }
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+      }
+      .data-table th,
+      .data-table td {
+        padding: 8px 10px;
+        border-bottom: 1px solid var(--border);
+        text-align: left;
+        vertical-align: top;
+      }
+      .data-table th {
+        position: sticky;
+        top: 0;
+        background: var(--bg);
+        font-weight: 600;
+      }
+      .data-table tr:hover td {
+        background: #f8fafc;
+      }
+      .data-table .link-btn {
+        border: none;
+        background: none;
+        color: var(--accent);
+        cursor: pointer;
+        font-size: 12px;
+        padding: 0 4px;
+      }
+      .data-table .link-btn.danger {
+        color: #dc2626;
+      }
+      .data-search {
+        margin-bottom: 10px;
+      }
+      .modal-tabs {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 12px;
+      }
+      .modal-tabs button {
+        padding: 5px 12px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--surface);
+        font-size: 12px;
+        cursor: pointer;
+      }
+      .modal-tabs button.active {
+        background: var(--accent);
+        color: #fff;
+        border-color: var(--accent);
+      }
+      #importFileInput {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1 id="headerTitle">三年级上册数学与科学知识图谱</h1>
+        <div class="meta" id="headerMeta">
+          版本 1.0 · 生成于 2026-06-29 · 节点 109 · 关系 147
+        </div>
+      </div>
+      <div class="header-actions">
+        <span class="unsaved-badge" id="unsavedBadge">有未保存修改</span>
+        <button type="button" id="btnEditMode">审核编辑</button>
+        <button type="button" id="btnSaveData" title="保存到浏览器本地">
+          保存
+        </button>
+        <button type="button" id="btnExportData">导出 JSON</button>
+        <button type="button" id="btnImportData">导入 JSON</button>
+        <button type="button" id="btnResetData" class="danger">
+          恢复原始数据
+        </button>
+        <input
+          type="file"
+          id="importFileInput"
+          accept=".json,application/json"
+        />
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <section>
+          <h2>视图</h2>
+          <div class="view-tabs" id="viewTabs">
+            <button class="active" data-view="all">全部</button>
+            <button data-view="math">数学</button>
+            <button data-view="science">科学</button>
+            <button data-view="cross">跨学科</button>
+          </div>
+        </section>
+
+        <section class="edit-section edit-section-top" id="editSidebar">
+          <h2>数据管理</h2>
+          <p class="edit-hint">
+            审核模式下可修改全部节点、关系与元数据。修改后请点击「保存」或「导出
+            JSON」备份。
+          </p>
+          <div class="edit-actions" style="margin-top: 10px">
+            <button type="button" class="edit-btn primary" id="btnAddNode">
+              ＋ 添加节点
+            </button>
+            <button type="button" class="edit-btn" id="btnAddEdge">
+              添加关系
+            </button>
+            <button type="button" class="edit-btn" id="btnEditMeta">
+              编辑元数据
+            </button>
+            <button type="button" class="edit-btn" id="btnBrowseData">
+              浏览全部数据
+            </button>
+          </div>
+        </section>
+
+        <section id="viewHintSection">
+          <div class="subject-zone-hint" id="viewHint">
+            全部概要：上方数学、下方科学，自上而下为 学科→领域→单元→知识点；橙色虚线表示跨学科关联。
+          </div>
+          <button type="button" class="toggle-detail" id="btnToggleDetail">
+            展开知识点 / 课标等详细节点
+          </button>
+          <label class="filter-item" style="margin-top: 8px">
+            <input type="checkbox" id="chkShowLessons" />
+            显示科学课时节点
+          </label>
+          <p class="drag-tip">
+            提示：滚轮缩放画布；在空白处按住左键可拖动画布；按住节点可移动（关联节点会一起移动）。单击节点查看详情。
+          </p>
+        </section>
+
+        <section>
+          <h2>搜索</h2>
+          <input
+            type="text"
+            class="search-box"
+            id="searchInput"
+            placeholder="搜索节点名称…"
+          />
+        </section>
+
+        <section>
+          <h2>筛选 · 节点类型</h2>
+          <div class="filter-group" id="typeFilters"></div>
+        </section>
+
+        <section>
+          <h2>筛选 · 关系类型</h2>
+          <div class="filter-group" id="relationFilters"></div>
+        </section>
+
+        <section>
+          <h2>图例 · 学科配色</h2>
+          <div class="sidebar-legend" id="subjectLegend"></div>
+        </section>
+
+        <section>
+          <h2>图例 · 节点颜色</h2>
+          <div class="sidebar-legend" id="nodeLegend"></div>
+        </section>
+
+        <section>
+          <h2>图例 · 关系线型</h2>
+          <div class="sidebar-legend" id="edgeLegend"></div>
+        </section>
+
+        <section>
+          <h2>统计</h2>
+          <div class="stats" id="statsPanel"></div>
+        </section>
+      </aside>
+
+      <div class="main-area">
+        <div class="toolbar" id="graphToolbar">
+          <button id="btnReset">重置缩放</button>
+          <button id="btnFit">适应窗口</button>
+          <button id="btnResetLayout">重置布局</button>
+        </div>
+        <div class="toolbar edit-toolbar" id="editGraphToolbar">
+          <button type="button" class="primary" id="btnAddNodeToolbar">＋ 添加节点</button>
+          <button type="button" id="btnAddEdgeToolbar">添加关系</button>
+          <button type="button" id="btnBrowseDataToolbar">浏览数据</button>
+        </div>
+        <div id="graph"></div>
+        <div id="crossPanel"></div>
+      </div>
+
+      <aside class="detail-panel" id="detailPanel">
+        <h2 id="detailPanelTitle">节点详情</h2>
+        <div class="detail-empty" id="detailEmpty">
+          点击图谱中的节点查看详细信息、关联关系和跨学科链接。开启「审核编辑」后可修改、添加或删除内容。
+        </div>
+        <div id="detailContent" style="display: none"></div>
+      </aside>
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay" aria-hidden="true">
+      <div
+        class="modal-box"
+        id="modalBox"
+        role="dialog"
+        aria-modal="true"
+      ></div>
+    </div>
+
+    <script>
+      const DEFAULT_GRAPH_DATA = {
+        metadata: {
+          title: '三年级上册数学与科学知识图谱',
+          version: '1.0',
+          generated_date: '2026-06-29',
+          grade: '三年级',
+          semester: '上册',
+          scope_note:
+            '教材节点表示本册实际学习内容；课标节点表示3—4年级第二学段要求。status=stage_later 的节点不能解释为本册已经完成。',
+          page_reference: 'textbook_printed_page/pdf_page；课程标准使用PDF页',
+          source_files: [
+            '数学三年级上.pdf',
+            '（5）义务教育数学课程标准日常修订版（2022年版2025年修订）.pdf',
+            '教科版3年级科学上册【高清教材】.pdf',
+            '（10）义务教育科学课程标准日常修订版（2022年版2025年修订）.pdf',
+          ],
+        },
+        node_types: [
+          'subject',
+          'domain',
+          'unit',
+          'lesson',
+          'knowledge',
+          'method',
+          'standard',
+          'competency',
+          'cross_disciplinary_theme',
+        ],
+        relation_types: [
+          'contains',
+          'teaches',
+          'uses_method',
+          'aligns_to',
+          'develops',
+          'prerequisite_of',
+          'applies_to',
+          'cross_links',
+        ],
+        nodes: [
+          {
+            id: 'M',
+            type: 'subject',
+            name: '数学三年级上',
+            status: 'current_book',
+          },
+          {
+            id: 'M-D-N',
+            type: 'domain',
+            name: '数与代数',
+            status: 'current_book',
+          },
+          {
+            id: 'M-D-G',
+            type: 'domain',
+            name: '图形与几何',
+            status: 'current_book',
+          },
+          {
+            id: 'M-D-D',
+            type: 'domain',
+            name: '统计与概率',
+            status: 'current_book',
+          },
+          {
+            id: 'M-D-P',
+            type: 'domain',
+            name: '综合与实践',
+            status: 'current_book',
+          },
+          {
+            id: 'M-U1',
+            type: 'unit',
+            name: '第一单元 混合运算',
+            source: '数学教材书内2—12/PDF6—16',
+            status: 'current_book',
+          },
+          {
+            id: 'M-U2',
+            type: 'unit',
+            name: '第二单元 测量（二）',
+            source: '数学教材书内13—23/PDF17—27',
+            status: 'current_book',
+          },
+          {
+            id: 'M-P-CAMPUS',
+            type: 'unit',
+            name: '综合实践 记录我们的校园',
+            source: '数学教材书内24—27/PDF28—31',
+            status: 'current_book',
+          },
+          {
+            id: 'M-U3',
+            type: 'unit',
+            name: '第三单元 大数加与减（二）',
+            source: '数学教材书内28—40/PDF32—44',
+            status: 'current_book',
+          },
+          {
+            id: 'M-U4',
+            type: 'unit',
+            name: '第四单元 我们生活的空间（一）',
+            source: '数学教材书内41—48/PDF45—52',
+            status: 'current_book',
+          },
+          {
+            id: 'M-U5',
+            type: 'unit',
+            name: '第五单元 认识图形',
+            source: '数学教材书内49—61/PDF53—65',
+            status: 'current_book',
+          },
+          {
+            id: 'M-FUN',
+            type: 'unit',
+            name: '数学好玩 搭配中的学问',
+            source: '数学教材书内62—63/PDF66—67',
+            status: 'current_book',
+          },
+          {
+            id: 'M-U6',
+            type: 'unit',
+            name: '第六单元 乘除法的应用（二）',
+            source: '数学教材书内64—74/PDF68—78',
+            status: 'current_book',
+          },
+          {
+            id: 'M-U7',
+            type: 'unit',
+            name: '第七单元 认识小数',
+            source: '数学教材书内75—89/PDF79—93',
+            status: 'current_book',
+          },
+          {
+            id: 'M-U8',
+            type: 'unit',
+            name: '第八单元 调查与记录',
+            source: '数学教材书内90—94/PDF94—98',
+            status: 'current_book',
+          },
+          {
+            id: 'M-P-DATE',
+            type: 'unit',
+            name: '综合实践 探索年月日的秘密',
+            source: '数学教材书内95—98/PDF99—102',
+            status: 'current_book',
+          },
+          {
+            id: 'M-K-MIX',
+            type: 'knowledge',
+            name: '乘加、乘减、除加、除减的两步混合运算',
+            status: 'current_book',
+          },
+          {
+            id: 'M-K-ORDER',
+            type: 'knowledge',
+            name: '先乘除后加减及小括号改变运算顺序',
+            status: 'current_book',
+          },
+          {
+            id: 'M-K-LENGTH',
+            type: 'knowledge',
+            name: '毫米、厘米、分米、米、千米及单位换算',
+            status: 'current_book',
+          },
+          {
+            id: 'M-K-ESTIMATE',
+            type: 'knowledge',
+            name: '长度和数量的估测及结果合理性',
+            status: 'current_book',
+          },
+          {
+            id: 'M-K-DIRECTION',
+            type: 'knowledge',
+            name: '八个方向与几点钟方向',
+            status: 'current_book',
+          },
+          {
+            id: 'M-K-ADDSUB',
+            type: 'knowledge',
+            name: '三位数连加、连减和加减混合及验算',
+            status: 'current_book',
+          },
+          {
+            id: 'M-K-INTERVAL',
+            type: 'knowledge',
+            name: '总量、分量、起点、终点和区间量关系',
+            status: 'current_book',
+          },
+          {
+            id: 'M-K-VIEW',
+            type: 'knowledge',
+            name: '观察位置、方向、高度、遮挡与所见图像',
+            status: 'current_book',
+          },
+          {
+            id: 'M-K-ANGLE',
+            type: 'knowledge',
+            name: '角的组成、大小及锐角直角钝角',
+            status: 'current_book',
+          },
+          {
+            id: 'M-K-RECT',
+            type: 'knowledge',
+            name: '长方形与正方形的边和角的特征',
+            status: 'current_book',
+          },
+          {
+            id: 'M-K-COMB',
+            type: 'knowledge',
+            name: '简单搭配的有序枚举与不重复不遗漏',
+            status: 'current_book',
+          },
+          {
+            id: 'M-K-MULDIV',
+            type: 'knowledge',
+            name: '整十整百及两位数乘除一位数',
+            status: 'current_book',
+          },
+          {
+            id: 'M-K-QUANTITY',
+            type: 'knowledge',
+            name: '倍、平均分、总价等乘除数量关系',
+            status: 'current_book',
+          },
+          {
+            id: 'M-K-DECIMAL',
+            type: 'knowledge',
+            name: '小数的意义、读写和现实量表示',
+            status: 'current_book',
+          },
+          {
+            id: 'M-K-DECCOMP',
+            type: 'knowledge',
+            name: '简单小数大小比较',
+            status: 'current_book',
+          },
+          {
+            id: 'M-K-DECOPS',
+            type: 'knowledge',
+            name: '生活情境中的小数加减',
+            status: 'current_book',
+          },
+          {
+            id: 'M-K-SURVEY',
+            type: 'knowledge',
+            name: '调查问题、数据收集和分类记录',
+            status: 'current_book',
+          },
+          {
+            id: 'M-K-DATA',
+            type: 'knowledge',
+            name: '比较、解释数据并据此作出决策',
+            status: 'current_book',
+          },
+          {
+            id: 'M-K-DATE',
+            type: 'knowledge',
+            name: '年、月、日、大小月和平闰年',
+            status: 'current_book',
+          },
+          {
+            id: 'M-K-24H',
+            type: 'knowledge',
+            name: '24时记时法',
+            status: 'current_book',
+          },
+          {
+            id: 'M-M-DRAW',
+            type: 'method',
+            name: '画图建立数量关系模型',
+            status: 'current_book',
+          },
+          {
+            id: 'M-M-MEASURE',
+            type: 'method',
+            name: '实际测量、估测与单位选择',
+            status: 'current_book',
+          },
+          {
+            id: 'M-M-ENUM',
+            type: 'method',
+            name: '列表、连线和符号化有序枚举',
+            status: 'current_book',
+          },
+          {
+            id: 'M-M-SURVEY',
+            type: 'method',
+            name: '调查、分类记录、核对总数和解释数据',
+            status: 'current_book',
+          },
+          {
+            id: 'M-STD-N',
+            type: 'standard',
+            name: '第二学段数与运算和数量关系要求',
+            source: '数学课标PDF24—26',
+            status: 'stage_standard',
+          },
+          {
+            id: 'M-STD-G',
+            type: 'standard',
+            name: '第二学段图形的认识与测量、位置与运动要求',
+            source: '数学课标PDF32—35',
+            status: 'stage_standard',
+          },
+          {
+            id: 'M-STD-D',
+            type: 'standard',
+            name: '第二学段数据收集、整理与表达要求',
+            source: '数学课标PDF41—42',
+            status: 'stage_standard',
+          },
+          {
+            id: 'M-STD-P',
+            type: 'standard',
+            name: '第二学段综合与实践要求',
+            source: '数学课标PDF49—52',
+            status: 'stage_standard',
+          },
+          {
+            id: 'M-LATER-FRACTION',
+            type: 'standard',
+            name: '分数及同分母分数加减',
+            status: 'stage_later',
+          },
+          {
+            id: 'M-LATER-GEO',
+            type: 'standard',
+            name: '线、量角器、三角形分类、周长面积、图形运动',
+            status: 'stage_later',
+          },
+          {
+            id: 'M-LATER-STATS',
+            type: 'standard',
+            name: '条形统计图与平均数',
+            status: 'stage_later',
+          },
+          {
+            id: 'M-C-NUMBER',
+            type: 'competency',
+            name: '数感与运算能力',
+            source: '数学课标PDF8—12',
+            status: 'stage_standard',
+          },
+          {
+            id: 'M-C-MEASURE',
+            type: 'competency',
+            name: '量感',
+            source: '数学课标PDF8—12',
+            status: 'stage_standard',
+          },
+          {
+            id: 'M-C-SPACE',
+            type: 'competency',
+            name: '几何直观与空间观念',
+            source: '数学课标PDF8—12',
+            status: 'stage_standard',
+          },
+          {
+            id: 'M-C-DATA',
+            type: 'competency',
+            name: '数据意识',
+            source: '数学课标PDF8—12',
+            status: 'stage_standard',
+          },
+          {
+            id: 'M-C-MODEL',
+            type: 'competency',
+            name: '推理意识、模型意识与应用意识',
+            source: '数学课标PDF8—12',
+            status: 'stage_standard',
+          },
+          {
+            id: 'S',
+            type: 'subject',
+            name: '科学三年级上',
+            status: 'current_book',
+          },
+          {
+            id: 'S-D-MAT',
+            type: 'domain',
+            name: '物质的结构、性质与变化',
+            status: 'current_book',
+          },
+          {
+            id: 'S-D-EARTH',
+            type: 'domain',
+            name: '地球系统：天气和气候',
+            status: 'current_book',
+          },
+          {
+            id: 'S-U-WATER',
+            type: 'unit',
+            name: '第一单元 水',
+            source: '科学教材书内2—20/PDF8—26',
+            status: 'current_book',
+          },
+          {
+            id: 'S-U-AIR',
+            type: 'unit',
+            name: '第二单元 空气',
+            source: '科学教材书内22—40/PDF28—45',
+            status: 'current_book',
+          },
+          {
+            id: 'S-U-WEATHER',
+            type: 'unit',
+            name: '第三单元 天气',
+            source: '科学教材书内41—59/PDF47—65',
+            status: 'current_book',
+          },
+          {
+            id: 'S-W1',
+            type: 'lesson',
+            name: '水到哪里去了',
+            source: '科学教材书内2—4/PDF8—10',
+            status: 'current_book',
+          },
+          {
+            id: 'S-W2',
+            type: 'lesson',
+            name: '水沸腾了',
+            source: '科学教材书内5—6/PDF11—12',
+            status: 'current_book',
+          },
+          {
+            id: 'S-W3',
+            type: 'lesson',
+            name: '水结冰了',
+            source: '科学教材书内7—9/PDF13—15',
+            status: 'current_book',
+          },
+          {
+            id: 'S-W4',
+            type: 'lesson',
+            name: '冰融化了',
+            source: '科学教材书内10—11/PDF16—17',
+            status: 'current_book',
+          },
+          {
+            id: 'S-W5',
+            type: 'lesson',
+            name: '水能溶解多少物质',
+            source: '科学教材书内12—14/PDF18—20',
+            status: 'current_book',
+          },
+          {
+            id: 'S-W6',
+            type: 'lesson',
+            name: '加快溶解',
+            source: '科学教材书内15—16/PDF21—22',
+            status: 'current_book',
+          },
+          {
+            id: 'S-W7',
+            type: 'lesson',
+            name: '混合与分离',
+            source: '科学教材书内17—18/PDF23—24',
+            status: 'current_book',
+          },
+          {
+            id: 'S-W8',
+            type: 'lesson',
+            name: '它们发生了什么变化',
+            source: '科学教材书内19—20/PDF25—26',
+            status: 'current_book',
+          },
+          {
+            id: 'S-A1',
+            type: 'lesson',
+            name: '感受空气',
+            source: '科学教材书内22—24/PDF28—30',
+            status: 'current_book',
+          },
+          {
+            id: 'S-A2',
+            type: 'lesson',
+            name: '空气能占据空间吗',
+            source: '科学教材书内25—26/PDF31—32',
+            status: 'current_book',
+          },
+          {
+            id: 'S-A3',
+            type: 'lesson',
+            name: '压缩空气',
+            source: '科学教材书内27—29/PDF33—35',
+            status: 'current_book',
+          },
+          {
+            id: 'S-A4',
+            type: 'lesson',
+            name: '空气有质量吗',
+            source: '科学教材书内30—31/PDF36—37',
+            status: 'current_book',
+          },
+          {
+            id: 'S-A5',
+            type: 'lesson',
+            name: '一袋空气的质量是多少',
+            source: '科学教材书内32—33/PDF38—39',
+            status: 'current_book',
+          },
+          {
+            id: 'S-A6',
+            type: 'lesson',
+            name: '我们来做热气球',
+            source: '科学教材书内34—35/PDF40—41',
+            status: 'current_book',
+          },
+          {
+            id: 'S-A7',
+            type: 'lesson',
+            name: '风的成因',
+            source: '科学教材书内36—37/PDF42—43',
+            status: 'current_book',
+          },
+          {
+            id: 'S-A8',
+            type: 'lesson',
+            name: '空气和我们的生活',
+            source: '科学教材书内38—40/PDF44—45',
+            status: 'current_book',
+          },
+          {
+            id: 'S-T1',
+            type: 'lesson',
+            name: '我们关心天气',
+            source: '科学教材书内41—42/PDF47—48',
+            status: 'current_book',
+          },
+          {
+            id: 'S-T2',
+            type: 'lesson',
+            name: '认识气温计',
+            source: '科学教材书内43—44/PDF49—50',
+            status: 'current_book',
+          },
+          {
+            id: 'S-T3',
+            type: 'lesson',
+            name: '测量气温',
+            source: '科学教材书内45—46/PDF51—52',
+            status: 'current_book',
+          },
+          {
+            id: 'S-T4',
+            type: 'lesson',
+            name: '测量降水量',
+            source: '科学教材书内47—49/PDF53—55',
+            status: 'current_book',
+          },
+          {
+            id: 'S-T5',
+            type: 'lesson',
+            name: '观测风',
+            source: '科学教材书内50—52/PDF56—58',
+            status: 'current_book',
+          },
+          {
+            id: 'S-T6',
+            type: 'lesson',
+            name: '观察云',
+            source: '科学教材书内53—54/PDF59—60',
+            status: 'current_book',
+          },
+          {
+            id: 'S-T7',
+            type: 'lesson',
+            name: '整理我们的天气日历',
+            source: '科学教材书内55—57/PDF61—63',
+            status: 'current_book',
+          },
+          {
+            id: 'S-T8',
+            type: 'lesson',
+            name: '天气预报是怎样制作出来的',
+            source: '科学教材书内58—59/PDF64—65',
+            status: 'current_book',
+          },
+          {
+            id: 'S-K-STATE',
+            type: 'knowledge',
+            name: '水、冰、水蒸气的状态区别、同一性与相互转化',
+            status: 'current_book',
+          },
+          {
+            id: 'S-K-TEMP',
+            type: 'knowledge',
+            name: '温度影响水的沸腾、结冰和融化',
+            status: 'current_book',
+          },
+          {
+            id: 'S-K-DISSOLVE',
+            type: 'knowledge',
+            name: '溶解程度及搅拌、温度对溶解快慢的影响',
+            status: 'current_book',
+          },
+          {
+            id: 'S-K-SEPARATE',
+            type: 'knowledge',
+            name: '溶解、过滤、蒸发分离混合物',
+            status: 'current_book',
+          },
+          {
+            id: 'S-K-PHYSICAL',
+            type: 'knowledge',
+            name: '形状、大小或状态改变但物质本身未改变',
+            status: 'current_book',
+          },
+          {
+            id: 'S-K-AIR',
+            type: 'knowledge',
+            name: '空气占据空间、具有质量、可压缩并会流动',
+            status: 'current_book',
+          },
+          {
+            id: 'S-K-WIND',
+            type: 'knowledge',
+            name: '空气受热上升与风的形成',
+            status: 'current_book',
+          },
+          {
+            id: 'S-K-WEATHER',
+            type: 'knowledge',
+            name: '天气由气温、降水、风、云等要素描述',
+            status: 'current_book',
+          },
+          {
+            id: 'S-K-INSTRUMENT',
+            type: 'knowledge',
+            name: '气温计、雨量器、风旗和风向标的使用',
+            status: 'current_book',
+          },
+          {
+            id: 'S-K-WDATA',
+            type: 'knowledge',
+            name: '天气日历、气象数据整理与变化描述',
+            status: 'current_book',
+          },
+          {
+            id: 'S-K-FORECAST',
+            type: 'knowledge',
+            name: '天气预报的信息、符号和制作流程',
+            status: 'current_book',
+          },
+          {
+            id: 'S-M-OBSERVE',
+            type: 'method',
+            name: '观察、测量和如实记录',
+            status: 'current_book',
+          },
+          {
+            id: 'S-M-CONTROL',
+            type: 'method',
+            name: '控制变量与公平对比实验',
+            status: 'current_book',
+          },
+          {
+            id: 'S-M-EVIDENCE',
+            type: 'method',
+            name: '比较证据、解释现象和得出结论',
+            status: 'current_book',
+          },
+          {
+            id: 'S-M-MODEL',
+            type: 'method',
+            name: '图示、微粒模型和模拟实验',
+            status: 'current_book',
+          },
+          {
+            id: 'S-STD-MAT',
+            type: 'standard',
+            name: '3—4年级空气与水的性质要求',
+            source: '科学课标PDF23、26—30',
+            status: 'stage_standard',
+          },
+          {
+            id: 'S-STD-CHANGE',
+            type: 'standard',
+            name: '3—4年级物质状态、溶解和变化要求',
+            source: '科学课标PDF32—37',
+            status: 'stage_standard',
+          },
+          {
+            id: 'S-STD-WEATHER',
+            type: 'standard',
+            name: '3—4年级天气和气候要求',
+            source: '科学课标PDF82—86',
+            status: 'stage_standard',
+          },
+          {
+            id: 'S-C-CONCEPT',
+            type: 'competency',
+            name: '科学观念',
+            source: '科学课标PDF7—9',
+            status: 'stage_standard',
+          },
+          {
+            id: 'S-C-THINK',
+            type: 'competency',
+            name: '科学思维',
+            source: '科学课标PDF7—9、13—14',
+            status: 'stage_standard',
+          },
+          {
+            id: 'S-C-INQUIRY',
+            type: 'competency',
+            name: '探究实践',
+            source: '科学课标PDF7—8、15—16',
+            status: 'stage_standard',
+          },
+          {
+            id: 'S-C-RESP',
+            type: 'competency',
+            name: '态度责任',
+            source: '科学课标PDF8—9、17—18',
+            status: 'stage_standard',
+          },
+          {
+            id: 'X-WEATHER-STATION',
+            type: 'cross_disciplinary_theme',
+            name: '校园微型气象站',
+            status: 'recommended',
+          },
+          {
+            id: 'X-WATER-TEMP',
+            type: 'cross_disciplinary_theme',
+            name: '水的温度与状态变化数据研究',
+            status: 'recommended',
+          },
+          {
+            id: 'X-DISSOLVE',
+            type: 'cross_disciplinary_theme',
+            name: '溶解速度公平实验',
+            status: 'recommended',
+          },
+          {
+            id: 'X-AIR-MASS',
+            type: 'cross_disciplinary_theme',
+            name: '一袋空气有多重',
+            status: 'recommended',
+          },
+          {
+            id: 'X-WIND-MAP',
+            type: 'cross_disciplinary_theme',
+            name: '校园风向地图',
+            status: 'recommended',
+          },
+        ],
+        edges: [
+          { source: 'M', relation: 'contains', target: 'M-D-N' },
+          { source: 'M', relation: 'contains', target: 'M-D-G' },
+          { source: 'M', relation: 'contains', target: 'M-D-D' },
+          { source: 'M', relation: 'contains', target: 'M-D-P' },
+          { source: 'M-D-N', relation: 'contains', target: 'M-U1' },
+          { source: 'M-D-G', relation: 'contains', target: 'M-U2' },
+          { source: 'M-D-P', relation: 'contains', target: 'M-P-CAMPUS' },
+          { source: 'M-D-N', relation: 'contains', target: 'M-U3' },
+          { source: 'M-D-G', relation: 'contains', target: 'M-U4' },
+          { source: 'M-D-G', relation: 'contains', target: 'M-U5' },
+          { source: 'M-D-P', relation: 'contains', target: 'M-FUN' },
+          { source: 'M-D-N', relation: 'contains', target: 'M-U6' },
+          { source: 'M-D-N', relation: 'contains', target: 'M-U7' },
+          { source: 'M-D-D', relation: 'contains', target: 'M-U8' },
+          { source: 'M-D-P', relation: 'contains', target: 'M-P-DATE' },
+          { source: 'M-U1', relation: 'teaches', target: 'M-K-MIX' },
+          { source: 'M-U1', relation: 'teaches', target: 'M-K-ORDER' },
+          { source: 'M-U1', relation: 'uses_method', target: 'M-M-DRAW' },
+          { source: 'M-U1', relation: 'aligns_to', target: 'M-STD-N' },
+          { source: 'M-U2', relation: 'teaches', target: 'M-K-LENGTH' },
+          { source: 'M-U2', relation: 'teaches', target: 'M-K-ESTIMATE' },
+          { source: 'M-U2', relation: 'uses_method', target: 'M-M-MEASURE' },
+          { source: 'M-U2', relation: 'aligns_to', target: 'M-STD-G' },
+          {
+            source: 'M-P-CAMPUS',
+            relation: 'teaches',
+            target: 'M-K-DIRECTION',
+          },
+          { source: 'M-P-CAMPUS', relation: 'aligns_to', target: 'M-STD-P' },
+          { source: 'M-U3', relation: 'teaches', target: 'M-K-ADDSUB' },
+          { source: 'M-U3', relation: 'teaches', target: 'M-K-INTERVAL' },
+          { source: 'M-U3', relation: 'aligns_to', target: 'M-STD-N' },
+          { source: 'M-U4', relation: 'teaches', target: 'M-K-VIEW' },
+          { source: 'M-U4', relation: 'aligns_to', target: 'M-STD-G' },
+          { source: 'M-U5', relation: 'teaches', target: 'M-K-ANGLE' },
+          { source: 'M-U5', relation: 'teaches', target: 'M-K-RECT' },
+          { source: 'M-U5', relation: 'aligns_to', target: 'M-STD-G' },
+          { source: 'M-FUN', relation: 'teaches', target: 'M-K-COMB' },
+          { source: 'M-FUN', relation: 'uses_method', target: 'M-M-ENUM' },
+          { source: 'M-U6', relation: 'teaches', target: 'M-K-MULDIV' },
+          { source: 'M-U6', relation: 'teaches', target: 'M-K-QUANTITY' },
+          { source: 'M-U6', relation: 'aligns_to', target: 'M-STD-N' },
+          { source: 'M-U7', relation: 'teaches', target: 'M-K-DECIMAL' },
+          { source: 'M-U7', relation: 'teaches', target: 'M-K-DECCOMP' },
+          { source: 'M-U7', relation: 'teaches', target: 'M-K-DECOPS' },
+          { source: 'M-U7', relation: 'aligns_to', target: 'M-STD-N' },
+          { source: 'M-U8', relation: 'teaches', target: 'M-K-SURVEY' },
+          { source: 'M-U8', relation: 'teaches', target: 'M-K-DATA' },
+          { source: 'M-U8', relation: 'uses_method', target: 'M-M-SURVEY' },
+          { source: 'M-U8', relation: 'aligns_to', target: 'M-STD-D' },
+          { source: 'M-P-DATE', relation: 'teaches', target: 'M-K-DATE' },
+          { source: 'M-P-DATE', relation: 'teaches', target: 'M-K-24H' },
+          { source: 'M-P-DATE', relation: 'aligns_to', target: 'M-STD-P' },
+          { source: 'M-K-ORDER', relation: 'develops', target: 'M-C-NUMBER' },
+          { source: 'M-K-LENGTH', relation: 'develops', target: 'M-C-MEASURE' },
+          {
+            source: 'M-K-DIRECTION',
+            relation: 'develops',
+            target: 'M-C-SPACE',
+          },
+          { source: 'M-K-VIEW', relation: 'develops', target: 'M-C-SPACE' },
+          { source: 'M-K-ANGLE', relation: 'develops', target: 'M-C-SPACE' },
+          { source: 'M-K-DATA', relation: 'develops', target: 'M-C-DATA' },
+          { source: 'M-K-QUANTITY', relation: 'develops', target: 'M-C-MODEL' },
+          {
+            source: 'M-K-MIX',
+            relation: 'prerequisite_of',
+            target: 'M-K-QUANTITY',
+          },
+          {
+            source: 'M-K-DECIMAL',
+            relation: 'prerequisite_of',
+            target: 'M-K-DECCOMP',
+          },
+          {
+            source: 'M-K-DECCOMP',
+            relation: 'prerequisite_of',
+            target: 'M-K-DECOPS',
+          },
+          {
+            source: 'M-K-SURVEY',
+            relation: 'prerequisite_of',
+            target: 'M-K-DATA',
+          },
+          { source: 'S', relation: 'contains', target: 'S-D-MAT' },
+          { source: 'S', relation: 'contains', target: 'S-D-EARTH' },
+          { source: 'S-D-MAT', relation: 'contains', target: 'S-U-WATER' },
+          { source: 'S-D-MAT', relation: 'contains', target: 'S-U-AIR' },
+          { source: 'S-D-EARTH', relation: 'contains', target: 'S-U-WEATHER' },
+          { source: 'S-U-WATER', relation: 'contains', target: 'S-W1' },
+          { source: 'S-U-WATER', relation: 'contains', target: 'S-W2' },
+          { source: 'S-U-WATER', relation: 'contains', target: 'S-W3' },
+          { source: 'S-U-WATER', relation: 'contains', target: 'S-W4' },
+          { source: 'S-U-WATER', relation: 'contains', target: 'S-W5' },
+          { source: 'S-U-WATER', relation: 'contains', target: 'S-W6' },
+          { source: 'S-U-WATER', relation: 'contains', target: 'S-W7' },
+          { source: 'S-U-WATER', relation: 'contains', target: 'S-W8' },
+          { source: 'S-U-AIR', relation: 'contains', target: 'S-A1' },
+          { source: 'S-U-AIR', relation: 'contains', target: 'S-A2' },
+          { source: 'S-U-AIR', relation: 'contains', target: 'S-A3' },
+          { source: 'S-U-AIR', relation: 'contains', target: 'S-A4' },
+          { source: 'S-U-AIR', relation: 'contains', target: 'S-A5' },
+          { source: 'S-U-AIR', relation: 'contains', target: 'S-A6' },
+          { source: 'S-U-AIR', relation: 'contains', target: 'S-A7' },
+          { source: 'S-U-AIR', relation: 'contains', target: 'S-A8' },
+          { source: 'S-U-WEATHER', relation: 'contains', target: 'S-T1' },
+          { source: 'S-U-WEATHER', relation: 'contains', target: 'S-T2' },
+          { source: 'S-U-WEATHER', relation: 'contains', target: 'S-T3' },
+          { source: 'S-U-WEATHER', relation: 'contains', target: 'S-T4' },
+          { source: 'S-U-WEATHER', relation: 'contains', target: 'S-T5' },
+          { source: 'S-U-WEATHER', relation: 'contains', target: 'S-T6' },
+          { source: 'S-U-WEATHER', relation: 'contains', target: 'S-T7' },
+          { source: 'S-U-WEATHER', relation: 'contains', target: 'S-T8' },
+          { source: 'S-W1', relation: 'teaches', target: 'S-K-STATE' },
+          { source: 'S-W2', relation: 'teaches', target: 'S-K-TEMP' },
+          { source: 'S-W3', relation: 'teaches', target: 'S-K-TEMP' },
+          { source: 'S-W4', relation: 'teaches', target: 'S-K-STATE' },
+          { source: 'S-W5', relation: 'teaches', target: 'S-K-DISSOLVE' },
+          { source: 'S-W6', relation: 'teaches', target: 'S-K-DISSOLVE' },
+          { source: 'S-W6', relation: 'uses_method', target: 'S-M-CONTROL' },
+          { source: 'S-W7', relation: 'teaches', target: 'S-K-SEPARATE' },
+          { source: 'S-W8', relation: 'teaches', target: 'S-K-PHYSICAL' },
+          { source: 'S-U-WATER', relation: 'aligns_to', target: 'S-STD-MAT' },
+          {
+            source: 'S-U-WATER',
+            relation: 'aligns_to',
+            target: 'S-STD-CHANGE',
+          },
+          { source: 'S-A1', relation: 'teaches', target: 'S-K-AIR' },
+          { source: 'S-A2', relation: 'teaches', target: 'S-K-AIR' },
+          { source: 'S-A3', relation: 'teaches', target: 'S-K-AIR' },
+          { source: 'S-A3', relation: 'uses_method', target: 'S-M-MODEL' },
+          { source: 'S-A4', relation: 'teaches', target: 'S-K-AIR' },
+          { source: 'S-A5', relation: 'teaches', target: 'S-K-AIR' },
+          { source: 'S-A6', relation: 'teaches', target: 'S-K-WIND' },
+          { source: 'S-A7', relation: 'teaches', target: 'S-K-WIND' },
+          { source: 'S-U-AIR', relation: 'aligns_to', target: 'S-STD-MAT' },
+          { source: 'S-T1', relation: 'teaches', target: 'S-K-WEATHER' },
+          { source: 'S-T2', relation: 'teaches', target: 'S-K-INSTRUMENT' },
+          { source: 'S-T3', relation: 'teaches', target: 'S-K-WDATA' },
+          { source: 'S-T4', relation: 'teaches', target: 'S-K-INSTRUMENT' },
+          { source: 'S-T5', relation: 'teaches', target: 'S-K-INSTRUMENT' },
+          { source: 'S-T6', relation: 'teaches', target: 'S-K-WEATHER' },
+          { source: 'S-T7', relation: 'teaches', target: 'S-K-WDATA' },
+          { source: 'S-T8', relation: 'teaches', target: 'S-K-FORECAST' },
+          {
+            source: 'S-U-WEATHER',
+            relation: 'aligns_to',
+            target: 'S-STD-WEATHER',
+          },
+          {
+            source: 'S-M-OBSERVE',
+            relation: 'develops',
+            target: 'S-C-INQUIRY',
+          },
+          { source: 'S-M-CONTROL', relation: 'develops', target: 'S-C-THINK' },
+          { source: 'S-M-EVIDENCE', relation: 'develops', target: 'S-C-THINK' },
+          { source: 'S-M-MODEL', relation: 'develops', target: 'S-C-CONCEPT' },
+          { source: 'S-K-AIR', relation: 'develops', target: 'S-C-CONCEPT' },
+          { source: 'S-K-WDATA', relation: 'develops', target: 'S-C-INQUIRY' },
+          { source: 'S-K-WEATHER', relation: 'develops', target: 'S-C-RESP' },
+          {
+            source: 'S-K-TEMP',
+            relation: 'prerequisite_of',
+            target: 'S-K-STATE',
+          },
+          {
+            source: 'S-K-AIR',
+            relation: 'prerequisite_of',
+            target: 'S-K-WIND',
+          },
+          {
+            source: 'S-K-WEATHER',
+            relation: 'prerequisite_of',
+            target: 'S-K-WDATA',
+          },
+          {
+            source: 'S-K-WDATA',
+            relation: 'prerequisite_of',
+            target: 'S-K-FORECAST',
+          },
+          {
+            source: 'X-WEATHER-STATION',
+            relation: 'cross_links',
+            target: 'M-K-LENGTH',
+          },
+          {
+            source: 'X-WEATHER-STATION',
+            relation: 'cross_links',
+            target: 'M-K-DIRECTION',
+          },
+          {
+            source: 'X-WEATHER-STATION',
+            relation: 'cross_links',
+            target: 'M-K-DATA',
+          },
+          {
+            source: 'X-WEATHER-STATION',
+            relation: 'cross_links',
+            target: 'S-K-INSTRUMENT',
+          },
+          {
+            source: 'X-WEATHER-STATION',
+            relation: 'cross_links',
+            target: 'S-K-WDATA',
+          },
+          {
+            source: 'X-WATER-TEMP',
+            relation: 'cross_links',
+            target: 'M-K-DATA',
+          },
+          {
+            source: 'X-WATER-TEMP',
+            relation: 'cross_links',
+            target: 'S-K-TEMP',
+          },
+          {
+            source: 'X-WATER-TEMP',
+            relation: 'cross_links',
+            target: 'S-K-STATE',
+          },
+          {
+            source: 'X-DISSOLVE',
+            relation: 'cross_links',
+            target: 'M-K-QUANTITY',
+          },
+          { source: 'X-DISSOLVE', relation: 'cross_links', target: 'M-K-DATA' },
+          {
+            source: 'X-DISSOLVE',
+            relation: 'cross_links',
+            target: 'S-K-DISSOLVE',
+          },
+          {
+            source: 'X-DISSOLVE',
+            relation: 'cross_links',
+            target: 'S-M-CONTROL',
+          },
+          {
+            source: 'X-AIR-MASS',
+            relation: 'cross_links',
+            target: 'M-K-ESTIMATE',
+          },
+          {
+            source: 'X-AIR-MASS',
+            relation: 'cross_links',
+            target: 'M-K-QUANTITY',
+          },
+          { source: 'X-AIR-MASS', relation: 'cross_links', target: 'S-K-AIR' },
+          {
+            source: 'X-WIND-MAP',
+            relation: 'cross_links',
+            target: 'M-K-DIRECTION',
+          },
+          { source: 'X-WIND-MAP', relation: 'cross_links', target: 'S-K-WIND' },
+          {
+            source: 'X-WIND-MAP',
+            relation: 'cross_links',
+            target: 'S-K-INSTRUMENT',
+          },
+        ],
+      }
+
+      const TYPE_LABELS = {
+        subject: '学科',
+        domain: '领域',
+        unit: '单元',
+        lesson: '课时',
+        knowledge: '知识点',
+        method: '方法',
+        standard: '课标',
+        competency: '核心素养',
+        cross_disciplinary_theme: '跨学科主题',
+      }
+
+      const RELATION_LABELS = {
+        contains: '包含',
+        teaches: '教学',
+        uses_method: '使用方法',
+        aligns_to: '对齐课标',
+        develops: '培养素养',
+        prerequisite_of: '前置知识',
+        applies_to: '应用于',
+        cross_links: '跨学科链接',
+      }
+
+      const TYPE_COLORS = {
+        subject: '#2563eb',
+        domain: '#7c3aed',
+        unit: '#0891b2',
+        lesson: '#059669',
+        knowledge: '#d97706',
+        method: '#db2777',
+        standard: '#78716c',
+        competency: '#dc2626',
+        cross_disciplinary_theme: '#ea580c',
+      }
+
+      const RELATION_COLORS = {
+        contains: '#94a3b8',
+        teaches: '#3b82f6',
+        uses_method: '#8b5cf6',
+        aligns_to: '#78716c',
+        develops: '#dc2626',
+        prerequisite_of: '#f59e0b',
+        applies_to: '#10b981',
+        cross_links: '#ea580c',
+      }
+
+      const SIZE_MAP = {
+        subject: 50,
+        domain: 38,
+        unit: 32,
+        lesson: 22,
+        knowledge: 26,
+        method: 24,
+        standard: 28,
+        competency: 28,
+        cross_disciplinary_theme: 36,
+      }
+
+      const STATUS_LABELS = {
+        current_book: '本册教材',
+        stage_standard: '学段课标',
+        stage_later: '后续学段',
+        recommended: '推荐主题',
+      }
+
+      const OVERVIEW_TYPES = new Set(['subject', 'domain', 'unit'])
+      const POS_STORAGE_KEY = 'grade3-kg-node-positions-v10'
+      const TYPE_LEVEL = {
+        subject: 0,
+        domain: 1,
+        unit: 2,
+        lesson: 3,
+        knowledge: 4,
+        method: 4,
+        standard: 3,
+        competency: 3,
+        cross_disciplinary_theme: 2,
+      }
+      const TYPE_ORDER = {
+        subject: 0,
+        domain: 1,
+        unit: 2,
+        lesson: 3,
+        knowledge: 4,
+        method: 5,
+        standard: 6,
+        competency: 7,
+        cross_disciplinary_theme: 8,
+      }
+      const LAYOUT = {
+        depthX: 220,
+        overviewDepthX: 252,
+        mathRootX: 40,
+        treeGap: 280,
+        scienceBelowGap: 96,
+        scienceRootX: 40 + 220 * 5 + 80,
+        crossThemeX: 40 + 220 * 2 + 30,
+        rowH: {
+          subject: 64,
+          domain: 56,
+          unit: 52,
+          lesson: 48,
+          knowledge: 56,
+          method: 50,
+          default: 48,
+        },
+        rowGap: 42,
+        overviewMinGap: 32,
+      }
+      let activeDepthX = LAYOUT.depthX
+      const MATH_LEVEL_COLORS = [
+        '#1e3a8a',
+        '#1d4ed8',
+        '#3b82f6',
+        '#60a5fa',
+        '#93c5fd',
+      ]
+      const SCIENCE_LEVEL_COLORS = [
+        '#064e3b',
+        '#047857',
+        '#059669',
+        '#34d399',
+        '#6ee7b7',
+      ]
+      const MATH_SHADES = {
+        subject: '#1e3a8a',
+        domain: '#1d4ed8',
+        unit: '#3b82f6',
+        lesson: '#60a5fa',
+        knowledge: '#93c5fd',
+        method: '#bfdbfe',
+        standard: '#93c5fd',
+        competency: '#bfdbfe',
+      }
+      const SCIENCE_SHADES = {
+        subject: '#064e3b',
+        domain: '#047857',
+        unit: '#059669',
+        lesson: '#34d399',
+        knowledge: '#6ee7b7',
+        method: '#a7f3d0',
+        standard: '#6ee7b7',
+        competency: '#a7f3d0',
+      }
+      const SUBJECT_LABELS = { math: '数学', science: '科学', cross: '跨学科' }
+      const SUBJECT_COLORS = {
+        math: '#2563eb',
+        science: '#059669',
+        cross: '#ea580c',
+      }
+
+      const DATA_STORAGE_KEY = 'grade3-kg-data-edits-v1'
+      const STATUS_OPTIONS = Object.keys(STATUS_LABELS)
+
+      function cloneGraphData(data) {
+        return JSON.parse(JSON.stringify(data))
+      }
+
+      function loadPersistedGraphData() {
+        try {
+          const raw = localStorage.getItem(DATA_STORAGE_KEY)
+          if (raw) {
+            const parsed = JSON.parse(raw)
+            if (parsed?.nodes?.length && parsed?.edges) return parsed
+          }
+        } catch (_) {
+          /* ignore */
+        }
+        return cloneGraphData(DEFAULT_GRAPH_DATA)
+      }
+
+      let GRAPH_DATA = loadPersistedGraphData()
+      let nodeMap = {}
+      let editMode = false
+      let dataDirty = false
+
+      function rebuildNodeMap() {
+        nodeMap = Object.fromEntries(GRAPH_DATA.nodes.map((n) => [n.id, n]))
+      }
+      rebuildNodeMap()
+
+      function setDataDirty(dirty) {
+        dataDirty = dirty
+        document
+          .getElementById('unsavedBadge')
+          .classList.toggle('visible', dirty)
+      }
+
+      function updateHeaderMeta() {
+        const m = GRAPH_DATA.metadata || {}
+        document.getElementById('headerTitle').textContent =
+          m.title || '知识图谱'
+        document.title = m.title || '知识图谱'
+        document.getElementById('headerMeta').textContent =
+          `版本 ${m.version || '—'} · ${m.generated_date || '—'} · 节点 ${GRAPH_DATA.nodes.length} · 关系 ${GRAPH_DATA.edges.length}`
+      }
+
+      function persistGraphData() {
+        localStorage.setItem(DATA_STORAGE_KEY, JSON.stringify(GRAPH_DATA))
+        setDataDirty(false)
+        updateHeaderMeta()
+      }
+
+      function exportGraphData() {
+        const blob = new Blob([JSON.stringify(GRAPH_DATA, null, 2)], {
+          type: 'application/json',
+        })
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        const title = (GRAPH_DATA.metadata?.title || '知识图谱').replace(
+          /[^\w\u4e00-\u9fff-]+/g,
+          '_',
+        )
+        a.href = url
+        a.download = `${title}.json`
+        a.click()
+        URL.revokeObjectURL(url)
+        persistGraphData()
+      }
+
+      function applyImportedGraphData(data) {
+        if (!data?.nodes?.length || !Array.isArray(data.edges)) {
+          alert('JSON 格式无效：需包含 nodes 数组与 edges 数组。')
+          return false
+        }
+        GRAPH_DATA = data
+        if (!GRAPH_DATA.metadata)
+          GRAPH_DATA.metadata = cloneGraphData(DEFAULT_GRAPH_DATA.metadata)
+        if (!GRAPH_DATA.node_types)
+          GRAPH_DATA.node_types = [...DEFAULT_GRAPH_DATA.node_types]
+        if (!GRAPH_DATA.relation_types)
+          GRAPH_DATA.relation_types = [...DEFAULT_GRAPH_DATA.relation_types]
+        rebuildNodeMap()
+        clearSavedPositions()
+        refreshFiltersUI()
+        updateHeaderMeta()
+        setDataDirty(true)
+        selectedNodeId = null
+        updateDetailIdleState()
+        updateMainDisplay()
+        return true
+      }
+
+      function resetGraphData() {
+        if (!confirm('确定恢复为原始内置数据？本地保存的修改将丢失。')) return
+        localStorage.removeItem(DATA_STORAGE_KEY)
+        GRAPH_DATA = cloneGraphData(DEFAULT_GRAPH_DATA)
+        rebuildNodeMap()
+        clearSavedPositions()
+        refreshFiltersUI()
+        updateHeaderMeta()
+        setDataDirty(false)
+        selectedNodeId = null
+        updateDetailIdleState()
+        updateMainDisplay()
+      }
+
+      function refreshAfterDataChange(keepSelection = true) {
+        rebuildNodeMap()
+        refreshFiltersUI()
+        updateHeaderMeta()
+        setDataDirty(true)
+        if (keepSelection && selectedNodeId && !nodeMap[selectedNodeId]) {
+          selectedNodeId = null
+          updateDetailIdleState()
+        } else if (keepSelection && selectedNodeId) {
+          showNodeDetail(selectedNodeId)
+        }
+        updateMainDisplay()
+      }
+
+      function refreshFiltersUI() {
+        const relContainer = document.getElementById('relationFilters')
+        relContainer.innerHTML = ''
+        GRAPH_DATA.relation_types.forEach((r) => {
+          const count = GRAPH_DATA.edges.filter((e) => e.relation === r).length
+          const label = document.createElement('label')
+          label.className = 'filter-item'
+          const checked = activeRelations.has(r)
+          const lineStyle =
+            r === 'cross_links'
+              ? 'background:repeating-linear-gradient(90deg,#2563eb 0 4px,transparent 4px 7px)'
+              : `background:${RELATION_COLORS[r] || '#94a3b8'}`
+          label.innerHTML = `
+          <input type="checkbox" ${checked ? 'checked' : ''} data-relation="${r}" />
+          <span class="legend-line" style="${lineStyle};height:${r === 'cross_links' ? 3 : 2}px"></span>
+          ${RELATION_LABELS[r] || r} (${count})${r === 'cross_links' ? ' · 虚线' : ''}
+        `
+          label.querySelector('input').addEventListener('change', (e) => {
+            if (e.target.checked) activeRelations.add(r)
+            else activeRelations.delete(r)
+            updateMainDisplay()
+          })
+          relContainer.appendChild(label)
+        })
+      }
+
+      function escapeHtml(str) {
+        return String(str ?? '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+      }
+
+      function buildNodeOptions(selectedId) {
+        return GRAPH_DATA.nodes
+          .slice()
+          .sort((a, b) => a.id.localeCompare(b.id))
+          .map(
+            (n) =>
+              `<option value="${escapeHtml(n.id)}"${n.id === selectedId ? ' selected' : ''}>${escapeHtml(n.id)} · ${escapeHtml(n.name)}</option>`,
+          )
+          .join('')
+      }
+
+      function buildSelectOptions(items, labels, selected) {
+        return items
+          .map(
+            (k) =>
+              `<option value="${escapeHtml(k)}"${k === selected ? ' selected' : ''}>${escapeHtml(labels[k] || k)}</option>`,
+          )
+          .join('')
+      }
+
+      function openModal(title, bodyHtml, onConfirm) {
+        const overlay = document.getElementById('modalOverlay')
+        const box = document.getElementById('modalBox')
+        box.innerHTML = `
+        <h3>${escapeHtml(title)}</h3>
+        ${bodyHtml}
+        <div class="modal-actions">
+          <button type="button" class="edit-btn" id="modalCancel">取消</button>
+          <button type="button" class="edit-btn primary" id="modalConfirm">确定</button>
+        </div>
+      `
+        overlay.classList.add('open')
+        overlay.setAttribute('aria-hidden', 'false')
+        const close = () => {
+          overlay.classList.remove('open')
+          overlay.setAttribute('aria-hidden', 'true')
+          box.innerHTML = ''
+        }
+        document.getElementById('modalCancel').onclick = close
+        overlay.onclick = (e) => {
+          if (e.target === overlay) close()
+        }
+        document.getElementById('modalConfirm').onclick = () => {
+          if (onConfirm(close) !== false) close()
+        }
+      }
+
+      function deleteNode(nodeId) {
+        if (
+          !confirm(
+            `确定删除节点「${nodeMap[nodeId]?.name || nodeId}」？相关关系将一并删除。`,
+          )
+        )
+          return
+        GRAPH_DATA.nodes = GRAPH_DATA.nodes.filter((n) => n.id !== nodeId)
+        GRAPH_DATA.edges = GRAPH_DATA.edges.filter(
+          (e) => e.source !== nodeId && e.target !== nodeId,
+        )
+        if (selectedNodeId === nodeId) selectedNodeId = null
+        refreshAfterDataChange(false)
+      }
+
+      function deleteEdge(source, target, relation) {
+        const idx = GRAPH_DATA.edges.findIndex(
+          (e) =>
+            e.source === source &&
+            e.target === target &&
+            e.relation === relation,
+        )
+        if (idx >= 0) GRAPH_DATA.edges.splice(idx, 1)
+        refreshAfterDataChange()
+      }
+
+      function saveNodeFromForm(nodeId, isNew) {
+        const id = (document.getElementById('editNodeId')?.value || '').trim()
+        const name = (
+          document.getElementById('editNodeName')?.value || ''
+        ).trim()
+        const type = document.getElementById('editNodeType')?.value
+        const status = document.getElementById('editNodeStatus')?.value
+        const source = (
+          document.getElementById('editNodeSource')?.value || ''
+        ).trim()
+        if (!id || !name || !type) {
+          alert('请填写节点 ID、名称和类型。')
+          return false
+        }
+        if (isNew && nodeMap[id]) {
+          alert('节点 ID 已存在，请使用其他 ID。')
+          return false
+        }
+        if (!isNew && id !== nodeId && nodeMap[id]) {
+          alert('新 ID 已被占用。')
+          return false
+        }
+        const node = { id, type, name, status: status || 'current_book' }
+        if (source) node.source = source
+        if (isNew) {
+          GRAPH_DATA.nodes.push(node)
+          if (!GRAPH_DATA.node_types.includes(type))
+            GRAPH_DATA.node_types.push(type)
+        } else {
+          const idx = GRAPH_DATA.nodes.findIndex((n) => n.id === nodeId)
+          if (idx < 0) return false
+          if (id !== nodeId) {
+            GRAPH_DATA.edges.forEach((e) => {
+              if (e.source === nodeId) e.source = id
+              if (e.target === nodeId) e.target = id
+            })
+            selectedNodeId = id
+          }
+          GRAPH_DATA.nodes[idx] = node
+        }
+        refreshAfterDataChange()
+        return true
+      }
+
+      function addEdgeFromForm(prefill = {}) {
+        const source = document.getElementById('editEdgeSource')?.value
+        const target = document.getElementById('editEdgeTarget')?.value
+        const relation = document.getElementById('editEdgeRelation')?.value
+        if (!source || !target || !relation) {
+          alert('请选择源节点、目标节点和关系类型。')
+          return false
+        }
+        if (source === target) {
+          alert('源节点与目标节点不能相同。')
+          return false
+        }
+        const exists = GRAPH_DATA.edges.some(
+          (e) =>
+            e.source === source &&
+            e.target === target &&
+            e.relation === relation,
+        )
+        if (exists) {
+          alert('该关系已存在。')
+          return false
+        }
+        GRAPH_DATA.edges.push({ source, target, relation })
+        if (!GRAPH_DATA.relation_types.includes(relation))
+          GRAPH_DATA.relation_types.push(relation)
+        refreshAfterDataChange()
+        return true
+      }
+
+      function showAddNodeModal() {
+        openModal(
+          '添加节点',
+          `
+        <div class="edit-form">
+          <div class="edit-field"><label>节点 ID</label><input id="editNodeId" placeholder="如 M-K-NEW" /></div>
+          <div class="edit-field"><label>名称</label><input id="editNodeName" /></div>
+          <div class="edit-field"><label>类型</label><select id="editNodeType">${buildSelectOptions(GRAPH_DATA.node_types, TYPE_LABELS, 'knowledge')}</select></div>
+          <div class="edit-field"><label>状态</label><select id="editNodeStatus">${buildSelectOptions(STATUS_OPTIONS, STATUS_LABELS, 'current_book')}</select></div>
+          <div class="edit-field"><label>出处（可选）</label><input id="editNodeSource" placeholder="教材页码或课标出处" /></div>
+        </div>
+      `,
+          (close) => saveNodeFromForm(null, true),
+        )
+      }
+
+      function showAddEdgeModal(prefill = {}) {
+        openModal(
+          '添加关系',
+          `
+        <div class="edit-form">
+          <div class="edit-field"><label>源节点</label><select id="editEdgeSource">${buildNodeOptions(prefill.source || selectedNodeId || '')}</select></div>
+          <div class="edit-field"><label>关系类型</label><select id="editEdgeRelation">${buildSelectOptions(GRAPH_DATA.relation_types, RELATION_LABELS, prefill.relation || 'teaches')}</select></div>
+          <div class="edit-field"><label>目标节点</label><select id="editEdgeTarget">${buildNodeOptions(prefill.target || '')}</select></div>
+        </div>
+      `,
+          (close) => addEdgeFromForm(prefill),
+        )
+      }
+
+      function showMetadataModal() {
+        const m = GRAPH_DATA.metadata || {}
+        const sources = (m.source_files || []).join('\n')
+        openModal(
+          '编辑元数据',
+          `
+        <div class="edit-form">
+          <div class="edit-field"><label>标题</label><input id="metaTitle" value="${escapeHtml(m.title || '')}" /></div>
+          <div class="edit-field"><label>版本</label><input id="metaVersion" value="${escapeHtml(m.version || '')}" /></div>
+          <div class="edit-field"><label>生成日期</label><input id="metaDate" value="${escapeHtml(m.generated_date || '')}" /></div>
+          <div class="edit-field"><label>年级</label><input id="metaGrade" value="${escapeHtml(m.grade || '')}" /></div>
+          <div class="edit-field"><label>学期</label><input id="metaSemester" value="${escapeHtml(m.semester || '')}" /></div>
+          <div class="edit-field"><label>范围说明</label><textarea id="metaScope">${escapeHtml(m.scope_note || '')}</textarea></div>
+          <div class="edit-field"><label>页码说明</label><input id="metaPageRef" value="${escapeHtml(m.page_reference || '')}" /></div>
+          <div class="edit-field"><label>来源文件（每行一个）</label><textarea id="metaSources">${escapeHtml(sources)}</textarea></div>
+        </div>
+      `,
+          (close) => {
+            GRAPH_DATA.metadata = {
+              title: document.getElementById('metaTitle').value.trim(),
+              version: document.getElementById('metaVersion').value.trim(),
+              generated_date: document.getElementById('metaDate').value.trim(),
+              grade: document.getElementById('metaGrade').value.trim(),
+              semester: document.getElementById('metaSemester').value.trim(),
+              scope_note: document.getElementById('metaScope').value.trim(),
+              page_reference: document
+                .getElementById('metaPageRef')
+                .value.trim(),
+              source_files: document
+                .getElementById('metaSources')
+                .value.split('\n')
+                .map((s) => s.trim())
+                .filter(Boolean),
+            }
+            refreshAfterDataChange()
+            return true
+          },
+        )
+      }
+
+      function showDataBrowserModal() {
+        let tab = 'nodes'
+        const render = (filter = '') => {
+          const q = filter.trim().toLowerCase()
+          const match = (s) => !q || String(s).toLowerCase().includes(q)
+          const box = document.getElementById('modalBox')
+          const nodesRows = GRAPH_DATA.nodes
+            .filter((n) => match(n.id) || match(n.name) || match(n.type))
+            .map(
+              (n) => `<tr>
+            <td>${escapeHtml(n.id)}</td>
+            <td>${escapeHtml(n.name)}</td>
+            <td>${escapeHtml(TYPE_LABELS[n.type] || n.type)}</td>
+            <td>${escapeHtml(STATUS_LABELS[n.status] || n.status || '—')}</td>
+            <td>
+              <button type="button" class="link-btn" data-jump-node="${escapeHtml(n.id)}">编辑</button>
+              <button type="button" class="link-btn danger" data-del-node="${escapeHtml(n.id)}">删除</button>
+            </td>
+          </tr>`,
+            )
+            .join('')
+          const edgesRows = GRAPH_DATA.edges
+            .filter(
+              (e) =>
+                match(e.source) ||
+                match(e.target) ||
+                match(e.relation) ||
+                match(nodeMap[e.source]?.name) ||
+                match(nodeMap[e.target]?.name),
+            )
+            .map(
+              (e) => `<tr>
+            <td>${escapeHtml(nodeMap[e.source]?.name || e.source)}<br><small>${escapeHtml(e.source)}</small></td>
+            <td>${escapeHtml(RELATION_LABELS[e.relation] || e.relation)}</td>
+            <td>${escapeHtml(nodeMap[e.target]?.name || e.target)}<br><small>${escapeHtml(e.target)}</small></td>
+            <td><button type="button" class="link-btn danger" data-del-edge="${escapeHtml(e.source)}|${escapeHtml(e.target)}|${escapeHtml(e.relation)}">删除</button></td>
+          </tr>`,
+            )
+            .join('')
+          box.innerHTML = `
+          <h3>浏览全部数据</h3>
+          <div class="modal-tabs">
+            <button type="button" class="${tab === 'nodes' ? 'active' : ''}" data-tab="nodes">节点 (${GRAPH_DATA.nodes.length})</button>
+            <button type="button" class="${tab === 'edges' ? 'active' : ''}" data-tab="edges">关系 (${GRAPH_DATA.edges.length})</button>
+          </div>
+          <input type="text" class="search-box data-search" id="dataBrowserSearch" placeholder="搜索…" value="${escapeHtml(filter)}" />
+          <div class="data-table-wrap">
+            ${
+              tab === 'nodes'
+                ? `
+              <table class="data-table">
+                <thead><tr><th>ID</th><th>名称</th><th>类型</th><th>状态</th><th>操作</th></tr></thead>
+                <tbody>${nodesRows || '<tr><td colspan="5">无匹配项</td></tr>'}</tbody>
+              </table>
+            `
+                : `
+              <table class="data-table">
+                <thead><tr><th>源节点</th><th>关系</th><th>目标节点</th><th>操作</th></tr></thead>
+                <tbody>${edgesRows || '<tr><td colspan="4">无匹配项</td></tr>'}</tbody>
+              </table>
+            `
+            }
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="edit-btn" id="modalCancel">关闭</button>
+          </div>
+        `
+          const overlay = document.getElementById('modalOverlay')
+          overlay.classList.add('open')
+          overlay.setAttribute('aria-hidden', 'false')
+          document.getElementById('modalCancel').onclick = () => {
+            overlay.classList.remove('open')
+            overlay.setAttribute('aria-hidden', 'true')
+            box.innerHTML = ''
+          }
+          overlay.onclick = (e) => {
+            if (e.target === overlay)
+              document.getElementById('modalCancel').click()
+          }
+          box.querySelectorAll('[data-tab]').forEach((btn) => {
+            btn.onclick = () => {
+              tab = btn.dataset.tab
+              render(document.getElementById('dataBrowserSearch')?.value || '')
+            }
+          })
+          const searchEl = document.getElementById('dataBrowserSearch')
+          searchEl.oninput = () => render(searchEl.value)
+          box.querySelectorAll('[data-jump-node]').forEach((btn) => {
+            btn.onclick = () => {
+              document.getElementById('modalCancel').click()
+              if (!editMode) toggleEditMode()
+              showNodeDetail(btn.dataset.jumpNode)
+            }
+          })
+          box.querySelectorAll('[data-del-node]').forEach((btn) => {
+            btn.onclick = () => {
+              if (confirm('确定删除该节点？')) {
+                deleteNode(btn.dataset.delNode)
+                render(searchEl.value)
+              }
+            }
+          })
+          box.querySelectorAll('[data-del-edge]').forEach((btn) => {
+            btn.onclick = () => {
+              if (confirm('确定删除该关系？')) {
+                const [source, target, relation] =
+                  btn.dataset.delEdge.split('|')
+                deleteEdge(source, target, relation)
+                render(searchEl.value)
+              }
+            }
+          })
+        }
+        render()
+      }
+
+      function toggleEditMode() {
+        editMode = !editMode
+        document.body.classList.toggle('edit-mode-on', editMode)
+        const btn = document.getElementById('btnEditMode')
+        btn.classList.toggle('active-edit', editMode)
+        btn.textContent = editMode ? '退出审核' : '审核编辑'
+        document.getElementById('detailPanelTitle').textContent = editMode
+          ? '节点编辑'
+          : '节点详情'
+        if (selectedNodeId) showNodeDetail(selectedNodeId)
+        else updateDetailIdleState()
+      }
+
+      const DETAIL_IDLE_HTML =
+        '点击图谱中的节点查看详细信息、关联关系和跨学科链接。开启「审核编辑」后可修改、添加或删除内容。'
+
+      function updateDetailIdleState() {
+        const empty = document.getElementById('detailEmpty')
+        const content = document.getElementById('detailContent')
+        content.style.display = 'none'
+        empty.style.display = 'block'
+        if (editMode) {
+          empty.className = 'detail-empty detail-edit-idle'
+          empty.innerHTML = `
+            <p>当前未选中节点。可点击下方按钮<strong>添加新节点</strong>，或点击图谱中的节点进行编辑。</p>
+            <div class="edit-actions">
+              <button type="button" class="edit-btn primary" data-edit-action="add-node">＋ 添加节点</button>
+              <button type="button" class="edit-btn" data-edit-action="add-edge">添加关系</button>
+              <button type="button" class="edit-btn" data-edit-action="browse">浏览全部数据</button>
+            </div>
+          `
+          empty.querySelectorAll('[data-edit-action]').forEach((btn) => {
+            btn.addEventListener('click', () => {
+              const action = btn.dataset.editAction
+              if (action === 'add-node') showAddNodeModal()
+              else if (action === 'add-edge') showAddEdgeModal()
+              else if (action === 'browse') showDataBrowserModal()
+            })
+          })
+        } else {
+          empty.className = 'detail-empty'
+          empty.textContent = DETAIL_IDLE_HTML
+        }
+      }
+
+      function renderNodeEditForm(node) {
+        const outEdges = GRAPH_DATA.edges.filter((e) => e.source === node.id)
+        const inEdges = GRAPH_DATA.edges.filter((e) => e.target === node.id)
+        const allEdges = [
+          ...outEdges.map((e) => ({ ...e, dir: '出' })),
+          ...inEdges.map((e) => ({ ...e, dir: '入' })),
+        ]
+        let edgesHtml = allEdges
+          .map((e) => {
+            const otherId = e.dir === '出' ? e.target : e.source
+            const other = nodeMap[otherId]
+            return `<div class="edge-edit-row">
+          <div class="edge-text"><span class="edge-relation">${RELATION_LABELS[e.relation]}</span> (${e.dir}) → ${escapeHtml(other?.name || otherId)}</div>
+          <button type="button" data-del-edge="${escapeHtml(e.source)}|${escapeHtml(e.target)}|${escapeHtml(e.relation)}">删除</button>
+        </div>`
+          })
+          .join('')
+        if (!edgesHtml) edgesHtml = '<div class="detail-empty">暂无关系</div>'
+
+        return `
+        <div class="edit-form">
+          <div class="edit-field"><label>节点 ID</label><input id="editNodeId" value="${escapeHtml(node.id)}" /></div>
+          <div class="edit-field"><label>名称</label><input id="editNodeName" value="${escapeHtml(node.name)}" /></div>
+          <div class="edit-field"><label>类型</label><select id="editNodeType">${buildSelectOptions(GRAPH_DATA.node_types, TYPE_LABELS, node.type)}</select></div>
+          <div class="edit-field"><label>状态</label><select id="editNodeStatus">${buildSelectOptions(STATUS_OPTIONS, STATUS_LABELS, node.status || 'current_book')}</select></div>
+          <div class="edit-field"><label>出处（可选）</label><input id="editNodeSource" value="${escapeHtml(node.source || '')}" /></div>
+          <div class="edit-actions">
+            <button type="button" class="edit-btn primary" id="btnSaveNode">保存节点</button>
+            <button type="button" class="edit-btn" id="btnAddEdgeForNode">添加关系</button>
+            <button type="button" class="edit-btn danger" id="btnDeleteNode">删除节点</button>
+          </div>
+          <div class="detail-field" style="margin-top:8px">
+            <div class="label">关联关系 (${allEdges.length})</div>
+            ${edgesHtml}
+          </div>
+        </div>
+      `
+      }
+
+      function bindNodeEditEvents(nodeId) {
+        document
+          .getElementById('btnSaveNode')
+          ?.addEventListener('click', () => saveNodeFromForm(nodeId, false))
+        document
+          .getElementById('btnDeleteNode')
+          ?.addEventListener('click', () => deleteNode(nodeId))
+        document
+          .getElementById('btnAddEdgeForNode')
+          ?.addEventListener('click', () =>
+            showAddEdgeModal({ source: nodeId }),
+          )
+        document.querySelectorAll('[data-del-edge]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const [source, target, relation] = btn.dataset.delEdge.split('|')
+            if (confirm('确定删除该关系？'))
+              deleteEdge(source, target, relation)
+          })
+        })
+      }
+
+      let currentView = 'all'
+      let layoutMode = 'overview'
+      let showAllDetail = false
+      let showScienceLessons = false
+      let activeTypes = new Set([...OVERVIEW_TYPES, 'knowledge', 'method'])
+      let activeRelations = new Set([
+        'contains',
+        'teaches',
+        'uses_method',
+        'cross_links',
+      ])
+      let searchQuery = ''
+      let selectedNodeId = null
+      let liveGraphData = null
+      let fitScheduled = false
+
+      const chart = echarts.init(document.getElementById('graph'))
+      const graphEl = document.getElementById('graph')
+
+      function getSubjectGroup(id) {
+        if (id.startsWith('X-')) return 'cross'
+        if (id.startsWith('M')) return 'math'
+        if (id.startsWith('S')) return 'science'
+        return 'other'
+      }
+
+      function getThemeClusters() {
+        return GRAPH_DATA.nodes
+          .filter((n) => n.type === 'cross_disciplinary_theme')
+          .map((theme) => {
+            const links = GRAPH_DATA.edges.filter(
+              (e) => e.source === theme.id && e.relation === 'cross_links',
+            )
+            const mathIds = sortChildIds(
+              links
+                .map((e) => e.target)
+                .filter((id) => getSubjectGroup(id) === 'math'),
+            )
+            const sciIds = sortChildIds(
+              links
+                .map((e) => e.target)
+                .filter((id) => getSubjectGroup(id) === 'science'),
+            )
+            return { themeId: theme.id, mathIds, sciIds }
+          })
+          .filter((c) => c.mathIds.length && c.sciIds.length)
+      }
+
+      function buildKnowledgeCrossEdges(nodeIdSet) {
+        const edges = []
+        const seen = new Set()
+        getThemeClusters().forEach(({ mathIds, sciIds }) => {
+          mathIds.forEach((m) => {
+            sciIds.forEach((s) => {
+              if (!nodeIdSet.has(m) || !nodeIdSet.has(s)) return
+              const key = m < s ? `${m}|${s}` : `${s}|${m}`
+              if (seen.has(key)) return
+              seen.add(key)
+              edges.push({ source: m, target: s, relation: 'cross_links' })
+            })
+          })
+        })
+        return edges
+      }
+
+      /** 课时隐藏时，将 teaches/uses_method 边桥接到可见的单元等祖先节点 */
+      function buildBridgedTeachingEdges(nodeIdSet, existingEdges = []) {
+        const seen = new Set(
+          existingEdges.map((e) => `${e.relation}|${e.source}|${e.target}`),
+        )
+        const edges = []
+        GRAPH_DATA.edges.forEach((e) => {
+          if (!activeRelations.has(e.relation)) return
+          if (!['teaches', 'uses_method'].includes(e.relation)) return
+          if (!nodeIdSet.has(e.target)) return
+          if (nodeIdSet.has(e.source)) return
+          const anchor = resolveTeachingAnchor(e.source, nodeIdSet)
+          if (!anchor) return
+          const key = `${e.relation}|${anchor}|${e.target}`
+          if (seen.has(key)) return
+          seen.add(key)
+          edges.push({ source: anchor, target: e.target, relation: e.relation })
+        })
+        return edges
+      }
+
+      function getCrossKnowledgePeers(nodeId) {
+        const subject = getSubjectGroup(nodeId)
+        if (subject !== 'math' && subject !== 'science') return []
+        const peers = []
+        const seen = new Set()
+        getThemeClusters().forEach((cluster) => {
+          if (
+            !cluster.mathIds.includes(nodeId) &&
+            !cluster.sciIds.includes(nodeId)
+          )
+            return
+          const peerIds = subject === 'math' ? cluster.sciIds : cluster.mathIds
+          peerIds.forEach((id) => {
+            if (seen.has(id)) return
+            seen.add(id)
+            const n = nodeMap[id]
+            if (n) peers.push(n)
+          })
+        })
+        return peers
+      }
+
+      function isCrossLinkedNode(id) {
+        return getThemeClusters().some(
+          (c) => c.mathIds.includes(id) || c.sciIds.includes(id),
+        )
+      }
+
+      function getCrossRelevantNodeIds() {
+        const ids = new Set()
+        const addStructuralAncestors = (nodeId) => {
+          let current = nodeId
+          while (current) {
+            ids.add(current)
+            const containEdge = GRAPH_DATA.edges.find(
+              (e) => e.target === current && e.relation === 'contains',
+            )
+            current = containEdge?.source || null
+          }
+        }
+        getThemeClusters().forEach(({ mathIds, sciIds }) => {
+          ;[...mathIds, ...sciIds].forEach((kpId) => {
+            ids.add(kpId)
+            let parentId = getTeachingParent(kpId)
+            while (parentId) {
+              ids.add(parentId)
+              const n = nodeMap[parentId]
+              if (
+                !n ||
+                n.type === 'unit' ||
+                n.type === 'domain' ||
+                n.type === 'subject'
+              ) {
+                addStructuralAncestors(parentId)
+                break
+              }
+              parentId =
+                getTeachingParent(parentId) ||
+                GRAPH_DATA.edges.find(
+                  (e) => e.target === parentId && e.relation === 'contains',
+                )?.source
+            }
+          })
+        })
+        return ids
+      }
+
+      function isCrossViewNode(n) {
+        return getCrossRelevantNodeIds().has(n.id)
+      }
+
+      function isOverviewNode(n) {
+        if (n.type === 'lesson') return showScienceLessons
+        if (OVERVIEW_TYPES.has(n.type)) return true
+        if (['knowledge', 'method'].includes(n.type) && isCrossLinkedNode(n.id))
+          return true
+        return false
+      }
+
+      function posStorageKey() {
+        const mode = showAllDetail ? 'all-detail' : currentView
+        return `${POS_STORAGE_KEY}-${mode}`
+      }
+
+      function hasCustomLayout() {
+        return localStorage.getItem(`${posStorageKey()}-custom`) === '1'
+      }
+
+      function loadSavedPositions() {
+        try {
+          return JSON.parse(localStorage.getItem(posStorageKey())) || {}
+        } catch {
+          return {}
+        }
+      }
+
+      function saveAllPositions() {
+        if (layoutMode === 'hierarchy') return
+        const data = liveGraphData || chart.getOption()?.series?.[0]?.data
+        if (!data) return
+        const saved = {}
+        data.forEach((n) => {
+          if (n.id != null && n.x != null && n.y != null)
+            saved[n.id] = { x: n.x, y: n.y }
+        })
+        localStorage.setItem(posStorageKey(), JSON.stringify(saved))
+        localStorage.setItem(`${posStorageKey()}-custom`, '1')
+      }
+
+      function clearSavedPositions() {
+        const key = posStorageKey()
+        localStorage.removeItem(key)
+        localStorage.removeItem(`${key}-custom`)
+        ;['all', 'math', 'science', 'cross', 'all-detail'].forEach((mode) => {
+          const k = `${POS_STORAGE_KEY}-${mode}`
+          localStorage.removeItem(k)
+          localStorage.removeItem(`${k}-custom`)
+        })
+      }
+
+      function getNodeLevel(n) {
+        return TYPE_LEVEL[n.type] ?? 3
+      }
+
+      function getNodeColor(n) {
+        const subject = getSubjectGroup(n.id)
+        const level = getNodeLevel(n)
+        if (subject === 'math')
+          return (
+            MATH_LEVEL_COLORS[Math.min(level, 4)] ||
+            MATH_SHADES[n.type] ||
+            '#60a5fa'
+          )
+        if (subject === 'science')
+          return (
+            SCIENCE_LEVEL_COLORS[Math.min(level, 4)] ||
+            SCIENCE_SHADES[n.type] ||
+            '#34d399'
+          )
+        if (n.type === 'cross_disciplinary_theme') return '#ea580c'
+        return TYPE_COLORS[n.type]
+      }
+
+      function getNodeBorderColor(n) {
+        const subject = getSubjectGroup(n.id)
+        const level = getNodeLevel(n)
+        if (subject === 'math')
+          return MATH_LEVEL_COLORS[Math.min(level, 2)] || '#1d4ed8'
+        if (subject === 'science')
+          return SCIENCE_LEVEL_COLORS[Math.min(level, 2)] || '#047857'
+        return '#c2410c'
+      }
+
+      function getNodeSymbol(n) {
+        if (n.type === 'cross_disciplinary_theme') return 'diamond'
+        if (n.type === 'subject') return 'roundRect'
+        if (n.type === 'domain') return 'roundRect'
+        if (n.type === 'unit') return 'circle'
+        if (n.type === 'lesson') return 'circle'
+        if (n.type === 'knowledge' || n.type === 'method') return 'pin'
+        return 'circle'
+      }
+
+      function getNodeSize(n) {
+        const level = getNodeLevel(n)
+        const sizes = [54, 42, 32, 24, 18]
+        return sizes[Math.min(level, 4)] || SIZE_MAP[n.type] || 18
+      }
+
+      function getNodeLabelStyle(n) {
+        const level = getNodeLevel(n)
+        const subject = getSubjectGroup(n.id)
+        const fontSizes = [14, 13, 12, 11, 10]
+        const fontWeights = ['bold', 'bold', '600', 'normal', 'normal']
+        const colors = {
+          math: ['#1e3a8a', '#1e40af', '#1d4ed8', '#2563eb', '#3b82f6'],
+          science: ['#064e3b', '#065f46', '#047857', '#059669', '#10b981'],
+          cross: ['#9a3412', '#9a3412', '#c2410c', '#ea580c', '#fb923c'],
+        }
+        const sub =
+          subject === 'math'
+            ? 'math'
+            : subject === 'science'
+              ? 'science'
+              : 'cross'
+        const idx = Math.min(level, 4)
+        return {
+          fontSize: fontSizes[idx],
+          fontWeight: fontWeights[idx],
+          color: colors[sub][idx],
+        }
+      }
+
+      function getTeachingParent(nodeId) {
+        const edge = GRAPH_DATA.edges.find(
+          (e) =>
+            e.target === nodeId &&
+            ['teaches', 'uses_method'].includes(e.relation),
+        )
+        return edge?.source
+      }
+
+      /** 概览模式下，课时等不可见时向上找到可见的 contains 祖先作为锚点 */
+      function resolveTeachingAnchor(sourceId, nodeIdSet) {
+        let cur = sourceId
+        const visited = new Set()
+        while (cur && !visited.has(cur)) {
+          visited.add(cur)
+          if (nodeIdSet.has(cur)) return cur
+          const up = GRAPH_DATA.edges.find(
+            (e) => e.target === cur && e.relation === 'contains',
+          )
+          cur = up?.source
+        }
+        return null
+      }
+
+      function resolveVisibleAnchor(nodeId, nodeIdSet, positions) {
+        let cur = getTeachingParent(nodeId)
+        const visited = new Set()
+        while (cur && !visited.has(cur)) {
+          visited.add(cur)
+          if (nodeIdSet.has(cur) && positions[cur]) return cur
+          const up = GRAPH_DATA.edges.find(
+            (e) => e.target === cur && e.relation === 'contains',
+          )
+          cur = up?.source
+        }
+        return null
+      }
+
+      function getNodeVisualExtents(n) {
+        const r = getNodeSize(n) / 2
+        const level = getNodeLevel(n)
+        if (layoutMode === 'hierarchy' && level >= 3) {
+          const charsPerLine = n.type === 'knowledge' ? 14 : 10
+          const lines = Math.max(
+            1,
+            Math.ceil((n.name?.length || 0) / charsPerLine),
+          )
+          const labelH = lines * 15 + 10
+          return {
+            left: -r - 10,
+            right: r + 10,
+            top: -r - labelH - 12,
+            bottom: r + 12,
+          }
+        }
+        if (
+          layoutMode === 'overview' &&
+          ['subject', 'domain', 'unit'].includes(n.type)
+        ) {
+          const labelW = n.type === 'subject' ? 120 : 150
+          const charsPerLine = 8
+          const lines = Math.max(
+            1,
+            Math.ceil((n.name?.length || 0) / charsPerLine),
+          )
+          const labelH = lines * 14 + 14
+          return {
+            left: -labelW / 2 - 8,
+            right: labelW / 2 + 8,
+            top: -r - 10,
+            bottom: r + labelH + 10,
+          }
+        }
+        if (
+          layoutMode === 'overview' &&
+          ['knowledge', 'method'].includes(n.type)
+        ) {
+          const labelW = 140
+          const charsPerLine = 12
+          const lines = Math.max(
+            1,
+            Math.ceil((n.name?.length || 0) / charsPerLine),
+          )
+          const labelH = lines * 13 + 14
+          return {
+            left: -labelW / 2 - 8,
+            right: labelW / 2 + 8,
+            top: -r - 10,
+            bottom: r + labelH + 10,
+          }
+        }
+        const showLabel = shouldShowLabel(n)
+        const label = showLabel ? getNodeLabel(n) : ''
+        const charW = level <= 2 ? 8 : 7
+        const labelW = showLabel ? Math.min(label.length * charW + 24, 200) : 0
+        const labelDist = level <= 2 ? 10 : 8
+        return {
+          left: -r - 10,
+          right: r + labelW + labelDist + 10,
+          top: -(r + 12),
+          bottom: r + 12,
+        }
+      }
+
+      function measurePositionsExtent(positions, ids) {
+        let minX = Infinity
+        let maxX = -Infinity
+        ids.forEach((id) => {
+          const n = nodeMap[id]
+          const p = positions[id]
+          if (!n || !p) return
+          const ext = getNodeVisualExtents(n)
+          minX = Math.min(minX, p.x + ext.left)
+          maxX = Math.max(maxX, p.x + ext.right)
+        })
+        return { minX, maxX }
+      }
+
+      function sortChildIds(ids) {
+        return [...ids].sort((a, b) => {
+          const ta = TYPE_ORDER[nodeMap[a]?.type] ?? 9
+          const tb = TYPE_ORDER[nodeMap[b]?.type] ?? 9
+          if (ta !== tb) return ta - tb
+          return (nodeMap[a]?.name || a).localeCompare(
+            nodeMap[b]?.name || '',
+            'zh-CN',
+          )
+        })
+      }
+
+      function buildHierarchyChildrenMap(nodeIdSet, relations) {
+        const map = {}
+        GRAPH_DATA.edges.forEach((e) => {
+          if (!relations.includes(e.relation)) return
+          if (!nodeIdSet.has(e.source) || !nodeIdSet.has(e.target)) return
+          if (!map[e.source]) map[e.source] = []
+          if (!map[e.source].includes(e.target)) map[e.source].push(e.target)
+        })
+        Object.keys(map).forEach((k) => {
+          map[k] = sortChildIds(map[k])
+        })
+        return map
+      }
+
+      function getNodeLabel(n) {
+        if (layoutMode === 'hierarchy') {
+          if (['knowledge', 'method'].includes(n.type)) return n.name
+          const maxByType = { lesson: 14, unit: 18, domain: 12, subject: 10 }
+          const max = maxByType[n.type] ?? 12
+          return n.name.length > max ? n.name.slice(0, max) + '…' : n.name
+        }
+        if (layoutMode === 'overview') {
+          if (['knowledge', 'method', 'unit'].includes(n.type)) return n.name
+          if (n.type === 'lesson') {
+            const max = 14
+            return n.name.length > max ? n.name.slice(0, max) + '…' : n.name
+          }
+        }
+        if (
+          ['unit', 'lesson', 'cross_disciplinary_theme', 'knowledge'].includes(
+            n.type,
+          )
+        ) {
+          const max = n.type === 'lesson' ? 14 : 18
+          return n.name.length > max ? n.name.slice(0, max) + '…' : n.name
+        }
+        if (n.name.length > 10) return n.name.slice(0, 10) + '…'
+        return n.name
+      }
+
+      function shouldShowLabel(n) {
+        if (layoutMode === 'hierarchy') {
+          if (n.type === 'lesson')
+            return showScienceLessons || currentView === 'science'
+          return (
+            [
+              'subject',
+              'domain',
+              'unit',
+              'knowledge',
+              'method',
+              'standard',
+              'competency',
+              'cross_disciplinary_theme',
+            ].includes(n.type) || n.id === selectedNodeId
+          )
+        }
+        if (layoutMode === 'overview' && !showAllDetail) {
+          if (n.type === 'lesson') return false
+          return [
+            'subject',
+            'domain',
+            'unit',
+            'cross_disciplinary_theme',
+            'knowledge',
+            'method',
+          ].includes(n.type)
+        }
+        if (n.type === 'lesson') return false
+        return (
+          [
+            'subject',
+            'domain',
+            'unit',
+            'cross_disciplinary_theme',
+            'knowledge',
+          ].includes(n.type) || n.id === selectedNodeId
+        )
+      }
+
+      function applyViewDefaults(view) {
+        currentView = view
+        selectedNodeId = null
+        showAllDetail = false
+        document.getElementById('btnToggleDetail').classList.remove('active')
+        document.getElementById('btnToggleDetail').textContent =
+          '展开知识点 / 课标等详细节点'
+
+        if (view === 'all') {
+          layoutMode = 'overview'
+          clearSavedPositions()
+          activeTypes = new Set([...OVERVIEW_TYPES, 'knowledge', 'method'])
+          activeRelations = new Set([
+            'contains',
+            'teaches',
+            'uses_method',
+            'cross_links',
+          ])
+          showScienceLessons = false
+          document.getElementById('chkShowLessons').checked = false
+        } else if (view === 'math' || view === 'science') {
+          layoutMode = 'hierarchy'
+          clearSavedPositions()
+          activeTypes = new Set(
+            GRAPH_DATA.node_types.filter(
+              (t) => t !== 'cross_disciplinary_theme',
+            ),
+          )
+          activeRelations = new Set(['contains', 'teaches', 'uses_method'])
+        } else if (view === 'cross') {
+          layoutMode = 'overview'
+          clearSavedPositions()
+          activeTypes = new Set([
+            ...OVERVIEW_TYPES,
+            'lesson',
+            'knowledge',
+            'method',
+          ])
+          activeRelations = new Set([
+            'contains',
+            'teaches',
+            'uses_method',
+            'cross_links',
+          ])
+          showScienceLessons = false
+          document.getElementById('chkShowLessons').checked = false
+        }
+
+        document.querySelectorAll('#typeFilters input').forEach((inp) => {
+          inp.checked = activeTypes.has(inp.dataset.type)
+        })
+        document.querySelectorAll('#relationFilters input').forEach((inp) => {
+          inp.checked = activeRelations.has(inp.dataset.relation)
+        })
+
+        selectedNodeId = null
+        updateDetailIdleState()
+        updateMainDisplay()
+      }
+
+      function updateMainDisplay() {
+        document.getElementById('graph').style.display = 'block'
+        document.getElementById('crossPanel').style.display = 'none'
+        document.getElementById('graphToolbar').style.display = 'flex'
+        renderChart()
+      }
+
+      function filterNodes() {
+        return GRAPH_DATA.nodes.filter((n) => {
+          if (n.type === 'cross_disciplinary_theme') return false
+          if (currentView === 'cross') {
+            if (!isCrossViewNode(n)) return false
+          } else if (!activeTypes.has(n.type)) {
+            return false
+          }
+          if (currentView === 'all' && !showAllDetail && !isOverviewNode(n))
+            return false
+          if (currentView === 'math' && getSubjectGroup(n.id) !== 'math')
+            return false
+          if (currentView === 'science' && getSubjectGroup(n.id) !== 'science')
+            return false
+          if (
+            searchQuery &&
+            !n.name.includes(searchQuery) &&
+            !n.id.toLowerCase().includes(searchQuery.toLowerCase())
+          )
+            return false
+          return true
+        })
+      }
+
+      function filterEdges(nodeIds) {
+        const idSet = new Set(nodeIds)
+        let edges = GRAPH_DATA.edges.filter((e) => {
+          if (!activeRelations.has(e.relation)) return false
+          if (e.relation === 'cross_links' && e.source.startsWith('X-'))
+            return false
+          return idSet.has(e.source) && idSet.has(e.target)
+        })
+        edges = edges.concat(buildBridgedTeachingEdges(idSet, edges))
+        if (activeRelations.has('cross_links')) {
+          edges = edges.concat(buildKnowledgeCrossEdges(idSet))
+        }
+        return edges
+      }
+
+      function buildChildrenMap(edges, relations) {
+        const map = {}
+        edges.forEach((e) => {
+          if (!relations.includes(e.relation)) return
+          if (!map[e.source]) map[e.source] = []
+          map[e.source].push(e.target)
+        })
+        return map
+      }
+
+      function layoutTreeNoOverlap(
+        rootId,
+        nodeIdSet,
+        childrenMap,
+        startX,
+        depthX,
+        minRowH,
+        startY = 72,
+      ) {
+        const positions = {}
+        let globalY = startY
+
+        function walk(id, depth) {
+          if (!nodeIdSet.has(id)) return
+          const children = sortChildIds(
+            (childrenMap[id] || []).filter((c) => nodeIdSet.has(c)),
+          )
+          if (!children.length) {
+            const n = nodeMap[id]
+            const ext = n ? getNodeVisualExtents(n) : null
+            const h = ext ? ext.bottom - ext.top : minRowH
+            positions[id] = { x: startX + depth * depthX, y: globalY + h / 2 }
+            globalY += h + LAYOUT.rowGap
+            return
+          }
+          const yStart = globalY
+          children.forEach((c) => walk(c, depth + 1))
+          const childCenters = children
+            .filter((c) => positions[c])
+            .map((c) => positions[c].y)
+          const yMid = childCenters.length
+            ? (Math.min(...childCenters) + Math.max(...childCenters)) / 2
+            : yStart + minRowH / 2
+          positions[id] = { x: startX + depth * depthX, y: yMid }
+        }
+
+        walk(rootId, 0)
+        return { positions, maxY: globalY }
+      }
+
+      function maxRowH(nodes) {
+        return nodes.reduce((m, n) => {
+          const h = LAYOUT.rowH[n.type] || LAYOUT.rowH.default
+          return Math.max(m, h)
+        }, LAYOUT.rowH.default)
+      }
+
+      function knowledgeRowHeight(n) {
+        const charsPerLine = 14
+        const lines = Math.max(
+          1,
+          Math.ceil((n.name?.length || 0) / charsPerLine),
+        )
+        return LAYOUT.rowH.knowledge + (lines - 1) * 18
+      }
+
+      function columnKey(x, rootX = 60) {
+        const cols = [0, 1, 2, 3, 4].map((i) => rootX + activeDepthX * i)
+        let best = cols[0]
+        let bestDist = Infinity
+        cols.forEach((c) => {
+          const d = Math.abs(x - c)
+          if (d < bestDist) {
+            bestDist = d
+            best = c
+          }
+        })
+        return best
+      }
+
+      function snapToColumns(positions, nodes, rootX = 60) {
+        nodes.forEach((n) => {
+          const p = positions[n.id]
+          if (!p) return
+          p.x = columnKey(p.x, rootX)
+        })
+      }
+
+      function separateColumnOverlaps(
+        positions,
+        nodes,
+        minGap = 20,
+        rootX = 60,
+      ) {
+        const buckets = new Map()
+        nodes.forEach((n) => {
+          const p = positions[n.id]
+          if (!p) return
+          const key = columnKey(p.x, rootX)
+          p.x = key
+          if (!buckets.has(key)) buckets.set(key, [])
+          buckets.get(key).push(n.id)
+        })
+        buckets.forEach((ids) => {
+          ids.sort((a, b) => positions[a].y - positions[b].y)
+          for (let i = 1; i < ids.length; i++) {
+            const prevId = ids[i - 1]
+            const currId = ids[i]
+            const need =
+              estimateNodeSize(nodeMap[prevId]).h / 2 +
+              estimateNodeSize(nodeMap[currId]).h / 2 +
+              minGap
+            const gap = positions[currId].y - positions[prevId].y
+            if (gap < need) {
+              const shift = need - gap
+              for (let j = i; j < ids.length; j++) positions[ids[j]].y += shift
+            }
+          }
+        })
+        return positions
+      }
+
+      function reflowColumnStrict(positions, nodes, colX, rootX, startY = 80) {
+        const ids = nodes
+          .map((n) => n.id)
+          .filter(
+            (id) => positions[id] && Math.abs(positions[id].x - colX) < 40,
+          )
+          .sort((a, b) => positions[a].y - positions[b].y)
+        if (!ids.length) return
+        let y = startY
+        if (startY === 80) {
+          const tops = ids
+            .map((id) => {
+              const n = nodeMap[id]
+              const p = positions[id]
+              if (!n || !p) return Infinity
+              return p.y + getNodeVisualExtents(n).top
+            })
+            .filter((v) => isFinite(v))
+          if (tops.length) y = Math.min(...tops)
+        }
+        ids.forEach((id) => {
+          const n = nodeMap[id]
+          const ext = getNodeVisualExtents(n)
+          const h = ext.bottom - ext.top
+          positions[id] = { x: colX, y: y + h / 2 }
+          y += h + LAYOUT.rowGap
+        })
+      }
+
+      function columnStartY(positions, nodes) {
+        const tops = nodes
+          .map((n) => {
+            const p = positions[n.id]
+            if (!p) return Infinity
+            return p.y + getNodeVisualExtents(n).top
+          })
+          .filter((v) => isFinite(v))
+        return tops.length ? Math.min(...tops) : 80
+      }
+
+      function shiftNodePositions(positions, ids, dx, dy = 0) {
+        ids.forEach((id) => {
+          if (positions[id]) {
+            positions[id].x += dx
+            positions[id].y += dy
+          }
+        })
+      }
+
+      function sideBoundingBox(positions, ids) {
+        let minX = Infinity,
+          maxX = -Infinity,
+          minY = Infinity,
+          maxY = -Infinity
+        ids.forEach((id) => {
+          const n = nodeMap[id]
+          const p = positions[id]
+          if (!n || !p) return
+          const ext = getNodeVisualExtents(n)
+          minX = Math.min(minX, p.x + ext.left)
+          maxX = Math.max(maxX, p.x + ext.right)
+          minY = Math.min(minY, p.y + ext.top)
+          maxY = Math.max(maxY, p.y + ext.bottom)
+        })
+        if (!isFinite(minX)) return null
+        return { minX, maxX, minY, maxY }
+      }
+
+      function boxesOverlap(a, b, gap = 0) {
+        return !(
+          a.maxX + gap <= b.minX ||
+          b.maxX + gap <= a.minX ||
+          a.maxY + gap <= b.minY ||
+          b.maxY + gap <= a.minY
+        )
+      }
+
+      function separateMathAndScience(positions, mathIds, sciIds) {
+        const mathBox = sideBoundingBox(positions, mathIds)
+        const sciBox = sideBoundingBox(positions, sciIds)
+        if (!mathBox || !sciBox) return false
+        if (!boxesOverlap(mathBox, sciBox, LAYOUT.overviewMinGap)) return false
+
+        const gapX = LAYOUT.treeGap
+        const gapY = LAYOUT.scienceBelowGap
+        let shiftX = 0
+        let shiftY = 0
+
+        if (sciBox.minX < mathBox.maxX + gapX) {
+          shiftX = mathBox.maxX + gapX - sciBox.minX
+        }
+        const sciBoxAfterX = shiftX
+          ? {
+              ...sciBox,
+              minX: sciBox.minX + shiftX,
+              maxX: sciBox.maxX + shiftX,
+            }
+          : sciBox
+        if (sciBoxAfterX.minY < mathBox.maxY + gapY) {
+          shiftY = mathBox.maxY + gapY - sciBoxAfterX.minY
+        }
+
+        if (shiftX || shiftY) {
+          shiftNodePositions(positions, sciIds, shiftX, shiftY)
+          return true
+        }
+        return false
+      }
+
+      function resolveVisualBoxOverlaps(positions, ids, minGap = LAYOUT.overviewMinGap) {
+        const valid = ids.filter((id) => positions[id])
+        for (let iter = 0; iter < 220; iter++) {
+          let moved = false
+          for (let i = 0; i < valid.length; i++) {
+            for (let j = i + 1; j < valid.length; j++) {
+              const na = nodeMap[valid[i]],
+                nb = nodeMap[valid[j]]
+              const pa = positions[valid[i]],
+                pb = positions[valid[j]]
+              const ea = getNodeVisualExtents(na),
+                eb = getNodeVisualExtents(nb)
+              const al = pa.x + ea.left,
+                ar = pa.x + ea.right
+              const at = pa.y + ea.top,
+                ab = pa.y + ea.bottom
+              const bl = pb.x + eb.left,
+                br = pb.x + eb.right
+              const bt = pb.y + eb.top,
+                bb = pb.y + eb.bottom
+              if (
+                al >= br + minGap ||
+                ar <= bl - minGap ||
+                at >= bb + minGap ||
+                ab <= bt - minGap
+              )
+                continue
+              const overlapX = Math.min(ar, br) - Math.max(al, bl) + minGap
+              const overlapY = Math.min(ab, bb) - Math.max(at, bt) + minGap
+              if (overlapX <= overlapY) {
+                const half = overlapX / 2
+                if (pa.x <= pb.x) {
+                  pa.x -= half
+                  pb.x += half
+                } else {
+                  pa.x += half
+                  pb.x -= half
+                }
+              } else {
+                const half = overlapY / 2
+                if (pa.y <= pb.y) {
+                  pa.y -= half
+                  pb.y += half
+                } else {
+                  pa.y += half
+                  pb.y -= half
+                }
+              }
+              moved = true
+            }
+          }
+          if (!moved) break
+        }
+      }
+
+      function enforceSideSeparation(positions, mathIds, sciIds) {
+        const mathBox = sideBoundingBox(positions, mathIds)
+        const sciBox = sideBoundingBox(positions, sciIds)
+        if (!mathBox || !sciBox) return
+        const need = mathBox.maxX + LAYOUT.treeGap - sciBox.minX
+        if (need > 0) shiftNodePositions(positions, sciIds, need)
+      }
+
+      function layoutOverviewKnowledgeColumn(
+        positions,
+        nodes,
+        colX,
+        nodeIdSet,
+      ) {
+        const kpNodes = nodes.filter((n) =>
+          ['knowledge', 'method'].includes(n.type),
+        )
+        const items = kpNodes
+          .map((n) => {
+            const anchor =
+              resolveVisibleAnchor(n.id, nodeIdSet, positions) ||
+              resolveTeachingAnchor(getTeachingParent(n.id), nodeIdSet)
+            const idealY =
+              anchor && positions[anchor]
+                ? positions[anchor].y
+                : (positions[n.id]?.y ?? 1e9)
+            return { id: n.id, idealY }
+          })
+          .sort((a, b) => {
+            if (a.idealY !== b.idealY) return a.idealY - b.idealY
+            return a.id.localeCompare(b.id)
+          })
+
+        let yCursor = columnStartY(
+          positions,
+          kpNodes.length ? kpNodes : nodes.filter((n) => positions[n.id]),
+        )
+        items.forEach(({ id, idealY }) => {
+          const n = nodeMap[id]
+          const ext = getNodeVisualExtents(n)
+          const h = ext.bottom - ext.top
+          const centerY = Math.max(idealY, yCursor + h / 2)
+          positions[id] = { x: colX, y: centerY }
+          yCursor = centerY + h / 2 + LAYOUT.rowGap
+        })
+      }
+
+      function finalizeOverviewSide(positions, nodes, rootX) {
+        if (!nodes.length) return
+        const COL = hierarchyColumns(rootX)
+        const nodeIdSet = new Set(nodes.map((n) => n.id))
+        const containsMap = buildHierarchyChildrenMap(nodeIdSet, ['contains'])
+        const sideY = columnStartY(positions, nodes)
+        snapToColumns(positions, nodes, rootX)
+        reflowColumnStrict(
+          positions,
+          nodes.filter((n) => n.type === 'unit'),
+          COL.unit,
+          rootX,
+          sideY,
+        )
+        reflowColumnStrict(
+          positions,
+          nodes.filter((n) => n.type === 'domain'),
+          COL.domain,
+          rootX,
+          sideY,
+        )
+        recenterParents(positions, nodes, nodeIdSet, containsMap, COL)
+        reflowColumnStrict(
+          positions,
+          nodes.filter((n) => n.type === 'unit'),
+          COL.unit,
+          rootX,
+          sideY,
+        )
+        reflowColumnStrict(
+          positions,
+          nodes.filter((n) => n.type === 'domain'),
+          COL.domain,
+          rootX,
+          sideY,
+        )
+        recenterParents(positions, nodes, nodeIdSet, containsMap, COL)
+        const structural = nodes.filter((n) =>
+          ['subject', 'domain', 'unit'].includes(n.type),
+        )
+        for (let i = 0; i < 4; i++) {
+          separateColumnOverlaps(
+            positions,
+            structural,
+            LAYOUT.overviewMinGap,
+            rootX,
+          )
+        }
+        layoutOverviewKnowledgeColumn(
+          positions,
+          nodes,
+          COL.knowledge,
+          nodeIdSet,
+        )
+        resolveVisualBoxOverlaps(
+          positions,
+          nodes
+            .filter((n) => ['knowledge', 'method'].includes(n.type))
+            .map((n) => n.id),
+          LAYOUT.overviewMinGap + 4,
+        )
+      }
+
+      function placeCrossKnowledge(positions, nodes, nodeIdSet, rootX, side) {
+        const COL = hierarchyColumns(rootX)
+        getThemeClusters().forEach(({ mathIds, sciIds }) => {
+          const targets = sortChildIds(
+            (side === 'math' ? mathIds : sciIds).filter((id) =>
+              nodeIdSet.has(id),
+            ),
+          )
+          targets.forEach((id, i) => {
+            const anchor = resolveVisibleAnchor(id, nodeIdSet, positions)
+            const parentPos = anchor ? positions[anchor] : null
+            const h = nodeRowHeight(nodeMap[id])
+            positions[id] = {
+              x: COL.knowledge,
+              y: parentPos?.y ?? 120 + i * (h + LAYOUT.rowGap),
+            }
+          })
+        })
+      }
+
+      function buildOverviewPositions(nodes) {
+        const prevDepth = activeDepthX
+        activeDepthX = LAYOUT.overviewDepthX
+        try {
+          const nodeIdSet = new Set(nodes.map((n) => n.id))
+          const containsEdges = GRAPH_DATA.edges.filter(
+            (e) => e.relation === 'contains',
+          )
+          const childrenMap = buildChildrenMap(containsEdges, ['contains'])
+          Object.keys(childrenMap).forEach((k) => {
+            childrenMap[k] = sortChildIds(childrenMap[k])
+          })
+
+          const mathNodes = nodes.filter(
+            (n) => getSubjectGroup(n.id) === 'math',
+          )
+          const sciNodes = nodes.filter(
+            (n) => getSubjectGroup(n.id) === 'science',
+          )
+          const mathRootX = LAYOUT.mathRootX
+          const depthX = activeDepthX
+          const positions = {}
+
+          const math = layoutTreeNoOverlap(
+            'M',
+            nodeIdSet,
+            childrenMap,
+            mathRootX,
+            depthX,
+            maxRowH(mathNodes),
+          )
+          Object.assign(positions, math.positions)
+          attachSatelliteNodes(positions, nodes, nodeIdSet, mathRootX)
+          finalizeOverviewSide(positions, mathNodes, mathRootX)
+
+          const mathIds = mathNodes.map((n) => n.id)
+          const mathBox = sideBoundingBox(positions, mathIds)
+
+          // 科学放在数学下方偏右，避免与数学知识点列横向挤在一起
+          const scienceRootX = mathRootX + depthX * 2
+          const scienceStartY =
+            (mathBox?.maxY ?? 480) + LAYOUT.scienceBelowGap
+
+          const science = layoutTreeNoOverlap(
+            'S',
+            nodeIdSet,
+            childrenMap,
+            scienceRootX,
+            depthX,
+            maxRowH(sciNodes),
+            scienceStartY,
+          )
+          Object.assign(positions, science.positions)
+          attachSatelliteNodes(positions, nodes, nodeIdSet, scienceRootX)
+          finalizeOverviewSide(positions, sciNodes, scienceRootX)
+
+          const sciIds = sciNodes.map((n) => n.id)
+
+          // 确保科学整体在数学包围盒之外（只移动科学侧）
+          for (let pass = 0; pass < 16; pass++) {
+            resolveVisualBoxOverlaps(positions, mathIds)
+            resolveVisualBoxOverlaps(positions, sciIds)
+            if (!separateMathAndScience(positions, mathIds, sciIds)) break
+          }
+          separateMathAndScience(positions, mathIds, sciIds)
+
+          return positions
+        } finally {
+          activeDepthX = prevDepth
+        }
+      }
+
+      function finalizeSubjectSide(positions, nodes, rootX) {
+        if (!nodes.length) return
+        const COL = hierarchyColumns(rootX)
+        const nodeIdSet = new Set(nodes.map((n) => n.id))
+        const containsMap = buildHierarchyChildrenMap(nodeIdSet, ['contains'])
+        snapToColumns(positions, nodes, rootX)
+        reflowColumnStrict(positions, nodes, COL.knowledge, rootX)
+        const structural = nodes.filter((n) =>
+          ['subject', 'domain', 'unit', 'cross_disciplinary_theme'].includes(
+            n.type,
+          ),
+        )
+        for (let i = 0; i < 5; i++) {
+          separateColumnOverlaps(positions, structural, 36, rootX)
+        }
+        recenterParents(positions, nodes, nodeIdSet, containsMap, COL)
+      }
+
+      function getGraphBounds(data) {
+        let minX = Infinity,
+          maxX = -Infinity,
+          minY = Infinity,
+          maxY = -Infinity
+        data.forEach((n) => {
+          if (n.x == null || n.y == null) return
+          const raw = nodeMap[n.id]
+          if (!raw) return
+          const ext = getNodeVisualExtents(raw)
+          minX = Math.min(minX, n.x + ext.left)
+          maxX = Math.max(maxX, n.x + ext.right)
+          minY = Math.min(minY, n.y + ext.top)
+          maxY = Math.max(maxY, n.y + ext.bottom)
+        })
+        if (!isFinite(minX)) return null
+        return { minX, maxX, minY, maxY }
+      }
+
+      function scheduleFitToView() {
+        if (fitScheduled) return
+        fitScheduled = true
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            fitScheduled = false
+            fitGraphToView()
+          })
+        })
+      }
+
+      function fitGraphToView() {
+        const data = liveGraphData || chart.getOption()?.series?.[0]?.data || []
+        const bounds = getGraphBounds(data)
+        if (!bounds) return
+        chart.resize()
+        const pad = 48
+        const dom = chart.getDom()
+        const viewW = dom.clientWidth || 800
+        const viewH = dom.clientHeight || 600
+        const cx = (bounds.minX + bounds.maxX) / 2
+        const cy = (bounds.minY + bounds.maxY) / 2
+
+        chart.setOption(
+          { series: [{ id: 'kg-graph', zoom: 1, center: [cx, cy] }] },
+          false,
+        )
+
+        const corners = [
+          [bounds.minX, bounds.minY],
+          [bounds.minX, bounds.maxY],
+          [bounds.maxX, bounds.minY],
+          [bounds.maxX, bounds.maxY],
+        ]
+        let minPx = [Infinity, Infinity]
+        let maxPx = [-Infinity, -Infinity]
+        corners.forEach((p) => {
+          const px = chart.convertToPixel({ seriesIndex: 0 }, p)
+          if (!px) return
+          minPx[0] = Math.min(minPx[0], px[0])
+          minPx[1] = Math.min(minPx[1], px[1])
+          maxPx[0] = Math.max(maxPx[0], px[0])
+          maxPx[1] = Math.max(maxPx[1], px[1])
+        })
+        const boxW = maxPx[0] - minPx[0]
+        const boxH = maxPx[1] - minPx[1]
+        if (boxW <= 0 || boxH <= 0) return
+        const zoom = Math.min(
+          (viewW - pad * 2) / boxW,
+          (viewH - pad * 2) / boxH,
+        )
+        chart.setOption(
+          { series: [{ id: 'kg-graph', zoom, center: [cx, cy] }] },
+          false,
+        )
+      }
+
+      function relayoutAndFit() {
+        clearSavedPositions()
+        renderChart()
+      }
+
+      function recenterParents(positions, nodes, nodeIdSet, containsMap, COL) {
+        ;['unit', 'domain', 'subject'].forEach((type) => {
+          nodes
+            .filter((n) => n.type === type && nodeIdSet.has(n.id))
+            .forEach((n) => {
+              const children = (containsMap[n.id] || []).filter(
+                (c) => nodeIdSet.has(c) && positions[c],
+              )
+              if (!children.length) return
+              const ys = children.map((c) => positions[c].y)
+              positions[n.id].x = colXForType(type, COL)
+              positions[n.id].y = (Math.min(...ys) + Math.max(...ys)) / 2
+            })
+        })
+      }
+
+      /** 为课标(standard)、核心素养(competency)等非结构节点分配独立列坐标，避免落入兜底网格造成堆叠 */
+      function placeAuxHierarchyNodes(positions, nodes, nodeIdSet, rootX) {
+        const COL = hierarchyColumns(rootX)
+        const d = activeDepthX
+        const columnFor = {
+          standard: COL.knowledge + d,
+          competency: COL.knowledge + d * 2,
+        }
+        ;['standard', 'competency'].forEach((type) => {
+          const colX = columnFor[type]
+          const items = nodes
+            .filter((n) => n.type === type && nodeIdSet.has(n.id))
+            .map((n) => {
+              const inEdge = GRAPH_DATA.edges.find(
+                (e) =>
+                  e.target === n.id &&
+                  ['aligns_to', 'develops'].includes(e.relation) &&
+                  positions[e.source],
+              )
+              const idealY = inEdge ? positions[inEdge.source].y : Infinity
+              return { id: n.id, idealY }
+            })
+            .sort((a, b) => a.idealY - b.idealY)
+
+          let yCursor = -Infinity
+          items.forEach(({ id, idealY }) => {
+            const ext = getNodeVisualExtents(nodeMap[id])
+            const h = ext.bottom - ext.top
+            let y = isFinite(idealY) ? idealY : yCursor === -Infinity ? 100 : yCursor
+            if (yCursor !== -Infinity) y = Math.max(y, yCursor + h / 2)
+            else y = Math.max(y, 80 + h / 2)
+            positions[id] = { x: colX, y }
+            yCursor = y + h / 2 + LAYOUT.rowGap
+          })
+        })
+      }
+
+      /** 兜底：把仍未定位的可见节点安置到最右列，防止堆叠在左上角 */
+      function placeLeftoverNodes(positions, nodes, rootX) {
+        const COL = hierarchyColumns(rootX)
+        const d = activeDepthX
+        const colX = COL.knowledge + d * 3
+        let y = 80
+        nodes.forEach((n) => {
+          if (positions[n.id]) return
+          const ext = getNodeVisualExtents(nodeMap[n.id])
+          const h = ext.bottom - ext.top
+          positions[n.id] = { x: colX, y: y + h / 2 }
+          y += h + LAYOUT.rowGap
+        })
+      }
+
+      function finalizeHierarchyLayout(positions, nodes, rootX = 60) {
+        const COL = hierarchyColumns(rootX)
+        const nodeIdSet = new Set(nodes.map((n) => n.id))
+        const containsMap = buildHierarchyChildrenMap(nodeIdSet, ['contains'])
+        snapToColumns(positions, nodes, rootX)
+        reflowColumnStrict(positions, nodes, COL.lesson, rootX)
+        reflowColumnStrict(positions, nodes, COL.knowledge, rootX)
+        recenterParents(positions, nodes, nodeIdSet, containsMap, COL)
+        const structural = nodes.filter((n) =>
+          ['subject', 'domain', 'unit'].includes(n.type),
+        )
+        for (let i = 0; i < 4; i++) {
+          separateColumnOverlaps(positions, structural, 36, rootX)
+        }
+        placeAuxHierarchyNodes(positions, nodes, nodeIdSet, rootX)
+        placeLeftoverNodes(positions, nodes, rootX)
+        // 安全网：整体去重叠（列间距足够大，主要沿纵向分离）
+        resolveVisualBoxOverlaps(
+          positions,
+          nodes.map((n) => n.id),
+          LAYOUT.overviewMinGap,
+        )
+        return positions
+      }
+
+      function computeHierarchyPositions(nodes) {
+        if (currentView === 'math') {
+          return finalizeHierarchyLayout(
+            assignFullHierarchyLayout(nodes, 'M'),
+            nodes,
+            60,
+          )
+        }
+        if (currentView === 'science') {
+          return finalizeHierarchyLayout(
+            assignFullHierarchyLayout(nodes, 'S'),
+            nodes,
+            60,
+          )
+        }
+        if (currentView === 'all' && showAllDetail) {
+          const mathN = nodes.filter(
+            (n) =>
+              getSubjectGroup(n.id) === 'math' ||
+              getSubjectGroup(n.id) === 'cross',
+          )
+          const sciN = nodes.filter((n) => getSubjectGroup(n.id) === 'science')
+          const mathPos = finalizeHierarchyLayout(
+            assignFullHierarchyLayout(mathN, 'M'),
+            mathN,
+            60,
+          )
+          const sciPos = finalizeHierarchyLayout(
+            assignFullHierarchyLayout(sciN, 'S'),
+            sciN,
+            60,
+          )
+          // 科学整体移到数学下方
+          const mathBox = sideBoundingBox(mathPos, mathN.map((n) => n.id))
+          const sciBox = sideBoundingBox(sciPos, sciN.map((n) => n.id))
+          if (mathBox && sciBox) {
+            const dy = mathBox.maxY + 140 - sciBox.minY
+            Object.keys(sciPos).forEach((id) => {
+              sciPos[id].y += Math.max(dy, 0)
+            })
+          }
+          return { ...mathPos, ...sciPos }
+        }
+        return finalizeHierarchyLayout(
+          assignFullHierarchyLayout(nodes, 'S'),
+          nodes,
+          60,
+        )
+      }
+
+      function nodeRowHeight(n) {
+        if (['knowledge', 'method'].includes(n.type))
+          return knowledgeRowHeight(n)
+        return LAYOUT.rowH[n.type] || LAYOUT.rowH.default
+      }
+
+      function hierarchyColumns(rootX = 60) {
+        const d = activeDepthX
+        return {
+          subject: rootX,
+          domain: rootX + d,
+          unit: rootX + d * 2,
+          lesson: rootX + d * 3,
+          knowledge: rootX + d * 4,
+        }
+      }
+
+      function colXForType(type, COL) {
+        if (type === 'subject') return COL.subject
+        if (type === 'domain') return COL.domain
+        if (type === 'unit') return COL.unit
+        if (type === 'lesson') return COL.lesson
+        return COL.knowledge
+      }
+
+      function separateColumnOverlaps(
+        positions,
+        nodes,
+        minGap = 20,
+        rootX = 60,
+      ) {
+        const buckets = new Map()
+        nodes.forEach((n) => {
+          const p = positions[n.id]
+          if (!p) return
+          const key = columnKey(p.x, rootX)
+          p.x = key
+          if (!buckets.has(key)) buckets.set(key, [])
+          buckets.get(key).push(n.id)
+        })
+        buckets.forEach((ids) => {
+          ids.sort((a, b) => positions[a].y - positions[b].y)
+          for (let i = 1; i < ids.length; i++) {
+            const prevId = ids[i - 1]
+            const currId = ids[i]
+            const need =
+              estimateNodeSize(nodeMap[prevId]).h / 2 +
+              estimateNodeSize(nodeMap[currId]).h / 2 +
+              minGap
+            const gap = positions[currId].y - positions[prevId].y
+            if (gap < need) {
+              const shift = need - gap
+              for (let j = i; j < ids.length; j++) positions[ids[j]].y += shift
+            }
+          }
+        })
+        return positions
+      }
+
+      function assignFullHierarchyLayout(nodes, rootId) {
+        const nodeIdSet = new Set(nodes.map((n) => n.id))
+        const containsMap = buildHierarchyChildrenMap(nodeIdSet, ['contains'])
+        const teachesMap = buildHierarchyChildrenMap(nodeIdSet, [
+          'teaches',
+          'uses_method',
+        ])
+        const COL = hierarchyColumns(60)
+        const positions = {}
+        let cursorY = 88
+
+        function layoutKnowledgeStack(kpIds, startY) {
+          let y = startY
+          kpIds.forEach((id) => {
+            const kn = nodeMap[id]
+            const h = nodeRowHeight(kn)
+            positions[id] = { x: COL.knowledge, y: y + h / 2 }
+            y += h + LAYOUT.rowGap
+          })
+          return y
+        }
+
+        function layoutLessonRow(lessonId) {
+          const kps = sortChildIds(
+            (teachesMap[lessonId] || []).filter((id) => nodeIdSet.has(id)),
+          )
+          const blockStart = cursorY
+          const lessonH = nodeRowHeight(nodeMap[lessonId])
+
+          if (!kps.length) {
+            positions[lessonId] = { x: COL.lesson, y: cursorY + lessonH / 2 }
+            cursorY += lessonH + LAYOUT.rowGap
+            return
+          }
+
+          const kpEnd = layoutKnowledgeStack(kps, cursorY)
+          const blockEnd = Math.max(cursorY + lessonH, kpEnd)
+          positions[lessonId] = {
+            x: COL.lesson,
+            y: (blockStart + blockEnd) / 2,
+          }
+          cursorY = blockEnd + LAYOUT.rowGap
+        }
+
+        function layoutUnitBlock(unitId) {
+          const lessons = sortChildIds(
+            (containsMap[unitId] || []).filter(
+              (id) => nodeIdSet.has(id) && nodeMap[id]?.type === 'lesson',
+            ),
+          )
+          const blockStart = cursorY
+
+          if (lessons.length) {
+            lessons.forEach((lessonId) => layoutLessonRow(lessonId))
+          } else {
+            const kps = sortChildIds(
+              (teachesMap[unitId] || []).filter((id) => nodeIdSet.has(id)),
+            )
+            if (kps.length) {
+              cursorY = layoutKnowledgeStack(kps, cursorY)
+            } else {
+              const h = nodeRowHeight(nodeMap[unitId])
+              cursorY += h
+            }
+          }
+
+          const orphanKps = sortChildIds(
+            (teachesMap[unitId] || []).filter(
+              (id) => nodeIdSet.has(id) && !positions[id],
+            ),
+          )
+          if (orphanKps.length) {
+            cursorY = layoutKnowledgeStack(orphanKps, cursorY)
+          }
+
+          const unitH = nodeRowHeight(nodeMap[unitId])
+          const blockEnd = Math.max(cursorY, blockStart + unitH)
+          positions[unitId] = { x: COL.unit, y: (blockStart + blockEnd) / 2 }
+          cursorY = blockEnd + LAYOUT.rowGap
+        }
+
+        function layoutNode(id) {
+          if (!nodeIdSet.has(id)) return
+          const n = nodeMap[id]
+
+          if (n.type === 'unit') {
+            layoutUnitBlock(id)
+            return
+          }
+          if (n.type === 'lesson') {
+            layoutLessonRow(id)
+            return
+          }
+
+          const children = sortChildIds(
+            (containsMap[id] || []).filter((c) => nodeIdSet.has(c)),
+          )
+
+          if (!children.length) {
+            const h = nodeRowHeight(n)
+            positions[id] = { x: colXForType(n.type, COL), y: cursorY + h / 2 }
+            cursorY += h + LAYOUT.rowGap
+            return
+          }
+
+          const blockStart = cursorY
+          children.forEach((childId) => layoutNode(childId))
+          const blockEnd = cursorY
+          positions[id] = {
+            x: colXForType(n.type, COL),
+            y:
+              (blockStart +
+                Math.max(
+                  blockEnd - LAYOUT.rowGap,
+                  blockStart + nodeRowHeight(n),
+                )) /
+              2,
+          }
+          cursorY += LAYOUT.rowGap / 2
+        }
+
+        layoutNode(rootId)
+        return positions
+      }
+
+      function attachSatelliteNodes(positions, nodes, nodeIdSet, rootX) {
+        const COL = hierarchyColumns(rootX)
+        const placed = new Set(Object.keys(positions))
+        const byParent = new Map()
+        sortChildIds(
+          nodes
+            .filter(
+              (n) =>
+                nodeIdSet.has(n.id) && ['knowledge', 'method'].includes(n.type),
+            )
+            .map((n) => n.id),
+        ).forEach((id) => {
+          if (placed.has(id)) return
+          const anchor = resolveVisibleAnchor(id, nodeIdSet, positions)
+          const parentKey = anchor || '__orphan__'
+          if (!byParent.has(parentKey)) byParent.set(parentKey, [])
+          byParent.get(parentKey).push(id)
+        })
+
+        let orphanY = 100
+        byParent.forEach((kids, parentKey) => {
+          if (parentKey === '__orphan__') {
+            kids.forEach((id) => {
+              const h = nodeRowHeight(nodeMap[id])
+              positions[id] = { x: COL.knowledge, y: orphanY + h / 2 }
+              orphanY += h + LAYOUT.rowGap
+            })
+            return
+          }
+          const parentPos = positions[parentKey]
+          if (!parentPos) {
+            kids.forEach((id) => {
+              const h = nodeRowHeight(nodeMap[id])
+              positions[id] = { x: COL.knowledge, y: orphanY + h / 2 }
+              orphanY += h + LAYOUT.rowGap
+            })
+            return
+          }
+          if (kids.length === 1) {
+            positions[kids[0]] = { x: COL.knowledge, y: parentPos.y }
+            return
+          }
+          const totalH = kids.reduce(
+            (s, id) => s + nodeRowHeight(nodeMap[id]) + LAYOUT.rowGap,
+            -LAYOUT.rowGap,
+          )
+          let y = parentPos.y - totalH / 2
+          kids.forEach((id) => {
+            const h = nodeRowHeight(nodeMap[id])
+            positions[id] = { x: COL.knowledge, y: y + h / 2 }
+            y += h + LAYOUT.rowGap
+          })
+        })
+      }
+
+      function estimateNodeSize(n) {
+        const r = getNodeSize(n) / 2
+        const level = getNodeLevel(n)
+        if (layoutMode === 'hierarchy' && level >= 3) {
+          const charsPerLine = n.type === 'knowledge' ? 14 : 10
+          const lines = Math.max(
+            1,
+            Math.ceil((n.name?.length || 0) / charsPerLine),
+          )
+          const labelH = lines * 15 + 10
+          return { w: r * 2 + 48, h: r * 2 + labelH + 14 }
+        }
+        if (
+          layoutMode === 'overview' &&
+          ['subject', 'domain', 'unit'].includes(n.type)
+        ) {
+          const lines = Math.max(
+            1,
+            Math.ceil((getNodeLabel(n).length || 0) / 8),
+          )
+          const labelH = lines * 14 + 10
+          return { w: r * 2 + 36, h: r * 2 + labelH + 14 }
+        }
+        const showLabel = shouldShowLabel(n)
+        const label = showLabel ? getNodeLabel(n) : ''
+        const charW = getNodeLevel(n) <= 2 ? 8 : 7
+        const labelW = showLabel ? Math.min(label.length * charW + 24, 200) : 0
+        return { w: r * 2 + labelW, h: r * 2 + 20 }
+      }
+
+      function buildNodeLabel(n, labelStyle, level) {
+        const base = {
+          show: shouldShowLabel(n),
+          fontSize: labelStyle.fontSize,
+          fontWeight: labelStyle.fontWeight,
+          color: labelStyle.color,
+        }
+        if (layoutMode === 'hierarchy' && level >= 3) {
+          return {
+            ...base,
+            position: 'bottom',
+            distance: 6,
+            width: n.type === 'knowledge' ? 200 : 160,
+            overflow: 'break',
+            lineHeight: 15,
+            fontSize: n.type === 'knowledge' ? 10 : 11,
+            align: 'center',
+          }
+        }
+        if (
+          layoutMode === 'overview' &&
+          ['subject', 'domain', 'unit'].includes(n.type)
+        ) {
+          return {
+            ...base,
+            position: 'bottom',
+            distance: 8,
+            width: 150,
+            overflow: 'break',
+            lineHeight: 14,
+            fontSize: n.type === 'subject' ? 12 : 11,
+            align: 'center',
+          }
+        }
+        if (
+          layoutMode === 'overview' &&
+          ['knowledge', 'method'].includes(n.type)
+        ) {
+          return {
+            ...base,
+            position: 'bottom',
+            distance: 6,
+            width: 140,
+            overflow: 'break',
+            lineHeight: 13,
+            fontSize: 10,
+            align: 'center',
+          }
+        }
+        return {
+          ...base,
+          position: 'right',
+          distance: level <= 2 ? 10 : 8,
+        }
+      }
+
+      function resolveOverlaps(positions, nodes, minGap = 24) {
+        const ids = nodes.map((n) => n.id).filter((id) => positions[id])
+        for (let iter = 0; iter < 150; iter++) {
+          let moved = false
+          for (let i = 0; i < ids.length; i++) {
+            for (let j = i + 1; j < ids.length; j++) {
+              const a = positions[ids[i]]
+              const b = positions[ids[j]]
+              const na = nodeMap[ids[i]]
+              const nb = nodeMap[ids[j]]
+              const sa = estimateNodeSize(na)
+              const sb = estimateNodeSize(nb)
+              const sameCol = Math.abs(a.x - b.x) < 30
+              const needX = sameCol ? 0 : (sa.w + sb.w) / 2 + minGap
+              const needY = (sa.h + sb.h) / 2 + minGap + (sameCol ? 8 : 0)
+              const dx = b.x - a.x
+              const dy = b.y - a.y
+              const overlapX = Math.abs(dx) < needX
+              const overlapY = Math.abs(dy) < needY
+              if (overlapX && overlapY) {
+                if (sameCol || Math.abs(dy) <= Math.abs(dx)) {
+                  const pushY = (needY - Math.abs(dy)) / 2 + 1
+                  const sy = dy >= 0 ? 1 : -1
+                  a.y -= pushY * sy
+                  b.y += pushY * sy
+                } else {
+                  const pushX = (needX - Math.abs(dx)) / 2 + 1
+                  const sx = dx >= 0 ? 1 : -1
+                  a.x -= pushX * sx
+                  b.x += pushX * sx
+                }
+                moved = true
+              }
+            }
+          }
+          if (!moved) break
+        }
+        return positions
+      }
+
+      function getContainsDescendants(rootId, visibleIds) {
+        const containsMap = buildChildrenMap(
+          GRAPH_DATA.edges.filter((e) => e.relation === 'contains'),
+          ['contains'],
+        )
+        const out = []
+        function collect(id) {
+          ;(containsMap[id] || []).forEach((child) => {
+            if (visibleIds.has(child)) {
+              out.push(child)
+              collect(child)
+            }
+          })
+        }
+        collect(rootId)
+        return out
+      }
+
+      function getCrossCluster(nodeId, visibleIds) {
+        const cluster = getThemeClusters().find(
+          (c) => c.mathIds.includes(nodeId) || c.sciIds.includes(nodeId),
+        )
+        if (!cluster) return null
+        return [...cluster.mathIds, ...cluster.sciIds].filter((id) =>
+          visibleIds.has(id),
+        )
+      }
+
+      function getTeachesCluster(nodeId, visibleIds) {
+        const parentEdge = GRAPH_DATA.edges.find(
+          (e) =>
+            e.target === nodeId &&
+            ['teaches', 'uses_method'].includes(e.relation),
+        )
+        if (!parentEdge || !visibleIds.has(parentEdge.source)) return null
+        const unitId = parentEdge.source
+        const group = new Set([
+          unitId,
+          ...getContainsDescendants(unitId, visibleIds),
+        ])
+        GRAPH_DATA.edges
+          .filter(
+            (e) =>
+              e.source === unitId &&
+              ['teaches', 'uses_method'].includes(e.relation),
+          )
+          .forEach((e) => {
+            if (visibleIds.has(e.target)) group.add(e.target)
+          })
+        return [...group]
+      }
+
+      function getDragGroup(nodeId, visibleIds) {
+        const cross = getCrossCluster(nodeId, visibleIds)
+        if (cross) return cross
+
+        const teaches = getTeachesCluster(nodeId, visibleIds)
+        if (teaches) return teaches
+
+        const group = [nodeId, ...getContainsDescendants(nodeId, visibleIds)]
+        return group
+      }
+
+      function layoutSubtree(
+        rootId,
+        nodeIdSet,
+        childrenMap,
+        startX,
+        depthX,
+        rowH,
+      ) {
+        const positions = {}
+        let cursorY = 50
+
+        function walk(id, depth) {
+          if (!nodeIdSet.has(id)) return null
+          const children = (childrenMap[id] || []).filter((c) =>
+            nodeIdSet.has(c),
+          )
+          if (!children.length) {
+            positions[id] = { x: startX + depth * depthX, y: cursorY }
+            cursorY += rowH
+            return positions[id].y
+          }
+          const ys = children
+            .map((c) => walk(c, depth + 1))
+            .filter((y) => y !== null)
+          const midY = ys.length
+            ? (Math.min(...ys) + Math.max(...ys)) / 2
+            : cursorY
+          positions[id] = { x: startX + depth * depthX, y: midY }
+          return midY
+        }
+
+        walk(rootId, 0)
+        return { positions, maxY: cursorY }
+      }
+
+      function assignSubjectTreeLayout(nodes, edges, rootId) {
+        return assignFullHierarchyLayout(nodes, rootId)
+      }
+
+      function assignSubjectForceSeeds(nodes, edges, rootId) {
+        const nodeIdSet = new Set(nodes.map((n) => n.id))
+        const childrenMap = buildChildrenMap(edges, [
+          'contains',
+          'teaches',
+          'uses_method',
+        ])
+        const positions = {}
+        const depths = {}
+
+        function walk(id, depth) {
+          if (!nodeIdSet.has(id)) return
+          depths[id] = Math.min(depths[id] ?? 99, depth)
+          ;(childrenMap[id] || []).forEach((c) => walk(c, depth + 1))
+        }
+        walk(rootId, 0)
+
+        nodes.forEach((n) => {
+          const d = depths[n.id] ?? 5
+          positions[n.id] = { x: 100 + d * 110, y: 60 + Math.random() * 400 }
+        })
+        return positions
+      }
+
+      function styleEdge(e) {
+        if (e.relation === 'cross_links') {
+          const srcSub = getSubjectGroup(e.source)
+          const tgtSub = getSubjectGroup(e.target)
+          const isMathSci =
+            (srcSub === 'math' && tgtSub === 'science') ||
+            (srcSub === 'science' && tgtSub === 'math')
+          return {
+            color: isMathSci
+              ? '#ea580c'
+              : tgtSub === 'math'
+                ? '#2563eb'
+                : '#059669',
+            width: 2,
+            type: 'dashed',
+            curveness: 0.2,
+            opacity: 0.85,
+          }
+        }
+        if (e.relation === 'contains') {
+          const src = nodeMap[e.source]
+          const level = src ? getNodeLevel(src) : 1
+          const sub = getSubjectGroup(e.source)
+          const palette =
+            sub === 'math'
+              ? MATH_LEVEL_COLORS
+              : sub === 'science'
+                ? SCIENCE_LEVEL_COLORS
+                : ['#94a3b8']
+          return {
+            color: palette[Math.min(level, 2)] || '#94a3b8',
+            width: Math.max(1.5, 3.2 - level * 0.5),
+            type: 'solid',
+            curveness: 0,
+            opacity: 0.9,
+          }
+        }
+        if (e.relation === 'teaches' || e.relation === 'uses_method') {
+          const sub = getSubjectGroup(e.source)
+          return {
+            color:
+              sub === 'math'
+                ? '#93c5fd'
+                : sub === 'science'
+                  ? '#6ee7b7'
+                  : '#cbd5e1',
+            width: 1.5,
+            type: 'dashed',
+            curveness: layoutMode === 'overview' ? 0.14 : 0.04,
+            opacity: 0.75,
+          }
+        }
+        const sub = getSubjectGroup(e.source)
+        return {
+          color: RELATION_COLORS[e.relation] || '#cbd5e1',
+          width: 1.2,
+          type: 'solid',
+          curveness: 0,
+          opacity: 0.65,
+        }
+      }
+
+      function buildHierarchyGraphics() {
+        return []
+      }
+
+      function buildGraphData() {
+        const nodes = filterNodes()
+        const nodeIds = nodes.map((n) => n.id)
+        const edges = filterEdges(nodeIds)
+
+        let positions = {}
+        if (layoutMode === 'overview') {
+          positions = buildOverviewPositions(nodes)
+        } else if (layoutMode === 'hierarchy') {
+          positions = computeHierarchyPositions(nodes)
+        } else if (layoutMode === 'force') {
+          const saved = loadSavedPositions()
+          if (Object.keys(saved).length) positions = saved
+          else if (currentView === 'math')
+            positions = assignFullHierarchyLayout(nodes, 'M')
+          else if (currentView === 'science')
+            positions = assignFullHierarchyLayout(nodes, 'S')
+        }
+
+        nodes.forEach((n, i) => {
+          if (!positions[n.id]) {
+            positions[n.id] = {
+              x: 80 + (i % 8) * 90,
+              y: 80 + Math.floor(i / 8) * 70,
+            }
+          }
+        })
+
+        const echartsNodes = nodes.map((n) => {
+          const raw = nodeMap[n.id]
+          const subject = getSubjectGroup(n.id)
+          const color = getNodeColor(raw)
+          const pos = positions[n.id]
+          const isHighlighted = selectedNodeId === n.id
+          const isSearchDim = searchQuery && !n.name.includes(searchQuery)
+          const size = getNodeSize(raw)
+          const labelStyle = getNodeLabelStyle(raw)
+          const level = getNodeLevel(raw)
+
+          return {
+            id: n.id,
+            name: getNodeLabel(n),
+            fullName: n.name,
+            nodeType: n.type,
+            nodeLevel: level,
+            symbol: getNodeSymbol(raw),
+            symbolSize: size,
+            x: pos?.x,
+            y: pos?.y,
+            fixed: false,
+            itemStyle: {
+              color,
+              borderColor: isHighlighted ? '#111' : getNodeBorderColor(raw),
+              borderWidth: isHighlighted
+                ? 3
+                : level <= 1
+                  ? 2.5
+                  : level === 2
+                    ? 2
+                    : 1,
+              opacity: isSearchDim ? 0.3 : 1,
+              shadowBlur: level <= 1 ? 6 : 0,
+              shadowColor: level <= 1 ? 'rgba(0,0,0,0.12)' : 'transparent',
+            },
+            label: buildNodeLabel(n, labelStyle, level),
+            emphasis: {
+              label: {
+                show: true,
+                fontSize: labelStyle.fontSize + 1,
+                fontWeight: 'bold',
+              },
+              itemStyle: { borderWidth: 3, shadowBlur: 10 },
+            },
+          }
+        })
+
+        const echartsEdges = edges.map((e) => ({
+          source: e.source,
+          target: e.target,
+          lineStyle: styleEdge(e),
+        }))
+
+        return {
+          nodes: echartsNodes,
+          edges: echartsEdges,
+          rawNodeCount: nodes.length,
+          rawEdgeCount: edges.length,
+        }
+      }
+
+      function renderChart() {
+        const { nodes, edges, rawNodeCount, rawEdgeCount } = buildGraphData()
+        const useLayoutNone =
+          layoutMode === 'overview' ||
+          layoutMode === 'hierarchy' ||
+          layoutMode === 'force'
+
+        const option = {
+          graphic: buildHierarchyGraphics(),
+          tooltip: {
+            trigger: 'item',
+            formatter: (params) => {
+              if (params.dataType === 'edge') return ''
+              const node = nodeMap[params.data.id]
+              if (!node) return params.name
+              const level = getNodeLevel(node)
+              const levelNames = [
+                '一级·学科',
+                '二级·领域',
+                '三级·单元',
+                '四级·课时',
+                '五级·知识点',
+              ]
+              return `<b>${node.name}</b><br/>学科：${SUBJECT_LABELS[getSubjectGroup(node.id)] || '—'}<br/>层级：${levelNames[level] || TYPE_LABELS[node.type]}<br/>类型：${TYPE_LABELS[node.type]}`
+            },
+          },
+          series: [
+            {
+              id: 'kg-graph',
+              type: 'graph',
+              layout: useLayoutNone ? 'none' : 'force',
+              data: nodes,
+              links: edges,
+              roam: true,
+              draggable: false,
+              animation: false,
+              animationDurationUpdate: 0,
+              focusNodeAdjacency: true,
+              label: { show: true },
+              edgeSymbol: ['none', 'arrow'],
+              edgeSymbolSize: [0, 6],
+              lineStyle: { color: '#cbd5e1', curveness: 0 },
+              emphasis: { focus: 'adjacency', lineStyle: { width: 3 } },
+              force: useLayoutNone
+                ? undefined
+                : {
+                    repulsion: 500,
+                    gravity: 0.08,
+                    edgeLength: [120, 220],
+                    layoutAnimation: true,
+                    friction: 0.6,
+                  },
+            },
+          ],
+        }
+
+        chart.setOption(option, true)
+        liveGraphData = nodes
+        updateStats(rawNodeCount, rawEdgeCount)
+        updateViewHint()
+        scheduleFitToView()
+      }
+
+      function refreshNodeHighlight() {
+        const { nodes, edges } = buildGraphData()
+        liveGraphData = nodes
+        chart.setOption(
+          { series: [{ id: 'kg-graph', data: nodes, links: edges }] },
+          false,
+        )
+      }
+
+      function findNodeAtPixel(offsetX, offsetY, data) {
+        const nodes =
+          data || liveGraphData || chart.getOption()?.series?.[0]?.data || []
+        const pt = chart.convertFromPixel({ seriesIndex: 0 }, [
+          offsetX,
+          offsetY,
+        ])
+        if (!pt) return null
+        let best = null
+        let bestD = Infinity
+        nodes.forEach((n) => {
+          if (n.x == null || n.y == null) return
+          const d = (n.x - pt[0]) ** 2 + (n.y - pt[1]) ** 2
+          const hit = (n.symbolSize || 20) + 20
+          if (d < hit * hit && d < bestD) {
+            bestD = d
+            best = n
+          }
+        })
+        return best
+      }
+
+      function chartOffsetFromEvent(e) {
+        const rect = graphEl.getBoundingClientRect()
+        return { x: e.clientX - rect.left, y: e.clientY - rect.top }
+      }
+
+      function bindChartEvents() {
+        if (chart._eventsBound) return
+        chart._eventsBound = true
+        const DRAG_THRESHOLD = 6
+        let pointerDown = null
+        let dragging = null
+        let paintRaf = null
+        let suppressClick = false
+
+        function detachPointerListeners() {
+          window.removeEventListener('mousemove', onPointerMove)
+          window.removeEventListener('mouseup', onPointerUp)
+          window.removeEventListener('pointerup', onPointerUp)
+          window.removeEventListener('pointercancel', onPointerUp)
+          window.removeEventListener('blur', onWindowBlur)
+        }
+
+        function flushDragPaint() {
+          if (!dragging || !liveGraphData) return
+          chart.setOption(
+            {
+              series: [
+                {
+                  id: 'kg-graph',
+                  animation: false,
+                  animationDurationUpdate: 0,
+                  data: liveGraphData,
+                },
+              ],
+            },
+            { silent: true },
+          )
+        }
+
+        function scheduleDragPaint() {
+          if (paintRaf) return
+          paintRaf = requestAnimationFrame(() => {
+            paintRaf = null
+            flushDragPaint()
+          })
+        }
+
+        function applyDragDelta(dx, dy) {
+          if (!dragging || !liveGraphData) return
+          const { groupSet } = dragging
+          for (let i = 0; i < liveGraphData.length; i++) {
+            const n = liveGraphData[i]
+            if (groupSet.has(n.id)) {
+              n.x = (n.x || 0) + dx
+              n.y = (n.y || 0) + dy
+            }
+          }
+          scheduleDragPaint()
+        }
+
+        function beginNodeDrag() {
+          if (!pointerDown || dragging) return
+          dragging = {
+            groupSet: pointerDown.groupSet,
+            lastX: pointerDown.lastX,
+            lastY: pointerDown.lastY,
+            moved: false,
+            pointerId: pointerDown.pointerId,
+          }
+          pointerDown = null
+
+          if (dragging.pointerId != null && graphEl.setPointerCapture) {
+            try {
+              graphEl.setPointerCapture(dragging.pointerId)
+            } catch (_) {}
+          }
+
+          document.body.classList.add('kg-dragging')
+          graphEl.classList.add('is-dragging')
+          chart.getZr().setCursorStyle('grabbing')
+          chart.setOption({ tooltip: { show: false } }, { silent: true })
+        }
+
+        function onPointerMove(e) {
+          if (dragging) {
+            if (e.buttons === 0) {
+              finishInteraction(e)
+              return
+            }
+            const { x, y } = chartOffsetFromEvent(e)
+            const pt0 = chart.convertFromPixel({ seriesIndex: 0 }, [
+              dragging.lastX,
+              dragging.lastY,
+            ])
+            const pt1 = chart.convertFromPixel({ seriesIndex: 0 }, [x, y])
+            if (!pt0 || !pt1) return
+            const dx = pt1[0] - pt0[0]
+            const dy = pt1[1] - pt0[1]
+            if (dx === 0 && dy === 0) return
+            dragging.moved = true
+            dragging.lastX = x
+            dragging.lastY = y
+            applyDragDelta(dx, dy)
+            return
+          }
+
+          if (!pointerDown) return
+          if (e.buttons === 0) {
+            finishInteraction(e)
+            return
+          }
+
+          const dist = Math.hypot(
+            e.clientX - pointerDown.clientX,
+            e.clientY - pointerDown.clientY,
+          )
+          if (dist >= DRAG_THRESHOLD) beginNodeDrag()
+        }
+
+        function onWindowBlur() {
+          finishInteraction()
+        }
+
+        function finishInteraction(e) {
+          detachPointerListeners()
+          document.body.classList.remove('kg-dragging')
+          graphEl.classList.remove('is-dragging')
+          chart.getZr().setCursorStyle('default')
+
+          if (dragging) {
+            if (dragging.pointerId != null && graphEl.releasePointerCapture) {
+              try {
+                graphEl.releasePointerCapture(dragging.pointerId)
+              } catch (_) {}
+            }
+
+            if (paintRaf) {
+              cancelAnimationFrame(paintRaf)
+              paintRaf = null
+              flushDragPaint()
+            }
+
+            chart.setOption({ tooltip: { show: true } }, { silent: true })
+            saveAllPositions()
+            suppressClick = dragging.moved
+            dragging = null
+          } else {
+            pointerDown = null
+          }
+
+          if (e) {
+            e.preventDefault()
+            e.stopPropagation()
+          }
+        }
+
+        function attachPointerListeners() {
+          window.addEventListener('mousemove', onPointerMove)
+          window.addEventListener('mouseup', onPointerUp, true)
+          window.addEventListener('pointerup', onPointerUp, true)
+          window.addEventListener('pointercancel', onPointerUp, true)
+          window.addEventListener('blur', onWindowBlur)
+        }
+
+        function onPointerUp(e) {
+          finishInteraction(e)
+        }
+
+        function startPointerDown(nodeId, offsetX, offsetY, domEvt) {
+          if (pointerDown || dragging) return
+          const visibleIds = new Set(liveGraphData.map((d) => d.id))
+          const groupIds = getDragGroup(nodeId, visibleIds)
+          pointerDown = {
+            groupSet: new Set(groupIds),
+            clientX: domEvt?.clientX ?? 0,
+            clientY: domEvt?.clientY ?? 0,
+            lastX: offsetX,
+            lastY: offsetY,
+            pointerId: domEvt?.pointerId,
+          }
+          attachPointerListeners()
+        }
+
+        chart.getZr().on(
+          'mousedown',
+          (e) => {
+            if (dragging || pointerDown) return
+            const node = findNodeAtPixel(e.offsetX, e.offsetY)
+            if (!node || !liveGraphData) return
+            e.stop()
+            if (e.event) {
+              e.event.preventDefault()
+              e.event.stopPropagation()
+            }
+            startPointerDown(node.id, e.offsetX, e.offsetY, e.event)
+          },
+          { before: true },
+        )
+
+        chart.on('click', (params) => {
+          if (suppressClick) {
+            suppressClick = false
+            return
+          }
+          if (params.dataType === 'node') showNodeDetail(params.data.id)
+        })
+      }
+
+      function updateViewHint() {
+        const hints = {
+          all: showAllDetail
+            ? '详细节点：按 学科→领域→单元→知识点 分列展示，实线表包含、虚线表教学。'
+            : '全部概要：上方数学、下方科学；实线为包含关系，虚线为教学与跨学科关联。',
+          math: '数学视图：树形层级布局，从左到右为 学科→领域→单元→知识点。',
+          science:
+            '科学视图：树形层级布局，从左到右为 学科→领域→单元→课时→知识点。',
+          cross:
+            '跨学科视图：仅展示有跨学科关联的知识点及其所属单元路径，橙色虚线连接数学与科学两侧。',
+        }
+        document.getElementById('viewHint').textContent = hints[currentView]
+        document.getElementById('btnToggleDetail').style.display =
+          currentView === 'all' ? 'block' : 'none'
+      }
+
+      function updateStats(nodeCount, edgeCount) {
+        document.getElementById('statsPanel').innerHTML = `
+        <div class="stat-card"><div class="num">${nodeCount}</div><div class="label">可见节点</div></div>
+        <div class="stat-card"><div class="num">${edgeCount}</div><div class="label">可见关系</div></div>
+        <div class="stat-card"><div class="num">${GRAPH_DATA.nodes.length}</div><div class="label">总节点</div></div>
+        <div class="stat-card"><div class="num">${GRAPH_DATA.edges.length}</div><div class="label">总关系</div></div>
+      `
+      }
+
+      function showNodeDetail(nodeId) {
+        const node = nodeMap[nodeId]
+        if (!node) return
+        selectedNodeId = nodeId
+
+        if (editMode) {
+          document.getElementById('detailEmpty').style.display = 'none'
+          const content = document.getElementById('detailContent')
+          content.style.display = 'block'
+          content.innerHTML = renderNodeEditForm(node)
+          bindNodeEditEvents(nodeId)
+          refreshNodeHighlight()
+          return
+        }
+
+        const outEdges = GRAPH_DATA.edges.filter((e) => e.source === nodeId)
+        const inEdges = GRAPH_DATA.edges.filter((e) => e.target === nodeId)
+        const statusLabel = STATUS_LABELS[node.status] || node.status || '—'
+        const typeColor = getNodeColor(node)
+        const subjectLabel = SUBJECT_LABELS[getSubjectGroup(node.id)] || '—'
+
+        let bodyHtml = `
+        <div class="detail-field">
+          <div class="label">名称</div>
+          <div class="value"><strong>${node.name}</strong></div>
+        </div>
+        <div class="detail-field">
+          <div class="label">学科 / 类型 / 状态</div>
+          <div class="value">
+            <span class="pill" style="background:${typeColor}22;color:${typeColor}">${subjectLabel}</span>
+            <span class="pill" style="background:${typeColor}22;color:${typeColor};margin-left:4px">${TYPE_LABELS[node.type]}</span>
+            <span class="pill" style="background:#f1f5f9;color:#64748b;margin-left:4px">${statusLabel}</span>
+          </div>
+        </div>
+        ${node.source ? `<div class="detail-field"><div class="label">出处</div><div class="value">${node.source}</div></div>` : ''}
+      `
+
+        if (node.type === 'cross_disciplinary_theme') {
+          const cluster = getThemeClusters().find((c) => c.themeId === node.id)
+          if (cluster) {
+            bodyHtml += `<div class="detail-field"><div class="label">关联知识点</div>`
+            cluster.mathIds.forEach((id) => {
+              bodyHtml += `<div class="cross-kp math" data-jump="${id}">${nodeMap[id].name}</div>`
+            })
+            cluster.sciIds.forEach((id) => {
+              bodyHtml += `<div class="cross-kp science" data-jump="${id}">${nodeMap[id].name}</div>`
+            })
+            bodyHtml += `</div>`
+          }
+        } else {
+          if (node.type === 'unit' && getSubjectGroup(node.id) === 'science') {
+            const lessons = outEdges
+              .filter((e) => e.relation === 'contains')
+              .map((e) => nodeMap[e.target])
+              .filter((n) => n && n.type === 'lesson')
+            if (lessons.length) {
+              bodyHtml += `<div class="detail-field"><div class="label">包含课时（${lessons.length}）</div><ul class="edge-list">`
+              lessons.forEach((l) => {
+                bodyHtml += `<li>${l.name}</li>`
+              })
+              bodyHtml += `</ul></div>`
+            }
+          }
+
+          const allRelated = [
+            ...outEdges.map((e) => ({
+              dir: '出',
+              other: nodeMap[e.target],
+              relation: e.relation,
+            })),
+            ...inEdges.map((e) => ({
+              dir: '入',
+              other: nodeMap[e.source],
+              relation: e.relation,
+            })),
+          ].filter(
+            (r) =>
+              !(
+                r.relation === 'cross_links' &&
+                r.other?.type === 'cross_disciplinary_theme'
+              ),
+          )
+          const crossPeers = getCrossKnowledgePeers(nodeId)
+          let edgesHtml = ''
+          if (crossPeers.length) {
+            edgesHtml += `<div class="cross-group"><div class="cross-group-title" style="color:#ea580c">跨学科关联</div><ul class="edge-list">`
+            crossPeers.forEach((peer) => {
+              const peerLabel = SUBJECT_LABELS[getSubjectGroup(peer.id)] || ''
+              edgesHtml += `<li><span class="edge-relation">${peerLabel}</span> ↔ <span data-jump="${peer.id}" style="cursor:pointer;color:var(--accent)">${peer.name}</span></li>`
+            })
+            edgesHtml += `</ul></div>`
+          }
+          const others = allRelated.filter((r) => r.relation !== 'cross_links')
+          if (others.length) {
+            edgesHtml +=
+              `<ul class="edge-list">` +
+              others
+                .map(
+                  (r) => `
+              <li><span class="edge-relation">${RELATION_LABELS[r.relation]}</span> (${r.dir}) → ${r.other ? r.other.name : '?'}</li>
+            `,
+                )
+                .join('') +
+              `</ul>`
+          }
+          if (!crossPeers.length && !others.length) {
+            edgesHtml = '<div class="detail-empty">无关联关系</div>'
+          }
+          bodyHtml += `<div class="detail-field"><div class="label">关联关系 (${crossPeers.length + others.length})</div>${edgesHtml}</div>`
+        }
+
+        document.getElementById('detailEmpty').style.display = 'none'
+        const content = document.getElementById('detailContent')
+        content.style.display = 'block'
+        content.innerHTML = bodyHtml
+
+        content.querySelectorAll('[data-jump]').forEach((el) => {
+          el.addEventListener('click', () => showNodeDetail(el.dataset.jump))
+        })
+
+        refreshNodeHighlight()
+      }
+
+      function initFilters() {
+        const typeContainer = document.getElementById('typeFilters')
+        GRAPH_DATA.node_types
+          .filter((t) => t !== 'cross_disciplinary_theme')
+          .forEach((t) => {
+            const label = document.createElement('label')
+            label.className = 'filter-item'
+            const checked = activeTypes.has(t)
+            label.innerHTML = `
+          <input type="checkbox" ${checked ? 'checked' : ''} data-type="${t}" />
+          <span class="swatch" style="background:${TYPE_COLORS[t]}"></span>
+          ${TYPE_LABELS[t]}
+        `
+            label.querySelector('input').addEventListener('change', (e) => {
+              if (e.target.checked) activeTypes.add(t)
+              else activeTypes.delete(t)
+              updateMainDisplay()
+            })
+            typeContainer.appendChild(label)
+          })
+
+        const relContainer = document.getElementById('relationFilters')
+        GRAPH_DATA.relation_types.forEach((r) => {
+          const count = GRAPH_DATA.edges.filter((e) => e.relation === r).length
+          const label = document.createElement('label')
+          label.className = 'filter-item'
+          const checked = activeRelations.has(r)
+          const lineStyle =
+            r === 'cross_links'
+              ? 'background:repeating-linear-gradient(90deg,#2563eb 0 4px,transparent 4px 7px)'
+              : `background:${RELATION_COLORS[r]}`
+          label.innerHTML = `
+          <input type="checkbox" ${checked ? 'checked' : ''} data-relation="${r}" />
+          <span class="legend-line" style="${lineStyle};height:${r === 'cross_links' ? 3 : 2}px"></span>
+          ${RELATION_LABELS[r]} (${count})${r === 'cross_links' ? ' · 虚线' : ''}
+        `
+          label.querySelector('input').addEventListener('change', (e) => {
+            if (e.target.checked) activeRelations.add(r)
+            else activeRelations.delete(r)
+            updateMainDisplay()
+          })
+          relContainer.appendChild(label)
+        })
+      }
+
+      function initLegend() {
+        const subjectLegend = document.getElementById('subjectLegend')
+        ;[
+          { color: '#2563eb', label: '数学' },
+          { color: '#059669', label: '科学' },
+          { color: '#ea580c', label: '跨学科' },
+        ].forEach((s) => {
+          const item = document.createElement('div')
+          item.className = 'legend-item'
+          item.innerHTML = `<span class="swatch" style="background:${s.color}"></span>${s.label}`
+          subjectLegend.appendChild(item)
+        })
+
+        const nodeLegend = document.getElementById('nodeLegend')
+        GRAPH_DATA.node_types
+          .filter((t) => t !== 'cross_disciplinary_theme')
+          .forEach((t) => {
+            const item = document.createElement('div')
+            item.className = 'legend-item'
+            item.innerHTML = `<span class="swatch" style="background:${TYPE_COLORS[t]}"></span>${TYPE_LABELS[t]}`
+            nodeLegend.appendChild(item)
+          })
+
+        const edgeLegend = document.getElementById('edgeLegend')
+        GRAPH_DATA.relation_types.forEach((r) => {
+          const item = document.createElement('div')
+          item.className = 'legend-item'
+          const lineStyle =
+            r === 'cross_links'
+              ? 'background:repeating-linear-gradient(90deg,#2563eb 0 4px,transparent 4px 7px)'
+              : `background:${RELATION_COLORS[r]}`
+          item.innerHTML = `<span class="legend-line" style="${lineStyle};height:${r === 'cross_links' ? 3 : 2}px"></span>${RELATION_LABELS[r]}${r === 'cross_links' ? '（虚线）' : ''}`
+          edgeLegend.appendChild(item)
+        })
+      }
+
+      document.getElementById('viewTabs').addEventListener('click', (e) => {
+        const btn = e.target.closest('button')
+        if (!btn) return
+        document
+          .querySelectorAll('#viewTabs button')
+          .forEach((b) => b.classList.remove('active'))
+        btn.classList.add('active')
+        applyViewDefaults(btn.dataset.view)
+      })
+
+      document.getElementById('searchInput').addEventListener('input', (e) => {
+        searchQuery = e.target.value.trim()
+        updateMainDisplay()
+      })
+
+      document.getElementById('btnReset').addEventListener('click', () => {
+        chart.setOption(
+          { series: [{ id: 'kg-graph', zoom: 1, center: undefined }] },
+          false,
+        )
+        chart.dispatchAction({ type: 'restore' })
+      })
+
+      document.getElementById('btnFit').addEventListener('click', () => {
+        relayoutAndFit()
+      })
+
+      document
+        .getElementById('btnToggleDetail')
+        .addEventListener('click', () => {
+          showAllDetail = !showAllDetail
+          const btn = document.getElementById('btnToggleDetail')
+          if (showAllDetail) {
+            activeTypes = new Set(GRAPH_DATA.node_types)
+            activeRelations = new Set(GRAPH_DATA.relation_types)
+            layoutMode = 'hierarchy'
+            clearSavedPositions()
+            btn.classList.add('active')
+            btn.textContent = '收起为全部概要'
+          } else {
+            activeTypes = new Set([...OVERVIEW_TYPES, 'knowledge', 'method'])
+            activeRelations = new Set([
+              'contains',
+              'teaches',
+              'uses_method',
+              'cross_links',
+            ])
+            layoutMode = 'overview'
+            clearSavedPositions()
+            btn.classList.remove('active')
+            btn.textContent = '展开知识点 / 课标等详细节点'
+          }
+          document.querySelectorAll('#typeFilters input').forEach((inp) => {
+            inp.checked = activeTypes.has(inp.dataset.type)
+          })
+          document.querySelectorAll('#relationFilters input').forEach((inp) => {
+            inp.checked = activeRelations.has(inp.dataset.relation)
+          })
+          updateMainDisplay()
+        })
+
+      document
+        .getElementById('btnResetLayout')
+        .addEventListener('click', () => {
+          relayoutAndFit()
+        })
+
+      document
+        .getElementById('chkShowLessons')
+        .addEventListener('change', (e) => {
+          showScienceLessons = e.target.checked
+          if (showScienceLessons) activeTypes.add('lesson')
+          else activeTypes.delete('lesson')
+          const lessonInput = document.querySelector(
+            '#typeFilters input[data-type="lesson"]',
+          )
+          if (lessonInput) lessonInput.checked = showScienceLessons
+          clearSavedPositions()
+          updateMainDisplay()
+        })
+
+      window.addEventListener('resize', () => chart.resize())
+
+      document
+        .getElementById('btnEditMode')
+        .addEventListener('click', toggleEditMode)
+      document.getElementById('btnSaveData').addEventListener('click', () => {
+        persistGraphData()
+        alert('已保存到浏览器本地。')
+      })
+      document
+        .getElementById('btnExportData')
+        .addEventListener('click', exportGraphData)
+      document.getElementById('btnImportData').addEventListener('click', () => {
+        document.getElementById('importFileInput').click()
+      })
+      document
+        .getElementById('importFileInput')
+        .addEventListener('change', (e) => {
+          const file = e.target.files?.[0]
+          e.target.value = ''
+          if (!file) return
+          const reader = new FileReader()
+          reader.onload = () => {
+            try {
+              const data = JSON.parse(reader.result)
+              if (applyImportedGraphData(data)) alert('导入成功。')
+            } catch {
+              alert('JSON 解析失败，请检查文件格式。')
+            }
+          }
+          reader.readAsText(file)
+        })
+      document
+        .getElementById('btnResetData')
+        .addEventListener('click', resetGraphData)
+      document
+        .getElementById('btnAddNode')
+        .addEventListener('click', showAddNodeModal)
+      document
+        .getElementById('btnAddEdge')
+        .addEventListener('click', () => showAddEdgeModal())
+      document
+        .getElementById('btnEditMeta')
+        .addEventListener('click', showMetadataModal)
+      document
+        .getElementById('btnBrowseData')
+        .addEventListener('click', showDataBrowserModal)
+      document
+        .getElementById('btnAddNodeToolbar')
+        .addEventListener('click', showAddNodeModal)
+      document
+        .getElementById('btnAddEdgeToolbar')
+        .addEventListener('click', () => showAddEdgeModal())
+      document
+        .getElementById('btnBrowseDataToolbar')
+        .addEventListener('click', showDataBrowserModal)
+
+      initFilters()
+      initLegend()
+      bindChartEvents()
+      updateHeaderMeta()
+      updateMainDisplay()
+    </script>
+  </body>
+</html>
