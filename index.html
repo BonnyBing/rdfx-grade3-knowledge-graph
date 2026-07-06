@@ -3744,11 +3744,11 @@
               layout: useLayoutNone ? 'none' : 'force',
               data: nodes,
               links: edges,
-              roam: true,
+              roam: 'scale',
               draggable: false,
               animation: false,
               animationDurationUpdate: 0,
-              focusNodeAdjacency: true,
+              focusNodeAdjacency: false,
               label: { show: true },
               edgeSymbol: ['none', 'arrow'],
               edgeSymbolSize: [0, 6],
@@ -3781,6 +3781,7 @@
           { series: [{ id: 'kg-graph', data: nodes, links: edges }] },
           false,
         )
+        chart.dispatchAction({ type: 'downplay', seriesIndex: 0 })
       }
 
       function findNodeAtPixel(offsetX, offsetY, data) {
@@ -3816,6 +3817,7 @@
         const DRAG_THRESHOLD = 6
         let pointerDown = null
         let dragging = null
+        let canvasPan = null
         let paintRaf = null
         let suppressClick = false
 
@@ -3889,6 +3891,27 @@
         }
 
         function onPointerMove(e) {
+          if (canvasPan) {
+            if (e.buttons === 0) {
+              finishInteraction(e)
+              return
+            }
+            const { x, y } = chartOffsetFromEvent(e)
+            const dx = x - canvasPan.lastX
+            const dy = y - canvasPan.lastY
+            if (dx === 0 && dy === 0) return
+            canvasPan.moved = true
+            chart.dispatchAction({
+              type: 'graphRoam',
+              seriesId: 'kg-graph',
+              dx,
+              dy,
+            })
+            canvasPan.lastX = x
+            canvasPan.lastY = y
+            return
+          }
+
           if (dragging) {
             if (e.buttons === 0) {
               finishInteraction(e)
@@ -3929,6 +3952,11 @@
         }
 
         function finishInteraction(e) {
+          const wasNodeDragging = !!dragging
+          const wasCanvasPanning = !!canvasPan
+          const nodeDragMoved = !!dragging?.moved
+          const canvasPanMoved = !!canvasPan?.moved
+
           detachPointerListeners()
           document.body.classList.remove('kg-dragging')
           graphEl.classList.remove('is-dragging')
@@ -3949,13 +3977,22 @@
 
             chart.setOption({ tooltip: { show: true } }, { silent: true })
             saveAllPositions()
-            suppressClick = dragging.moved
+            if (dragging.moved) suppressClick = true
             dragging = null
           } else {
             pointerDown = null
           }
 
-          if (e) {
+          if (canvasPan) {
+            if (canvasPan.moved) suppressClick = true
+            canvasPan = null
+          }
+
+          if (
+            e &&
+            ((wasNodeDragging && nodeDragMoved) ||
+              (wasCanvasPanning && canvasPanMoved))
+          ) {
             e.preventDefault()
             e.stopPropagation()
           }
@@ -3991,15 +4028,33 @@
         chart.getZr().on(
           'mousedown',
           (e) => {
-            if (dragging || pointerDown) return
+            if (dragging || pointerDown || canvasPan) return
             const node = findNodeAtPixel(e.offsetX, e.offsetY)
-            if (!node || !liveGraphData) return
+            if (node && liveGraphData) {
+              e.stop()
+              if (e.event) {
+                e.event.preventDefault()
+                e.event.stopPropagation()
+              }
+              startPointerDown(node.id, e.offsetX, e.offsetY, e.event)
+              return
+            }
             e.stop()
             if (e.event) {
               e.event.preventDefault()
               e.event.stopPropagation()
             }
-            startPointerDown(node.id, e.offsetX, e.offsetY, e.event)
+            const { x, y } = chartOffsetFromEvent(e.event || e)
+            canvasPan = {
+              lastX: x,
+              lastY: y,
+              moved: false,
+              pointerId: e.event?.pointerId,
+            }
+            document.body.classList.add('kg-dragging')
+            graphEl.classList.add('is-dragging')
+            chart.getZr().setCursorStyle('grabbing')
+            attachPointerListeners()
           },
           { before: true },
         )
