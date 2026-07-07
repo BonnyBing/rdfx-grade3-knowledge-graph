@@ -165,10 +165,6 @@
         flex: 1;
         min-height: 0;
         width: 100%;
-        touch-action: none;
-      }
-      #graph canvas {
-        touch-action: none;
       }
       #graph.is-dragging {
         cursor: grabbing !important;
@@ -3789,24 +3785,26 @@
       }
 
       function findNodeAtPixel(offsetX, offsetY, data) {
+        // 命中测试必须在「像素空间」进行：把节点图坐标换算成像素，再与
+        // 鼠标像素坐标比较。之前用图坐标距离对比像素半径，缩放≠1 时量纲不符，
+        // 会导致点在节点上却判定为空白。
         const nodes =
           data || liveGraphData || chart.getOption()?.series?.[0]?.data || []
-        const pt = chart.convertFromPixel({ seriesIndex: 0 }, [
-          offsetX,
-          offsetY,
-        ])
-        if (!pt) return null
         let best = null
         let bestD = Infinity
-        nodes.forEach((n) => {
-          if (n.x == null || n.y == null) return
-          const d = (n.x - pt[0]) ** 2 + (n.y - pt[1]) ** 2
-          const hit = (n.symbolSize || 20) + 20
-          if (d < hit * hit && d < bestD) {
+        for (const n of nodes) {
+          if (n.x == null || n.y == null) continue
+          const p = chart.convertToPixel({ seriesIndex: 0 }, [n.x, n.y])
+          if (!p) continue
+          const dx = p[0] - offsetX
+          const dy = p[1] - offsetY
+          const d = dx * dx + dy * dy
+          const r = (n.symbolSize || 20) / 2 + 8
+          if (d < r * r && d < bestD) {
             bestD = d
             best = n
           }
-        })
+        }
         return best
       }
 
@@ -3815,48 +3813,23 @@
         return { x: e.clientX - rect.left, y: e.clientY - rect.top }
       }
 
-      function hitTestNode(offsetX, offsetY) {
-        if (!liveGraphData?.length) return null
-        const zr = chart.getZr()
-        const hover = zr.handler.findHover(offsetX, offsetY)
-        let el = hover?.target
-        while (el) {
-          if (el.dataIndex != null && el.seriesIndex != null) {
-            const item =
-              chart.getOption().series[el.seriesIndex]?.data?.[el.dataIndex]
-            if (item?.id) return item
-          }
-          el = el.parent
-        }
-        return findNodeAtPixel(offsetX, offsetY)
-      }
-
       function bindChartEvents() {
-        if (chart._graphElEventsBound) return
-        chart._graphElEventsBound = true
+        if (chart._eventsBound) return
+        chart._eventsBound = true
 
+        // 交互设计（第一性原理）——三种手势互斥，且都不依赖 ECharts 的 roam 平移：
+        //  1. 缩放：交给原生 roam:'scale'（只缩放、绝不平移，杜绝与拖拽冲突）。
+        //  2. 空白处拖动：整体平移所有节点坐标（视图级平移）。
+        //  3. 节点拖动：平移该节点所在分组的坐标；未移动则视为单击查看详情。
+        // 平移量统一用 convertFromPixel 把像素位移换算成图坐标位移，
+        // 因此在任意缩放级别下都精确对应鼠标移动。
+        const zr = chart.getZr()
         const DRAG_THRESHOLD = 5
         let session = null
         let paintRaf = null
         let suppressClick = false
 
-        function localXY(e) {
-          const rect = graphEl.getBoundingClientRect()
-          return { x: e.clientX - rect.left, y: e.clientY - rect.top }
-        }
-
-        function detachWindow() {
-          window.removeEventListener('mousemove', onMove, true)
-          window.removeEventListener('mouseup', onUp, true)
-        }
-
-        function setGrabbing(active) {
-          document.body.classList.toggle('kg-dragging', active)
-          graphEl.classList.toggle('is-dragging', active)
-          chart.getZr().setCursorStyle(active ? 'grabbing' : 'default')
-        }
-
-        function flushDragPaint() {
+        function repaint() {
           if (!liveGraphData) return
           chart.setOption(
             {
@@ -3873,129 +3846,120 @@
           )
         }
 
-        function scheduleDragPaint() {
+        function scheduleRepaint() {
           if (paintRaf) return
           paintRaf = requestAnimationFrame(() => {
             paintRaf = null
-            flushDragPaint()
+            repaint()
           })
+        }
+
+        function setGrabbing(on) {
+          document.body.classList.toggle('kg-dragging', on)
+          graphEl.classList.toggle('is-dragging', on)
+          zr.setCursorStyle(on ? 'grabbing' : 'default')
+        }
+
+        function graphDelta(fromX, fromY, toX, toY) {
+          const p0 = chart.convertFromPixel({ seriesIndex: 0 }, [fromX, fromY])
+          const p1 = chart.convertFromPixel({ seriesIndex: 0 }, [toX, toY])
+          if (!p0 || !p1) return null
+          return [p1[0] - p0[0], p1[1] - p0[1]]
+        }
+
+        function onDown(e) {
+          if (session || !liveGraphData?.length) return
+          // 只拒绝明确的非左键（中/右键）；button 为 undefined 时按左键处理
+          const btn = e.event && e.event.button
+          if (btn != null && btn !== 0) return
+          const ox = e.offsetX
+          const oy = e.offsetY
+          const node = findNodeAtPixel(ox, oy)
+          const visibleIds = new Set(liveGraphData.map((d) => d.id))
+          session = {
+            kind: node ? 'node' : 'canvas',
+            nodeId: node ? node.id : null,
+            groupSet: node ? new Set(getDragGroup(node.id, visibleIds)) : null,
+            startX: ox,
+            startY: oy,
+            lastX: ox,
+            lastY: oy,
+            moved: false,
+          }
         }
 
         function onMove(e) {
           if (!session) return
+          const ox = e.offsetX
+          const oy = e.offsetY
+          if (
+            !session.moved &&
+            Math.hypot(ox - session.startX, oy - session.startY) < DRAG_THRESHOLD
+          ) {
+            return
+          }
+          const d = graphDelta(session.lastX, session.lastY, ox, oy)
+          if (!d) return
+          const [gdx, gdy] = d
+          if (gdx === 0 && gdy === 0) return
 
-          const dist = Math.hypot(
-            e.clientX - session.startClientX,
-            e.clientY - session.startClientY,
-          )
-          if (session.phase === 'pending' && dist >= DRAG_THRESHOLD) {
-            session.phase = 'active'
+          if (!session.moved) {
+            session.moved = true
             setGrabbing(true)
             if (session.kind === 'node') {
               chart.setOption({ tooltip: { show: false } }, { silent: true })
             }
           }
-          if (session.phase !== 'active') return
-
-          const { x, y } = localXY(e)
-          const dx = x - session.lastX
-          const dy = y - session.lastY
-          if (dx === 0 && dy === 0) return
-
-          session.moved = true
-          session.lastX = x
-          session.lastY = y
+          session.lastX = ox
+          session.lastY = oy
 
           if (session.kind === 'canvas') {
-            chart.dispatchAction({
-              type: 'graphRoam',
-              seriesId: 'kg-graph',
-              dx,
-              dy,
-            })
-            return
-          }
-
-          const pt0 = chart.convertFromPixel({ seriesIndex: 0 }, [
-            x - dx,
-            y - dy,
-          ])
-          const pt1 = chart.convertFromPixel({ seriesIndex: 0 }, [x, y])
-          if (!pt0 || !pt1) return
-          const gdx = pt1[0] - pt0[0]
-          const gdy = pt1[1] - pt0[1]
-          for (let i = 0; i < liveGraphData.length; i++) {
-            const n = liveGraphData[i]
-            if (session.groupSet.has(n.id)) {
+            for (let i = 0; i < liveGraphData.length; i++) {
+              const n = liveGraphData[i]
               n.x = (n.x || 0) + gdx
               n.y = (n.y || 0) + gdy
             }
-          }
-          scheduleDragPaint()
-        }
-
-        function onUp(e) {
-          if (!session) return
-
-          const wasDrag = session.phase === 'active' && session.moved
-          const nodeId = session.nodeId
-
-          if (session.kind === 'node' && wasDrag) {
-            if (paintRaf) {
-              cancelAnimationFrame(paintRaf)
-              paintRaf = null
-              flushDragPaint()
+          } else {
+            const g = session.groupSet
+            for (let i = 0; i < liveGraphData.length; i++) {
+              const n = liveGraphData[i]
+              if (g.has(n.id)) {
+                n.x = (n.x || 0) + gdx
+                n.y = (n.y || 0) + gdy
+              }
             }
-            chart.setOption({ tooltip: { show: true } }, { silent: true })
-            saveAllPositions()
-            suppressClick = true
-          } else if (
-            session.kind === 'node' &&
-            session.phase === 'pending' &&
-            nodeId
-          ) {
-            showNodeDetail(nodeId)
-            suppressClick = true
           }
+          scheduleRepaint()
+        }
 
-          if (wasDrag) suppressClick = true
-          setGrabbing(false)
-          detachWindow()
+        function endSession() {
+          if (!session) return
+          const { kind, nodeId, moved } = session
           session = null
-
-          if (wasDrag && e) {
-            e.preventDefault()
-            e.stopPropagation()
+          if (paintRaf) {
+            cancelAnimationFrame(paintRaf)
+            paintRaf = null
+            repaint()
+          }
+          setGrabbing(false)
+          if (kind === 'node') {
+            chart.setOption({ tooltip: { show: true } }, { silent: true })
+            if (moved) {
+              saveAllPositions()
+              suppressClick = true
+            } else {
+              suppressClick = true
+              showNodeDetail(nodeId)
+            }
           }
         }
 
-        function onDown(e) {
-          if (session || e.button !== 0 || !liveGraphData?.length) return
-          const { x, y } = localXY(e)
-          const node = hitTestNode(x, y)
-
-          e.preventDefault()
-          e.stopPropagation()
-
-          const visibleIds = new Set(liveGraphData.map((d) => d.id))
-          session = {
-            kind: node ? 'node' : 'canvas',
-            phase: 'pending',
-            nodeId: node?.id || null,
-            groupSet: node
-              ? new Set(getDragGroup(node.id, visibleIds))
-              : null,
-            startClientX: e.clientX,
-            startClientY: e.clientY,
-            lastX: x,
-            lastY: y,
-            moved: false,
-          }
-          window.addEventListener('mousemove', onMove, true)
-          window.addEventListener('mouseup', onUp, true)
-        }
-
-        graphEl.addEventListener('mousedown', onDown, true)
+        zr.on('mousedown', onDown)
+        zr.on('mousemove', onMove)
+        zr.on('mouseup', endSession)
+        zr.on('globalout', endSession)
+        window.addEventListener('mouseup', endSession, true)
+        window.addEventListener('blur', endSession)
 
         chart.on('click', (params) => {
           if (suppressClick) {
@@ -4385,9 +4349,9 @@
         rebuildNodeMap()
         initFilters()
         initLegend()
+        bindChartEvents()
         updateHeaderMeta()
         updateMainDisplay()
-        bindChartEvents()
         setRemoteSyncState('synced')
         startRemoteSyncPolling()
       }
