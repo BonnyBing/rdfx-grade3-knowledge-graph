@@ -3832,18 +3832,22 @@
       }
 
       function bindChartEvents() {
-        if (chart._eventsBound) return
-        chart._eventsBound = true
+        if (chart._graphElEventsBound) return
+        chart._graphElEventsBound = true
 
-        const surface = chart.getZr().painter.getViewportRoot()
         const DRAG_THRESHOLD = 5
-        let pointer = null
+        let session = null
         let paintRaf = null
         let suppressClick = false
 
         function localXY(e) {
           const rect = graphEl.getBoundingClientRect()
           return { x: e.clientX - rect.left, y: e.clientY - rect.top }
+        }
+
+        function detachWindow() {
+          window.removeEventListener('mousemove', onMove, true)
+          window.removeEventListener('mouseup', onUp, true)
         }
 
         function setGrabbing(active) {
@@ -3877,68 +3881,32 @@
           })
         }
 
-        function onPointerDown(e) {
-          if (pointer || e.button !== 0 || !liveGraphData?.length) return
-          const { x, y } = localXY(e)
-          const node = hitTestNode(x, y)
-          e.preventDefault()
-          e.stopPropagation()
-
-          const base = {
-            phase: 'pending',
-            pointerId: e.pointerId,
-            startClientX: e.clientX,
-            startClientY: e.clientY,
-            lastX: x,
-            lastY: y,
-            moved: false,
-          }
-
-          if (node) {
-            const visibleIds = new Set(liveGraphData.map((d) => d.id))
-            pointer = {
-              ...base,
-              kind: 'node',
-              nodeId: node.id,
-              groupSet: new Set(getDragGroup(node.id, visibleIds)),
-            }
-          } else {
-            pointer = { ...base, kind: 'canvas' }
-          }
-
-          try {
-            surface.setPointerCapture(e.pointerId)
-          } catch (_) {}
-        }
-
-        function onPointerMove(e) {
-          if (!pointer || e.pointerId !== pointer.pointerId) return
+        function onMove(e) {
+          if (!session) return
 
           const dist = Math.hypot(
-            e.clientX - pointer.startClientX,
-            e.clientY - pointer.startClientY,
+            e.clientX - session.startClientX,
+            e.clientY - session.startClientY,
           )
-          if (pointer.phase === 'pending' && dist >= DRAG_THRESHOLD) {
-            pointer.phase = 'active'
+          if (session.phase === 'pending' && dist >= DRAG_THRESHOLD) {
+            session.phase = 'active'
             setGrabbing(true)
-            if (pointer.kind === 'node') {
+            if (session.kind === 'node') {
               chart.setOption({ tooltip: { show: false } }, { silent: true })
             }
           }
-          if (pointer.phase !== 'active') return
-          e.preventDefault()
-          e.stopPropagation()
+          if (session.phase !== 'active') return
 
           const { x, y } = localXY(e)
-          const dx = x - pointer.lastX
-          const dy = y - pointer.lastY
+          const dx = x - session.lastX
+          const dy = y - session.lastY
           if (dx === 0 && dy === 0) return
 
-          pointer.moved = true
-          pointer.lastX = x
-          pointer.lastY = y
+          session.moved = true
+          session.lastX = x
+          session.lastY = y
 
-          if (pointer.kind === 'canvas') {
+          if (session.kind === 'canvas') {
             chart.dispatchAction({
               type: 'graphRoam',
               seriesId: 'kg-graph',
@@ -3958,7 +3926,7 @@
           const gdy = pt1[1] - pt0[1]
           for (let i = 0; i < liveGraphData.length; i++) {
             const n = liveGraphData[i]
-            if (pointer.groupSet.has(n.id)) {
+            if (session.groupSet.has(n.id)) {
               n.x = (n.x || 0) + gdx
               n.y = (n.y || 0) + gdy
             }
@@ -3966,44 +3934,68 @@
           scheduleDragPaint()
         }
 
-        function finishPointer(e) {
-          if (!pointer || (e && e.pointerId !== pointer.pointerId)) return
-          const { kind, phase, moved, nodeId } = pointer
-          const wasDrag = phase === 'active' && moved
+        function onUp(e) {
+          if (!session) return
 
-          if (kind === 'node' && phase === 'active') {
+          const wasDrag = session.phase === 'active' && session.moved
+          const nodeId = session.nodeId
+
+          if (session.kind === 'node' && wasDrag) {
             if (paintRaf) {
               cancelAnimationFrame(paintRaf)
               paintRaf = null
               flushDragPaint()
             }
             chart.setOption({ tooltip: { show: true } }, { silent: true })
-            if (moved) saveAllPositions()
-          }
-
-          if (kind === 'node' && phase === 'pending' && nodeId) {
+            saveAllPositions()
+            suppressClick = true
+          } else if (
+            session.kind === 'node' &&
+            session.phase === 'pending' &&
+            nodeId
+          ) {
             showNodeDetail(nodeId)
             suppressClick = true
           }
 
           if (wasDrag) suppressClick = true
           setGrabbing(false)
+          detachWindow()
+          session = null
 
-          try {
-            if (e) surface.releasePointerCapture(pointer.pointerId)
-          } catch (_) {}
-
-          pointer = null
           if (wasDrag && e) {
             e.preventDefault()
             e.stopPropagation()
           }
         }
 
-        surface.addEventListener('pointerdown', onPointerDown, true)
-        surface.addEventListener('pointermove', onPointerMove, true)
-        surface.addEventListener('pointerup', finishPointer, true)
-        surface.addEventListener('pointercancel', finishPointer, true)
+        function onDown(e) {
+          if (session || e.button !== 0 || !liveGraphData?.length) return
+          const { x, y } = localXY(e)
+          const node = hitTestNode(x, y)
+
+          e.preventDefault()
+          e.stopPropagation()
+
+          const visibleIds = new Set(liveGraphData.map((d) => d.id))
+          session = {
+            kind: node ? 'node' : 'canvas',
+            phase: 'pending',
+            nodeId: node?.id || null,
+            groupSet: node
+              ? new Set(getDragGroup(node.id, visibleIds))
+              : null,
+            startClientX: e.clientX,
+            startClientY: e.clientY,
+            lastX: x,
+            lastY: y,
+            moved: false,
+          }
+          window.addEventListener('mousemove', onMove, true)
+          window.addEventListener('mouseup', onUp, true)
+        }
+
+        graphEl.addEventListener('mousedown', onDown, true)
 
         chart.on('click', (params) => {
           if (suppressClick) {
