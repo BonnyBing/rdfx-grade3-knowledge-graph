@@ -165,6 +165,10 @@
         flex: 1;
         min-height: 0;
         width: 100%;
+        touch-action: none;
+      }
+      #graph canvas {
+        touch-action: none;
       }
       #graph.is-dragging {
         cursor: grabbing !important;
@@ -3831,30 +3835,15 @@
         if (chart._eventsBound) return
         chart._eventsBound = true
 
+        const surface = chart.getZr().painter.getViewportRoot()
         const DRAG_THRESHOLD = 5
         let pointer = null
         let paintRaf = null
         let suppressClick = false
 
-        function chartXY(e) {
+        function localXY(e) {
           const rect = graphEl.getBoundingClientRect()
           return { x: e.clientX - rect.left, y: e.clientY - rect.top }
-        }
-
-        function attachWindow() {
-          window.addEventListener('mousemove', onMove, true)
-          window.addEventListener('mouseup', onUp, true)
-          window.addEventListener('pointerup', onUp, true)
-          window.addEventListener('pointercancel', onUp, true)
-          window.addEventListener('blur', onBlur)
-        }
-
-        function detachWindow() {
-          window.removeEventListener('mousemove', onMove, true)
-          window.removeEventListener('mouseup', onUp, true)
-          window.removeEventListener('pointerup', onUp, true)
-          window.removeEventListener('pointercancel', onUp, true)
-          window.removeEventListener('blur', onBlur)
         }
 
         function setGrabbing(active) {
@@ -3888,21 +3877,20 @@
           })
         }
 
-        function onDown(e) {
-          if (pointer || !liveGraphData?.length) return
-          const node = hitTestNode(e.offsetX, e.offsetY)
-          e.stop()
-          if (e.event) {
-            e.event.preventDefault?.()
-            e.event.stopPropagation?.()
-          }
+        function onPointerDown(e) {
+          if (pointer || e.button !== 0 || !liveGraphData?.length) return
+          const { x, y } = localXY(e)
+          const node = hitTestNode(x, y)
+          e.preventDefault()
+          e.stopPropagation()
 
           const base = {
             phase: 'pending',
-            startClientX: e.event?.clientX ?? 0,
-            startClientY: e.event?.clientY ?? 0,
-            lastX: e.offsetX,
-            lastY: e.offsetY,
+            pointerId: e.pointerId,
+            startClientX: e.clientX,
+            startClientY: e.clientY,
+            lastX: x,
+            lastY: y,
             moved: false,
           }
 
@@ -3917,15 +3905,14 @@
           } else {
             pointer = { ...base, kind: 'canvas' }
           }
-          attachWindow()
+
+          try {
+            surface.setPointerCapture(e.pointerId)
+          } catch (_) {}
         }
 
-        function onMove(e) {
-          if (!pointer) return
-          if (e.buttons === 0) {
-            finish(e)
-            return
-          }
+        function onPointerMove(e) {
+          if (!pointer || e.pointerId !== pointer.pointerId) return
 
           const dist = Math.hypot(
             e.clientX - pointer.startClientX,
@@ -3939,8 +3926,10 @@
             }
           }
           if (pointer.phase !== 'active') return
+          e.preventDefault()
+          e.stopPropagation()
 
-          const { x, y } = chartXY(e)
+          const { x, y } = localXY(e)
           const dx = x - pointer.lastX
           const dy = y - pointer.lastY
           if (dx === 0 && dy === 0) return
@@ -3977,8 +3966,8 @@
           scheduleDragPaint()
         }
 
-        function finish(e) {
-          if (!pointer) return
+        function finishPointer(e) {
+          if (!pointer || (e && e.pointerId !== pointer.pointerId)) return
           const { kind, phase, moved, nodeId } = pointer
           const wasDrag = phase === 'active' && moved
 
@@ -3999,24 +3988,22 @@
 
           if (wasDrag) suppressClick = true
           setGrabbing(false)
-          detachWindow()
-          pointer = null
 
+          try {
+            if (e) surface.releasePointerCapture(pointer.pointerId)
+          } catch (_) {}
+
+          pointer = null
           if (wasDrag && e) {
             e.preventDefault()
             e.stopPropagation()
           }
         }
 
-        function onUp(e) {
-          finish(e)
-        }
-
-        function onBlur() {
-          finish()
-        }
-
-        chart.getZr().on('mousedown', onDown, { before: true })
+        surface.addEventListener('pointerdown', onPointerDown, true)
+        surface.addEventListener('pointermove', onPointerMove, true)
+        surface.addEventListener('pointerup', finishPointer, true)
+        surface.addEventListener('pointercancel', finishPointer, true)
 
         chart.on('click', (params) => {
           if (suppressClick) {
@@ -4406,9 +4393,9 @@
         rebuildNodeMap()
         initFilters()
         initLegend()
-        bindChartEvents()
         updateHeaderMeta()
         updateMainDisplay()
+        bindChartEvents()
         setRemoteSyncState('synced')
         startRemoteSyncPolling()
       }
