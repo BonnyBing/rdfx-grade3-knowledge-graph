@@ -1,5 +1,16 @@
 {
-  "name": "rdfx-grade3-knowledge-graph",
+  "name": "zhishi-tupu",
+  "version": "1.0.0",
   "private": true,
-  "type": "module"
+  "description": "知识图谱：交互查看页面 + 出图接口（供智能体插件调用，返回可嵌入 Word 的 PNG 直链）",
+  "scripts": {
+    "extract": "node scripts/extract-core.mjs",
+    "dev": "node scripts/dev-server.mjs",
+    "sample": "node scripts/make-samples.mjs",
+    "gallery": "node scripts/make-dimension-gallery.mjs"
+  },
+  "dependencies": {
+    "@resvg/resvg-js": "^2.6.2",
+    "echarts": "5.5.1"
+  }
 }

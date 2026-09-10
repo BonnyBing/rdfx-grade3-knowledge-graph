@@ -1,5 +1,22 @@
 {
+  "rewrites": [
+    {
+      "source": "/i/:token.png",
+      "destination": "/api/image?token=:token"
+    }
+  ],
   "functions": {
+    "api/image.js": {
+      "maxDuration": 60,
+      "includeFiles": "assets/fonts/**"
+    },
+    "api/render.js": {
+      "maxDuration": 60,
+      "includeFiles": "assets/fonts/**"
+    },
+    "api/search.js": {
+      "maxDuration": 30
+    },
     "api/save-graph.js": {
       "maxDuration": 30
     }
