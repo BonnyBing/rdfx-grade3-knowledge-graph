@@ -7,10 +7,12 @@
     "extract": "node scripts/extract-core.mjs",
     "dev": "node scripts/dev-server.mjs",
     "sample": "node scripts/make-samples.mjs",
-    "gallery": "node scripts/make-dimension-gallery.mjs"
+    "gallery": "node scripts/make-dimension-gallery.mjs",
+    "test:plugin": "node scripts/test-plugin-api.mjs"
   },
   "dependencies": {
     "@resvg/resvg-js": "^2.6.2",
+    "@vercel/blob": "^2.8.0",
     "echarts": "5.5.1"
   }
 }

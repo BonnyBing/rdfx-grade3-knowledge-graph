@@ -117,7 +117,9 @@
         border-radius: 12px;
         font-size: 13px;
         outline: none;
-        transition: border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
+        transition:
+          border-color 0.35s var(--ease),
+          box-shadow 0.35s var(--ease);
       }
       .search-box:focus {
         border-color: var(--accent);
@@ -556,9 +558,40 @@
         background: var(--science);
         border-color: var(--science);
       }
-      .view-tabs button[data-view='cross'].active {
+      .view-tabs button[data-lens='cross'].active {
         background: var(--cross);
         border-color: var(--cross);
+      }
+      .view-tabs button[data-lens='progression'].active {
+        background: #d97706;
+        border-color: #d97706;
+      }
+      .view-tabs button[data-lens='standards'].active {
+        background: #7c3aed;
+        border-color: #7c3aed;
+      }
+      .sidebar-section-label {
+        font-size: 11px;
+        color: var(--text-secondary);
+        margin: -4px 0 8px;
+        line-height: 1.4;
+      }
+      .scope-tabs-disabled {
+        opacity: 0.45;
+        pointer-events: none;
+      }
+      .detail-jump {
+        cursor: pointer;
+        color: var(--accent);
+      }
+      .detail-jump:hover {
+        text-decoration: underline;
+      }
+      .detail-section-title {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text);
+        margin: 10px 0 4px;
       }
       .header-actions {
         display: flex;
@@ -867,12 +900,23 @@
     <div class="layout">
       <aside class="sidebar">
         <section>
-          <h2>视图</h2>
-          <div class="view-tabs" id="viewTabs">
+          <h2>看什么</h2>
+          <p class="sidebar-section-label">按问题切换镜头，同一份图谱</p>
+          <div class="view-tabs" id="lensTabs">
+            <button class="active" data-lens="structure">教材结构</button>
+            <button data-lens="progression">学习进阶</button>
+            <button data-lens="standards">课标对齐</button>
+            <button data-lens="cross">跨学科</button>
+          </div>
+        </section>
+
+        <section>
+          <h2>学科范围</h2>
+          <p class="sidebar-section-label" id="scopeHint">全部 / 数学 / 科学</p>
+          <div class="view-tabs" id="scopeTabs">
             <button class="active" data-view="all">全部</button>
             <button data-view="math">数学</button>
             <button data-view="science">科学</button>
-            <button data-view="cross">跨学科</button>
           </div>
         </section>
 
@@ -957,22 +1001,61 @@
       <div class="main-area">
         <div class="canvas-hint">拖动画布探索完整知识图谱</div>
         <div class="toolbar" id="graphToolbar">
-          <button id="btnReset" type="button" title="重置缩放" aria-label="重置缩放">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <button
+            id="btnReset"
+            type="button"
+            title="重置缩放"
+            aria-label="重置缩放"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
               <path d="M3 12a9 9 0 1 0 3-6.7" />
               <path d="M3 4v5h5" />
             </svg>
           </button>
-          <button id="btnFit" type="button" title="适应窗口" aria-label="适应窗口">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <button
+            id="btnFit"
+            type="button"
+            title="适应窗口"
+            aria-label="适应窗口"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
               <path d="M8 3H5a2 2 0 0 0-2 2v3" />
               <path d="M16 3h3a2 2 0 0 1 2 2v3" />
               <path d="M8 21H5a2 2 0 0 1-2-2v-3" />
               <path d="M16 21h3a2 2 0 0 0 2-2v-3" />
             </svg>
           </button>
-          <button id="btnResetLayout" type="button" title="重置布局" aria-label="重置布局">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <button
+            id="btnResetLayout"
+            type="button"
+            title="重置布局"
+            aria-label="重置布局"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
               <rect x="3" y="3" width="7" height="7" rx="1.5" />
               <rect x="14" y="3" width="7" height="7" rx="1.5" />
               <rect x="3" y="14" width="7" height="7" rx="1.5" />
@@ -981,17 +1064,29 @@
           </button>
         </div>
         <div class="toolbar edit-toolbar" id="editGraphToolbar">
-          <button type="button" class="primary" id="btnAddNodeToolbar">＋ 添加节点</button>
+          <button type="button" class="primary" id="btnAddNodeToolbar">
+            ＋ 添加节点
+          </button>
           <button type="button" id="btnAddEdgeToolbar">添加关系</button>
           <button type="button" id="btnBrowseDataToolbar">浏览数据</button>
         </div>
         <div id="graph"></div>
         <div class="canvas-legend" id="canvasLegend">
-          <div class="canvas-legend-item"><span class="lg-dot hollow"></span>层级节点</div>
-          <div class="canvas-legend-item"><span class="lg-dot focus"></span>当前聚焦</div>
-          <div class="canvas-legend-item cross-only"><span class="lg-dot cross"></span>有跨学科对应</div>
-          <div class="canvas-legend-item cross-only"><span class="lg-line"></span>跨学科关联</div>
-          <div class="canvas-legend-item"><span class="lg-dot dim"></span>其余淡化</div>
+          <div class="canvas-legend-item">
+            <span class="lg-dot hollow"></span>层级节点
+          </div>
+          <div class="canvas-legend-item">
+            <span class="lg-dot focus"></span>当前聚焦
+          </div>
+          <div class="canvas-legend-item cross-only">
+            <span class="lg-dot cross"></span>有跨学科对应
+          </div>
+          <div class="canvas-legend-item cross-only">
+            <span class="lg-line"></span>跨学科关联
+          </div>
+          <div class="canvas-legend-item">
+            <span class="lg-dot dim"></span>其余淡化
+          </div>
         </div>
         <div id="crossPanel"></div>
       </div>
@@ -1017,15 +1112,16 @@
     <script>
       const REMOTE_SYNC = {
         enabled: true,
+        // 同源 data.json 优先，避免首屏卡在 GitHub/CDN
         dataUrls: [
+          './data.json',
           'https://raw.githubusercontent.com/BonnyBing/rdfx-grade3-knowledge-graph/main/data.json',
           'https://fastly.jsdelivr.net/gh/BonnyBing/rdfx-grade3-knowledge-graph@main/data.json',
-          './data.json',
         ],
         baselineUrl: './data.baseline.json',
-        saveApiUrl:
-          'https://rdfx-grade3-kg-deploy.vercel.app/api/save-graph',
+        saveApiUrl: 'https://rdfx-grade3-kg-deploy.vercel.app/api/save-graph',
         pollIntervalMs: 2000,
+        fetchTimeoutMs: 6000,
       }
 
       if (['localhost', '127.0.0.1', ''].includes(location.hostname)) {
@@ -1042,11 +1138,21 @@
 
       async function fetchGraphJson(url) {
         const sep = url.includes('?') ? '&' : '?'
-        const res = await fetch(url + sep + '_=' + Date.now(), {
-          cache: 'no-store',
-        })
-        if (!res.ok) throw new Error('fetch failed: ' + url)
-        return res.json()
+        const ctrl = new AbortController()
+        const timer = setTimeout(
+          () => ctrl.abort(),
+          REMOTE_SYNC.fetchTimeoutMs || 6000,
+        )
+        try {
+          const res = await fetch(url + sep + '_=' + Date.now(), {
+            cache: 'no-store',
+            signal: ctrl.signal,
+          })
+          if (!res.ok) throw new Error('fetch failed: ' + url)
+          return await res.json()
+        } finally {
+          clearTimeout(timer)
+        }
       }
 
       async function fetchGraphJsonFromSources(urls = REMOTE_SYNC.dataUrls) {
@@ -1123,13 +1229,17 @@
       }
 
       async function pollRemoteGraphData() {
-        if (!REMOTE_SYNC.enabled || dataDirty || isSavingRemote || editMode) return
+        if (!REMOTE_SYNC.enabled || dataDirty || isSavingRemote || editMode)
+          return
         try {
           const remote = await fetchGraphJsonFromSources()
           const rev = getDataRevision(remote)
           if (!rev || rev === remoteRevision) return
           remoteRevision = rev
-          applyRemoteGraphData(remote, { keepSelection: true, markDirty: false })
+          applyRemoteGraphData(remote, {
+            keepSelection: true,
+            markDirty: false,
+          })
           setRemoteSyncState('synced')
         } catch (_) {
           setRemoteSyncState('offline')
@@ -1177,7 +1287,6 @@
         }
       }
 
-
       // ===== 以下计算逻辑已抽到 graph-core.js，网页与服务端出图共用同一份 =====
       // 这里保留同名薄封装，页面其余代码的调用方式保持不变。
       const {
@@ -1200,6 +1309,7 @@
       /** 视图状态或数据变化时重建计算核心，否则复用上一次的 */
       function syncCore() {
         const key = JSON.stringify([
+          currentLens,
           currentView,
           layoutMode,
           showAllDetail,
@@ -1212,6 +1322,7 @@
         if (core && key === coreKey) return core
         coreKey = key
         core = GraphCore.create(GRAPH_DATA, {
+          lens: currentLens,
           view: currentView,
           layoutMode,
           showAllDetail,
@@ -1224,6 +1335,10 @@
           visualPreset: 'silk',
         })
         return core
+      }
+
+      function getAncestorByType(...args) {
+        return syncCore().getAncestorByType(...args)
       }
 
       function getSubjectGroup(...args) {
@@ -1261,15 +1376,6 @@
       function buildGraphData(...args) {
         return syncCore().buildGraphData(...args)
       }
-
-
-
-
-
-
-
-
-
 
       let GRAPH_DATA = null
       let nodeMap = {}
@@ -1849,6 +1955,7 @@
         })
       }
 
+      let currentLens = 'structure'
       let currentView = 'all'
       let layoutMode = 'overview'
       let showAllDetail = false
@@ -1868,17 +1975,10 @@
       const chart = echarts.init(document.getElementById('graph'))
       const graphEl = document.getElementById('graph')
 
-
-
-
-
-
-
-
-
-
       function posStorageKey() {
-        const mode = showAllDetail ? 'all-detail' : currentView
+        const mode = showAllDetail
+          ? 'all-detail'
+          : `${currentLens}-${currentView}`
         return `${POS_STORAGE_KEY}-${mode}`
       }
 
@@ -1895,7 +1995,12 @@
       }
 
       function saveAllPositions() {
-        if (layoutMode === 'hierarchy') return
+        if (
+          layoutMode === 'hierarchy' ||
+          layoutMode === 'progression' ||
+          layoutMode === 'standards'
+        )
+          return
         const data = liveGraphData || chart.getOption()?.series?.[0]?.data
         if (!data) return
         const saved = {}
@@ -1911,39 +2016,82 @@
         const key = posStorageKey()
         localStorage.removeItem(key)
         localStorage.removeItem(`${key}-custom`)
-        ;['all', 'math', 'science', 'cross', 'all-detail'].forEach((mode) => {
+        ;[
+          'all',
+          'math',
+          'science',
+          'cross',
+          'all-detail',
+          'structure-all',
+          'structure-math',
+          'structure-science',
+          'progression-all',
+          'progression-math',
+          'progression-science',
+          'standards-all',
+          'standards-math',
+          'standards-science',
+          'cross-all',
+        ].forEach((mode) => {
           const k = `${POS_STORAGE_KEY}-${mode}`
           localStorage.removeItem(k)
           localStorage.removeItem(`${k}-custom`)
         })
       }
 
+      function syncFilterCheckboxes() {
+        document.querySelectorAll('#typeFilters input').forEach((inp) => {
+          inp.checked = activeTypes.has(inp.dataset.type)
+        })
+        document.querySelectorAll('#relationFilters input').forEach((inp) => {
+          inp.checked = activeRelations.has(inp.dataset.relation)
+        })
+      }
 
+      function updateScopeTabsUi() {
+        const scopeTabs = document.getElementById('scopeTabs')
+        const scopeHint = document.getElementById('scopeHint')
+        const disabled = currentLens === 'cross'
+        scopeTabs.classList.toggle('scope-tabs-disabled', disabled)
+        scopeHint.textContent = disabled
+          ? '跨学科同时看两科，学科范围暂不生效'
+          : '全部 / 数学 / 科学'
+        document.querySelectorAll('#scopeTabs button').forEach((b) => {
+          b.classList.toggle('active', b.dataset.view === currentView)
+        })
+        document.querySelectorAll('#lensTabs button').forEach((b) => {
+          b.classList.toggle('active', b.dataset.lens === currentLens)
+        })
+      }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-      function applyViewDefaults(view) {
-        currentView = view
-        selectedNodeId = null
+      /** 按「镜头 × 学科范围」套用默认筛选与布局 */
+      function applyLensAndScope(lens, view, { resetSelection = true } = {}) {
+        currentLens = lens
+        currentView = view === 'cross' ? 'all' : view
+        if (resetSelection) selectedNodeId = null
         showAllDetail = false
-        document.getElementById('btnToggleDetail').classList.remove('active')
-        document.getElementById('btnToggleDetail').textContent =
-          '展开知识点 / 课标等详细节点'
+        const detailBtn = document.getElementById('btnToggleDetail')
+        detailBtn.classList.remove('active')
+        detailBtn.textContent = '展开知识点 / 课标等详细节点'
 
-        if (view === 'all') {
+        if (currentLens === 'progression') {
+          layoutMode = 'progression'
+          clearSavedPositions()
+          activeTypes = new Set(['knowledge'])
+          activeRelations = new Set(['prerequisite_of'])
+          showScienceLessons = false
+          document.getElementById('chkShowLessons').checked = false
+        } else if (currentLens === 'standards') {
+          layoutMode = 'standards'
+          clearSavedPositions()
+          activeTypes = new Set(['knowledge', 'standard'])
+          activeRelations = new Set(['aligns_to'])
+          showScienceLessons = false
+          document.getElementById('chkShowLessons').checked = false
+        } else if (currentLens === 'cross') {
           layoutMode = 'overview'
           clearSavedPositions()
+          currentView = 'all'
           activeTypes = new Set([...OVERVIEW_TYPES, 'knowledge'])
           activeRelations = new Set([
             'contains',
@@ -1953,12 +2101,12 @@
           ])
           showScienceLessons = false
           document.getElementById('chkShowLessons').checked = false
-        } else if (view === 'math' || view === 'science') {
+        } else if (currentView === 'math' || currentView === 'science') {
           layoutMode = 'hierarchy'
           clearSavedPositions()
           activeTypes = new Set([...OVERVIEW_TYPES, 'knowledge'])
           activeRelations = new Set(['contains', 'teaches', 'uses_method'])
-        } else if (view === 'cross') {
+        } else {
           layoutMode = 'overview'
           clearSavedPositions()
           activeTypes = new Set([...OVERVIEW_TYPES, 'knowledge'])
@@ -1972,16 +2120,22 @@
           document.getElementById('chkShowLessons').checked = false
         }
 
-        document.querySelectorAll('#typeFilters input').forEach((inp) => {
-          inp.checked = activeTypes.has(inp.dataset.type)
-        })
-        document.querySelectorAll('#relationFilters input').forEach((inp) => {
-          inp.checked = activeRelations.has(inp.dataset.relation)
-        })
-
-        selectedNodeId = null
-        updateDetailIdleState()
+        syncFilterCheckboxes()
+        updateScopeTabsUi()
+        if (resetSelection) {
+          selectedNodeId = null
+          updateDetailIdleState()
+        }
         updateMainDisplay()
+      }
+
+      function applyViewDefaults(view) {
+        if (view === 'cross') applyLensAndScope('cross', 'all')
+        else
+          applyLensAndScope(
+            currentLens === 'cross' ? 'structure' : currentLens,
+            view,
+          )
       }
 
       function updateMainDisplay() {
@@ -1990,29 +2144,6 @@
         document.getElementById('graphToolbar').style.display = 'flex'
         renderChart()
       }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       function scheduleFitToView() {
         if (fitScheduled) return
@@ -2076,30 +2207,6 @@
         renderChart()
       }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       function prefersReducedMotion() {
         return window.matchMedia('(prefers-reduced-motion: reduce)').matches
       }
@@ -2125,7 +2232,9 @@
         const useLayoutNone =
           layoutMode === 'overview' ||
           layoutMode === 'hierarchy' ||
-          layoutMode === 'force'
+          layoutMode === 'force' ||
+          layoutMode === 'progression' ||
+          layoutMode === 'standards'
         const anim = chartAnimOption()
 
         const option = {
@@ -2172,8 +2281,12 @@
               ...anim,
               focusNodeAdjacency: false,
               label: { show: true },
-              edgeSymbol: ['none', 'none'],
-              edgeSymbolSize: [0, 0],
+              edgeSymbol:
+                currentLens === 'progression'
+                  ? ['none', 'arrow']
+                  : ['none', 'none'],
+              edgeSymbolSize:
+                currentLens === 'progression' ? [0, 18] : [0, 0],
               lineStyle: { color: '#64748b', curveness: 0, width: 1.8 },
               emphasis: {
                 focus: 'adjacency',
@@ -2420,7 +2533,8 @@
           const oy = e.offsetY
           if (
             !session.moved &&
-            Math.hypot(ox - session.startX, oy - session.startY) < DRAG_THRESHOLD
+            Math.hypot(ox - session.startX, oy - session.startY) <
+              DRAG_THRESHOLD
           ) {
             return
           }
@@ -2475,11 +2589,7 @@
             repaint()
           }
           setGrabbing(false)
-          if (
-            kind === 'canvas' &&
-            moved &&
-            performance.now() - lastT < 80
-          ) {
+          if (kind === 'canvas' && moved && performance.now() - lastT < 80) {
             startInertia(pxVx, pxVy)
           }
           if (kind === 'node') {
@@ -2512,24 +2622,56 @@
       }
 
       function updateViewHint() {
+        const scopeLabel =
+          { all: '全部', math: '数学', science: '科学' }[currentView] || ''
         const hints = {
-          all: showAllDetail
-            ? '详细节点：按 学科→领域→单元→知识点 分列。橙色虚线连接两科有对应关系的知识点。'
-            : '全部概要：上方数学、下方科学。橙色圈是有跨学科对应的知识点，橙色虚线连到另一科。',
-          math: '数学视图：只显示数学，树形层级从左到右为 学科→领域→单元→课时→知识点。',
-          science:
-            '科学视图：只显示科学，树形层级从左到右为 学科→领域→单元→课时→知识点。',
-          cross:
-            '跨学科视图：只保留有对应关系的知识点及其单元路径，橙色虚线连接数学与科学两侧。',
+          structure: {
+            all: showAllDetail
+              ? '教材结构 · 详细节点：按 学科→领域→单元→知识点 分列。橙色虚线连接两科有对应关系的知识点。'
+              : '教材结构 · 全部概要：上方数学、下方科学。橙色圈是有跨学科对应的知识点。',
+            math: '教材结构 · 数学：树形层级从左到右为 学科→领域→单元→课时→知识点。',
+            science:
+              '教材结构 · 科学：树形层级从左到右为 学科→领域→单元→课时→知识点。',
+          },
+          progression: {
+            all: '学习进阶 · 全部：橙色箭头从「先学」指向「后学」。数学与科学分区排列。',
+            math: '学习进阶 · 数学：橙色箭头表示前置依赖，箭头指向后学知识点。',
+            science: '学习进阶 · 科学：橙色箭头表示前置依赖，箭头指向后学知识点。',
+          },
+          standards: {
+            all: '课标对齐 · 全部：左列为知识点，右列为课标要求，虚线表示对齐关系。',
+            math: '课标对齐 · 数学：本册数学知识点与第二学段课标要求。',
+            science: '课标对齐 · 科学：本册科学知识点与 3—4 年级课标要求。',
+          },
+          cross: {
+            all: '跨学科：只保留有对应关系的知识点及其单元路径，橙色虚线连接数学与科学两侧。',
+            math: '跨学科：只保留有对应关系的知识点及其单元路径，橙色虚线连接数学与科学两侧。',
+            science:
+              '跨学科：只保留有对应关系的知识点及其单元路径，橙色虚线连接数学与科学两侧。',
+          },
         }
-        document.getElementById('viewHint').textContent = hints[currentView]
+        const text =
+          hints[currentLens]?.[currentView] ||
+          hints[currentLens]?.all ||
+          `当前：${currentLens} / ${scopeLabel}`
+        document.getElementById('viewHint').textContent = text
         document.getElementById('btnToggleDetail').style.display =
-          currentView === 'all' ? 'block' : 'none'
+          currentLens === 'structure' && currentView === 'all'
+            ? 'block'
+            : 'none'
+        const showLessons =
+          currentLens === 'structure' &&
+          (currentView === 'all' || currentView === 'science')
+        document.getElementById('chkShowLessons').parentElement.style.display =
+          showLessons ? '' : 'none'
         const showCrossLegend =
-          currentView === 'all' || currentView === 'cross'
-        document.querySelectorAll('.canvas-legend-item.cross-only').forEach((el) => {
-          el.style.display = showCrossLegend ? 'flex' : 'none'
-        })
+          currentLens === 'cross' ||
+          (currentLens === 'structure' && currentView === 'all')
+        document
+          .querySelectorAll('.canvas-legend-item.cross-only')
+          .forEach((el) => {
+            el.style.display = showCrossLegend ? 'flex' : 'none'
+          })
       }
 
       function updateStats(nodeCount, edgeCount) {
@@ -2591,6 +2733,78 @@
             bodyHtml += `</div>`
           }
         } else {
+          if (node.type === 'knowledge') {
+            const unit = getAncestorByType(nodeId, 'unit')
+            const lesson = getAncestorByType(nodeId, 'lesson')
+            const domain = getAncestorByType(nodeId, 'domain')
+            const prereqIns = inEdges
+              .filter((e) => e.relation === 'prerequisite_of')
+              .map((e) => nodeMap[e.source])
+              .filter(Boolean)
+            const prereqOuts = outEdges
+              .filter((e) => e.relation === 'prerequisite_of')
+              .map((e) => nodeMap[e.target])
+              .filter(Boolean)
+            const standards = outEdges
+              .filter((e) => e.relation === 'aligns_to')
+              .map((e) => nodeMap[e.target])
+              .filter(Boolean)
+            const crossPeers = getCrossKnowledgePeers(nodeId)
+
+            bodyHtml += `<div class="detail-section-title">所属位置</div><div class="detail-field"><ul class="edge-list">`
+            if (domain)
+              bodyHtml += `<li><span class="edge-relation">领域</span> → <span class="detail-jump" data-jump="${domain.id}">${domain.name}</span></li>`
+            if (unit)
+              bodyHtml += `<li><span class="edge-relation">单元</span> → <span class="detail-jump" data-jump="${unit.id}">${unit.name}</span></li>`
+            if (lesson)
+              bodyHtml += `<li><span class="edge-relation">课次</span> → <span class="detail-jump" data-jump="${lesson.id}">${lesson.name}</span></li>`
+            if (!domain && !unit && !lesson) bodyHtml += `<li>暂无单元路径</li>`
+            bodyHtml += `</ul></div>`
+
+            bodyHtml += `<div class="detail-section-title">学习进阶</div><div class="detail-field">`
+            if (prereqIns.length) {
+              bodyHtml += `<div class="label">要先会什么（${prereqIns.length}）</div><ul class="edge-list">`
+              prereqIns.forEach((n) => {
+                bodyHtml += `<li><span class="detail-jump" data-jump="${n.id}">${n.name}</span></li>`
+              })
+              bodyHtml += `</ul>`
+            } else {
+              bodyHtml += `<div class="label">要先会什么</div><div class="detail-empty">本册未标注前置</div>`
+            }
+            if (prereqOuts.length) {
+              bodyHtml += `<div class="label" style="margin-top:8px">学完能通向（${prereqOuts.length}）</div><ul class="edge-list">`
+              prereqOuts.forEach((n) => {
+                bodyHtml += `<li><span class="detail-jump" data-jump="${n.id}">${n.name}</span></li>`
+              })
+              bodyHtml += `</ul>`
+            } else {
+              bodyHtml += `<div class="label" style="margin-top:8px">学完能通向</div><div class="detail-empty">本册未标注后续</div>`
+            }
+            bodyHtml += `</div>`
+
+            bodyHtml += `<div class="detail-section-title">课标与跨学科</div><div class="detail-field">`
+            if (standards.length) {
+              bodyHtml += `<div class="label">对齐课标（${standards.length}）</div><ul class="edge-list">`
+              standards.forEach((n) => {
+                bodyHtml += `<li><span class="detail-jump" data-jump="${n.id}">${n.name}</span></li>`
+              })
+              bodyHtml += `</ul>`
+            } else {
+              bodyHtml += `<div class="label">对齐课标</div><div class="detail-empty">暂无直接对齐</div>`
+            }
+            if (crossPeers.length) {
+              bodyHtml += `<div class="label" style="margin-top:8px">跨学科关联（${crossPeers.length}）</div><ul class="edge-list">`
+              crossPeers.forEach((peer) => {
+                const peerLabel = SUBJECT_LABELS[getSubjectGroup(peer.id)] || ''
+                bodyHtml += `<li><span class="edge-relation">${peerLabel}</span> ↔ <span class="detail-jump" data-jump="${peer.id}">${peer.name}</span></li>`
+              })
+              bodyHtml += `</ul>`
+            } else {
+              bodyHtml += `<div class="label" style="margin-top:8px">跨学科关联</div><div class="detail-empty">暂无</div>`
+            }
+            bodyHtml += `</div>`
+          }
+
           if (node.type === 'unit' && getSubjectGroup(node.id) === 'science') {
             const lessons = outEdges
               .filter((e) => e.relation === 'contains')
@@ -2599,57 +2813,67 @@
             if (lessons.length) {
               bodyHtml += `<div class="detail-field"><div class="label">包含课时（${lessons.length}）</div><ul class="edge-list">`
               lessons.forEach((l) => {
-                bodyHtml += `<li>${l.name}</li>`
+                bodyHtml += `<li><span class="detail-jump" data-jump="${l.id}">${l.name}</span></li>`
               })
               bodyHtml += `</ul></div>`
             }
           }
 
-          const allRelated = [
-            ...outEdges.map((e) => ({
-              dir: '出',
-              other: nodeMap[e.target],
-              relation: e.relation,
-            })),
-            ...inEdges.map((e) => ({
-              dir: '入',
-              other: nodeMap[e.source],
-              relation: e.relation,
-            })),
-          ].filter(
-            (r) =>
-              !(
-                r.relation === 'cross_links' &&
-                r.other?.type === 'cross_disciplinary_theme'
-              ),
-          )
-          const crossPeers = getCrossKnowledgePeers(nodeId)
-          let edgesHtml = ''
-          if (crossPeers.length) {
-            edgesHtml += `<div class="cross-group"><div class="cross-group-title" style="color:#ea580c">跨学科关联</div><ul class="edge-list">`
-            crossPeers.forEach((peer) => {
-              const peerLabel = SUBJECT_LABELS[getSubjectGroup(peer.id)] || ''
-              edgesHtml += `<li><span class="edge-relation">${peerLabel}</span> ↔ <span data-jump="${peer.id}" style="cursor:pointer;color:var(--accent)">${peer.name}</span></li>`
-            })
-            edgesHtml += `</ul></div>`
-          }
-          const others = allRelated.filter((r) => r.relation !== 'cross_links')
-          if (others.length) {
-            edgesHtml +=
-              `<ul class="edge-list">` +
-              others
-                .map(
-                  (r) => `
-              <li><span class="edge-relation">${RELATION_LABELS[r.relation]}</span> (${r.dir}) → ${r.other ? r.other.name : '?'}</li>
+          if (node.type !== 'knowledge') {
+            const allRelated = [
+              ...outEdges.map((e) => ({
+                dir: '出',
+                other: nodeMap[e.target],
+                otherId: e.target,
+                relation: e.relation,
+              })),
+              ...inEdges.map((e) => ({
+                dir: '入',
+                other: nodeMap[e.source],
+                otherId: e.source,
+                relation: e.relation,
+              })),
+            ].filter(
+              (r) =>
+                !(
+                  r.relation === 'cross_links' &&
+                  r.other?.type === 'cross_disciplinary_theme'
+                ),
+            )
+            const crossPeers = getCrossKnowledgePeers(nodeId)
+            let edgesHtml = ''
+            if (crossPeers.length) {
+              edgesHtml += `<div class="cross-group"><div class="cross-group-title" style="color:#ea580c">跨学科关联</div><ul class="edge-list">`
+              crossPeers.forEach((peer) => {
+                const peerLabel = SUBJECT_LABELS[getSubjectGroup(peer.id)] || ''
+                edgesHtml += `<li><span class="edge-relation">${peerLabel}</span> ↔ <span class="detail-jump" data-jump="${peer.id}">${peer.name}</span></li>`
+              })
+              edgesHtml += `</ul></div>`
+            }
+            const others = allRelated.filter(
+              (r) => r.relation !== 'cross_links',
+            )
+            if (others.length) {
+              edgesHtml +=
+                `<ul class="edge-list">` +
+                others
+                  .map(
+                    (r) => `
+              <li><span class="edge-relation">${RELATION_LABELS[r.relation]}</span> (${r.dir}) → ${
+                r.other
+                  ? `<span class="detail-jump" data-jump="${r.otherId}">${r.other.name}</span>`
+                  : '?'
+              }</li>
             `,
-                )
-                .join('') +
-              `</ul>`
+                  )
+                  .join('') +
+                `</ul>`
+            }
+            if (!crossPeers.length && !others.length) {
+              edgesHtml = '<div class="detail-empty">无关联关系</div>'
+            }
+            bodyHtml += `<div class="detail-field"><div class="label">关联关系 (${crossPeers.length + others.length})</div>${edgesHtml}</div>`
           }
-          if (!crossPeers.length && !others.length) {
-            edgesHtml = '<div class="detail-empty">无关联关系</div>'
-          }
-          bodyHtml += `<div class="detail-field"><div class="label">关联关系 (${crossPeers.length + others.length})</div>${edgesHtml}</div>`
         }
 
         document.getElementById('detailEmpty').style.display = 'none'
@@ -2748,14 +2972,16 @@
         })
       }
 
-      document.getElementById('viewTabs').addEventListener('click', (e) => {
+      document.getElementById('lensTabs').addEventListener('click', (e) => {
         const btn = e.target.closest('button')
         if (!btn) return
-        document
-          .querySelectorAll('#viewTabs button')
-          .forEach((b) => b.classList.remove('active'))
-        btn.classList.add('active')
-        applyViewDefaults(btn.dataset.view)
+        applyLensAndScope(btn.dataset.lens, currentView)
+      })
+
+      document.getElementById('scopeTabs').addEventListener('click', (e) => {
+        const btn = e.target.closest('button')
+        if (!btn || currentLens === 'cross') return
+        applyLensAndScope(currentLens, btn.dataset.view)
       })
 
       document.getElementById('searchInput').addEventListener('input', (e) => {
@@ -2834,10 +3060,12 @@
       document
         .getElementById('btnEditMode')
         .addEventListener('click', toggleEditMode)
-      document.getElementById('btnSaveData').addEventListener('click', async () => {
-        const ok = await persistGraphData()
-        if (ok) alert('已保存到云端，所有人将看到最新数据。')
-      })
+      document
+        .getElementById('btnSaveData')
+        .addEventListener('click', async () => {
+          const ok = await persistGraphData()
+          if (ok) alert('已保存到云端，所有人将看到最新数据。')
+        })
       document
         .getElementById('btnExportData')
         .addEventListener('click', exportGraphData)
@@ -2900,12 +3128,22 @@
       function applyUrlParams() {
         const p = new URLSearchParams(location.search)
 
-        const view = p.get('view')
-        if (['all', 'math', 'science', 'cross'].includes(view)) {
-          document.querySelectorAll('#viewTabs button').forEach((b) => {
-            b.classList.toggle('active', b.dataset.view === view)
-          })
-          applyViewDefaults(view)
+        let lens = p.get('lens')
+        let view = p.get('view')
+
+        // 旧链接 view=cross → 跨学科镜头
+        if (view === 'cross') {
+          lens = 'cross'
+          view = 'all'
+        }
+
+        const validLens = ['structure', 'progression', 'standards', 'cross']
+        const validView = ['all', 'math', 'science']
+        if (validLens.includes(lens) || validView.includes(view)) {
+          applyLensAndScope(
+            validLens.includes(lens) ? lens : 'structure',
+            validView.includes(view) ? view : 'all',
+          )
         }
 
         if (p.get('detail') === '1') {
@@ -2936,6 +3174,7 @@
         initLegend()
         bindChartEvents()
         updateHeaderMeta()
+        updateScopeTabsUi()
         applyUrlParams()
         updateMainDisplay()
         setRemoteSyncState('synced')

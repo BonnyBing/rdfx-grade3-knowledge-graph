@@ -72,12 +72,34 @@ const server = http.createServer(async (req, res) => {
   decorate(res)
 
   try {
+    // 快照图片短链：/i/s/<id>.png
+    const snapImg = pathname.match(/^\/i\/s\/([\w-]+)\.png$/)
+    if (snapImg) {
+      const handler = await loadHandler(path.join(root, 'api/image.js'))
+      req.query = {
+        ...Object.fromEntries(parsed.searchParams),
+        snapshot_image: snapImg[1],
+      }
+      return void (await handler(req, res))
+    }
+
     // 出图直链：/i/<hash>.png
     const imgMatch = pathname.match(/^\/i\/([\w-]+)\.png$/)
     if (imgMatch) {
       const handler = await loadHandler(path.join(root, 'api/image.js'))
       req.query = { ...Object.fromEntries(parsed.searchParams), hash: imgMatch[1] }
       return void (await handler(req, res))
+    }
+
+    // 快照交互页：/s/<snapshot_id>
+    const snapPage = pathname.match(/^\/s\/([\w-]+)$/)
+    if (snapPage) {
+      const file = path.join(publicDir, 'snapshot-view.html')
+      res.setHeader('Content-Type', 'text/html; charset=utf-8')
+      res.setHeader('Cache-Control', 'no-store')
+      let html = fs.readFileSync(file, 'utf8')
+      html = html.replace('__SNAPSHOT_ID__', snapPage[1])
+      return res.end(html)
     }
 
     if (pathname.startsWith('/api/')) {

@@ -9,10 +9,18 @@
 | 能力 | 地址 | 说明 |
 | --- | --- | --- |
 | 交互页面 | `/` | 原有页面，支持 URL 参数深链 |
-| 出图 | `POST /api/render` | 返回图片链接、图的规模、排版建议 |
-| 图片直链 | `GET /i/<token>.png` | 直接回 PNG 字节，可插入 Word |
-| 节点检索 | `POST /api/search` | 名称模糊匹配，拿到 focus 用的节点 ID |
+| 知识点查询 | `POST /api/knowledge-search` | 范围限定 + 别名/关键词；供智启确认知识点 |
+| 跨学科关系 | `POST /api/cross-query` | 按节点 ID 查路径、建快照 |
+| 快照出图 | `POST /api/snapshot-image` | 按快照子图动态生成 PNG |
+| 读取快照 | `POST /api/snapshot` | 跨轮次恢复 |
+| 出图（兼容） | `POST /api/render` | 旧版 view/focus 出图链接 |
+| 图片直链 | `GET /i/<token>.png` · `GET /i/s/<id>.png` | PNG 字节；后者为快照短链 |
+| 节点检索（兼容） | `POST /api/search` | 旧版名称模糊匹配 |
 | 云端保存 | `POST /api/save-graph` | 页面编辑后写回 GitHub（需配置令牌） |
+
+智启接入说明见 [docs/zhiqi-plugin-guide.md](docs/zhiqi-plugin-guide.md)。部署步骤见 [docs/deployment.md](docs/deployment.md)。本地回归：`npm run test:plugin`。
+
+生产域名：`https://rdfx-grade3-kg-deploy.vercel.app`（需配置 `BLOB_READ_WRITE_TOKEN` 后快照出图才可持久化）。
 
 ## 快速开始
 
@@ -48,10 +56,15 @@ curl -X POST http://127.0.0.1:8099/api/render \
 
 可选环境变量（Project Settings → Environment Variables）：
 
+详见 [docs/deployment.md](docs/deployment.md)（对齐 Word 工具的 GitHub + Vercel + Blob 流程）。
+
 | 变量 | 作用 |
 | --- | --- |
+| `BLOB_READ_WRITE_TOKEN` | **线上推荐**。快照与 PNG 存 Vercel Blob，与 Word 工具相同 |
+| `PUBLIC_BASE_URL` | 对外域名，如 `https://rdfx-grade3-kg-deploy.vercel.app` |
+| `PLUGIN_API_KEY` | 可选。智启插件鉴权；设置后需传 `x-api-key` 或 `Authorization: Bearer` |
 | `GRAPH_DATA_URL` | 云端 data.json 地址。配了它，老师在页面上保存后出图就能用上最新数据（服务端缓存 5 分钟）。不配则用随包数据。 |
-| `PUBLIC_BASE_URL` | 强制指定对外域名，绑定自定义域名后建议设置 |
+| `SNAPSHOT_DIR` | 仅在无 Blob、又有可写持久盘时使用；本地默认 `.data/` |
 | `GITHUB_TOKEN` / `GITHUB_REPO` | 启用 `/api/save-graph` 写回仓库，`GITHUB_REPO` 形如 `owner/name` |
 | `GITHUB_BRANCH` / `GITHUB_FILE` | 默认 `main` 和 `data.json` |
 | `SAVE_PASSCODE` | 给保存接口加个口令 |
@@ -60,16 +73,11 @@ curl -X POST http://127.0.0.1:8099/api/render \
 
 ## 接入智能体插件
 
-以扣子（Coze）为例：
+1. 新建插件，用 OpenAPI/Swagger 导入本目录的 `openapi.json`（先把 `servers[0].url` 改成实际域名）。
+2. 会得到：`searchKnowledgePoints`、`queryCrossDisciplinaryRelations`、`renderSnapshotImage`、`getSnapshot`，以及兼容旧工具 `searchKnowledgeGraphNodes` / `renderKnowledgeGraph`。
+3. 调用顺序与示例见 [docs/zhiqi-plugin-guide.md](docs/zhiqi-plugin-guide.md)。
 
-1. 新建插件，注册方式选 **通过 OpenAPI/Swagger 导入**。
-2. 打开本目录的 `openapi.json`，把 `servers[0].url` 改成你的实际域名，整份粘贴进去。
-3. 会得到两个工具：`renderKnowledgeGraph`（出图）和 `searchKnowledgeGraphNodes`（找节点）。
-4. 在智能体提示词里加一句用法说明，例如：
-
-> 当用户需要知识图谱的图片、结构图，或要在文档里插入图谱时，调用 renderKnowledgeGraph，
-> 把用户原话传给 query 参数。拿到 image_url 后用 Markdown 图片语法插入回答；
-> 如果返回的 readability 是 small，就按 advice 的建议改用 focus 聚焦某个单元后重新出图。
+> 智启先把教师表述拆成知识点候选并调用 searchKnowledgePoints；教师确认节点 ID 后调用 queryCrossDisciplinaryRelations；再按 snapshot_id 调用 renderSnapshotImage。把返回的 image_url 作为图片地址插入回答。业务成败看返回体 status / image_status，不要只看平台外层 200。
 
 ## 出图参数
 

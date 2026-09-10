@@ -1,0 +1,126 @@
+{
+  "version": "1.0",
+  "note": "仅收录与目标节点同义或口语说法的别名；相关但不同的概念分属不同节点，不得互标为同义词。aliases=可靠别名（可标明确匹配），keywords=辅助关键词（一律需确认）。",
+  "entries": [
+    {
+      "node_id": "M-K-QUANTITY",
+      "aliases": ["倍数的关系", "乘除数量关系", "倍的数量关系", "倍平均分总价"],
+      "keywords": ["数量关系", "倍", "总价"]
+    },
+    {
+      "node_id": "M-K-TIMES",
+      "aliases": ["几倍的问题", "求几倍", "几倍用乘法", "是几倍用除法"],
+      "keywords": ["几倍"]
+    },
+    {
+      "node_id": "M-K-AVG",
+      "aliases": ["平均分东西", "平均分", "总量除以份数", "每份数"],
+      "keywords": ["平均"]
+    },
+    {
+      "node_id": "M-K-PRICE",
+      "aliases": ["单价乘数量", "总价单价数量", "买东西算总价"],
+      "keywords": ["单价", "总价"]
+    },
+    {
+      "node_id": "M-K-MIX",
+      "aliases": ["混合运算", "两步混合运算", "乘加乘减", "除加除减"],
+      "keywords": ["乘加", "乘减"]
+    },
+    {
+      "node_id": "M-K-ORDER",
+      "aliases": ["运算顺序", "先乘除后加减", "小括号改变运算顺序"],
+      "keywords": ["先乘除", "运算顺序"]
+    },
+    {
+      "node_id": "M-K-PAREN",
+      "aliases": ["小括号", "先算括号里面"],
+      "keywords": ["括号"]
+    },
+    {
+      "node_id": "M-K-LENGTH",
+      "aliases": ["长度单位换算", "毫米厘米分米米千米", "长度单位"],
+      "keywords": ["毫米", "厘米", "分米", "千米", "长度"]
+    },
+    {
+      "node_id": "M-K-DIRECTION",
+      "aliases": ["八个方向", "几点钟方向", "方向辨认"],
+      "keywords": ["方向", "东南西北"]
+    },
+    {
+      "node_id": "M-K-DATA",
+      "aliases": ["比较数据", "解释数据", "根据数据做决策"],
+      "keywords": ["数据", "决策"]
+    },
+    {
+      "node_id": "M-K-SURVEY",
+      "aliases": ["调查收集数据", "分类记录", "数据收集"],
+      "keywords": ["调查", "收集数据"]
+    },
+    {
+      "node_id": "M-K-24H",
+      "aliases": ["24时记时", "二十四时记时法", "24小时记时"],
+      "keywords": ["24时", "记时"]
+    },
+    {
+      "node_id": "M-K-DATE",
+      "aliases": ["年月日", "大小月", "平年闰年"],
+      "keywords": ["年", "月", "日"]
+    },
+    {
+      "node_id": "S-K-INSTRUMENT",
+      "aliases": ["气象仪器", "气温计雨量器", "风向标的使用"],
+      "keywords": ["气温计", "雨量器", "风向标", "风旗"]
+    },
+    {
+      "node_id": "S-K-THERMO",
+      "aliases": ["温度计读数", "摄氏度", "气温计刻度"],
+      "keywords": ["温度计", "摄氏"]
+    },
+    {
+      "node_id": "S-K-RAIN",
+      "aliases": ["降水量测量", "雨量器测雨", "降水量单位毫米"],
+      "keywords": ["降水", "雨量"]
+    },
+    {
+      "node_id": "S-K-TEMP",
+      "aliases": ["温度影响水的状态", "水的三态与温度"],
+      "keywords": ["温度", "沸腾", "结冰", "融化"]
+    },
+    {
+      "node_id": "S-K-STATE",
+      "aliases": ["水的三态", "冰水水蒸气", "物态变化"],
+      "keywords": ["水蒸气", "三态"]
+    },
+    {
+      "node_id": "S-K-DISSOLVE",
+      "aliases": ["溶解快慢", "溶解实验"],
+      "keywords": ["溶解"]
+    },
+    {
+      "node_id": "S-K-SPEED",
+      "aliases": ["加快溶解", "搅拌升温溶解"],
+      "keywords": ["搅拌", "溶解速度"]
+    },
+    {
+      "node_id": "S-K-AIR",
+      "aliases": ["空气的性质", "空气有质量可压缩"],
+      "keywords": ["空气"]
+    },
+    {
+      "node_id": "S-K-WEATHER",
+      "aliases": ["天气要素", "气温降水风云"],
+      "keywords": ["天气"]
+    },
+    {
+      "node_id": "S-K-WDATA",
+      "aliases": ["天气日历", "气象数据整理"],
+      "keywords": ["天气日历", "气象数据"]
+    },
+    {
+      "node_id": "S-K-DAILY-T",
+      "aliases": ["一天气温变化", "最高气温午后"],
+      "keywords": ["气温变化"]
+    }
+  ]
+}

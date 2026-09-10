@@ -4,7 +4,7 @@
  * 网页和服务端出图共用这一份，坐标计算完全一致。
  * 不含任何 DOM / localStorage 依赖，可直接在 Node 中运行。
  */
-;(function (root, factory) {
+; (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory()
   else root.GraphCore = factory()
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
@@ -187,16 +187,20 @@
     // 出图时可以收紧间距，让文字相对整张图更大，在 Word 里更好读
     const LAYOUT = state.layoutOverrides
       ? {
-          ...LAYOUT_DEFAULTS,
-          ...state.layoutOverrides,
-          rowH: {
-            ...LAYOUT_DEFAULTS.rowH,
-            ...(state.layoutOverrides.rowH || {}),
-          },
-        }
+        ...LAYOUT_DEFAULTS,
+        ...state.layoutOverrides,
+        rowH: {
+          ...LAYOUT_DEFAULTS.rowH,
+          ...(state.layoutOverrides.rowH || {}),
+        },
+      }
       : LAYOUT_DEFAULTS
 
-    const currentView = state.view ?? 'all'
+    // view 兼容旧链接：view=cross 视为 lens=cross + scope=all
+    const rawView = state.view ?? 'all'
+    const currentLens =
+      state.lens ?? (rawView === 'cross' ? 'cross' : 'structure')
+    const currentView = rawView === 'cross' ? 'all' : rawView
     const layoutMode = state.layoutMode ?? 'overview'
     const showAllDetail = state.showAllDetail ?? false
     const showScienceLessons = state.showScienceLessons ?? false
@@ -212,13 +216,13 @@
       state.activeRelations instanceof Set
         ? state.activeRelations
         : new Set(
-            state.activeRelations ?? [
-              'contains',
-              'teaches',
-              'uses_method',
-              'cross_links',
-            ],
-          )
+          state.activeRelations ?? [
+            'contains',
+            'teaches',
+            'uses_method',
+            'cross_links',
+          ],
+        )
     const savedPositions = state.savedPositions ?? {}
 
     /**
@@ -414,6 +418,55 @@
       if (['knowledge', 'method'].includes(n.type) && isCrossLinkedNode(n.id))
         return true
       return false
+    }
+
+    /** 出现在前置关系里的知识点 */
+    function isProgressionNode(id) {
+      return GRAPH_DATA.edges.some(
+        (e) =>
+          e.relation === 'prerequisite_of' &&
+          (e.source === id || e.target === id),
+      )
+    }
+
+    /** 出现在课标对齐边里的知识点或课标节点 */
+    function isStandardsAlignedNode(id) {
+      return GRAPH_DATA.edges.some(
+        (e) =>
+          e.relation === 'aligns_to' &&
+          (e.source === id || e.target === id),
+      )
+    }
+
+    /** 沿 teaches/contains 向上找到单元（供详情面板） */
+    function getAncestorByType(nodeId, type) {
+      let cur = nodeId
+      const visited = new Set()
+      while (cur && !visited.has(cur)) {
+        visited.add(cur)
+        const n = nodeMap[cur]
+        if (n?.type === type) return n
+        const teach = GRAPH_DATA.edges.find(
+          (e) =>
+            e.target === cur &&
+            ['teaches', 'uses_method'].includes(e.relation),
+        )
+        if (teach) {
+          cur = teach.source
+          continue
+        }
+        const contain = GRAPH_DATA.edges.find(
+          (e) => e.target === cur && e.relation === 'contains',
+        )
+        cur = contain?.source || null
+      }
+      return null
+    }
+
+    function matchesScope(id) {
+      if (currentView === 'math') return getSubjectGroup(id) === 'math'
+      if (currentView === 'science') return getSubjectGroup(id) === 'science'
+      return true
     }
 
     function getNodeLevel(n) {
@@ -660,6 +713,9 @@
     }
 
     function shouldShowLabel(n) {
+      if (currentLens === 'progression' || currentLens === 'standards') {
+        return true
+      }
       if (layoutMode === 'hierarchy') {
         if (n.type === 'lesson')
           return showScienceLessons || currentView === 'science'
@@ -703,14 +759,29 @@
       return GRAPH_DATA.nodes.filter((n) => {
         if (focusIds && !focusIds.has(n.id)) return false
         if (n.type === 'cross_disciplinary_theme') return false
-        if (currentView === 'cross' && !isCrossViewNode(n)) return false
-        if (!activeTypes.has(n.type)) return false
-        if (currentView === 'all' && !showAllDetail && !isOverviewNode(n))
-          return false
-        if (currentView === 'math' && getSubjectGroup(n.id) !== 'math')
-          return false
-        if (currentView === 'science' && getSubjectGroup(n.id) !== 'science')
-          return false
+
+        if (currentLens === 'progression') {
+          if (n.type !== 'knowledge') return false
+          if (!isProgressionNode(n.id)) return false
+          if (!matchesScope(n.id)) return false
+          if (!activeTypes.has(n.type)) return false
+        } else if (currentLens === 'standards') {
+          if (!['knowledge', 'standard'].includes(n.type)) return false
+          if (!isStandardsAlignedNode(n.id)) return false
+          if (!matchesScope(n.id)) return false
+          if (!activeTypes.has(n.type)) return false
+        } else if (currentLens === 'cross') {
+          if (!isCrossViewNode(n)) return false
+          if (!activeTypes.has(n.type)) return false
+          // 跨学科边需要两侧，学科范围不裁切节点
+        } else {
+          // 教材结构
+          if (!activeTypes.has(n.type)) return false
+          if (currentView === 'all' && !showAllDetail && !isOverviewNode(n))
+            return false
+          if (!matchesScope(n.id)) return false
+        }
+
         if (
           searchQuery &&
           !n.name.includes(searchQuery) &&
@@ -951,10 +1022,10 @@
       }
       const sciBoxAfterX = shiftX
         ? {
-            ...sciBox,
-            minX: sciBox.minX + shiftX,
-            maxX: sciBox.maxX + shiftX,
-          }
+          ...sciBox,
+          minX: sciBox.minX + shiftX,
+          maxX: sciBox.maxX + shiftX,
+        }
         : sciBox
       if (sciBoxAfterX.minY < mathBox.maxY + gapY) {
         shiftY = mathBox.maxY + gapY - sciBoxAfterX.minY
@@ -1285,33 +1356,33 @@
         standard: COL.knowledge + d,
         competency: COL.knowledge + d * 2,
       }
-      ;['standard', 'competency'].forEach((type) => {
-        const colX = columnFor[type]
-        const items = nodes
-          .filter((n) => n.type === type && nodeIdSet.has(n.id))
-          .map((n) => {
-            const inEdge = GRAPH_DATA.edges.find(
-              (e) =>
-                e.target === n.id &&
-                ['aligns_to', 'develops'].includes(e.relation) &&
-                positions[e.source],
-            )
-            const idealY = inEdge ? positions[inEdge.source].y : Infinity
-            return { id: n.id, idealY }
-          })
-          .sort((a, b) => a.idealY - b.idealY)
+        ;['standard', 'competency'].forEach((type) => {
+          const colX = columnFor[type]
+          const items = nodes
+            .filter((n) => n.type === type && nodeIdSet.has(n.id))
+            .map((n) => {
+              const inEdge = GRAPH_DATA.edges.find(
+                (e) =>
+                  e.target === n.id &&
+                  ['aligns_to', 'develops'].includes(e.relation) &&
+                  positions[e.source],
+              )
+              const idealY = inEdge ? positions[inEdge.source].y : Infinity
+              return { id: n.id, idealY }
+            })
+            .sort((a, b) => a.idealY - b.idealY)
 
-        let yCursor = -Infinity
-        items.forEach(({ id, idealY }) => {
-          const ext = getNodeVisualExtents(nodeMap[id])
-          const h = ext.bottom - ext.top
-          let y = isFinite(idealY) ? idealY : yCursor === -Infinity ? 100 : yCursor
-          if (yCursor !== -Infinity) y = Math.max(y, yCursor + h / 2)
-          else y = Math.max(y, 80 + h / 2)
-          positions[id] = { x: colX, y }
-          yCursor = y + h / 2 + LAYOUT.rowGap
+          let yCursor = -Infinity
+          items.forEach(({ id, idealY }) => {
+            const ext = getNodeVisualExtents(nodeMap[id])
+            const h = ext.bottom - ext.top
+            let y = isFinite(idealY) ? idealY : yCursor === -Infinity ? 100 : yCursor
+            if (yCursor !== -Infinity) y = Math.max(y, yCursor + h / 2)
+            else y = Math.max(y, 80 + h / 2)
+            positions[id] = { x: colX, y }
+            yCursor = y + h / 2 + LAYOUT.rowGap
+          })
         })
-      })
     }
 
     /** 兜底：把仍未定位的可见节点安置到最右列，防止堆叠在左上角 */
@@ -1776,7 +1847,7 @@
       )
       const out = []
       function collect(id) {
-        ;(containsMap[id] || []).forEach((child) => {
+        ; (containsMap[id] || []).forEach((child) => {
           if (visibleIds.has(child)) {
             out.push(child)
             collect(child)
@@ -1884,7 +1955,7 @@
       function walk(id, depth) {
         if (!nodeIdSet.has(id)) return
         depths[id] = Math.min(depths[id] ?? 99, depth)
-        ;(childrenMap[id] || []).forEach((c) => walk(c, depth + 1))
+          ; (childrenMap[id] || []).forEach((c) => walk(c, depth + 1))
       }
       walk(rootId, 0)
 
@@ -1906,11 +1977,11 @@
         if (e.target === selectedId) set.add(e.source)
       })
       getContainsDescendants(selectedId, visibleIds).forEach((id) => set.add(id))
-      ;[...set].forEach((id) => {
-        getCrossKnowledgePeers(id).forEach((p) => {
-          if (visibleIds.has(p.id)) set.add(p.id)
+        ;[...set].forEach((id) => {
+          getCrossKnowledgePeers(id).forEach((p) => {
+            if (visibleIds.has(p.id)) set.add(p.id)
+          })
         })
-      })
       let cur = selectedId
       for (let i = 0; i < 8; i++) {
         const parent = GRAPH_DATA.edges.find(
@@ -2012,6 +2083,17 @@
           shadowColor: 'rgba(59, 130, 246, 0.35)',
         }
       }
+      if (e.relation === 'prerequisite_of') {
+        return {
+          color: onPath ? '#d97706' : dim ? '#fde68a' : '#f59e0b',
+          width: onPath ? 3 : dim ? 1.2 : 2.4,
+          type: 'solid',
+          curveness: 0.06,
+          opacity: onPath ? 1 : dim ? 0.08 : 0.95,
+          shadowBlur: onPath ? 12 : 0,
+          shadowColor: 'rgba(245, 158, 11, 0.45)',
+        }
+      }
       return {
         color: onPath ? '#475569' : dim ? '#d0d7e2' : '#64748b',
         width: onPath ? 2 : dim ? 1 : 1.5,
@@ -2073,7 +2155,24 @@
           opacity: 0.75,
         }
       }
-      const sub = getSubjectGroup(e.source)
+      if (e.relation === 'prerequisite_of') {
+        return {
+          color: '#f59e0b',
+          width: 2.4,
+          type: 'solid',
+          curveness: 0.06,
+          opacity: 0.95,
+        }
+      }
+      if (e.relation === 'aligns_to') {
+        return {
+          color: '#8b5cf6',
+          width: 1.8,
+          type: 'dashed',
+          curveness: 0.12,
+          opacity: 0.85,
+        }
+      }
       return {
         color: RELATION_COLORS[e.relation] || '#cbd5e1',
         width: 1.2,
@@ -2087,13 +2186,178 @@
       return []
     }
 
+    /** 学习进阶：按前置依赖分层（左→右 = 先学→后学） */
+    function computeProgressionPositions(nodes) {
+      const ids = new Set(nodes.map((n) => n.id))
+      const preds = new Map()
+      const succs = new Map()
+      ids.forEach((id) => {
+        preds.set(id, [])
+        succs.set(id, [])
+      })
+      GRAPH_DATA.edges.forEach((e) => {
+        if (e.relation !== 'prerequisite_of') return
+        if (!ids.has(e.source) || !ids.has(e.target)) return
+        preds.get(e.target).push(e.source)
+        succs.get(e.source).push(e.target)
+      })
+
+      const level = new Map()
+      ids.forEach((id) => {
+        if (!preds.get(id).length) level.set(id, 0)
+      })
+      let changed = true
+      let guard = 0
+      while (changed && guard++ < ids.size + 2) {
+        changed = false
+        ids.forEach((id) => {
+          const ps = preds.get(id)
+          if (!ps.length) return
+          if (ps.some((p) => !level.has(p))) return
+          const next = Math.max(...ps.map((p) => level.get(p))) + 1
+          if (level.get(id) !== next) {
+            level.set(id, next)
+            changed = true
+          }
+        })
+      }
+      ids.forEach((id) => {
+        if (!level.has(id)) level.set(id, 0)
+      })
+
+      const bySubject = { math: [], science: [], other: [] }
+      nodes.forEach((n) => {
+        const g = getSubjectGroup(n.id)
+          ; (bySubject[g] || bySubject.other).push(n)
+      })
+
+      const positions = {}
+      const colW = 260
+      const rowGap = 56
+      let yBase = 80
+
+        ;['math', 'science', 'other'].forEach((sub) => {
+          const group = bySubject[sub]
+          if (!group.length) return
+          const byLevel = new Map()
+          group.forEach((n) => {
+            const lv = level.get(n.id) || 0
+            if (!byLevel.has(lv)) byLevel.set(lv, [])
+            byLevel.get(lv).push(n)
+          })
+          const levels = [...byLevel.keys()].sort((a, b) => a - b)
+          let maxRows = 1
+          levels.forEach((lv) => {
+            const list = sortChildIds(byLevel.get(lv).map((n) => n.id)).map(
+              (id) => nodeMap[id],
+            )
+            byLevel.set(lv, list)
+            maxRows = Math.max(maxRows, list.length)
+          })
+          levels.forEach((lv) => {
+            const list = byLevel.get(lv)
+            const totalH = (list.length - 1) * rowGap
+            let y = yBase + (maxRows - 1) * rowGap * 0.5 - totalH / 2
+            list.forEach((n) => {
+              positions[n.id] = { x: 100 + lv * colW, y }
+              y += rowGap
+            })
+          })
+          yBase += maxRows * rowGap + 100
+        })
+
+      return positions
+    }
+
+    /** 课标对齐：知识点左列，课标右列，按学科分区 */
+    function computeStandardsPositions(nodes) {
+      const positions = {}
+      const knowledge = nodes.filter((n) => n.type === 'knowledge')
+      const standards = nodes.filter((n) => n.type === 'standard')
+      const colKnowledge = 120
+      const colStandard = 520
+      const rowGap = 52
+      let yBase = 80
+
+        ;['math', 'science'].forEach((sub) => {
+          const kps = sortChildIds(
+            knowledge
+              .filter((n) => getSubjectGroup(n.id) === sub)
+              .map((n) => n.id),
+          ).map((id) => nodeMap[id])
+          const stds = sortChildIds(
+            standards
+              .filter((n) => getSubjectGroup(n.id) === sub)
+              .map((n) => n.id),
+          ).map((id) => nodeMap[id])
+          if (!kps.length && !stds.length) return
+
+          // 课标按关联知识点的平均 y 排列
+          const kpY = new Map()
+          kps.forEach((n, i) => {
+            const y = yBase + i * rowGap
+            positions[n.id] = { x: colKnowledge, y }
+            kpY.set(n.id, y)
+          })
+
+          const stdOrder = stds
+            .map((s) => {
+              const linked = GRAPH_DATA.edges
+                .filter(
+                  (e) =>
+                    e.relation === 'aligns_to' &&
+                    e.target === s.id &&
+                    kpY.has(e.source),
+                )
+                .map((e) => kpY.get(e.source))
+              const avg = linked.length
+                ? linked.reduce((a, b) => a + b, 0) / linked.length
+                : yBase + stds.indexOf(s) * rowGap
+              return { s, avg }
+            })
+            .sort((a, b) => a.avg - b.avg)
+
+          stdOrder.forEach(({ s, avg }, i) => {
+            const y = Math.max(
+              yBase + i * rowGap,
+              avg - 20,
+            )
+            positions[s.id] = { x: colStandard, y }
+          })
+
+          // 纵向拉开课标，避免重叠
+          const stdIds = stdOrder.map((o) => o.s.id)
+          for (let i = 1; i < stdIds.length; i++) {
+            const prev = positions[stdIds[i - 1]]
+            const cur = positions[stdIds[i]]
+            if (cur.y < prev.y + rowGap) cur.y = prev.y + rowGap
+          }
+
+          const used = [...kps, ...stds]
+            .map((n) => positions[n.id]?.y || 0)
+          const maxY = used.length ? Math.max(...used) : yBase
+          yBase = maxY + 120
+        })
+
+      nodes.forEach((n, i) => {
+        if (!positions[n.id]) {
+          positions[n.id] = { x: 200 + (i % 4) * 80, y: yBase + i * 40 }
+        }
+      })
+      return positions
+    }
+
     function buildGraphData() {
       const nodes = filterNodes()
       const nodeIds = nodes.map((n) => n.id)
       const edges = filterEdges(nodeIds)
 
       let positions = {}
-      if (layoutMode === 'overview') {
+      if (layoutMode === 'progression' || currentLens === 'progression') {
+        positions = computeProgressionPositions(nodes)
+      } else if (layoutMode === 'standards' || currentLens === 'standards') {
+        positions = computeStandardsPositions(nodes)
+      } else if (layoutMode === 'overview') {
         positions = buildOverviewPositions(nodes)
       } else if (layoutMode === 'hierarchy') {
         positions = computeHierarchyPositions(nodes)
@@ -2128,28 +2392,29 @@
         const dimmed =
           isSearchDim || (silkFocus && !silkFocus.has(n.id))
         const showCrossColor =
-          currentView === 'all' || currentView === 'cross'
+          currentLens === 'cross' ||
+          (currentLens === 'structure' && currentView === 'all')
         const isCross = showCrossColor && isCrossLinkedNode(n.id)
         const itemStyle = isSilk
           ? silkNodeStyle(raw, {
-              isSelected: isHighlighted,
-              dimmed,
-              isCross,
-            })
+            isSelected: isHighlighted,
+            dimmed,
+            isCross,
+          })
           : {
-              color,
-              borderColor: isHighlighted ? '#111' : getNodeBorderColor(raw),
-              borderWidth: isHighlighted
-                ? 3
-                : level <= 1
-                  ? 2.5
-                  : level === 2
-                    ? 2
-                    : 1,
-              opacity: isSearchDim ? 0.3 : 1,
-              shadowBlur: level <= 1 ? 6 : 0,
-              shadowColor: level <= 1 ? 'rgba(0,0,0,0.12)' : 'transparent',
-            }
+            color,
+            borderColor: isHighlighted ? '#111' : getNodeBorderColor(raw),
+            borderWidth: isHighlighted
+              ? 3
+              : level <= 1
+                ? 2.5
+                : level === 2
+                  ? 2
+                  : 1,
+            opacity: isSearchDim ? 0.3 : 1,
+            shadowBlur: level <= 1 ? 6 : 0,
+            shadowColor: level <= 1 ? 'rgba(0,0,0,0.12)' : 'transparent',
+          }
         const label = buildNodeLabel(n, labelStyle, level)
         if (isSilk) {
           if (dimmed) {
@@ -2182,10 +2447,10 @@
             },
             itemStyle: isSilk
               ? {
-                  borderWidth: 2.2,
-                  shadowBlur: 16,
-                  shadowColor: 'rgba(240, 196, 74, 0.45)',
-                }
+                borderWidth: 2.2,
+                shadowBlur: 16,
+                shadowColor: 'rgba(240, 196, 74, 0.45)',
+              }
               : { borderWidth: 3, shadowBlur: 10 },
           },
         }
@@ -2193,6 +2458,7 @@
 
       const echartsEdges = edges.map((e) => {
         const isCrossEdge = e.relation === 'cross_links'
+        const isPrereq = e.relation === 'prerequisite_of'
         const focusedCross =
           isSilk &&
           isCrossEdge &&
@@ -2204,22 +2470,27 @@
           source: e.source,
           target: e.target,
           relation: e.relation,
+          // 前置：从先学指向后学，箭头表示进阶方向
+          symbol: isPrereq ? ['none', 'arrow'] : ['none', 'none'],
+          symbolSize: isPrereq ? [0, 18] : [0, 0],
           lineStyle: isSilk ? silkEdgeStyle(e, silkFocus) : styleEdge(e),
           label:
             isSilk && isCrossEdge
               ? {
-                  show: !!focusedCross,
-                  formatter: '跨学科',
-                  fontSize: 10,
-                  color: '#c2410c',
-                  backgroundColor: 'rgba(255,247,237,0.94)',
-                  padding: [2, 6],
-                  borderRadius: 8,
-                }
+                show: !!focusedCross,
+                formatter: '跨学科',
+                fontSize: 10,
+                color: '#c2410c',
+                backgroundColor: 'rgba(255,247,237,0.94)',
+                padding: [2, 6],
+                borderRadius: 8,
+              }
               : undefined,
           emphasis: isCrossEdge
             ? { lineStyle: { width: 3.2, color: '#ea580c', opacity: 1 } }
-            : undefined,
+            : isPrereq
+              ? { lineStyle: { width: 3.2, color: '#d97706', opacity: 1 } }
+              : undefined,
         }
       })
 
@@ -2245,6 +2516,9 @@
       getCrossRelevantNodeIds,
       isCrossViewNode,
       isOverviewNode,
+      isProgressionNode,
+      isStandardsAlignedNode,
+      getAncestorByType,
       getNodeLevel,
       getNodeColor,
       getNodeBorderColor,

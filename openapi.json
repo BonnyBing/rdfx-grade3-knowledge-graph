@@ -1,72 +1,117 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "知识图谱出图接口",
-    "description": "根据《三年级上册数学与科学知识图谱》生成图片链接。返回的链接是 PNG 直链，可直接插入 Word、飞书文档或网页。也可以按名称检索图谱里的单元和知识点。",
-    "version": "1.0.0"
+    "title": "人大附小三年级知识图谱插件",
+    "description": "供智启智能体调用：知识点查询 → 跨学科关系查询（快照）→ 动态出图 → 快照读取。\n\n重要：平台外层 HTTP 200 / code=200 仅表示调用完成；业务是否成功必须检查本接口返回体中的 status 与 image_status。\n\n本接口不做大模型推理或 Embedding。活动主题（如「做月饼」）须由智启先拆解为本学科知识点候选，经教师确认后再查询。",
+    "version": "2.0.0"
   },
   "servers": [
     {
-      "url": "https://REPLACE-ME.vercel.app",
-      "description": "部署完成后把这里换成你的实际域名"
+      "url": "https://rdfx-grade3-kg-deploy.vercel.app",
+      "description": "生产环境（部署后如域名变更请同步修改）"
     }
   ],
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key",
+        "description": "可选。服务端配置 PLUGIN_API_KEY 后启用；也可用 Authorization: Bearer <key>"
+      }
+    },
+    "schemas": {
+      "PluginBase": {
+        "type": "object",
+        "required": ["code", "status", "message", "request_id", "graph_version", "warnings"],
+        "properties": {
+          "code": {
+            "type": "number",
+            "description": "业务码。0=可解析的业务结果；400=入参错误；500=系统错误"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "success",
+              "partial",
+              "ambiguous",
+              "not_found",
+              "out_of_scope",
+              "no_relation",
+              "invalid_input",
+              "error"
+            ]
+          },
+          "message": { "type": "string" },
+          "request_id": { "type": "string" },
+          "graph_version": { "type": "string" },
+          "warnings": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "image_status": {
+            "type": "string",
+            "enum": ["success", "error", "not_requested"]
+          },
+          "image_url": {
+            "type": "string",
+            "description": "纯 HTTPS/HTTP PNG URL，不要包 Markdown"
+          },
+          "image_markdown": {
+            "type": "string",
+            "description": "标准 Markdown 图片语法"
+          },
+          "page_url": {
+            "type": "string",
+            "description": "纯交互页 URL"
+          },
+          "image_message": { "type": "string" },
+          "truncated": { "type": "boolean" },
+          "snapshot_id": { "type": "string" }
+        }
+      }
+    }
+  },
   "paths": {
-    "/api/render": {
+    "/api/knowledge-search": {
       "post": {
-        "operationId": "renderKnowledgeGraph",
-        "summary": "生成知识图谱图片链接",
-        "description": "当用户想要知识图谱的图片、结构图、思维导图，或要在文档里插入图谱时调用。可以只传 query（一句话，例如「数学第一单元」），接口会自己判断视图和聚焦节点。返回的 image_url 是 PNG 直链，把它作为图片地址插入文档即可。",
+        "operationId": "searchKnowledgePoints",
+        "summary": "搜索候选知识点",
+        "description": "在指定主学科、年级、册次范围内匹配知识点。支持标准名称、节点 ID、别名、关键词与模糊匹配。多词查询按词分别返回候选。score 仅用于排序，不是语义置信度。",
+        "security": [{ "ApiKeyAuth": [] }],
         "requestBody": {
-          "required": false,
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
+                  "main_subject": {
+                    "type": "string",
+                    "description": "主学科，如 数学 / 科学"
+                  },
+                  "grade": {
+                    "type": "string",
+                    "description": "年级，如 三年级 / 小学三年级"
+                  },
+                  "semester": {
+                    "type": "string",
+                    "description": "册次，如 上册 / 上学期"
+                  },
                   "query": {
                     "type": "string",
-                    "description": "用户的原话，例如「三年级上册数学第一单元混合运算」「科学的天气单元」。接口会从中判断学科视图和要聚焦的节点。传了 query 就不必再传 view 和 focus。"
+                    "description": "教师原始表述（可选，与 query_terms 至少提供一个）"
                   },
-                  "view": {
-                    "type": "string",
-                    "enum": ["all", "math", "science", "cross"],
-                    "description": "视图范围。all=数学与科学全部概要，math=数学，science=科学，cross=跨学科关联。默认 all。",
-                    "default": "all"
+                  "query_terms": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "description": "智启生成的候选查询词数组"
                   },
-                  "focus": {
-                    "type": "string",
-                    "description": "聚焦节点，可以填节点 ID（如 M-U1）或节点名称（如 第一单元 混合运算）。只画这个节点周围的关联子图，节点更少、文字更大，适合插入文档。"
-                  },
-                  "depth": {
+                  "limit": {
                     "type": "integer",
                     "minimum": 1,
-                    "maximum": 4,
-                    "default": 2,
-                    "description": "聚焦时向外扩展几层关联。1 最精简，2 较均衡，3 以上会明显变大。仅在传了 focus 时生效。"
-                  },
-                  "detail": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "是否展开知识点、课标、核心素养等全部细节节点。图会变大很多，文字相应变小。"
-                  },
-                  "lessons": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "是否显示科学的课时节点。"
-                  },
-                  "preset": {
-                    "type": "string",
-                    "enum": ["word", "word-landscape", "screen"],
-                    "default": "word",
-                    "description": "排版档。word 适合 A4 纵向；word-landscape 用于内容较多或横向页面；screen 保持网页原本的横向布局。"
-                  },
-                  "scale": {
-                    "type": "number",
-                    "minimum": 1,
-                    "maximum": 4,
-                    "default": 2,
-                    "description": "像素倍率。2 适合屏幕与常规打印，3 以上用于高清打印。"
+                    "maximum": 10,
+                    "default": 5
                   }
                 }
               }
@@ -75,114 +120,72 @@
         },
         "responses": {
           "200": {
-            "description": "成功",
+            "description": "业务结果（请检查 status）",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "ok": { "type": "boolean", "description": "是否成功" },
-                    "image_url": {
-                      "type": "string",
-                      "description": "PNG 图片直链，直接作为图片地址插入文档"
-                    },
-                    "image_markdown": {
-                      "type": "string",
-                      "description": "Markdown 图片写法，可直接放进回答里"
-                    },
-                    "image_html": {
-                      "type": "string",
-                      "description": "img 标签写法，供富文本或 HTML 转 Word 的场景使用"
-                    },
-                    "page_url": {
-                      "type": "string",
-                      "description": "可交互网页版链接，能缩放拖拽和查看节点详情"
-                    },
-                    "summary": {
-                      "type": "string",
-                      "description": "这张图画了什么的中文说明，可直接引用给用户"
-                    },
-                    "title": {
-                      "type": "string",
-                      "description": "图谱标题"
-                    },
-                    "view": {
-                      "type": "string",
-                      "description": "实际使用的视图"
-                    },
-                    "focus": {
-                      "type": "string",
-                      "description": "实际聚焦到的节点 ID"
-                    },
-                    "focus_name": {
-                      "type": "string",
-                      "description": "实际聚焦到的节点名称"
-                    },
-                    "depth": {
-                      "type": "integer",
-                      "description": "实际向外扩展的层数"
-                    },
-                    "node_count": {
-                      "type": "integer",
-                      "description": "图中节点数"
-                    },
-                    "edge_count": {
-                      "type": "integer",
-                      "description": "图中关系数"
-                    },
-                    "image_width": {
-                      "type": "integer",
-                      "description": "图片宽度（像素）"
-                    },
-                    "image_height": {
-                      "type": "integer",
-                      "description": "图片高度（像素）"
-                    },
-                    "word_point_size": {
-                      "type": "number",
-                      "description": "图片按 A4 页宽插入后正文标签的估算字号（磅）"
-                    },
-                    "readability": {
-                      "type": "string",
-                      "enum": ["good", "fair", "small"],
-                      "description": "可读性。small 表示节点太多字太小，建议改用 focus 聚焦"
-                    },
-                    "advice": {
-                      "type": "string",
-                      "description": "排版建议，可转述给用户"
-                    },
-                    "matched_candidates": {
-                      "type": "array",
-                      "description": "由 query 解析出的候选节点，按匹配度排序。首项就是本次实际聚焦的节点；若用户想看的不是它，可改用其中某个 id 作为 focus 重新出图",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": { "type": "string", "description": "节点 ID" },
-                          "name": {
-                            "type": "string",
-                            "description": "节点名称"
-                          },
-                          "type": {
-                            "type": "string",
-                            "description": "节点类型"
-                          },
-                          "score": { "type": "number", "description": "匹配度" }
-                        }
+                  "allOf": [
+                    { "$ref": "#/components/schemas/PluginBase" },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "matches": {
+                          "type": "array",
+                          "description": "每个输入词一组结果",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "query_term": { "type": "string" },
+                              "status": { "type": "string" },
+                              "message": { "type": "string" },
+                              "matched_node_id": { "type": "string" },
+                              "candidates": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "node_id": { "type": "string" },
+                                    "name": { "type": "string" },
+                                    "type": { "type": "string" },
+                                    "type_label": { "type": "string" },
+                                    "status": { "type": "string" },
+                                    "scope": { "type": "object" },
+                                    "hit_term": { "type": "string" },
+                                    "match_method": {
+                                      "type": "string",
+                                      "enum": [
+                                        "exact_id",
+                                        "exact_name",
+                                        "alias",
+                                        "keyword",
+                                        "fuzzy"
+                                      ]
+                                    },
+                                    "score": {
+                                      "type": "number",
+                                      "description": "匹配排序分，非置信度"
+                                    },
+                                    "match_reason": { "type": "string" },
+                                    "definite": { "type": "boolean" },
+                                    "needs_confirmation": { "type": "boolean" }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "matched_nodes": {
+                          "type": "array",
+                          "items": { "type": "object" }
+                        },
+                        "unmatched_queries": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        },
+                        "scope": { "type": "object" }
                       }
-                    },
-                    "usage": {
-                      "type": "string",
-                      "description": "链接的使用说明"
-                    },
-                    "error": {
-                      "type": "string",
-                      "description": "ok 为 false 时的失败原因"
-                    },
-                    "hint": {
-                      "type": "string",
-                      "description": "ok 为 false 时的排查建议"
                     }
-                  }
+                  ]
                 }
               }
             }
@@ -190,28 +193,33 @@
         }
       }
     },
-    "/api/search": {
+    "/api/cross-query": {
       "post": {
-        "operationId": "searchKnowledgeGraphNodes",
-        "summary": "检索图谱节点",
-        "description": "按名称查找图谱里的单元、知识点、课标等节点，拿到可用于出图的节点 ID。不确定该聚焦哪个节点，或想先列出有哪些单元时调用。不传 q 会返回全部单元列表。",
+        "operationId": "queryCrossDisciplinaryRelations",
+        "summary": "按节点 ID 查询跨学科关系并创建子图快照",
+        "description": "输入已确认的知识点 ID。返回完整路径、原始关系、中间主题、来源与 snapshot_id。candidate_subjects 仅为推荐过滤，不是教师已确认。",
+        "security": [{ "ApiKeyAuth": [] }],
         "requestBody": {
-          "required": false,
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
+                "required": ["main_node_ids"],
                 "properties": {
-                  "q": {
-                    "type": "string",
-                    "description": "检索词，例如「混合运算」「天气」「小数」。留空则返回全部单元列表。"
+                  "main_node_ids": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "description": "已确定的本学科知识点 ID"
                   },
-                  "limit": {
-                    "type": "integer",
-                    "minimum": 1,
-                    "maximum": 20,
-                    "default": 8,
-                    "description": "返回条数"
+                  "candidate_subjects": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "description": "可选，限定候选跨学科"
+                  },
+                  "graph_version": {
+                    "type": "string",
+                    "description": "可选，指定数据版本校验提示"
                   }
                 }
               }
@@ -220,60 +228,196 @@
         },
         "responses": {
           "200": {
-            "description": "成功",
+            "description": "业务结果",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "ok": { "type": "boolean" },
-                    "suggested_view": {
-                      "type": "string",
-                      "description": "建议使用的视图"
-                    },
-                    "suggested_focus": {
-                      "type": "string",
-                      "description": "建议聚焦的节点 ID，可直接传给出图接口"
-                    },
-                    "suggested_focus_name": {
-                      "type": "string",
-                      "description": "建议聚焦的节点名称"
-                    },
-                    "matches": {
-                      "type": "array",
-                      "description": "匹配到的节点",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "string",
-                            "description": "节点 ID，出图时作为 focus"
-                          },
-                          "name": {
-                            "type": "string",
-                            "description": "节点名称"
-                          },
-                          "type_label": {
-                            "type": "string",
-                            "description": "节点类型，如 单元、知识点"
-                          },
-                          "subject": {
-                            "type": "string",
-                            "description": "所属学科"
-                          },
-                          "score": { "type": "number", "description": "匹配度" }
-                        }
+                  "allOf": [
+                    { "$ref": "#/components/schemas/PluginBase" },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "matched_nodes": { "type": "array", "items": { "type": "object" } },
+                        "unmatched_queries": { "type": "array", "items": { "type": "string" } },
+                        "candidate_subjects": { "type": "array", "items": { "type": "object" } },
+                        "relations": { "type": "array", "items": { "type": "object" } },
+                        "evidence_paths": { "type": "array", "items": { "type": "object" } },
+                        "sources": { "type": "array", "items": { "type": "object" } },
+                        "snapshot_id": { "type": "string" },
+                        "page_url": { "type": "string" }
                       }
-                    },
-                    "units": {
-                      "type": "array",
-                      "description": "未传 q 时返回的全部单元",
-                      "items": { "type": "object" }
                     }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/snapshot-image": {
+      "post": {
+        "operationId": "renderSnapshotImage",
+        "summary": "按快照及所选关系生成图片",
+        "description": "必须使用快照子图出图。可按 relation_ids 或 subject 精简。仅当 PNG 实际写入存储后 image_status=success。图片失败时保留关系字段。",
+        "security": [{ "ApiKeyAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["snapshot_id"],
+                "properties": {
+                  "snapshot_id": { "type": "string" },
+                  "relation_ids": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                  },
+                  "subject": {
+                    "type": "string",
+                    "description": "按对端学科精简，如 科学"
+                  },
+                  "preset": {
+                    "type": "string",
+                    "enum": ["word", "word-landscape"]
+                  },
+                  "scale": {
+                    "type": "number",
+                    "minimum": 1,
+                    "maximum": 4
                   }
                 }
               }
             }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "业务结果",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PluginBase" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/snapshot": {
+      "post": {
+        "operationId": "getSnapshot",
+        "summary": "按快照 ID 读取结果",
+        "description": "跨轮次恢复关系与图片链接。底层图谱更新后旧快照内容不变。",
+        "security": [{ "ApiKeyAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["snapshot_id"],
+                "properties": {
+                  "snapshot_id": { "type": "string" },
+                  "include_subgraph": {
+                    "type": "boolean",
+                    "default": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "业务结果",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PluginBase" }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getSnapshotByQuery",
+        "summary": "按快照 ID 读取结果（GET）",
+        "parameters": [
+          {
+            "name": "snapshot_id",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "include_subgraph",
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "业务结果"
+          }
+        }
+      }
+    },
+    "/api/search": {
+      "post": {
+        "operationId": "searchKnowledgeGraphNodes",
+        "summary": "【兼容】旧版节点检索",
+        "description": "保留兼容。新流程请优先使用 searchKnowledgePoints。",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "q": { "type": "string" },
+                  "query": { "type": "string" },
+                  "limit": { "type": "integer" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "旧版结构，含 ok / matches"
+          }
+        }
+      }
+    },
+    "/api/render": {
+      "post": {
+        "operationId": "renderKnowledgeGraph",
+        "summary": "【兼容】旧版出图（按 view/focus，非快照子图）",
+        "description": "保留兼容。跨学科确认后的动态出图请用 renderSnapshotImage。",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "query": { "type": "string" },
+                  "view": {
+                    "type": "string",
+                    "enum": ["all", "math", "science", "cross"]
+                  },
+                  "focus": { "type": "string" },
+                  "depth": { "type": "integer" },
+                  "detail": { "type": "boolean" },
+                  "lessons": { "type": "boolean" },
+                  "preset": { "type": "string" },
+                  "scale": { "type": "number" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "旧版结构，含 ok / image_url"
           }
         }
       }

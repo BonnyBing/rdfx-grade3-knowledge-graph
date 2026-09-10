@@ -1,8 +1,42 @@
 {
   "rewrites": [
     {
+      "source": "/i/s/:imageId.png",
+      "destination": "/api/image?snapshot_image=:imageId"
+    },
+    {
       "source": "/i/:token.png",
       "destination": "/api/image?token=:token"
+    },
+    {
+      "source": "/s/:snapshotId",
+      "destination": "/snapshot-view.html?id=:snapshotId"
+    }
+  ],
+  "regions": [
+    "hkg1"
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Authorization, Content-Type, x-api-key"
+        },
+        {
+          "key": "Access-Control-Max-Age",
+          "value": "86400"
+        }
+      ]
     }
   ],
   "functions": {
@@ -14,8 +48,26 @@
       "maxDuration": 60,
       "includeFiles": "assets/fonts/**"
     },
+    "api/snapshot-image.js": {
+      "maxDuration": 60,
+      "includeFiles": "{assets/fonts/**,config/**}"
+    },
     "api/search.js": {
       "maxDuration": 30
+    },
+    "api/knowledge-search.js": {
+      "maxDuration": 30,
+      "includeFiles": "config/**"
+    },
+    "api/cross-query.js": {
+      "maxDuration": 30,
+      "includeFiles": "config/**"
+    },
+    "api/snapshot.js": {
+      "maxDuration": 15
+    },
+    "api/health.js": {
+      "maxDuration": 10
     },
     "api/save-graph.js": {
       "maxDuration": 30
