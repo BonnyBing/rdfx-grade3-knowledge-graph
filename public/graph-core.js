@@ -2626,7 +2626,7 @@
           relation: e.relation,
           // 前置：从先学指向后学，箭头表示进阶方向
           symbol: isPrereq ? ['none', 'arrow'] : ['none', 'none'],
-          symbolSize: isPrereq ? [0, 18] : [0, 0],
+          symbolSize: isPrereq ? [0, 8] : [0, 0],
           lineStyle,
           label:
             isSilk && isCrossEdge
