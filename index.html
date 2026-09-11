@@ -2212,27 +2212,8 @@
           ])
           showScienceLessons = false
           document.getElementById('chkShowLessons').checked = false
-        } else if (currentView === 'math' || currentView === 'science') {
-          layoutMode = 'hierarchy'
-          clearSavedPositions()
-          activeTypes = new Set([
-            'subject',
-            'domain',
-            'unit',
-            'knowledge',
-            'method',
-            'standard',
-            'competency',
-          ])
-          activeRelations = new Set([
-            'contains',
-            'teaches',
-            'uses_method',
-            'aligns_to',
-            'develops',
-          ])
         } else {
-          // 全部：力导向全量展示（对齐参考站「默认可看见全部实体」）
+          // 教材结构（全部 / 数学 / 科学）：统一力导向展示，学科范围只做节点过滤
           layoutMode = 'force'
           clearSavedPositions()
           activeTypes = new Set([
@@ -2249,6 +2230,7 @@
             'teaches',
             'uses_method',
             'cross_links',
+            'aligns_to',
             'develops',
           ])
           showScienceLessons = false
@@ -2952,9 +2934,9 @@
         const hints = {
           structure: {
             all: '教材结构 · 全部：力导向展示学科/单元/知识点/课标/核心素养。拖拽节点、滚轮缩放；单击节点会聚拢邻域。',
-            math: '教材结构 · 数学：树形层级从左到右为 学科→领域→单元→知识点（含课标与核心素养）。',
+            math: '教材结构 · 数学：力导向展示本学科节点与关系，交互与「全部」一致。',
             science:
-              '教材结构 · 科学：树形层级从左到右为 学科→领域→单元→知识点（含课标与核心素养）。',
+              '教材结构 · 科学：力导向展示本学科节点与关系，交互与「全部」一致。',
           },
           progression: {
             all: '学习进阶 · 全部：力导向展示有前置关系的知识点。橙色箭头从「先学」指向「后学」；可拖拽、缩放、单击聚拢。',
@@ -2979,9 +2961,7 @@
           `当前：${currentLens} / ${scopeLabel}`
         document.getElementById('viewHint').textContent = text
         document.getElementById('btnToggleDetail').style.display =
-          currentLens === 'structure' && currentView === 'all'
-            ? 'block'
-            : 'none'
+          currentLens === 'structure' ? 'block' : 'none'
         const showLessons =
           currentLens === 'structure' &&
           (currentView === 'all' || currentView === 'science')
@@ -3240,12 +3220,12 @@
                   showScienceLessons = true
                   document.getElementById('chkShowLessons').checked = true
                 }
-                // 力导向下保持物理布局；仅在分层概览时为课标/素养切列
+                // 力导向下保持物理布局；不再切回树形
                 if (
                   ['standard', 'competency'].includes(t) &&
                   layoutMode === 'overview'
                 ) {
-                  layoutMode = 'hierarchy'
+                  layoutMode = 'force'
                   clearSavedPositions()
                 }
               } else {
@@ -3401,10 +3381,7 @@
           if (showAllDetail) {
             activeTypes = new Set(GRAPH_DATA.node_types)
             activeRelations = new Set(GRAPH_DATA.relation_types)
-            layoutMode =
-              currentView === 'math' || currentView === 'science'
-                ? 'hierarchy'
-                : 'force'
+            layoutMode = 'force'
             clearSavedPositions()
             btn.classList.add('active')
             btn.textContent = '收起课时等更细节点'
@@ -3423,12 +3400,10 @@
               'teaches',
               'uses_method',
               'cross_links',
+              'aligns_to',
               'develops',
             ])
-            layoutMode =
-              currentView === 'math' || currentView === 'science'
-                ? 'hierarchy'
-                : 'force'
+            layoutMode = 'force'
             clearSavedPositions()
             btn.classList.remove('active')
             btn.textContent = '展开课时等更细节点'
