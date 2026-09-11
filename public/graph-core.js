@@ -786,14 +786,33 @@
     }
 
     function nodeMatchesSearch(n, query) {
-      if (!query) return true
+      return scoreNodeSearch(n, query) > 0
+    }
+
+    /** 搜索相关度：越高越优先聚焦。0 表示不匹配。 */
+    function scoreNodeSearch(n, query) {
+      if (!query || !n) return 0
       const q = normalizeSearchText(query)
-      if (!q) return true
-      return (
-        fuzzySubsequence(normalizeSearchText(n.name), q) ||
-        fuzzySubsequence(normalizeSearchText(n.id), q) ||
-        fuzzySubsequence(normalizeSearchText(n.source), q)
-      )
+      if (!q) return 0
+      const name = normalizeSearchText(n.name)
+      const id = normalizeSearchText(n.id)
+      const source = normalizeSearchText(n.source)
+      let score = 0
+      if (name === q) score = Math.max(score, 1000)
+      else if (name.startsWith(q)) score = Math.max(score, 820)
+      else if (name.includes(q)) score = Math.max(score, 640)
+      else if (fuzzySubsequence(name, q)) score = Math.max(score, 320)
+      if (id === q) score = Math.max(score, 940)
+      else if (id.startsWith(q)) score = Math.max(score, 700)
+      else if (id.includes(q)) score = Math.max(score, 520)
+      else if (fuzzySubsequence(id, q)) score = Math.max(score, 220)
+      if (source.includes(q)) score = Math.max(score, 180)
+      else if (fuzzySubsequence(source, q)) score = Math.max(score, 90)
+      if (score <= 0) return 0
+      // 更短的命中名更“贴近”
+      score += Math.max(0, 40 - Math.min(name.length, 40))
+      if (n.type === 'knowledge') score += 12
+      return score
     }
 
     function filterNodes() {
@@ -2457,6 +2476,13 @@
       })
 
       const silkFocus = isSilk ? collectSilkFocus(selectedNodeId, edges) : null
+      const searchHitIds = searchQuery
+        ? new Set(
+            nodes
+              .filter((n) => nodeMatchesSearch(n, searchQuery))
+              .map((n) => n.id),
+          )
+        : null
       const echartsNodes = nodes.map((n) => {
         const raw = nodeMap[n.id]
         const color = getNodeColor(raw)
@@ -2467,8 +2493,10 @@
         const size = isSilk ? silkNodeSize(raw) : getNodeSize(raw)
         const labelStyle = getNodeLabelStyle(raw)
         const level = getNodeLevel(raw)
-        const dimmed =
-          isSearchDim || (silkFocus && !silkFocus.has(n.id))
+        // 搜索时只点亮匹配点；无搜索时才用选中邻域聚焦
+        const dimmed = searchQuery
+          ? isSearchDim
+          : Boolean(silkFocus && !silkFocus.has(n.id))
         const showCrossColor =
           currentLens === 'cross' ||
           (currentLens === 'structure' && currentView === 'all')
@@ -2477,7 +2505,7 @@
           ? silkNodeStyle(raw, {
             isSelected: isHighlighted,
             dimmed,
-            isCross,
+            isCross: isCross && !searchQuery,
           })
           : {
             color,
@@ -2489,18 +2517,35 @@
                 : level === 2
                   ? 2
                   : 1,
-            opacity: isSearchDim ? 0.3 : 1,
+            opacity: isSearchDim ? 0.12 : 1,
             shadowBlur: level <= 1 ? 6 : 0,
             shadowColor: level <= 1 ? 'rgba(0,0,0,0.12)' : 'transparent',
           }
+        if (searchQuery && isSearchHit && isSilk && !isHighlighted) {
+          itemStyle.borderWidth = Math.max(itemStyle.borderWidth || 2, 2.6)
+          itemStyle.shadowBlur = 14
+          itemStyle.shadowColor = 'rgba(37, 99, 235, 0.35)'
+          itemStyle.opacity = 1
+        }
         const label = buildNodeLabel(n, labelStyle, level)
         if (isSilk) {
           if (dimmed) {
-            label.color = 'rgba(71,85,105,0.32)'
+            label.color = 'rgba(71,85,105,0.22)'
+            label.show = false
+          } else if (searchQuery && isSearchHit) {
+            label.show = true
+            label.color = '#0f172a'
+            label.fontWeight = '700'
           } else if (isCross) {
             label.color = '#c2410c'
           }
-          label.fontWeight = isHighlighted || isCross || level <= 2 ? '600' : label.fontWeight
+          label.fontWeight =
+            isHighlighted || isCross || level <= 2 || (searchQuery && isSearchHit)
+              ? '600'
+              : label.fontWeight
+        } else if (searchQuery) {
+          label.show = isSearchHit
+          label.color = isSearchHit ? labelStyle.color : 'rgba(30,41,59,0.25)'
         }
 
         const point = {
@@ -2510,7 +2555,12 @@
           nodeType: n.type,
           nodeLevel: level,
           symbol: isSilk ? 'circle' : getNodeSymbol(raw),
-          symbolSize: isHighlighted && isSilk ? size + 6 : size,
+          symbolSize:
+            isHighlighted && isSilk
+              ? size + 6
+              : searchQuery && isSearchHit && isSilk
+                ? size + 4
+                : size,
           itemStyle,
           label,
           emphasis: {
@@ -2540,12 +2590,35 @@
       const echartsEdges = edges.map((e) => {
         const isCrossEdge = e.relation === 'cross_links'
         const isPrereq = e.relation === 'prerequisite_of'
+        const focusForEdge = searchQuery ? null : silkFocus
         const focusedCross =
           isSilk &&
           isCrossEdge &&
-          silkFocus &&
-          silkFocus.has(e.source) &&
-          silkFocus.has(e.target)
+          focusForEdge &&
+          focusForEdge.has(e.source) &&
+          focusForEdge.has(e.target)
+        let lineStyle = isSilk
+          ? silkEdgeStyle(e, focusForEdge)
+          : styleEdge(e)
+        if (searchHitIds) {
+          const bothHit =
+            searchHitIds.has(e.source) && searchHitIds.has(e.target)
+          if (bothHit) {
+            lineStyle = {
+              ...lineStyle,
+              opacity: Math.max(lineStyle.opacity ?? 0.9, 0.98),
+              width: Math.max(lineStyle.width ?? 1.5, 2.4),
+              shadowBlur: Math.max(lineStyle.shadowBlur || 0, 10),
+            }
+          } else {
+            lineStyle = {
+              ...lineStyle,
+              opacity: 0.04,
+              width: Math.max(0.6, (lineStyle.width || 1) * 0.45),
+              shadowBlur: 0,
+            }
+          }
+        }
         return {
           id: `${e.relation}|${e.source}|${e.target}`,
           source: e.source,
@@ -2554,7 +2627,7 @@
           // 前置：从先学指向后学，箭头表示进阶方向
           symbol: isPrereq ? ['none', 'arrow'] : ['none', 'none'],
           symbolSize: isPrereq ? [0, 18] : [0, 0],
-          lineStyle: isSilk ? silkEdgeStyle(e, silkFocus) : styleEdge(e),
+          lineStyle,
           label:
             isSilk && isCrossEdge
               ? {
@@ -2600,6 +2673,7 @@
       isProgressionNode,
       isStandardsAlignedNode,
       nodeMatchesSearch,
+      scoreNodeSearch,
       getAncestorByType,
       getNodeLevel,
       getNodeColor,

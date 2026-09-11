@@ -1456,6 +1456,10 @@
         return syncCore().nodeMatchesSearch(...args)
       }
 
+      function scoreNodeSearch(...args) {
+        return syncCore().scoreNodeSearch(...args)
+      }
+
       function buildHierarchyGraphics(...args) {
         return syncCore().buildHierarchyGraphics(...args)
       }
@@ -2874,28 +2878,66 @@
         pullAnimRaf = requestAnimationFrame(frame)
       }
 
-      function locateSearchHit() {
-        if (!searchQuery || !liveGraphData?.length) return
-        const hit = liveGraphData.find((n) => {
+      function locateSearchHit({ select = true, pull = false } = {}) {
+        if (!searchQuery || !liveGraphData?.length) return null
+        const opt = chart.getOption()
+        const seriesCenter = opt?.series?.[0]?.center
+        let cx
+        let cy
+        if (
+          Array.isArray(seriesCenter) &&
+          seriesCenter.length >= 2 &&
+          Number.isFinite(seriesCenter[0])
+        ) {
+          cx = seriesCenter[0]
+          cy = seriesCenter[1]
+        } else {
+          const bounds = getGraphBounds(liveGraphData)
+          if (!bounds) return null
+          cx = (bounds.minX + bounds.maxX) / 2
+          cy = (bounds.minY + bounds.maxY) / 2
+        }
+
+        let best = null
+        let bestScore = -1
+        let bestDist = Infinity
+        for (const n of liveGraphData) {
           const raw = nodeMap[n.id]
-          return raw && nodeMatchesSearch(raw, searchQuery)
-        })
-        if (!hit) return
-        showNodeDetail(hit.id)
-        // 缩放到命中节点附近
-        const scale = 1.6
+          if (!raw || n.x == null || n.y == null) continue
+          const score = scoreNodeSearch(raw, searchQuery)
+          if (score <= 0) continue
+          const dist = (n.x - cx) * (n.x - cx) + (n.y - cy) * (n.y - cy)
+          if (
+            score > bestScore ||
+            (score === bestScore && dist < bestDist)
+          ) {
+            best = n
+            bestScore = score
+            bestDist = dist
+          }
+        }
+        if (!best) return null
+
+        const curZoom = Number(opt?.series?.[0]?.zoom) || 1
         chart.setOption(
           {
             series: [
               {
                 id: 'kg-graph',
-                zoom: scale,
-                center: [hit.x, hit.y],
+                zoom: Math.max(curZoom, 1.55),
+                center: [best.x, best.y],
               },
             ],
           },
           false,
         )
+
+        if (select) {
+          showNodeDetail(best.id, { pull })
+        } else {
+          refreshNodeHighlight()
+        }
+        return best
       }
 
       function regroupForceLayout() {
@@ -2964,7 +3006,7 @@
       `
       }
 
-      function showNodeDetail(nodeId) {
+      function showNodeDetail(nodeId, { pull = true } = {}) {
         const node = nodeMap[nodeId]
         if (!node) return
         selectedNodeId = nodeId
@@ -3170,8 +3212,10 @@
         })
 
         refreshNodeHighlight()
-        // 力导向：点击后邻域环绕聚拢（参考站交互）
-        if (layoutMode === 'force') pullNeighborsAround(nodeId)
+        // 力导向：点击后邻域环绕聚拢；搜索自动聚焦时不聚拢，避免图面乱跳
+        if (pull && layoutMode === 'force' && !searchQuery) {
+          pullNeighborsAround(nodeId)
+        }
       }
 
       function initFilters() {
@@ -3289,63 +3333,47 @@
         applyLensAndScope(currentLens, btn.dataset.view)
       })
 
-      function applySearchHighlight() {
-        if (!liveGraphData?.length) return
-        const next = liveGraphData.map((n) => {
-          const raw = nodeMap[n.id]
-          const hit =
-            !searchQuery || (raw && nodeMatchesSearch(raw, searchQuery))
-          const prev = n.itemStyle || {}
-          return {
-            ...n,
-            itemStyle: {
-              ...prev,
-              opacity: hit ? (prev.opacity < 0.3 ? 1 : prev.opacity ?? 1) : 0.14,
-            },
-            label:
-              typeof n.label === 'object'
-                ? {
-                    ...n.label,
-                    color: hit
-                      ? n.label.color || '#1e293b'
-                      : 'rgba(30,41,59,0.35)',
-                  }
-                : n.label,
-            z2: hit ? 12 : 1,
-          }
-        })
-        liveGraphData = next
-        chart.setOption(
-          {
-            series: [
-              {
-                id: 'kg-graph',
-                animation: false,
-                animationDurationUpdate: 0,
-                data: next,
-              },
-            ],
-          },
-          { silent: true },
-        )
+      let searchTimer = null
+      function applySearchHighlight({ focus = false, pull = false } = {}) {
+        // 走完整样式重建：匹配点/边高亮，非匹配点/边压暗
+        if (searchQuery) {
+          refreshNodeHighlight()
+          if (focus) locateSearchHit({ select: true, pull })
+        } else {
+          refreshNodeHighlight()
+        }
       }
 
       document.getElementById('searchInput').addEventListener('input', (e) => {
         searchQuery = e.target.value.trim()
-        applySearchHighlight()
+        clearTimeout(searchTimer)
+        searchTimer = setTimeout(() => {
+          if (!searchQuery) {
+            applySearchHighlight()
+            return
+          }
+          applySearchHighlight({ focus: true, pull: false })
+        }, 140)
       })
       document.getElementById('searchInput').addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
           e.preventDefault()
-          locateSearchHit()
+          clearTimeout(searchTimer)
+          applySearchHighlight({ focus: true, pull: true })
         }
       })
       document
         .getElementById('btnLocateSearch')
-        .addEventListener('click', locateSearchHit)
+        .addEventListener('click', () => {
+          clearTimeout(searchTimer)
+          applySearchHighlight({ focus: true, pull: true })
+        })
       document.getElementById('btnClearSearch').addEventListener('click', () => {
+        clearTimeout(searchTimer)
         searchQuery = ''
         document.getElementById('searchInput').value = ''
+        selectedNodeId = null
+        updateDetailIdleState()
         applySearchHighlight()
       })
       document
@@ -3638,6 +3666,11 @@
         updateScopeTabsUi()
         applyUrlParams()
         updateMainDisplay()
+        if (searchQuery) {
+          setTimeout(() => {
+            applySearchHighlight({ focus: true, pull: false })
+          }, 900)
+        }
         setRemoteSyncState('synced')
         startRemoteSyncPolling()
       }
