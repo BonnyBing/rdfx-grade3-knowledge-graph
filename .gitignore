@@ -5,3 +5,9 @@ dist/
 .env.local
 .DS_Store
 scripts/.extract-report.json
+.vercel
+.env*
+.data/
+.vercel-plugin-api-key.txt
+.vercel-*-api-key.txt
+.vercel-cron-secret.txt

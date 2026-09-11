@@ -2,7 +2,7 @@
   "name": "zhishi-tupu",
   "version": "1.0.0",
   "private": true,
-  "description": "知识图谱：交互查看页面 + 出图接口（供智能体插件调用，返回可嵌入 Word 的 PNG 直链）",
+  "description": "智启知识图谱：交互查看页面 + 出图接口（当前首批为三年级上册数学与科学，目标覆盖全学段全学科；供智能体插件调用，返回可嵌入 Word 的 PNG 直链）",
   "scripts": {
     "extract": "node scripts/extract-core.mjs",
     "dev": "node scripts/dev-server.mjs",

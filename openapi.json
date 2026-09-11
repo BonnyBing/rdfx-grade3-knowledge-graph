@@ -1,14 +1,18 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "人大附小三年级知识图谱插件",
-    "description": "供智启智能体调用：知识点查询 → 跨学科关系查询（快照）→ 动态出图 → 快照读取。\n\n重要：平台外层 HTTP 200 / code=200 仅表示调用完成；业务是否成功必须检查本接口返回体中的 status 与 image_status。\n\n本接口不做大模型推理或 Embedding。活动主题（如「做月饼」）须由智启先拆解为本学科知识点候选，经教师确认后再查询。",
+    "title": "智启知识图谱插件",
+    "description": "供智启智能体调用智启知识图谱：知识点查询 → 跨学科关系查询（快照）→ 动态出图 → 快照读取。图谱正从三年级上册数学与科学起步，目标逐步覆盖全学段全学科。\n\n重要：平台外层 HTTP 200 / code=200 仅表示调用完成；业务是否成功必须检查本接口返回体中的 status 与 image_status。\n\n本接口不做大模型推理或 Embedding。活动主题（如「做月饼」）须由智启先拆解为本学科知识点候选，经教师确认后再查询。\n\n智启接入必须使用腾讯云香港中转 URL（见 servers[0]），原因：智启国内机房无法访问 *.vercel.app。",
     "version": "2.0.0"
   },
   "servers": [
     {
+      "url": "https://1304703298-cmqu6br21n.ap-hongkong.tencentscf.com",
+      "description": "智启专用：腾讯云香港中转（请用此地址导入插件）"
+    },
+    {
       "url": "https://rdfx-grade3-kg-deploy.vercel.app",
-      "description": "生产环境（部署后如域名变更请同步修改）"
+      "description": "Vercel 源站（浏览器/本地；智启机房通常不可用）"
     }
   ],
   "components": {
@@ -23,7 +27,14 @@
     "schemas": {
       "PluginBase": {
         "type": "object",
-        "required": ["code", "status", "message", "request_id", "graph_version", "warnings"],
+        "required": [
+          "code",
+          "status",
+          "message",
+          "request_id",
+          "graph_version",
+          "warnings"
+        ],
         "properties": {
           "code": {
             "type": "number",
@@ -42,16 +53,28 @@
               "error"
             ]
           },
-          "message": { "type": "string" },
-          "request_id": { "type": "string" },
-          "graph_version": { "type": "string" },
+          "message": {
+            "type": "string"
+          },
+          "request_id": {
+            "type": "string"
+          },
+          "graph_version": {
+            "type": "string"
+          },
           "warnings": {
             "type": "array",
-            "items": { "type": "string" }
+            "items": {
+              "type": "string"
+            }
           },
           "image_status": {
             "type": "string",
-            "enum": ["success", "error", "not_requested"]
+            "enum": [
+              "success",
+              "error",
+              "not_requested"
+            ]
           },
           "image_url": {
             "type": "string",
@@ -65,9 +88,15 @@
             "type": "string",
             "description": "纯交互页 URL"
           },
-          "image_message": { "type": "string" },
-          "truncated": { "type": "boolean" },
-          "snapshot_id": { "type": "string" }
+          "image_message": {
+            "type": "string"
+          },
+          "truncated": {
+            "type": "boolean"
+          },
+          "snapshot_id": {
+            "type": "string"
+          }
         }
       }
     }
@@ -78,7 +107,11 @@
         "operationId": "searchKnowledgePoints",
         "summary": "搜索候选知识点",
         "description": "在指定主学科、年级、册次范围内匹配知识点。支持标准名称、节点 ID、别名、关键词与模糊匹配。多词查询按词分别返回候选。score 仅用于排序，不是语义置信度。",
-        "security": [{ "ApiKeyAuth": [] }],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -104,7 +137,9 @@
                   },
                   "query_terms": {
                     "type": "array",
-                    "items": { "type": "string" },
+                    "items": {
+                      "type": "string"
+                    },
                     "description": "智启生成的候选查询词数组"
                   },
                   "limit": {
@@ -125,7 +160,9 @@
               "application/json": {
                 "schema": {
                   "allOf": [
-                    { "$ref": "#/components/schemas/PluginBase" },
+                    {
+                      "$ref": "#/components/schemas/PluginBase"
+                    },
                     {
                       "type": "object",
                       "properties": {
@@ -135,22 +172,44 @@
                           "items": {
                             "type": "object",
                             "properties": {
-                              "query_term": { "type": "string" },
-                              "status": { "type": "string" },
-                              "message": { "type": "string" },
-                              "matched_node_id": { "type": "string" },
+                              "query_term": {
+                                "type": "string"
+                              },
+                              "status": {
+                                "type": "string"
+                              },
+                              "message": {
+                                "type": "string"
+                              },
+                              "matched_node_id": {
+                                "type": "string"
+                              },
                               "candidates": {
                                 "type": "array",
                                 "items": {
                                   "type": "object",
                                   "properties": {
-                                    "node_id": { "type": "string" },
-                                    "name": { "type": "string" },
-                                    "type": { "type": "string" },
-                                    "type_label": { "type": "string" },
-                                    "status": { "type": "string" },
-                                    "scope": { "type": "object" },
-                                    "hit_term": { "type": "string" },
+                                    "node_id": {
+                                      "type": "string"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "type_label": {
+                                      "type": "string"
+                                    },
+                                    "status": {
+                                      "type": "string"
+                                    },
+                                    "scope": {
+                                      "type": "object"
+                                    },
+                                    "hit_term": {
+                                      "type": "string"
+                                    },
                                     "match_method": {
                                       "type": "string",
                                       "enum": [
@@ -165,9 +224,15 @@
                                       "type": "number",
                                       "description": "匹配排序分，非置信度"
                                     },
-                                    "match_reason": { "type": "string" },
-                                    "definite": { "type": "boolean" },
-                                    "needs_confirmation": { "type": "boolean" }
+                                    "match_reason": {
+                                      "type": "string"
+                                    },
+                                    "definite": {
+                                      "type": "boolean"
+                                    },
+                                    "needs_confirmation": {
+                                      "type": "boolean"
+                                    }
                                   }
                                 }
                               }
@@ -176,13 +241,19 @@
                         },
                         "matched_nodes": {
                           "type": "array",
-                          "items": { "type": "object" }
+                          "items": {
+                            "type": "object"
+                          }
                         },
                         "unmatched_queries": {
                           "type": "array",
-                          "items": { "type": "string" }
+                          "items": {
+                            "type": "string"
+                          }
                         },
-                        "scope": { "type": "object" }
+                        "scope": {
+                          "type": "object"
+                        }
                       }
                     }
                   ]
@@ -198,23 +269,33 @@
         "operationId": "queryCrossDisciplinaryRelations",
         "summary": "按节点 ID 查询跨学科关系并创建子图快照",
         "description": "输入已确认的知识点 ID。返回完整路径、原始关系、中间主题、来源与 snapshot_id。candidate_subjects 仅为推荐过滤，不是教师已确认。",
-        "security": [{ "ApiKeyAuth": [] }],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["main_node_ids"],
+                "required": [
+                  "main_node_ids"
+                ],
                 "properties": {
                   "main_node_ids": {
                     "type": "array",
-                    "items": { "type": "string" },
+                    "items": {
+                      "type": "string"
+                    },
                     "description": "已确定的本学科知识点 ID"
                   },
                   "candidate_subjects": {
                     "type": "array",
-                    "items": { "type": "string" },
+                    "items": {
+                      "type": "string"
+                    },
                     "description": "可选，限定候选跨学科"
                   },
                   "graph_version": {
@@ -233,18 +314,54 @@
               "application/json": {
                 "schema": {
                   "allOf": [
-                    { "$ref": "#/components/schemas/PluginBase" },
+                    {
+                      "$ref": "#/components/schemas/PluginBase"
+                    },
                     {
                       "type": "object",
                       "properties": {
-                        "matched_nodes": { "type": "array", "items": { "type": "object" } },
-                        "unmatched_queries": { "type": "array", "items": { "type": "string" } },
-                        "candidate_subjects": { "type": "array", "items": { "type": "object" } },
-                        "relations": { "type": "array", "items": { "type": "object" } },
-                        "evidence_paths": { "type": "array", "items": { "type": "object" } },
-                        "sources": { "type": "array", "items": { "type": "object" } },
-                        "snapshot_id": { "type": "string" },
-                        "page_url": { "type": "string" }
+                        "matched_nodes": {
+                          "type": "array",
+                          "items": {
+                            "type": "object"
+                          }
+                        },
+                        "unmatched_queries": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "candidate_subjects": {
+                          "type": "array",
+                          "items": {
+                            "type": "object"
+                          }
+                        },
+                        "relations": {
+                          "type": "array",
+                          "items": {
+                            "type": "object"
+                          }
+                        },
+                        "evidence_paths": {
+                          "type": "array",
+                          "items": {
+                            "type": "object"
+                          }
+                        },
+                        "sources": {
+                          "type": "array",
+                          "items": {
+                            "type": "object"
+                          }
+                        },
+                        "snapshot_id": {
+                          "type": "string"
+                        },
+                        "page_url": {
+                          "type": "string"
+                        }
                       }
                     }
                   ]
@@ -260,19 +377,29 @@
         "operationId": "renderSnapshotImage",
         "summary": "按快照及所选关系生成图片",
         "description": "必须使用快照子图出图。可按 relation_ids 或 subject 精简。仅当 PNG 实际写入存储后 image_status=success。图片失败时保留关系字段。",
-        "security": [{ "ApiKeyAuth": [] }],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["snapshot_id"],
+                "required": [
+                  "snapshot_id"
+                ],
                 "properties": {
-                  "snapshot_id": { "type": "string" },
+                  "snapshot_id": {
+                    "type": "string"
+                  },
                   "relation_ids": {
                     "type": "array",
-                    "items": { "type": "string" }
+                    "items": {
+                      "type": "string"
+                    }
                   },
                   "subject": {
                     "type": "string",
@@ -280,7 +407,10 @@
                   },
                   "preset": {
                     "type": "string",
-                    "enum": ["word", "word-landscape"]
+                    "enum": [
+                      "word",
+                      "word-landscape"
+                    ]
                   },
                   "scale": {
                     "type": "number",
@@ -297,7 +427,9 @@
             "description": "业务结果",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/PluginBase" }
+                "schema": {
+                  "$ref": "#/components/schemas/PluginBase"
+                }
               }
             }
           }
@@ -309,16 +441,24 @@
         "operationId": "getSnapshot",
         "summary": "按快照 ID 读取结果",
         "description": "跨轮次恢复关系与图片链接。底层图谱更新后旧快照内容不变。",
-        "security": [{ "ApiKeyAuth": [] }],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["snapshot_id"],
+                "required": [
+                  "snapshot_id"
+                ],
                 "properties": {
-                  "snapshot_id": { "type": "string" },
+                  "snapshot_id": {
+                    "type": "string"
+                  },
                   "include_subgraph": {
                     "type": "boolean",
                     "default": false
@@ -333,7 +473,9 @@
             "description": "业务结果",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/PluginBase" }
+                "schema": {
+                  "$ref": "#/components/schemas/PluginBase"
+                }
               }
             }
           }
@@ -342,17 +484,24 @@
       "get": {
         "operationId": "getSnapshotByQuery",
         "summary": "按快照 ID 读取结果（GET）",
+        "description": "GET 方式按 snapshot_id 读取已保存的跨学科关系与图片链接，供跨轮次恢复。优先使用 POST /api/snapshot。",
         "parameters": [
           {
             "name": "snapshot_id",
             "in": "query",
             "required": true,
-            "schema": { "type": "string" }
+            "description": "快照 ID",
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "name": "include_subgraph",
             "in": "query",
-            "schema": { "type": "string" }
+            "description": "是否返回子图，传 1 表示返回",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -373,9 +522,15 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "q": { "type": "string" },
-                  "query": { "type": "string" },
-                  "limit": { "type": "integer" }
+                  "q": {
+                    "type": "string"
+                  },
+                  "query": {
+                    "type": "string"
+                  },
+                  "limit": {
+                    "type": "integer"
+                  }
                 }
               }
             }
@@ -399,17 +554,36 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "query": { "type": "string" },
+                  "query": {
+                    "type": "string"
+                  },
                   "view": {
                     "type": "string",
-                    "enum": ["all", "math", "science", "cross"]
+                    "enum": [
+                      "all",
+                      "math",
+                      "science",
+                      "cross"
+                    ]
                   },
-                  "focus": { "type": "string" },
-                  "depth": { "type": "integer" },
-                  "detail": { "type": "boolean" },
-                  "lessons": { "type": "boolean" },
-                  "preset": { "type": "string" },
-                  "scale": { "type": "number" }
+                  "focus": {
+                    "type": "string"
+                  },
+                  "depth": {
+                    "type": "integer"
+                  },
+                  "detail": {
+                    "type": "boolean"
+                  },
+                  "lessons": {
+                    "type": "boolean"
+                  },
+                  "preset": {
+                    "type": "string"
+                  },
+                  "scale": {
+                    "type": "number"
+                  }
                 }
               }
             }

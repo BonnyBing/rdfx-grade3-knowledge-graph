@@ -1,0 +1,211 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "智启知识图谱插件",
+    "description": "查询智启知识图谱中的真实知识点、跨学科关联，并按查询结果动态生成知识图谱图片。图谱正从三年级上册数学与科学起步，目标逐步覆盖全学段全学科。调用顺序：searchKnowledgePoints → 教师确认节点ID → queryCrossDisciplinaryRelations → renderSnapshotImage。业务成败看返回体 status / image_status，不要只看平台 code=200。活动主题须先拆成知识点并经教师确认，禁止直接硬匹配。",
+    "version": "2.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://1304703298-cmqu6br21n.ap-hongkong.tencentscf.com",
+      "description": "智启专用腾讯云香港中转地址"
+    }
+  ],
+  "paths": {
+    "/api/knowledge-search": {
+      "post": {
+        "operationId": "searchKnowledgePoints",
+        "summary": "搜索候选知识点",
+        "description": "当需要把教师表述或口语匹配到本册真实知识点标准名称和节点ID时调用。输入主学科、年级、册次和query_terms。返回候选供教师确认。不要用于活动主题直接硬匹配；不要跳过确认直接出图。score仅用于排序，不是语义置信度。",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "main_subject": {
+                    "type": "string",
+                    "description": "主学科，如数学或科学"
+                  },
+                  "grade": {
+                    "type": "string",
+                    "description": "年级，如三年级或小学三年级"
+                  },
+                  "semester": {
+                    "type": "string",
+                    "description": "册次，如上册或上学期"
+                  },
+                  "query": {
+                    "type": "string",
+                    "description": "教师原始表述，可选"
+                  },
+                  "query_terms": {
+                    "type": "array",
+                    "description": "智启生成的候选查询词数组",
+                    "items": {
+                      "type": "string",
+                      "description": "单个查询词"
+                    }
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "description": "每个词返回候选数量上限，默认5，最大10"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "返回匹配结果。请检查status、matches、matched_nodes。"
+          }
+        }
+      }
+    },
+    "/api/cross-query": {
+      "post": {
+        "operationId": "queryCrossDisciplinaryRelations",
+        "summary": "查询跨学科关系并创建快照",
+        "description": "当教师已确认知识点节点ID后，查询跨学科关联、中间主题和关系路径。输入main_node_ids。返回relations、evidence_paths、snapshot_id。不要用未确认的模糊名称调用。candidate_subjects仅为过滤，不是教师已确认。",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["main_node_ids"],
+                "properties": {
+                  "main_node_ids": {
+                    "type": "array",
+                    "description": "已确认的本学科知识点节点ID数组",
+                    "items": {
+                      "type": "string",
+                      "description": "节点ID，如M-K-LENGTH"
+                    }
+                  },
+                  "candidate_subjects": {
+                    "type": "array",
+                    "description": "可选，限定候选跨学科，如科学",
+                    "items": {
+                      "type": "string",
+                      "description": "学科名"
+                    }
+                  },
+                  "graph_version": {
+                    "type": "string",
+                    "description": "可选，图谱版本校验提示"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "返回跨学科关系与snapshot_id。请检查status、relations、snapshot_id。"
+          }
+        }
+      }
+    },
+    "/api/snapshot-image": {
+      "post": {
+        "operationId": "renderSnapshotImage",
+        "summary": "按快照生成知识图谱图片",
+        "description": "当已有snapshot_id，需要生成可插入聊天或文档的知识图谱PNG时调用。可按relation_ids或subject精简。仅当image_status为success且image_url非空时视为出图成功。",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["snapshot_id"],
+                "properties": {
+                  "snapshot_id": {
+                    "type": "string",
+                    "description": "跨学科查询返回的快照ID"
+                  },
+                  "relation_ids": {
+                    "type": "array",
+                    "description": "可选，仅展示这些关系ID",
+                    "items": {
+                      "type": "string",
+                      "description": "relation_id"
+                    }
+                  },
+                  "subject": {
+                    "type": "string",
+                    "description": "可选，按对端学科精简，如科学"
+                  },
+                  "preset": {
+                    "type": "string",
+                    "description": "排版档，word或word-landscape",
+                    "enum": ["word", "word-landscape"]
+                  },
+                  "scale": {
+                    "type": "number",
+                    "description": "像素倍率，默认2"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "返回图片链接。请检查image_status、image_url、image_markdown。"
+          }
+        }
+      }
+    },
+    "/api/snapshot": {
+      "post": {
+        "operationId": "getSnapshot",
+        "summary": "按快照ID读取结果",
+        "description": "当跨轮次需要恢复此前查询的关系结果或图片链接时，按snapshot_id调用。底层图谱更新后旧快照内容不变。",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["snapshot_id"],
+                "properties": {
+                  "snapshot_id": {
+                    "type": "string",
+                    "description": "要读取的快照ID"
+                  },
+                  "include_subgraph": {
+                    "type": "boolean",
+                    "description": "是否同时返回子图数据，默认false"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "返回快照中的关系与图片信息。"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key",
+        "description": "智启插件鉴权密钥，与服务端PLUGIN_API_KEY一致"
+      }
+    }
+  },
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ]
+}

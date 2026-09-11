@@ -116,3 +116,11 @@ npx vercel dev
 - 在 Vercel 控制台创建/绑定 Blob（需你账号操作）
 - 写入真实 `PLUGIN_API_KEY` / `BLOB_READ_WRITE_TOKEN`
 - 智启平台实机导入与 Word 嵌入验证
+
+## 当前状态（已代配）
+
+- Blob store：`rdfx-grade3-kg-blob`（public，hkg1）已创建并连接到本项目
+- 已配置：`BLOB_READ_WRITE_TOKEN`、`PUBLIC_BASE_URL`、`PLUGIN_API_KEY`
+- 生产域名：https://rdfx-grade3-kg-deploy.vercel.app
+- 本地密钥备份（勿提交）：`.vercel-plugin-api-key.txt`
+

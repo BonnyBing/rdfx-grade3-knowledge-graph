@@ -103,10 +103,10 @@
 
   const LAYOUT = {
     depthX: 220,
-    overviewDepthX: 252,
+    overviewDepthX: 300,
     mathRootX: 40,
     treeGap: 280,
-    scienceBelowGap: 96,
+    scienceBelowGap: 160,
     scienceRootX: 40 + 220 * 5 + 80,
     crossThemeX: 40 + 220 * 2 + 30,
     rowH: {
@@ -118,8 +118,8 @@
       method: 50,
       default: 48,
     },
-    rowGap: 42,
-    overviewMinGap: 32,
+    rowGap: 52,
+    overviewMinGap: 56,
   }
 
   const MATH_LEVEL_COLORS = [
@@ -617,9 +617,9 @@
       }
       if (
         layoutMode === 'overview' &&
-        ['knowledge', 'method'].includes(n.type)
+        ['knowledge', 'method', 'standard', 'competency'].includes(n.type)
       ) {
-        const labelW = 140
+        const labelW = ['standard', 'competency'].includes(n.type) ? 120 : 140
         const charsPerLine = 12
         const lines = Math.max(
           1,
@@ -687,6 +687,20 @@
     }
 
     function getNodeLabel(n) {
+      if (layoutMode === 'force') {
+        // 力导向默认全量展示，长标题必须截短，否则字叠成一团
+        if (n.id === selectedNodeId) return n.name
+        if (['knowledge', 'standard', 'method'].includes(n.type)) {
+          const max = n.type === 'knowledge' ? 10 : 8
+          return n.name.length > max ? n.name.slice(0, max) + '…' : n.name
+        }
+        if (n.type === 'competency') {
+          return n.name.length > 8 ? n.name.slice(0, 8) + '…' : n.name
+        }
+        if (n.type === 'unit') {
+          return n.name.length > 12 ? n.name.slice(0, 12) + '…' : n.name
+        }
+      }
       if (layoutMode === 'hierarchy') {
         if (['knowledge', 'method'].includes(n.type)) return n.name
         const maxByType = { lesson: 14, unit: 18, domain: 12, subject: 10 }
@@ -716,42 +730,69 @@
       if (currentLens === 'progression' || currentLens === 'standards') {
         return true
       }
-      if (layoutMode === 'hierarchy') {
-        if (n.type === 'lesson')
-          return showScienceLessons || currentView === 'science'
-        return (
-          [
-            'subject',
-            'domain',
-            'unit',
-            'knowledge',
-            'method',
-            'standard',
-            'competency',
-            'cross_disciplinary_theme',
-          ].includes(n.type) || n.id === selectedNodeId
-        )
-      }
-      if (layoutMode === 'overview' && !showAllDetail) {
-        if (n.type === 'lesson') return false
+      if (n.id === selectedNodeId) return true
+      if (layoutMode === 'force') {
+        // 力导向也显示知识点等标签；长标题在 getNodeLabel 里截短，悬停看全名
+        if (searchQuery && nodeMatchesSearch(n, searchQuery)) return true
         return [
           'subject',
           'domain',
           'unit',
-          'cross_disciplinary_theme',
           'knowledge',
           'method',
+          'standard',
+          'competency',
+          'cross_disciplinary_theme',
         ].includes(n.type)
       }
-      if (n.type === 'lesson') return false
+      if (n.type === 'lesson') {
+        return (
+          showScienceLessons ||
+          currentView === 'science' ||
+          activeTypes.has('lesson')
+        )
+      }
+      // 能进图的节点都显示标签，避免勾选了课标/核心素养却只有圆点看不见名字
+      if (activeTypes.has(n.type)) return true
+      return [
+        'subject',
+        'domain',
+        'unit',
+        'knowledge',
+        'method',
+        'standard',
+        'competency',
+        'cross_disciplinary_theme',
+      ].includes(n.type)
+    }
+
+    /** 页面搜索：子串 + 顺序子序列（轻度模糊），大小写不敏感 */
+    function normalizeSearchText(s) {
+      return String(s || '')
+        .toLowerCase()
+        .replace(/\s+/g, '')
+    }
+
+    function fuzzySubsequence(haystack, needle) {
+      if (!needle) return true
+      if (!haystack) return false
+      if (haystack.includes(needle)) return true
+      let i = 0
+      for (const ch of haystack) {
+        if (ch === needle[i]) i += 1
+        if (i >= needle.length) return true
+      }
+      return false
+    }
+
+    function nodeMatchesSearch(n, query) {
+      if (!query) return true
+      const q = normalizeSearchText(query)
+      if (!q) return true
       return (
-        [
-          'subject',
-          'domain',
-          'unit',
-          'cross_disciplinary_theme',
-          'knowledge',
-        ].includes(n.type) || n.id === selectedNodeId
+        fuzzySubsequence(normalizeSearchText(n.name), q) ||
+        fuzzySubsequence(normalizeSearchText(n.id), q) ||
+        fuzzySubsequence(normalizeSearchText(n.source), q)
       )
     }
 
@@ -775,19 +816,12 @@
           if (!activeTypes.has(n.type)) return false
           // 跨学科边需要两侧，学科范围不裁切节点
         } else {
-          // 教材结构
+          // 教材结构：勾选的类型完整展示
           if (!activeTypes.has(n.type)) return false
-          if (currentView === 'all' && !showAllDetail && !isOverviewNode(n))
-            return false
           if (!matchesScope(n.id)) return false
         }
 
-        if (
-          searchQuery &&
-          !n.name.includes(searchQuery) &&
-          !n.id.toLowerCase().includes(searchQuery.toLowerCase())
-        )
-          return false
+        // 搜索改为高亮淡化，不再从结果集里剔除（否则图会被搜残）
         return true
       })
     }
@@ -1194,10 +1228,14 @@
         COL.knowledge,
         nodeIdSet,
       )
+      placeAuxHierarchyNodes(positions, nodes, nodeIdSet, rootX)
+      placeLeftoverNodes(positions, nodes, rootX)
       resolveVisualBoxOverlaps(
         positions,
         nodes
-          .filter((n) => ['knowledge', 'method'].includes(n.type))
+          .filter((n) =>
+            ['knowledge', 'method', 'standard', 'competency'].includes(n.type),
+          )
           .map((n) => n.id),
         LAYOUT.overviewMinGap + 4,
       )
@@ -1287,6 +1325,14 @@
           resolveVisualBoxOverlaps(positions, sciIds)
           if (!separateMathAndScience(positions, mathIds, sciIds)) break
         }
+        separateMathAndScience(positions, mathIds, sciIds)
+
+        // 概览收尾：全图按真实标签包围盒再去重叠一次，避免单元长标题互压
+        resolveVisualBoxOverlaps(
+          positions,
+          [...mathIds, ...sciIds],
+          LAYOUT.overviewMinGap,
+        )
         separateMathAndScience(positions, mathIds, sciIds)
 
         return positions
@@ -1440,7 +1486,9 @@
           60,
         )
       }
-      if (currentView === 'all' && showAllDetail) {
+      if (currentView === 'all') {
+        // 全部范围：无论是否展开详细，数学在上、科学在下，禁止回落到单学科布局
+        // （否则两科节点挤进同一列，默认视图会叠成一条竖线）
         const mathN = nodes.filter(
           (n) =>
             getSubjectGroup(n.id) === 'math' ||
@@ -1457,7 +1505,6 @@
           sciN,
           60,
         )
-        // 科学整体移到数学下方
         const mathBox = sideBoundingBox(mathPos, mathN.map((n) => n.id))
         const sciBox = sideBoundingBox(sciPos, sciN.map((n) => n.id))
         if (mathBox && sciBox) {
@@ -1780,13 +1827,13 @@
       }
       if (
         layoutMode === 'overview' &&
-        ['knowledge', 'method'].includes(n.type)
+        ['knowledge', 'method', 'standard', 'competency'].includes(n.type)
       ) {
         return {
           ...base,
           position: 'bottom',
           distance: 6,
-          width: 140,
+          width: ['standard', 'competency'].includes(n.type) ? 120 : 140,
           overflow: 'break',
           lineHeight: 13,
           fontSize: 10,
@@ -2083,7 +2130,7 @@
           shadowColor: 'rgba(59, 130, 246, 0.35)',
         }
       }
-      if (e.relation === 'prerequisite_of') {
+        if (e.relation === 'prerequisite_of') {
         return {
           color: onPath ? '#d97706' : dim ? '#fde68a' : '#f59e0b',
           width: onPath ? 3 : dim ? 1.2 : 2.4,
@@ -2092,6 +2139,26 @@
           opacity: onPath ? 1 : dim ? 0.08 : 0.95,
           shadowBlur: onPath ? 12 : 0,
           shadowColor: 'rgba(245, 158, 11, 0.45)',
+        }
+      }
+      if (e.relation === 'aligns_to') {
+        return {
+          color: onPath ? '#7c3aed' : dim ? '#ddd6fe' : '#8b5cf6',
+          width: onPath ? 2.6 : dim ? 1 : 1.9,
+          type: 'dashed',
+          curveness: 0.14,
+          opacity: onPath ? 1 : dim ? 0.08 : 0.9,
+          shadowBlur: onPath ? 12 : 0,
+          shadowColor: 'rgba(139, 92, 246, 0.4)',
+        }
+      }
+      if (e.relation === 'develops') {
+        return {
+          color: onPath ? '#0f766e' : dim ? '#ccfbf1' : '#14b8a6',
+          width: onPath ? 2.4 : dim ? 1 : 1.7,
+          type: 'dashed',
+          curveness: 0.1,
+          opacity: onPath ? 1 : dim ? 0.08 : 0.85,
         }
       }
       return {
@@ -2232,8 +2299,8 @@
       })
 
       const positions = {}
-      const colW = 260
-      const rowGap = 56
+      const colW = 280
+      const rowGap = 72
       let yBase = 80
 
         ;['math', 'science', 'other'].forEach((sub) => {
@@ -2246,24 +2313,31 @@
             byLevel.get(lv).push(n)
           })
           const levels = [...byLevel.keys()].sort((a, b) => a - b)
-          let maxRows = 1
+          let maxExtent = rowGap
           levels.forEach((lv) => {
             const list = sortChildIds(byLevel.get(lv).map((n) => n.id)).map(
               (id) => nodeMap[id],
             )
             byLevel.set(lv, list)
-            maxRows = Math.max(maxRows, list.length)
-          })
-          levels.forEach((lv) => {
-            const list = byLevel.get(lv)
-            const totalH = (list.length - 1) * rowGap
-            let y = yBase + (maxRows - 1) * rowGap * 0.5 - totalH / 2
             list.forEach((n) => {
-              positions[n.id] = { x: 100 + lv * colW, y }
-              y += rowGap
+              const ext = getNodeVisualExtents(n)
+              maxExtent = Math.max(maxExtent, ext.bottom - ext.top + 16)
             })
           })
-          yBase += maxRows * rowGap + 100
+          const step = Math.max(rowGap, maxExtent)
+          let sectionMaxY = yBase
+          levels.forEach((lv) => {
+            const list = byLevel.get(lv)
+            let y = yBase
+            list.forEach((n) => {
+              const ext = getNodeVisualExtents(n)
+              const h = ext.bottom - ext.top
+              positions[n.id] = { x: 100 + lv * colW, y: y + h / 2 }
+              y += Math.max(h + 18, step)
+              sectionMaxY = Math.max(sectionMaxY, y)
+            })
+          })
+          yBase = sectionMaxY + 120
         })
 
       return positions
@@ -2353,9 +2427,9 @@
       const edges = filterEdges(nodeIds)
 
       let positions = {}
-      if (layoutMode === 'progression' || currentLens === 'progression') {
+      if (layoutMode === 'progression') {
         positions = computeProgressionPositions(nodes)
-      } else if (layoutMode === 'standards' || currentLens === 'standards') {
+      } else if (layoutMode === 'standards') {
         positions = computeStandardsPositions(nodes)
       } else if (layoutMode === 'overview') {
         positions = buildOverviewPositions(nodes)
@@ -2363,15 +2437,18 @@
         positions = computeHierarchyPositions(nodes)
       } else if (layoutMode === 'force') {
         const saved = loadSavedPositions()
-        if (Object.keys(saved).length) positions = saved
-        else if (currentView === 'math')
-          positions = assignFullHierarchyLayout(nodes, 'M')
-        else if (currentView === 'science')
-          positions = assignFullHierarchyLayout(nodes, 'S')
+        if (Object.keys(saved).length) {
+          positions = saved
+        } else {
+          // 不预置坐标，让 ECharts force 自己初始化（更接近参考站 D3 的自由散开）
+          positions = {}
+        }
       }
 
       nodes.forEach((n, i) => {
         if (!positions[n.id]) {
+          // force 模式故意不写死坐标；其它布局给兜底格点
+          if (layoutMode === 'force') return
           positions[n.id] = {
             x: 80 + (i % 8) * 90,
             y: 80 + Math.floor(i / 8) * 70,
@@ -2385,7 +2462,8 @@
         const color = getNodeColor(raw)
         const pos = positions[n.id]
         const isHighlighted = selectedNodeId === n.id
-        const isSearchDim = searchQuery && !n.name.includes(searchQuery)
+        const isSearchHit = searchQuery ? nodeMatchesSearch(n, searchQuery) : true
+        const isSearchDim = Boolean(searchQuery) && !isSearchHit
         const size = isSilk ? silkNodeSize(raw) : getNodeSize(raw)
         const labelStyle = getNodeLabelStyle(raw)
         const level = getNodeLevel(raw)
@@ -2425,7 +2503,7 @@
           label.fontWeight = isHighlighted || isCross || level <= 2 ? '600' : label.fontWeight
         }
 
-        return {
+        const point = {
           id: n.id,
           name: getNodeLabel(n),
           fullName: n.name,
@@ -2433,14 +2511,12 @@
           nodeLevel: level,
           symbol: isSilk ? 'circle' : getNodeSymbol(raw),
           symbolSize: isHighlighted && isSilk ? size + 6 : size,
-          x: pos?.x,
-          y: pos?.y,
-          fixed: false,
           itemStyle,
           label,
           emphasis: {
             label: {
               show: true,
+              formatter: n.name,
               fontSize: (label.fontSize || labelStyle.fontSize) + 1,
               fontWeight: 'bold',
               color: isSilk ? '#1e293b' : labelStyle.color,
@@ -2454,6 +2530,11 @@
               : { borderWidth: 3, shadowBlur: 10 },
           },
         }
+        if (pos) {
+          point.x = pos.x
+          point.y = pos.y
+        }
+        return point
       })
 
       const echartsEdges = edges.map((e) => {
@@ -2518,6 +2599,7 @@
       isOverviewNode,
       isProgressionNode,
       isStandardsAlignedNode,
+      nodeMatchesSearch,
       getAncestorByType,
       getNodeLevel,
       getNodeColor,

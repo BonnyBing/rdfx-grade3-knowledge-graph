@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>三年级上册数学与科学知识图谱</title>
+    <title>智启知识图谱</title>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
     <script src="./graph-core.js"></script>
     <style>
@@ -338,10 +338,43 @@
         height: 20px;
         display: block;
       }
+      .toolbar button svg[hidden] {
+        display: none !important;
+      }
       .toolbar button:hover {
         background: #fff;
         transform: translateY(-1px);
         box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
+      }
+      .toolbar button.is-active {
+        background: var(--accent-light);
+        color: var(--accent);
+        border-color: #93c5fd;
+      }
+      .main-area:fullscreen,
+      .main-area:-webkit-full-screen {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, #f7f8fb 0%, #eef1f6 100%);
+      }
+      body.graph-only header,
+      body.graph-only .sidebar,
+      body.graph-only .detail-panel {
+        display: none !important;
+      }
+      body.graph-only .layout {
+        height: 100vh;
+      }
+      body.graph-only .main-area {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        width: 100vw;
+        height: 100vh;
+        background: linear-gradient(180deg, #f7f8fb 0%, #eef1f6 100%);
+      }
+      body.graph-only .canvas-hint {
+        opacity: 0.55;
       }
       .canvas-hint {
         position: absolute;
@@ -872,9 +905,9 @@
   <body>
     <header>
       <div>
-        <h1 id="headerTitle">三年级上册数学与科学知识图谱</h1>
+        <h1 id="headerTitle">智启知识图谱</h1>
         <div class="meta" id="headerMeta">
-          版本 1.0 · 生成于 2026-06-29 · 节点 109 · 关系 147
+          版本 2.0 · 面向全学段全学科 · 当前首批：三年级上册 · 数学/科学
         </div>
       </div>
       <div class="header-actions">
@@ -946,14 +979,14 @@
             全部概要：上方数学、下方科学。橙色虚线连接两科有对应关系的知识点。
           </div>
           <button type="button" class="toggle-detail" id="btnToggleDetail">
-            展开知识点 / 课标等详细节点
+            展开课时等更细节点
           </button>
           <label class="filter-item" style="margin-top: 8px">
             <input type="checkbox" id="chkShowLessons" />
             显示科学课时节点
           </label>
           <p class="drag-tip">
-            提示：拖动画布探索完整知识图谱；滚轮缩放；按住节点可移动关联节点。单击节点查看详情。
+            提示：拖拽画布平移、滚轮缩放、拖节点带物理反馈；单击节点聚拢邻域并看详情。搜索支持模糊高亮，回车定位。
           </p>
         </section>
 
@@ -962,9 +995,20 @@
           <input
             type="text"
             class="search-box"
+            placeholder="搜索名称 / ID，回车定位…"
             id="searchInput"
-            placeholder="搜索节点名称…"
           />
+          <div class="edit-actions" style="margin-top: 8px">
+            <button type="button" class="edit-btn" id="btnLocateSearch">
+              定位
+            </button>
+            <button type="button" class="edit-btn" id="btnClearSearch">
+              清空
+            </button>
+            <button type="button" class="edit-btn primary" id="btnRegroup">
+              聚拢重排
+            </button>
+          </div>
         </section>
 
         <section>
@@ -998,14 +1042,14 @@
         </section>
       </aside>
 
-      <div class="main-area">
-        <div class="canvas-hint">拖动画布探索完整知识图谱</div>
+      <div class="main-area" id="mainArea">
+        <div class="canvas-hint">拖拽 · 缩放 · 单击聚拢邻域</div>
         <div class="toolbar" id="graphToolbar">
           <button
             id="btnReset"
             type="button"
-            title="重置缩放"
-            aria-label="重置缩放"
+            title="重置视图（重算布局）"
+            aria-label="重置视图"
           >
             <svg
               viewBox="0 0 24 24"
@@ -1060,6 +1104,45 @@
               <rect x="14" y="3" width="7" height="7" rx="1.5" />
               <rect x="3" y="14" width="7" height="7" rx="1.5" />
               <rect x="14" y="14" width="7" height="7" rx="1.5" />
+            </svg>
+          </button>
+          <button
+            id="btnGraphOnly"
+            type="button"
+            title="全屏只看图谱（Esc 退出）"
+            aria-label="全屏只看图谱"
+            aria-pressed="false"
+          >
+            <svg
+              class="icon-expand"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <polyline points="15 3 21 3 21 9" />
+              <polyline points="9 21 3 21 3 15" />
+              <line x1="21" y1="3" x2="14" y2="10" />
+              <line x1="3" y1="21" x2="10" y2="14" />
+            </svg>
+            <svg
+              class="icon-compress"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              hidden
+            >
+              <polyline points="4 14 10 14 10 20" />
+              <polyline points="20 10 14 10 14 4" />
+              <line x1="14" y1="10" x2="21" y2="3" />
+              <line x1="3" y1="21" x2="10" y2="14" />
             </svg>
           </button>
         </div>
@@ -1369,6 +1452,10 @@
         return syncCore().getDragGroup(...args)
       }
 
+      function nodeMatchesSearch(...args) {
+        return syncCore().nodeMatchesSearch(...args)
+      }
+
       function buildHierarchyGraphics(...args) {
         return syncCore().buildHierarchyGraphics(...args)
       }
@@ -1399,10 +1486,15 @@
       function updateHeaderMeta() {
         const m = GRAPH_DATA.metadata || {}
         document.getElementById('headerTitle').textContent =
-          m.title || '知识图谱'
-        document.title = m.title || '知识图谱'
+          m.title || '智启知识图谱'
+        document.title = m.title || '智启知识图谱'
+        const subjects = Array.isArray(m.subjects) ? m.subjects.join('/') : ''
+        const coverage = [m.grade, m.semester, subjects].filter(Boolean).join(' · ')
+        const coverageText = coverage
+          ? ` · 当前首批：${coverage}`
+          : ''
         document.getElementById('headerMeta').textContent =
-          `版本 ${m.version || '—'} · ${m.generated_date || '—'} · 节点 ${GRAPH_DATA.nodes.length} · 关系 ${GRAPH_DATA.edges.length}`
+          `版本 ${m.version || '—'} · ${m.generated_date || '—'} · 节点 ${GRAPH_DATA.nodes.length} · 关系 ${GRAPH_DATA.edges.length}${coverageText}`
       }
 
       async function persistGraphData() {
@@ -1957,15 +2049,24 @@
 
       let currentLens = 'structure'
       let currentView = 'all'
-      let layoutMode = 'overview'
+      let layoutMode = 'force'
       let showAllDetail = false
       let showScienceLessons = false
-      let activeTypes = new Set([...OVERVIEW_TYPES, 'knowledge'])
+      let activeTypes = new Set([
+        'subject',
+        'domain',
+        'unit',
+        'knowledge',
+        'method',
+        'standard',
+        'competency',
+      ])
       let activeRelations = new Set([
         'contains',
         'teaches',
         'uses_method',
         'cross_links',
+        'develops',
       ])
       let searchQuery = ''
       let selectedNodeId = null
@@ -1978,7 +2079,7 @@
       function posStorageKey() {
         const mode = showAllDetail
           ? 'all-detail'
-          : `${currentLens}-${currentView}`
+          : `${currentLens}-${currentView}-${layoutMode}`
         return `${POS_STORAGE_KEY}-${mode}`
       }
 
@@ -2072,27 +2173,33 @@
         showAllDetail = false
         const detailBtn = document.getElementById('btnToggleDetail')
         detailBtn.classList.remove('active')
-        detailBtn.textContent = '展开知识点 / 课标等详细节点'
+        detailBtn.textContent = '展开课时等更细节点'
 
         if (currentLens === 'progression') {
-          layoutMode = 'progression'
+          layoutMode = 'force'
           clearSavedPositions()
           activeTypes = new Set(['knowledge'])
           activeRelations = new Set(['prerequisite_of'])
           showScienceLessons = false
           document.getElementById('chkShowLessons').checked = false
         } else if (currentLens === 'standards') {
-          layoutMode = 'standards'
+          layoutMode = 'force'
           clearSavedPositions()
           activeTypes = new Set(['knowledge', 'standard'])
           activeRelations = new Set(['aligns_to'])
           showScienceLessons = false
           document.getElementById('chkShowLessons').checked = false
         } else if (currentLens === 'cross') {
-          layoutMode = 'overview'
+          layoutMode = 'force'
           clearSavedPositions()
           currentView = 'all'
-          activeTypes = new Set([...OVERVIEW_TYPES, 'knowledge'])
+          activeTypes = new Set([
+            'subject',
+            'domain',
+            'unit',
+            'knowledge',
+            'method',
+          ])
           activeRelations = new Set([
             'contains',
             'teaches',
@@ -2104,17 +2211,41 @@
         } else if (currentView === 'math' || currentView === 'science') {
           layoutMode = 'hierarchy'
           clearSavedPositions()
-          activeTypes = new Set([...OVERVIEW_TYPES, 'knowledge'])
-          activeRelations = new Set(['contains', 'teaches', 'uses_method'])
+          activeTypes = new Set([
+            'subject',
+            'domain',
+            'unit',
+            'knowledge',
+            'method',
+            'standard',
+            'competency',
+          ])
+          activeRelations = new Set([
+            'contains',
+            'teaches',
+            'uses_method',
+            'aligns_to',
+            'develops',
+          ])
         } else {
-          layoutMode = 'overview'
+          // 全部：力导向全量展示（对齐参考站「默认可看见全部实体」）
+          layoutMode = 'force'
           clearSavedPositions()
-          activeTypes = new Set([...OVERVIEW_TYPES, 'knowledge'])
+          activeTypes = new Set([
+            'subject',
+            'domain',
+            'unit',
+            'knowledge',
+            'method',
+            'standard',
+            'competency',
+          ])
           activeRelations = new Set([
             'contains',
             'teaches',
             'uses_method',
             'cross_links',
+            'develops',
           ])
           showScienceLessons = false
           document.getElementById('chkShowLessons').checked = false
@@ -2229,18 +2360,45 @@
 
       function renderChart() {
         const { nodes, edges, rawNodeCount, rawEdgeCount } = buildGraphData()
-        const useLayoutNone =
-          layoutMode === 'overview' ||
-          layoutMode === 'hierarchy' ||
-          layoutMode === 'force' ||
-          layoutMode === 'progression' ||
-          layoutMode === 'standards'
+        const useForce = layoutMode === 'force'
+        const useLayoutNone = !useForce
         const anim = chartAnimOption()
+        const nodeCount = nodes.length
+        // 节点多时略加大斥力，避免挤成一团；少时收紧便于看清结构
+        const repulsion =
+          nodeCount > 160 ? 1200 : nodeCount > 80 ? 800 : 480
+        const edgeLen =
+          nodeCount > 160
+            ? [80, 200]
+            : nodeCount > 80
+              ? [100, 220]
+              : [120, 240]
 
         const option = {
-          graphic: buildHierarchyGraphics(),
+          graphic: useForce ? [] : buildHierarchyGraphics(),
           tooltip: {
             trigger: 'item',
+            // 挂到 body，避免被侧栏/全屏容器 overflow 裁切
+            appendToBody: true,
+            confine: true,
+            enterable: false,
+            extraCssText:
+              'max-width:min(380px, calc(100vw - 24px)); white-space:normal; word-break:break-word; line-height:1.45; z-index:10050; pointer-events:none;',
+            position: (point, _params, _dom, _rect, size) => {
+              const gap = 14
+              const [cw, ch] = size.contentSize
+              const [vw, vh] = size.viewSize
+              // 默认：鼠标右下方；右侧/下方不够则翻到左/上方
+              let x = point[0] + gap
+              let y = point[1] + gap
+              if (x + cw > vw - 8) x = point[0] - cw - gap
+              if (y + ch > vh - 8) y = point[1] - ch - gap
+              if (x < 8) x = 8
+              if (y < 8) y = 8
+              if (x + cw > vw - 8) x = Math.max(8, vw - cw - 8)
+              if (y + ch > vh - 8) y = Math.max(8, vh - ch - 8)
+              return [x, y]
+            },
             formatter: (params) => {
               if (params.dataType === 'edge') {
                 const rel = params.data?.relation
@@ -2273,44 +2431,48 @@
             {
               id: 'kg-graph',
               type: 'graph',
-              layout: useLayoutNone ? 'none' : 'force',
+              layout: useForce ? 'force' : 'none',
               data: nodes,
               links: edges,
-              roam: 'scale',
-              draggable: false,
+              // 力导向：交给 ECharts 原生漫游+拖拽（接近参考站 D3 体验）
+              // 分层布局：缩放交给 roam，平移用手势改坐标，避免与自研拖拽冲突
+              roam: useForce ? true : 'scale',
+              draggable: useForce,
               ...anim,
               focusNodeAdjacency: false,
-              label: { show: true },
+              // 标签显隐由每个节点的 label.show 控制（力导向下按层级收标签）
+              label: { show: false },
               edgeSymbol:
                 currentLens === 'progression'
                   ? ['none', 'arrow']
                   : ['none', 'none'],
               edgeSymbolSize:
                 currentLens === 'progression' ? [0, 18] : [0, 0],
-              lineStyle: { color: '#64748b', curveness: 0, width: 1.8 },
+              lineStyle: { color: '#64748b', curveness: 0.08, width: 1.2 },
               emphasis: {
                 focus: 'adjacency',
-                scale: false,
-                lineStyle: { width: 3.6, opacity: 1 },
+                scale: true,
+                scaleSize: 6,
+                lineStyle: { width: 3.2, opacity: 1 },
                 itemStyle: {
-                  borderWidth: 2.2,
-                  shadowBlur: 16,
-                  shadowColor: 'rgba(240, 196, 74, 0.45)',
+                  borderWidth: 2.4,
+                  shadowBlur: 18,
+                  shadowColor: 'rgba(240, 196, 74, 0.5)',
                 },
               },
               blur: {
-                itemStyle: { opacity: 0.16 },
-                lineStyle: { opacity: 0.06 },
+                itemStyle: { opacity: 0.14 },
+                lineStyle: { opacity: 0.05 },
               },
-              force: useLayoutNone
-                ? undefined
-                : {
-                    repulsion: 500,
-                    gravity: 0.08,
-                    edgeLength: [120, 220],
+                  force: useForce
+                ? {
+                    repulsion,
+                    gravity: 0.04,
+                    edgeLength: edgeLen,
                     layoutAnimation: true,
-                    friction: 0.6,
-                  },
+                    friction: 0.18,
+                  }
+                : undefined,
             },
           ],
         }
@@ -2319,7 +2481,12 @@
         liveGraphData = nodes
         updateStats(rawNodeCount, rawEdgeCount)
         updateViewHint()
-        scheduleFitToView()
+        if (useForce) {
+          // 等力导向充分散开后再适应窗口
+          setTimeout(() => fitGraphToView(), 1600)
+        } else {
+          scheduleFitToView()
+        }
       }
 
       function preserveCanvasPan(oldData, newNodes) {
@@ -2503,6 +2670,8 @@
         }
 
         function onDown(e) {
+          // 力导向模式交给 ECharts 原生 roam/drag，避免两套手势互抢
+          if (layoutMode === 'force') return
           if (session || !liveGraphData?.length) return
           cancelInertia()
           // 只拒绝明确的非左键（中/右键）；button 为 undefined 时按左键处理
@@ -2619,6 +2788,120 @@
           }
           if (params.dataType === 'node') showNodeDetail(params.data.id)
         })
+
+        // 力导向下拖完节点后记住位置，避免筛选时弹回
+        chart.on('mouseup', () => {
+          if (layoutMode === 'force') saveAllPositions()
+        })
+      }
+
+      /** 参考站 pullNeighbors：点击后邻域节点环绕聚拢动画 */
+      let pullAnimRaf = null
+      function pullNeighborsAround(centerId) {
+        if (layoutMode !== 'force' || !liveGraphData?.length) return
+        if (pullAnimRaf) cancelAnimationFrame(pullAnimRaf)
+        const center = liveGraphData.find((n) => n.id === centerId)
+        if (!center || center.x == null) return
+
+        const neighborIds = new Set()
+        GRAPH_DATA.edges.forEach((e) => {
+          if (!activeRelations.has(e.relation)) return
+          if (e.source === centerId) neighborIds.add(e.target)
+          if (e.target === centerId) neighborIds.add(e.source)
+        })
+        const neighbors = liveGraphData.filter((n) => neighborIds.has(n.id))
+        if (!neighbors.length) return
+
+        const radius = Math.min(220, 90 + neighbors.length * 12)
+        const start = neighbors.map((n) => ({ id: n.id, x: n.x, y: n.y }))
+        const targets = neighbors.map((_, i) => {
+          const angle = (i / neighbors.length) * Math.PI * 2 - Math.PI / 2
+          return {
+            x: center.x + radius * Math.cos(angle),
+            y: center.y + radius * Math.sin(angle),
+          }
+        })
+        const t0 = performance.now()
+        const duration = 620
+
+        function frame(now) {
+          const t = Math.min(1, (now - t0) / duration)
+          const ease = 1 - Math.pow(1 - t, 3)
+          const map = Object.fromEntries(liveGraphData.map((n) => [n.id, n]))
+          start.forEach((s, i) => {
+            const n = map[s.id]
+            if (!n) return
+            n.x = s.x + (targets[i].x - s.x) * ease
+            n.y = s.y + (targets[i].y - s.y) * ease
+          })
+          chart.setOption(
+            {
+              series: [
+                {
+                  id: 'kg-graph',
+                  animation: false,
+                  animationDurationUpdate: 0,
+                  data: liveGraphData,
+                  // 动画期间暂停力，避免和手写插值抢坐标
+                  force: { friction: 0.85, layoutAnimation: false },
+                },
+              ],
+            },
+            { silent: true },
+          )
+          if (t < 1) {
+            pullAnimRaf = requestAnimationFrame(frame)
+          } else {
+            pullAnimRaf = null
+            // 轻量恢复力导向，让周围节点微调
+            chart.setOption(
+              {
+                series: [
+                  {
+                    id: 'kg-graph',
+                    force: {
+                      friction: 0.22,
+                      layoutAnimation: true,
+                    },
+                  },
+                ],
+              },
+              { silent: true },
+            )
+            saveAllPositions()
+          }
+        }
+        pullAnimRaf = requestAnimationFrame(frame)
+      }
+
+      function locateSearchHit() {
+        if (!searchQuery || !liveGraphData?.length) return
+        const hit = liveGraphData.find((n) => {
+          const raw = nodeMap[n.id]
+          return raw && nodeMatchesSearch(raw, searchQuery)
+        })
+        if (!hit) return
+        showNodeDetail(hit.id)
+        // 缩放到命中节点附近
+        const scale = 1.6
+        chart.setOption(
+          {
+            series: [
+              {
+                id: 'kg-graph',
+                zoom: scale,
+                center: [hit.x, hit.y],
+              },
+            ],
+          },
+          false,
+        )
+      }
+
+      function regroupForceLayout() {
+        clearSavedPositions()
+        if (layoutMode !== 'force') layoutMode = 'force'
+        renderChart()
       }
 
       function updateViewHint() {
@@ -2626,22 +2909,20 @@
           { all: '全部', math: '数学', science: '科学' }[currentView] || ''
         const hints = {
           structure: {
-            all: showAllDetail
-              ? '教材结构 · 详细节点：按 学科→领域→单元→知识点 分列。橙色虚线连接两科有对应关系的知识点。'
-              : '教材结构 · 全部概要：上方数学、下方科学。橙色圈是有跨学科对应的知识点。',
-            math: '教材结构 · 数学：树形层级从左到右为 学科→领域→单元→课时→知识点。',
+            all: '教材结构 · 全部：力导向展示学科/单元/知识点/课标/核心素养。拖拽节点、滚轮缩放；单击节点会聚拢邻域。',
+            math: '教材结构 · 数学：树形层级从左到右为 学科→领域→单元→知识点（含课标与核心素养）。',
             science:
-              '教材结构 · 科学：树形层级从左到右为 学科→领域→单元→课时→知识点。',
+              '教材结构 · 科学：树形层级从左到右为 学科→领域→单元→知识点（含课标与核心素养）。',
           },
           progression: {
-            all: '学习进阶 · 全部：橙色箭头从「先学」指向「后学」。数学与科学分区排列。',
-            math: '学习进阶 · 数学：橙色箭头表示前置依赖，箭头指向后学知识点。',
-            science: '学习进阶 · 科学：橙色箭头表示前置依赖，箭头指向后学知识点。',
+            all: '学习进阶 · 全部：力导向展示有前置关系的知识点。橙色箭头从「先学」指向「后学」；可拖拽、缩放、单击聚拢。',
+            math: '学习进阶 · 数学：力导向展示数学知识点前置依赖，橙色箭头指向后学。',
+            science: '学习进阶 · 科学：力导向展示科学知识点前置依赖，橙色箭头指向后学。',
           },
           standards: {
-            all: '课标对齐 · 全部：左列为知识点，右列为课标要求，虚线表示对齐关系。',
-            math: '课标对齐 · 数学：本册数学知识点与第二学段课标要求。',
-            science: '课标对齐 · 科学：本册科学知识点与 3—4 年级课标要求。',
+            all: '课标对齐 · 全部：力导向展示知识点与课标要求，紫色虚线表示对齐关系；可拖拽、缩放、单击聚拢。',
+            math: '课标对齐 · 数学：力导向展示本册数学知识点与第二学段课标对齐。',
+            science: '课标对齐 · 科学：力导向展示本册科学知识点与 3—4 年级课标对齐。',
           },
           cross: {
             all: '跨学科：只保留有对应关系的知识点及其单元路径，橙色虚线连接数学与科学两侧。',
@@ -2889,6 +3170,8 @@
         })
 
         refreshNodeHighlight()
+        // 力导向：点击后邻域环绕聚拢（参考站交互）
+        if (layoutMode === 'force') pullNeighborsAround(nodeId)
       }
 
       function initFilters() {
@@ -2905,8 +3188,30 @@
           ${TYPE_LABELS[t]}
         `
             label.querySelector('input').addEventListener('change', (e) => {
-              if (e.target.checked) activeTypes.add(t)
-              else activeTypes.delete(t)
+              if (e.target.checked) {
+                activeTypes.add(t)
+                if (t === 'competency') activeRelations.add('develops')
+                if (t === 'standard') activeRelations.add('aligns_to')
+                if (t === 'lesson') {
+                  showScienceLessons = true
+                  document.getElementById('chkShowLessons').checked = true
+                }
+                // 力导向下保持物理布局；仅在分层概览时为课标/素养切列
+                if (
+                  ['standard', 'competency'].includes(t) &&
+                  layoutMode === 'overview'
+                ) {
+                  layoutMode = 'hierarchy'
+                  clearSavedPositions()
+                }
+              } else {
+                activeTypes.delete(t)
+                if (t === 'lesson') {
+                  showScienceLessons = false
+                  document.getElementById('chkShowLessons').checked = false
+                }
+              }
+              syncFilterCheckboxes()
               updateMainDisplay()
             })
             typeContainer.appendChild(label)
@@ -2984,17 +3289,76 @@
         applyLensAndScope(currentLens, btn.dataset.view)
       })
 
+      function applySearchHighlight() {
+        if (!liveGraphData?.length) return
+        const next = liveGraphData.map((n) => {
+          const raw = nodeMap[n.id]
+          const hit =
+            !searchQuery || (raw && nodeMatchesSearch(raw, searchQuery))
+          const prev = n.itemStyle || {}
+          return {
+            ...n,
+            itemStyle: {
+              ...prev,
+              opacity: hit ? (prev.opacity < 0.3 ? 1 : prev.opacity ?? 1) : 0.14,
+            },
+            label:
+              typeof n.label === 'object'
+                ? {
+                    ...n.label,
+                    color: hit
+                      ? n.label.color || '#1e293b'
+                      : 'rgba(30,41,59,0.35)',
+                  }
+                : n.label,
+            z2: hit ? 12 : 1,
+          }
+        })
+        liveGraphData = next
+        chart.setOption(
+          {
+            series: [
+              {
+                id: 'kg-graph',
+                animation: false,
+                animationDurationUpdate: 0,
+                data: next,
+              },
+            ],
+          },
+          { silent: true },
+        )
+      }
+
       document.getElementById('searchInput').addEventListener('input', (e) => {
         searchQuery = e.target.value.trim()
-        updateMainDisplay()
+        applySearchHighlight()
       })
+      document.getElementById('searchInput').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault()
+          locateSearchHit()
+        }
+      })
+      document
+        .getElementById('btnLocateSearch')
+        .addEventListener('click', locateSearchHit)
+      document.getElementById('btnClearSearch').addEventListener('click', () => {
+        searchQuery = ''
+        document.getElementById('searchInput').value = ''
+        applySearchHighlight()
+      })
+      document
+        .getElementById('btnRegroup')
+        .addEventListener('click', regroupForceLayout)
 
       document.getElementById('btnReset').addEventListener('click', () => {
-        chart.setOption(
-          { series: [{ id: 'kg-graph', zoom: 1, center: undefined }] },
-          false,
-        )
-        chart.dispatchAction({ type: 'restore' })
+        clearSavedPositions()
+        if (layoutMode === 'force') {
+          regroupForceLayout()
+        } else {
+          renderChart()
+        }
       })
 
       document.getElementById('btnFit').addEventListener('click', () => {
@@ -3009,22 +3373,39 @@
           if (showAllDetail) {
             activeTypes = new Set(GRAPH_DATA.node_types)
             activeRelations = new Set(GRAPH_DATA.relation_types)
-            layoutMode = 'hierarchy'
+            layoutMode =
+              currentView === 'math' || currentView === 'science'
+                ? 'hierarchy'
+                : 'force'
             clearSavedPositions()
             btn.classList.add('active')
-            btn.textContent = '收起为全部概要'
+            btn.textContent = '收起课时等更细节点'
           } else {
-            activeTypes = new Set([...OVERVIEW_TYPES, 'knowledge'])
+            activeTypes = new Set([
+              'subject',
+              'domain',
+              'unit',
+              'knowledge',
+              'method',
+              'standard',
+              'competency',
+            ])
             activeRelations = new Set([
               'contains',
               'teaches',
               'uses_method',
               'cross_links',
+              'develops',
             ])
-            layoutMode = 'overview'
+            layoutMode =
+              currentView === 'math' || currentView === 'science'
+                ? 'hierarchy'
+                : 'force'
             clearSavedPositions()
             btn.classList.remove('active')
-            btn.textContent = '展开知识点 / 课标等详细节点'
+            btn.textContent = '展开课时等更细节点'
+            showScienceLessons = false
+            document.getElementById('chkShowLessons').checked = false
           }
           document.querySelectorAll('#typeFilters input').forEach((inp) => {
             inp.checked = activeTypes.has(inp.dataset.type)
@@ -3040,6 +3421,86 @@
         .addEventListener('click', () => {
           relayoutAndFit()
         })
+
+      ;(function setupGraphOnlyMode() {
+        const mainArea = document.getElementById('mainArea')
+        const btn = document.getElementById('btnGraphOnly')
+        if (!mainArea || !btn) return
+
+        const expandIcon = btn.querySelector('.icon-expand')
+        const compressIcon = btn.querySelector('.icon-compress')
+
+        function isBrowserFullscreen() {
+          const el =
+            document.fullscreenElement || document.webkitFullscreenElement
+          return el === mainArea
+        }
+
+        function isGraphOnly() {
+          return (
+            isBrowserFullscreen() ||
+            document.body.classList.contains('graph-only')
+          )
+        }
+
+        function syncGraphOnlyUi() {
+          const on = isGraphOnly()
+          btn.classList.toggle('is-active', on)
+          btn.setAttribute('aria-pressed', on ? 'true' : 'false')
+          btn.title = on ? '退出全屏（Esc）' : '全屏只看图谱（Esc 退出）'
+          btn.setAttribute('aria-label', on ? '退出全屏' : '全屏只看图谱')
+          if (expandIcon) expandIcon.hidden = on
+          if (compressIcon) compressIcon.hidden = !on
+          requestAnimationFrame(() => {
+            chart.resize()
+            setTimeout(() => chart.resize(), 80)
+          })
+        }
+
+        async function enterGraphOnly() {
+          try {
+            if (mainArea.requestFullscreen) {
+              await mainArea.requestFullscreen()
+            } else if (mainArea.webkitRequestFullscreen) {
+              await mainArea.webkitRequestFullscreen()
+            } else {
+              document.body.classList.add('graph-only')
+            }
+          } catch {
+            document.body.classList.add('graph-only')
+          }
+          syncGraphOnlyUi()
+        }
+
+        async function exitGraphOnly() {
+          document.body.classList.remove('graph-only')
+          try {
+            if (isBrowserFullscreen()) {
+              if (document.exitFullscreen) await document.exitFullscreen()
+              else if (document.webkitExitFullscreen)
+                await document.webkitExitFullscreen()
+            }
+          } catch {
+            /* ignore */
+          }
+          syncGraphOnlyUi()
+        }
+
+        btn.addEventListener('click', () => {
+          if (isGraphOnly()) exitGraphOnly()
+          else enterGraphOnly()
+        })
+
+        document.addEventListener('fullscreenchange', syncGraphOnlyUi)
+        document.addEventListener('webkitfullscreenchange', syncGraphOnlyUi)
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key !== 'Escape') return
+          if (!document.body.classList.contains('graph-only')) return
+          e.preventDefault()
+          exitGraphOnly()
+        })
+      })()
 
       document
         .getElementById('chkShowLessons')

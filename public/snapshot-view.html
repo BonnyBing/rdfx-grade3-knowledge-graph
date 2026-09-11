@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>知识图谱快照</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+  <script src="./graph-core.js"></script>
+  <style>
+    :root {
+      --bg: #f3f6f9;
+      --ink: #0f172a;
+      --muted: #64748b;
+      --line: #dbe3ec;
+      --card: #ffffff;
+      --accent: #0f766e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "PingFang SC", "Noto Sans SC", sans-serif;
+      background:
+        radial-gradient(1200px 500px at 10% -10%, #d9f3ef 0%, transparent 55%),
+        radial-gradient(900px 420px at 100% 0%, #e8eef8 0%, transparent 50%),
+        var(--bg);
+      color: var(--ink);
+    }
+    header {
+      padding: 20px 24px 8px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    h1 {
+      margin: 0 0 6px;
+      font-size: 22px;
+      letter-spacing: 0.02em;
+    }
+    .meta { color: var(--muted); font-size: 13px; line-height: 1.6; }
+    .layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 16px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 12px 24px 32px;
+    }
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+    }
+    .panel, .chart-wrap {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+    }
+    .panel h2 {
+      margin: 0 0 10px;
+      font-size: 14px;
+      color: var(--accent);
+    }
+    .panel ul {
+      margin: 0;
+      padding-left: 18px;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    .panel li { margin-bottom: 8px; }
+    #graph {
+      width: 100%;
+      height: min(72vh, 720px);
+      min-height: 420px;
+    }
+    .img-box { margin-top: 12px; }
+    .img-box img {
+      max-width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+    }
+    .err {
+      color: #b91c1c;
+      background: #fff7f7;
+      border: 1px solid #fecaca;
+      padding: 12px 14px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>知识图谱快照</h1>
+    <div class="meta" id="meta">加载中…</div>
+  </header>
+  <div class="layout">
+    <aside class="panel">
+      <h2>关联依据</h2>
+      <div id="relations"></div>
+      <div class="img-box" id="imageBox"></div>
+    </aside>
+    <section class="chart-wrap">
+      <div id="graph"></div>
+    </section>
+  </div>
+  <script>
+    const EMBEDDED_ID = '__SNAPSHOT_ID__'
+    const params = new URLSearchParams(location.search)
+    const snapshotId =
+      (EMBEDDED_ID && !EMBEDDED_ID.includes('__SNAPSHOT'))
+        ? EMBEDDED_ID
+        : (params.get('id') || '')
+
+    async function main() {
+      const meta = document.getElementById('meta')
+      const relBox = document.getElementById('relations')
+      if (!snapshotId) {
+        meta.innerHTML = '<div class="err">缺少 snapshot_id</div>'
+        return
+      }
+      const res = await fetch('/api/snapshot?snapshot_id=' + encodeURIComponent(snapshotId))
+      const data = await res.json()
+      if (data.status === 'error' || data.status === 'not_found' || data.status === 'invalid_input') {
+        meta.innerHTML = `<div class="err">${data.message || '读取失败'}</div>`
+        return
+      }
+
+      meta.textContent =
+        `快照 ${data.snapshot_id} · 图谱版本 ${data.graph_version}` +
+        (data.image_status === 'success' ? ' · 已出图' : ' · 尚未出图')
+
+      const rels = data.relations || []
+      if (!rels.length) {
+        relBox.innerHTML = '<p class="meta">无关联</p>'
+      } else {
+        relBox.innerHTML =
+          '<ul>' +
+          rels
+            .map(
+              (r) =>
+                `<li><strong>${r.main_node_name}</strong> ←「${r.theme_node_name}」→ <strong>${r.peer_node_name}</strong><br/><span class="meta">${r.description || ''}</span></li>`,
+            )
+            .join('') +
+          '</ul>'
+      }
+
+      if (data.image_url) {
+        document.getElementById('imageBox').innerHTML =
+          `<img src="${data.image_url}" alt="快照图片" />`
+      }
+
+      // 从 snapshot 详情再拉完整子图：复用 relations 侧展示；图用二次请求拿 subgraph
+      const full = await fetch('/api/snapshot?snapshot_id=' + encodeURIComponent(snapshotId) + '&include_subgraph=1')
+      // 上面接口默认不回 subgraph；改用专用轻量端点字段 —— 这里直接用 evidence 拼一个可读图
+      await drawFromRelations(data)
+    }
+
+    async function drawFromRelations(data) {
+      // 向 snapshot 接口要完整记录：扩展返回 subgraph（只在 include 时）
+      const res = await fetch('/api/snapshot', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ snapshot_id: snapshotId, include_subgraph: true }),
+      })
+      const full = await res.json()
+      const subgraph = full.subgraph
+      if (!subgraph || !subgraph.nodes || !window.GraphCore || !window.echarts) {
+        document.getElementById('graph').innerHTML =
+          '<p class="meta">交互图暂不可用，请查看左侧关系说明' +
+          (data.image_url ? '或下方/侧栏图片' : '') +
+          '。</p>'
+        return
+      }
+
+      const core = GraphCore.create(subgraph, {
+        view: 'cross',
+        layoutMode: 'overview',
+        showAllDetail: false,
+        showScienceLessons: false,
+        searchQuery: '',
+        activeTypes: [
+          'subject',
+          'domain',
+          'unit',
+          'knowledge',
+          'method',
+          'cross_disciplinary_theme',
+        ],
+        activeRelations: ['contains', 'teaches', 'uses_method', 'cross_links'],
+        focus: (full.matched_nodes && full.matched_nodes[0] && full.matched_nodes[0].id) || null,
+        depth: 3,
+      })
+      const model = core.buildGraphData()
+      const chart = echarts.init(document.getElementById('graph'))
+      chart.setOption({
+        backgroundColor: '#fff',
+        series: [
+          {
+            type: 'graph',
+            layout: 'none',
+            roam: true,
+            data: model.nodes.map((n) => ({
+              id: n.id,
+              name: n.name,
+              x: n.x,
+              y: n.y,
+              symbolSize: n.symbolSize || 28,
+              category: n.category,
+              label: { show: true, fontSize: 11 },
+            })),
+            links: model.edges.map((e) => ({
+              source: e.source,
+              target: e.target,
+              lineStyle: { color: e.relation === 'cross_links' ? '#ea580c' : '#94a3b8' },
+            })),
+            categories: model.categories || [],
+            label: { position: 'right' },
+          },
+        ],
+      })
+      window.addEventListener('resize', () => chart.resize())
+    }
+
+    main().catch((e) => {
+      document.getElementById('meta').innerHTML =
+        `<div class="err">${String(e.message || e)}</div>`
+    })
+  </script>
+</body>
+</html>

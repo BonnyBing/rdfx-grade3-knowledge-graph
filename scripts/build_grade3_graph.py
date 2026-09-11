@@ -677,13 +677,13 @@ def build_graph() -> dict:
 
     return {
         "metadata": {
-            "title": "三年级上册数学与科学知识图谱",
+            "title": "智启知识图谱",
             "version": "2.0",
             "generated_date": "2026-09-09",
             "grade": "三年级",
             "semester": "上册",
             "subjects": ["数学", "科学"],
-            "scope_note": "教材节点表示本册实际学习内容；课标节点表示3—4年级第二学段要求。status=stage_later 的节点不能解释为本册已经完成。知识点按教材课次拆分，单元仍保留概括性知识点以便默认视图展示。",
+            "scope_note": "智启知识图谱面向全学段、全学科建设；当前已落地首批内容为三年级上册数学与科学，后续将持续扩展。教材节点表示本册实际学习内容；课标节点表示3—4年级第二学段要求。status=stage_later 的节点不能解释为本册已经完成。知识点按教材课次拆分，单元仍保留概括性知识点以便默认视图展示。",
             "page_reference": "textbook_printed_page/pdf_page；课程标准使用PDF页或内容要求编号",
             "source_files": [
                 "三年级上数学.md",
@@ -953,7 +953,7 @@ def build_retrieval(graph: dict) -> dict:
 
     return {
         "metadata": {
-            "title": "三年级上册数学与科学知识图谱（检索增强版）",
+            "title": "智启知识图谱（检索增强版 · 当前首批：三年级上册数学与科学）",
             "version": "2.0",
             "generated_date": "2026-09-09",
             "source_graph": GRAPH_NAME,
@@ -1011,7 +1011,7 @@ def main() -> None:
         "graphs": [
             {
                 "graph_id": "GRADE3-S1-MATH-SCI",
-                "title": "三年级上册数学与科学知识图谱",
+                "title": "智启知识图谱",
                 "version": "2.0",
                 "grade": "三年级",
                 "grade_aliases": ["三年级", "小学三年级", "3年级"],
@@ -1025,8 +1025,8 @@ def main() -> None:
                 "edge_count": len(graph["edges"]),
                 "retrieval_record_count": len(retrieval["retrieval_records"]),
                 "node_types": dict(sorted(counts.items())),
-                "coverage_status": "full",
-                "scope_note": "覆盖小学三年级上册数学与科学。知识点已按教材课次拆分；检索时兼容“三年级/小学三年级/3年级”和“上册/上学期/第一学期”；cross_links 按对称关系双向遍历。",
+                "coverage_status": "partial",
+                "scope_note": "智启知识图谱面向全学段、全学科；当前首批落地小学三年级上册数学与科学，后续按年级/册次/学科扩展。知识点已按教材课次拆分；检索时兼容“三年级/小学三年级/3年级”和“上册/上学期/第一学期”；cross_links 按对称关系双向遍历。",
             }
         ],
     }
