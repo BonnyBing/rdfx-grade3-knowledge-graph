@@ -1,27 +1,54 @@
 {
   "metadata": {
     "title": "智启知识图谱",
-    "version": "2.0",
-    "generated_date": "2026-09-09",
+    "version": "2.1",
+    "generated_date": "2026-09-23",
     "grade": "三年级",
     "semester": "上册",
     "subjects": [
       "数学",
       "科学"
     ],
-    "scope_note": "智启知识图谱面向全学段、全学科建设；当前已落地首批内容为三年级上册数学与科学，后续将持续扩展。教材节点表示本册实际学习内容；课标节点表示3—4年级第二学段要求。status=stage_later 的节点不能解释为本册已经完成。知识点按教材课次拆分，单元仍保留概括性知识点以便默认视图展示。",
-    "page_reference": "textbook_printed_page/pdf_page；课程标准使用PDF页或内容要求编号",
+    "scope_note": "页面把三年级上册和五年级上册放在同一张力导向图里。查询仍按年级和册次分开，不传年级时默认三年级上册。status=stage_later 不能解释为本册已经完成。",
+    "page_reference": "书内页来自教材目录；五年级教材 Markdown 未提供 PDF 页，不编造 PDF 页码",
     "source_files": [
       "三年级上数学.md",
       "三年级上科学.md",
       "（5）义务教育数学课程标准日常修订版（2022年版2025年修订）.md",
-      "（10）义务教育科学课程标准日常修订版（2022年版2025年修订）.md"
+      "（10）义务教育科学课程标准日常修订版（2022年版2025年修订）.md",
+      "五年级上数学.md",
+      "五年级上册科学.md"
     ],
     "extraction_basis": [
       "北师大版义务教育教科书数学三年级上册目录、课题正文与整理复习「我的收获」",
       "教科版义务教育教科书科学三年级上册目录、聚焦/探索/研讨/拓展",
       "义务教育数学课程标准（2022年版2025年修订）第二学段内容要求、学业要求",
-      "义务教育科学课程标准（2022年版2025年修订）3—4年级物质科学与地球系统相关内容要求"
+      "义务教育科学课程标准（2022年版2025年修订）3—4年级物质科学与地球系统相关内容要求",
+      "北师大版数学五年级上册目录、课题正文与「我的收获」",
+      "教科版科学五年级上册目录、聚焦、研讨与资料中的结论句",
+      "数学、科学课程标准 5—6 年级中与本册直接相关的内容要求；未系统出现的标为 stage_later"
+    ],
+    "books": [
+      {
+        "grade": "三年级",
+        "semester": "上册",
+        "subjects": [
+          "数学",
+          "科学"
+        ]
+      },
+      {
+        "grade": "五年级",
+        "semester": "上册",
+        "subjects": [
+          "数学",
+          "科学"
+        ]
+      }
+    ],
+    "grades": [
+      "三年级",
+      "五年级"
     ]
   },
   "node_types": [
@@ -50,1592 +77,4451 @@
       "id": "M",
       "type": "subject",
       "name": "数学三年级上",
-      "status": "current_book"
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "order": 1
     },
     {
       "id": "M-D-N",
       "type": "domain",
       "name": "数与代数",
-      "status": "current_book"
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-D-G",
       "type": "domain",
       "name": "图形与几何",
-      "status": "current_book"
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-D-D",
       "type": "domain",
       "name": "统计与概率",
-      "status": "current_book"
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-D-P",
       "type": "domain",
       "name": "综合与实践",
-      "status": "current_book"
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S",
       "type": "subject",
       "name": "科学三年级上",
-      "status": "current_book"
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "order": 1
     },
     {
       "id": "S-D-MAT",
       "type": "domain",
       "name": "物质的结构、性质与变化",
-      "status": "current_book"
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-D-EARTH",
       "type": "domain",
       "name": "地球系统：天气和气候",
-      "status": "current_book"
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U1",
       "type": "unit",
       "name": "第一单元 混合运算",
       "status": "current_book",
-      "source": "数学教材书内2—12/PDF6—16"
+      "source": "数学教材书内2—12/PDF6—16",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U2",
       "type": "unit",
       "name": "第二单元 测量（二）",
       "status": "current_book",
-      "source": "数学教材书内13—23/PDF17—27"
+      "source": "数学教材书内13—23/PDF17—27",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-P-CAMPUS",
       "type": "unit",
       "name": "综合实践 记录我们的校园",
       "status": "current_book",
-      "source": "数学教材书内24—27/PDF28—31"
+      "source": "数学教材书内24—27/PDF28—31",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U3",
       "type": "unit",
       "name": "第三单元 大数加与减（二）",
       "status": "current_book",
-      "source": "数学教材书内28—40/PDF32—44"
+      "source": "数学教材书内28—40/PDF32—44",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U4",
       "type": "unit",
       "name": "第四单元 我们生活的空间（一）",
       "status": "current_book",
-      "source": "数学教材书内41—48/PDF45—52"
+      "source": "数学教材书内41—48/PDF45—52",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U5",
       "type": "unit",
       "name": "第五单元 认识图形",
       "status": "current_book",
-      "source": "数学教材书内49—61/PDF53—65"
+      "source": "数学教材书内49—61/PDF53—65",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-FUN",
       "type": "unit",
       "name": "数学好玩 搭配中的学问",
       "status": "current_book",
-      "source": "数学教材书内62—63/PDF66—67"
+      "source": "数学教材书内62—63/PDF66—67",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U6",
       "type": "unit",
       "name": "第六单元 乘除法的应用（二）",
       "status": "current_book",
-      "source": "数学教材书内64—74/PDF68—78"
+      "source": "数学教材书内64—74/PDF68—78",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U7",
       "type": "unit",
       "name": "第七单元 认识小数",
       "status": "current_book",
-      "source": "数学教材书内75—89/PDF79—93"
+      "source": "数学教材书内75—89/PDF79—93",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U8",
       "type": "unit",
       "name": "第八单元 调查与记录",
       "status": "current_book",
-      "source": "数学教材书内90—94/PDF94—98"
+      "source": "数学教材书内90—94/PDF94—98",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-P-DATE",
       "type": "unit",
       "name": "综合实践 探索年月日的秘密",
       "status": "current_book",
-      "source": "数学教材书内95—98/PDF99—102"
+      "source": "数学教材书内95—98/PDF99—102",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U1-L1",
       "type": "lesson",
       "name": "小熊购物",
       "status": "current_book",
-      "source": "数学教材书内2—3/PDF6—7"
+      "source": "数学教材书内2—3/PDF6—7",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U1-L2",
       "type": "lesson",
       "name": "买文具",
       "status": "current_book",
-      "source": "数学教材书内4—6/PDF8—10"
+      "source": "数学教材书内4—6/PDF8—10",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U1-L3",
       "type": "lesson",
       "name": "过河",
       "status": "current_book",
-      "source": "数学教材书内7—9/PDF11—13"
+      "source": "数学教材书内7—9/PDF11—13",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U2-L1",
       "type": "lesson",
       "name": "铅笔有多长",
       "status": "current_book",
-      "source": "数学教材书内13—15/PDF17—19"
+      "source": "数学教材书内13—15/PDF17—19",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U2-L2",
       "type": "lesson",
       "name": "1千米有多长",
       "status": "current_book",
-      "source": "数学教材书内16—18/PDF20—22"
+      "source": "数学教材书内16—18/PDF20—22",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U2-L3",
       "type": "lesson",
       "name": "旗杆有多高",
       "status": "current_book",
-      "source": "数学教材书内19—20/PDF23—24"
+      "source": "数学教材书内19—20/PDF23—24",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-P-CAMPUS-L1",
       "type": "lesson",
       "name": "校园里的八个方向",
       "status": "current_book",
-      "source": "数学教材书内24—25/PDF28—29"
+      "source": "数学教材书内24—25/PDF28—29",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-P-CAMPUS-L2",
       "type": "lesson",
       "name": "有趣的几点钟方向",
       "status": "current_book",
-      "source": "数学教材书内25—26/PDF29—30"
+      "source": "数学教材书内25—26/PDF29—30",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U3-L1",
       "type": "lesson",
       "name": "捐书",
       "status": "current_book",
-      "source": "数学教材书内28—30/PDF32—34"
+      "source": "数学教材书内28—30/PDF32—34",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U3-L2",
       "type": "lesson",
       "name": "小小养殖场",
       "status": "current_book",
-      "source": "数学教材书内31—32/PDF35—36"
+      "source": "数学教材书内31—32/PDF35—36",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U3-L3",
       "type": "lesson",
       "name": "节余多少钱",
       "status": "current_book",
-      "source": "数学教材书内33—35/PDF37—39"
+      "source": "数学教材书内33—35/PDF37—39",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U3-L4",
       "type": "lesson",
       "name": "身高的增长",
       "status": "current_book",
-      "source": "数学教材书内36—37/PDF40—41"
+      "source": "数学教材书内36—37/PDF40—41",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U3-L5",
       "type": "lesson",
       "name": "里程表",
       "status": "current_book",
-      "source": "数学教材书内38—39/PDF42—43"
+      "source": "数学教材书内38—39/PDF42—43",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U4-L1",
       "type": "lesson",
       "name": "看一看（一）",
       "status": "current_book",
-      "source": "数学教材书内41—42/PDF45—46"
+      "source": "数学教材书内41—42/PDF45—46",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U4-L2",
       "type": "lesson",
       "name": "看一看（二）",
       "status": "current_book",
-      "source": "数学教材书内43—44/PDF47—48"
+      "source": "数学教材书内43—44/PDF47—48",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U4-L3",
       "type": "lesson",
       "name": "看一看（三）",
       "status": "current_book",
-      "source": "数学教材书内45—46/PDF49—50"
+      "source": "数学教材书内45—46/PDF49—50",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U4-L4",
       "type": "lesson",
       "name": "看一看（四）",
       "status": "current_book",
-      "source": "数学教材书内47—48/PDF51—52"
+      "source": "数学教材书内47—48/PDF51—52",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U5-L1",
       "type": "lesson",
       "name": "认识角",
       "status": "current_book",
-      "source": "数学教材书内49—50/PDF53—54"
+      "source": "数学教材书内49—50/PDF53—54",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U5-L2",
       "type": "lesson",
       "name": "比一比",
       "status": "current_book",
-      "source": "数学教材书内51—52/PDF55—56"
+      "source": "数学教材书内51—52/PDF55—56",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U5-L3",
       "type": "lesson",
       "name": "认识直角",
       "status": "current_book",
-      "source": "数学教材书内53—54/PDF57—58"
+      "source": "数学教材书内53—54/PDF57—58",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U5-L4",
       "type": "lesson",
       "name": "长方形与正方形",
       "status": "current_book",
-      "source": "数学教材书内55—56/PDF59—60"
+      "source": "数学教材书内55—56/PDF59—60",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U5-L5",
       "type": "lesson",
       "name": "欣赏与设计",
       "status": "current_book",
-      "source": "数学教材书内57—58/PDF61—62"
+      "source": "数学教材书内57—58/PDF61—62",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-FUN-L1",
       "type": "lesson",
       "name": "搭配中的学问",
       "status": "current_book",
-      "source": "数学教材书内62—63/PDF66—67"
+      "source": "数学教材书内62—63/PDF66—67",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U6-L1",
       "type": "lesson",
       "name": "包饺子",
       "status": "current_book",
-      "source": "数学教材书内64—65/PDF68—69"
+      "source": "数学教材书内64—65/PDF68—69",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U6-L2",
       "type": "lesson",
       "name": "需要多少钱",
       "status": "current_book",
-      "source": "数学教材书内66—68/PDF70—72"
+      "source": "数学教材书内66—68/PDF70—72",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U6-L3",
       "type": "lesson",
       "name": "丰收了",
       "status": "current_book",
-      "source": "数学教材书内69—70/PDF73—74"
+      "source": "数学教材书内69—70/PDF73—74",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U6-L4",
       "type": "lesson",
       "name": "植树",
       "status": "current_book",
-      "source": "数学教材书内71—72/PDF75—76"
+      "source": "数学教材书内71—72/PDF75—76",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U7-L1",
       "type": "lesson",
       "name": "水果店",
       "status": "current_book",
-      "source": "数学教材书内75—77/PDF79—81"
+      "source": "数学教材书内75—77/PDF79—81",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U7-L2",
       "type": "lesson",
       "name": "量身高",
       "status": "current_book",
-      "source": "数学教材书内78—80/PDF82—84"
+      "source": "数学教材书内78—80/PDF82—84",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U7-L3",
       "type": "lesson",
       "name": "货比三家",
       "status": "current_book",
-      "source": "数学教材书内81—82/PDF85—86"
+      "source": "数学教材书内81—82/PDF85—86",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U7-L4",
       "type": "lesson",
       "name": "存零用钱",
       "status": "current_book",
-      "source": "数学教材书内83—84/PDF87—88"
+      "source": "数学教材书内83—84/PDF87—88",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U7-L5",
       "type": "lesson",
       "name": "竹子的生长",
       "status": "current_book",
-      "source": "数学教材书内85—86/PDF89—90"
+      "source": "数学教材书内85—86/PDF89—90",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U7-L6",
       "type": "lesson",
       "name": "生活中的小数",
       "status": "current_book",
-      "source": "数学教材书内87—87/PDF91—91"
+      "source": "数学教材书内87—87/PDF91—91",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U8-L1",
       "type": "lesson",
       "name": "评选吉祥物",
       "status": "current_book",
-      "source": "数学教材书内90—91/PDF94—95"
+      "source": "数学教材书内90—91/PDF94—95",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-U8-L2",
       "type": "lesson",
       "name": "购买水果",
       "status": "current_book",
-      "source": "数学教材书内92—94/PDF96—98"
+      "source": "数学教材书内92—94/PDF96—98",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-P-DATE-L1",
       "type": "lesson",
       "name": "年月日知多少",
       "status": "current_book",
-      "source": "数学教材书内95—96/PDF99—100"
+      "source": "数学教材书内95—96/PDF99—100",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-P-DATE-L2",
       "type": "lesson",
       "name": "一天有多长",
       "status": "current_book",
-      "source": "数学教材书内97—98/PDF101—102"
+      "source": "数学教材书内97—98/PDF101—102",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-U-WATER",
       "type": "unit",
       "name": "第一单元 水",
       "status": "current_book",
-      "source": "科学教材书内2—20/PDF8—26"
+      "source": "科学教材书内2—20/PDF8—26",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-U-AIR",
       "type": "unit",
       "name": "第二单元 空气",
       "status": "current_book",
-      "source": "科学教材书内22—40/PDF28—46"
+      "source": "科学教材书内22—40/PDF28—46",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-U-WEATHER",
       "type": "unit",
       "name": "第三单元 天气",
       "status": "current_book",
-      "source": "科学教材书内41—59/PDF47—65"
+      "source": "科学教材书内41—59/PDF47—65",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-W1",
       "type": "lesson",
       "name": "水到哪里去了",
       "status": "current_book",
-      "source": "科学教材书内2—4/PDF8—10"
+      "source": "科学教材书内2—4/PDF8—10",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-W2",
       "type": "lesson",
       "name": "水沸腾了",
       "status": "current_book",
-      "source": "科学教材书内5—6/PDF11—12"
+      "source": "科学教材书内5—6/PDF11—12",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-W3",
       "type": "lesson",
       "name": "水结冰了",
       "status": "current_book",
-      "source": "科学教材书内7—9/PDF13—15"
+      "source": "科学教材书内7—9/PDF13—15",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-W4",
       "type": "lesson",
       "name": "冰融化了",
       "status": "current_book",
-      "source": "科学教材书内10—11/PDF16—17"
+      "source": "科学教材书内10—11/PDF16—17",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-W5",
       "type": "lesson",
       "name": "水能溶解多少物质",
       "status": "current_book",
-      "source": "科学教材书内12—14/PDF18—20"
+      "source": "科学教材书内12—14/PDF18—20",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-W6",
       "type": "lesson",
       "name": "加快溶解",
       "status": "current_book",
-      "source": "科学教材书内15—16/PDF21—22"
+      "source": "科学教材书内15—16/PDF21—22",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-W7",
       "type": "lesson",
       "name": "混合与分离",
       "status": "current_book",
-      "source": "科学教材书内17—18/PDF23—24"
+      "source": "科学教材书内17—18/PDF23—24",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-W8",
       "type": "lesson",
       "name": "它们发生了什么变化",
       "status": "current_book",
-      "source": "科学教材书内19—20/PDF25—26"
+      "source": "科学教材书内19—20/PDF25—26",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-A1",
       "type": "lesson",
       "name": "感受空气",
       "status": "current_book",
-      "source": "科学教材书内22—24/PDF28—30"
+      "source": "科学教材书内22—24/PDF28—30",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-A2",
       "type": "lesson",
       "name": "空气能占据空间吗",
       "status": "current_book",
-      "source": "科学教材书内25—26/PDF31—32"
+      "source": "科学教材书内25—26/PDF31—32",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-A3",
       "type": "lesson",
       "name": "压缩空气",
       "status": "current_book",
-      "source": "科学教材书内27—29/PDF33—35"
+      "source": "科学教材书内27—29/PDF33—35",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-A4",
       "type": "lesson",
       "name": "空气有质量吗",
       "status": "current_book",
-      "source": "科学教材书内30—31/PDF36—37"
+      "source": "科学教材书内30—31/PDF36—37",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-A5",
       "type": "lesson",
       "name": "一袋空气的质量是多少",
       "status": "current_book",
-      "source": "科学教材书内32—33/PDF38—39"
+      "source": "科学教材书内32—33/PDF38—39",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-A6",
       "type": "lesson",
       "name": "我们来做热气球",
       "status": "current_book",
-      "source": "科学教材书内34—35/PDF40—41"
+      "source": "科学教材书内34—35/PDF40—41",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-A7",
       "type": "lesson",
       "name": "风的成因",
       "status": "current_book",
-      "source": "科学教材书内36—37/PDF42—43"
+      "source": "科学教材书内36—37/PDF42—43",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-A8",
       "type": "lesson",
       "name": "空气和我们的生活",
       "status": "current_book",
-      "source": "科学教材书内38—40/PDF44—46"
+      "source": "科学教材书内38—40/PDF44—46",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-T1",
       "type": "lesson",
       "name": "我们关心天气",
       "status": "current_book",
-      "source": "科学教材书内41—42/PDF47—48"
+      "source": "科学教材书内41—42/PDF47—48",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-T2",
       "type": "lesson",
       "name": "认识气温计",
       "status": "current_book",
-      "source": "科学教材书内43—44/PDF49—50"
+      "source": "科学教材书内43—44/PDF49—50",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-T3",
       "type": "lesson",
       "name": "测量气温",
       "status": "current_book",
-      "source": "科学教材书内45—46/PDF51—52"
+      "source": "科学教材书内45—46/PDF51—52",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-T4",
       "type": "lesson",
       "name": "测量降水量",
       "status": "current_book",
-      "source": "科学教材书内47—49/PDF53—55"
+      "source": "科学教材书内47—49/PDF53—55",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-T5",
       "type": "lesson",
       "name": "观测风",
       "status": "current_book",
-      "source": "科学教材书内50—52/PDF56—58"
+      "source": "科学教材书内50—52/PDF56—58",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-T6",
       "type": "lesson",
       "name": "观察云",
       "status": "current_book",
-      "source": "科学教材书内53—54/PDF59—60"
+      "source": "科学教材书内53—54/PDF59—60",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-T7",
       "type": "lesson",
       "name": "整理我们的天气日历",
       "status": "current_book",
-      "source": "科学教材书内55—57/PDF61—63"
+      "source": "科学教材书内55—57/PDF61—63",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-T8",
       "type": "lesson",
       "name": "天气预报是怎样制作出来的",
       "status": "current_book",
-      "source": "科学教材书内58—59/PDF64—65"
+      "source": "科学教材书内58—59/PDF64—65",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-MIX",
       "type": "knowledge",
       "name": "乘加、乘减、除加、除减的两步混合运算",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-ORDER",
       "type": "knowledge",
       "name": "先乘除后加减及小括号改变运算顺序",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-PAREN",
       "type": "knowledge",
       "name": "小括号能改变运算顺序，要先算括号里面的",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-LENGTH",
       "type": "knowledge",
       "name": "毫米、厘米、分米、米、千米及单位换算",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-MMDM",
       "type": "knowledge",
       "name": "1厘米=10毫米，10厘米=1分米",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-KM",
       "type": "knowledge",
       "name": "1000米=1千米，较远距离用千米作单位",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-UNIT",
       "type": "knowledge",
       "name": "根据物体长短选择合适的长度单位",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-ESTIMATE",
       "type": "knowledge",
       "name": "长度和数量的估测及结果合理性",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-INDIRECT",
       "type": "knowledge",
       "name": "不能直接测量时用参照物估测或转化为可测量量",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-DIRECTION",
       "type": "knowledge",
       "name": "八个方向与几点钟方向",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-EIGHT",
       "type": "knowledge",
       "name": "东、南、西、北及东南、东北、西南、西北",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-CLOCKDIR",
       "type": "knowledge",
       "name": "几点钟方向以观察者为中心，随转身而改变",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-ADDSUB",
       "type": "knowledge",
       "name": "三位数连加、连减和加减混合及验算",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-ADD",
       "type": "knowledge",
       "name": "三位数连加及凑整计算",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-SUB",
       "type": "knowledge",
       "name": "三位数连减，从左往右算，计算后要验算",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-ADDSUBMIX",
       "type": "knowledge",
       "name": "三位数加减混合表示收入、支出与节余",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-INTERVAL",
       "type": "knowledge",
       "name": "总量、分量、起点、终点和区间量关系",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-MILEAGE",
       "type": "knowledge",
       "name": "里程表两站距离等于较远站读数减较近站读数",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-VIEW",
       "type": "knowledge",
       "name": "观察位置、方向、高度、遮挡与所见图像",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-POS",
       "type": "knowledge",
       "name": "从不同位置观察同一物体，看到的形状可能不同",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-HEIGHT",
       "type": "knowledge",
       "name": "观察高度不同，看到的范围不同",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-OCCLUSION",
       "type": "knowledge",
       "name": "视线被遮挡或从窗外观察时，所见与相对位置有关",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-ANGLE",
       "type": "knowledge",
       "name": "角的组成、大小及锐角直角钝角",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-ANGLE-PARTS",
       "type": "knowledge",
       "name": "角由一个顶点和两条边组成",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-ANGLE-OPEN",
       "type": "knowledge",
       "name": "角的大小与张口有关，与边的长短无关",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-RIGHT",
       "type": "knowledge",
       "name": "用三角板认识直角，比直角小是锐角、大是钝角",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-RECT",
       "type": "knowledge",
       "name": "长方形与正方形的边和角的特征",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-PATTERN",
       "type": "knowledge",
       "name": "用长方形、正方形等基本图形有规律地设计图案",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-COMB",
       "type": "knowledge",
       "name": "简单搭配的有序枚举与不重复不遗漏",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-MULDIV",
       "type": "knowledge",
       "name": "整十整百及两位数乘除一位数",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-TENS-MUL",
       "type": "knowledge",
       "name": "整十、整百乘一位数",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-2D-MUL",
       "type": "knowledge",
       "name": "两位数乘一位数可拆成整十和个位分别乘再相加",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-TENS-DIV",
       "type": "knowledge",
       "name": "整十、整百除以一位数",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-2D-DIV",
       "type": "knowledge",
       "name": "两位数除以一位数可先分整十再分余下部分",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-QUANTITY",
       "type": "knowledge",
       "name": "倍、平均分、总价等乘除数量关系",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-TIMES",
       "type": "knowledge",
       "name": "一个数是另一个数的几倍用除法，求几倍用乘法",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-AVG",
       "type": "knowledge",
       "name": "平均分：总量÷份数=每份数",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-PRICE",
       "type": "knowledge",
       "name": "总价=单价×数量",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-DECIMAL",
       "type": "knowledge",
       "name": "小数的意义、读写和现实量表示",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-DEC-POINT",
       "type": "knowledge",
       "name": "小数点分隔整数部分与小数部分，会读会写小数",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-DEC-MONEY",
       "type": "knowledge",
       "name": "用小数表示元、角、分：1角=0.1元，1分=0.01元",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-DEC-LEN",
       "type": "knowledge",
       "name": "1分米=0.1米，1厘米=0.01米",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-DECCOMP",
       "type": "knowledge",
       "name": "简单小数大小比较",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-DECOPS",
       "type": "knowledge",
       "name": "生活情境中的小数加减",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-ALIGN",
       "type": "knowledge",
       "name": "小数加减竖式计算时小数点要对齐",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-SURVEY",
       "type": "knowledge",
       "name": "调查问题、数据收集和分类记录",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-VOTE",
       "type": "knowledge",
       "name": "举手投票、逐个询问等方法收集数据，每人只记一次",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-TALLY",
       "type": "knowledge",
       "name": "用画正字、符号或表格分类记录并核对总数",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-DATA",
       "type": "knowledge",
       "name": "比较、解释数据并据此作出决策",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-DATE",
       "type": "knowledge",
       "name": "年、月、日、大小月和平闰年",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-MONTH",
       "type": "knowledge",
       "name": "大月31天、小月30天，平年二月28天、闰年二月29天",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-K-24H",
       "type": "knowledge",
       "name": "24时记时法",
       "status": "current_book",
-      "source": "数学三年级上.md"
+      "source": "数学三年级上.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-STATE",
       "type": "knowledge",
       "name": "水、冰、水蒸气的状态区别、同一性与相互转化",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-VAPOR",
       "type": "knowledge",
       "name": "液态水会变成看不见的水蒸气散到空气中",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-BOIL",
       "type": "knowledge",
       "name": "水沸腾时温度约为100℃，变成水蒸气体积大大增加",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-FREEZE",
       "type": "knowledge",
       "name": "水降温会结冰，冰和水是同一种物质",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-MELT",
       "type": "knowledge",
       "name": "冰吸热融化成水",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-TEMP",
       "type": "knowledge",
       "name": "温度影响水的沸腾、结冰和融化",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-DISSOLVE",
       "type": "knowledge",
       "name": "溶解程度及搅拌、温度对溶解快慢的影响",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-LIMIT",
       "type": "knowledge",
       "name": "一定量水中物质溶解有上限，不同物质溶解能力不同",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-SPEED",
       "type": "knowledge",
       "name": "搅拌和升高水温可以加快溶解",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-SEPARATE",
       "type": "knowledge",
       "name": "溶解、过滤、蒸发分离混合物",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-FILTER",
       "type": "knowledge",
       "name": "过滤可分离不溶于水的固体",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-EVAP-SEP",
       "type": "knowledge",
       "name": "蒸发可使溶于水的物质从溶液中分离出来",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-PHYSICAL",
       "type": "knowledge",
       "name": "形状、大小或状态改变但物质本身未改变",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-AIR",
       "type": "knowledge",
       "name": "空气占据空间、具有质量、可压缩并会流动",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-EXIST",
       "type": "knowledge",
       "name": "空气看不见但真实存在，可通过袋子鼓起等现象感受",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-SPACE",
       "type": "knowledge",
       "name": "空气占据空间",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-COMPRESS",
       "type": "knowledge",
       "name": "空气可以被压缩，水几乎不能被压缩",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-MASS",
       "type": "knowledge",
       "name": "空气有质量",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-WEIGH",
       "type": "knowledge",
       "name": "一定量空气可用天平间接称量",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-WIND",
       "type": "knowledge",
       "name": "空气受热上升与风的形成",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-HOT",
       "type": "knowledge",
       "name": "热空气会上升",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-FLOW",
       "type": "knowledge",
       "name": "风是空气流动的现象",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-LIFE",
       "type": "knowledge",
       "name": "生物离不开空气，空气可用于助燃、充气和发电",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-PHASE",
       "type": "knowledge",
       "name": "物质可分为固体、液体和气体",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-WEATHER",
       "type": "knowledge",
       "name": "天气由气温、降水、风、云等要素描述",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-DEF",
       "type": "knowledge",
       "name": "天气是一个地方短时间内大气的冷暖、阴晴、雨雪、风等情况",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-INSTRUMENT",
       "type": "knowledge",
       "name": "气温计、雨量器、风旗和风向标的使用",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-THERMO",
       "type": "knowledge",
       "name": "气温计有液泡、液柱和刻度，温度单位是摄氏度",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-DAILY-T",
       "type": "knowledge",
       "name": "一天中气温不断变化，最高多在午后、最低多在清晨",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-RAIN",
       "type": "knowledge",
       "name": "雨量器测量降水量，单位是毫米",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-WINDDIR",
       "type": "knowledge",
       "name": "风向是风吹来的方向，用八方位和风力等级记录",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-CLOUD",
       "type": "knowledge",
       "name": "云有不同形态，云量可分为晴、多云、阴",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-WDATA",
       "type": "knowledge",
       "name": "天气日历、气象数据整理与变化描述",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-CLIMATE",
       "type": "knowledge",
       "name": "气候是一个地方长期天气的平均状况",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-FORECAST",
       "type": "knowledge",
       "name": "天气预报的信息、符号和制作流程",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-K-PROCESS",
       "type": "knowledge",
       "name": "天气预报经观测、数值预报、会商后发布",
       "status": "current_book",
-      "source": "三年级上科学.md"
+      "source": "三年级上科学.md",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-M-DRAW",
       "type": "method",
       "name": "画图建立数量关系模型",
-      "status": "current_book"
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-M-MEASURE",
       "type": "method",
       "name": "实际测量、估测与单位选择",
-      "status": "current_book"
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-M-ENUM",
       "type": "method",
       "name": "列表、连线和符号化有序枚举",
-      "status": "current_book"
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-M-SURVEY",
       "type": "method",
       "name": "调查、分类记录、核对总数和解释数据",
-      "status": "current_book"
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-M-VERIFY",
       "type": "method",
       "name": "估算、验算与检查计算结果",
-      "status": "current_book"
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-M-OBSERVE",
       "type": "method",
       "name": "观察、测量和如实记录",
-      "status": "current_book"
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-M-CONTROL",
       "type": "method",
       "name": "控制变量与公平对比实验",
-      "status": "current_book"
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-M-EVIDENCE",
       "type": "method",
       "name": "比较证据、解释现象和得出结论",
-      "status": "current_book"
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-M-MODEL",
       "type": "method",
       "name": "图示、微粒模型和模拟实验",
-      "status": "current_book"
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-M-CALENDAR",
       "type": "method",
       "name": "长期观测并整理天气日历",
-      "status": "current_book"
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-STD-N",
       "type": "standard",
       "name": "第二学段数与运算和数量关系要求",
       "status": "stage_standard",
-      "source": "数学课标PDF24—26"
+      "source": "数学课标PDF24—26",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-STD-MIX",
       "type": "standard",
       "name": "整数四则混合运算（以两步为主）及小括号",
       "status": "stage_standard",
-      "source": "数学课标PDF24—26"
+      "source": "数学课标PDF24—26",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-STD-DEC",
       "type": "standard",
       "name": "初步认识小数及一位小数加减",
       "status": "stage_standard",
-      "source": "数学课标PDF24—26"
+      "source": "数学课标PDF24—26",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-STD-QTY",
       "type": "standard",
       "name": "总量=分量之和、总价=单价×数量等常见数量关系",
       "status": "stage_standard",
-      "source": "数学课标PDF25—26"
+      "source": "数学课标PDF25—26",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-STD-G",
       "type": "standard",
       "name": "第二学段图形的认识与测量、位置与运动要求",
       "status": "stage_standard",
-      "source": "数学课标PDF32—35"
+      "source": "数学课标PDF32—35",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-STD-LEN",
       "type": "standard",
       "name": "认识千米，知道分米、毫米，能换算并估测长度",
       "status": "stage_standard",
-      "source": "数学课标PDF32—33"
+      "source": "数学课标PDF32—33",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-STD-ANG",
       "type": "standard",
       "name": "认识角，比较角的大小，辨认直角、锐角、钝角",
       "status": "stage_standard",
-      "source": "数学课标PDF32—33"
+      "source": "数学课标PDF32—33",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-STD-OBS",
       "type": "standard",
       "name": "从不同角度观察简单物体",
       "status": "stage_standard",
-      "source": "数学课标PDF33"
+      "source": "数学课标PDF33",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-STD-RECT",
       "type": "standard",
       "name": "认识长方形与正方形的特征",
       "status": "stage_standard",
-      "source": "数学课标PDF33"
+      "source": "数学课标PDF33",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-STD-D",
       "type": "standard",
       "name": "第二学段数据收集、整理与表达要求",
       "status": "stage_standard",
-      "source": "数学课标PDF41—42"
+      "source": "数学课标PDF41—42",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-STD-SURVEY",
       "type": "standard",
       "name": "经历简单数据收集整理，感受数据蕴含信息",
       "status": "stage_standard",
-      "source": "数学课标PDF41"
+      "source": "数学课标PDF41",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-STD-P",
       "type": "standard",
       "name": "第二学段综合与实践要求",
       "status": "stage_standard",
-      "source": "数学课标PDF49—52"
+      "source": "数学课标PDF49—52",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-STD-DIR",
       "type": "standard",
       "name": "认识八个方向与几点钟方向",
       "status": "stage_standard",
-      "source": "数学课标PDF49—52"
+      "source": "数学课标PDF49—52",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-STD-DATE",
       "type": "standard",
       "name": "认识年、月、日和24时记时法",
       "status": "stage_standard",
-      "source": "数学课标PDF49"
+      "source": "数学课标PDF49",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-LATER-FRACTION",
       "type": "standard",
       "name": "分数及同分母分数加减",
       "status": "stage_later",
-      "source": "数学课标PDF24—26"
+      "source": "数学课标PDF24—26",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-LATER-GEO",
       "type": "standard",
       "name": "线、量角器、三角形分类、周长面积、图形运动",
       "status": "stage_later",
-      "source": "数学课标PDF32—35"
+      "source": "数学课标PDF32—35",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-LATER-STATS",
       "type": "standard",
       "name": "条形统计图与平均数",
       "status": "stage_later",
-      "source": "数学课标PDF41—42"
+      "source": "数学课标PDF41—42",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-LATER-MASS",
       "type": "standard",
       "name": "克、千克、吨及曹冲称象主题活动",
       "status": "stage_later",
-      "source": "数学课标PDF49—52"
+      "source": "数学课标PDF49—52",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-STD-MAT",
       "type": "standard",
       "name": "3—4年级空气与水的性质要求",
       "status": "stage_standard",
-      "source": "科学课标PDF23、26—30"
+      "source": "科学课标PDF23、26—30",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-STD-AIR",
       "type": "standard",
       "name": "空气有质量、占空间、受热上升，风是空气流动",
       "status": "stage_standard",
-      "source": "科学课标内容要求1.2"
+      "source": "科学课标内容要求1.2",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-STD-WATER",
       "type": "standard",
       "name": "冰、水、水蒸气状态区别与同一性，沸腾结冰与温度",
       "status": "stage_standard",
-      "source": "科学课标内容要求1.2、2.1"
+      "source": "科学课标内容要求1.2、2.1",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-STD-CHANGE",
       "type": "standard",
       "name": "3—4年级物质状态、溶解和变化要求",
       "status": "stage_standard",
-      "source": "科学课标PDF32—37"
+      "source": "科学课标PDF32—37",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-STD-DISSOLVE",
       "type": "standard",
       "name": "一定量水中的溶解情况及搅拌、温度影响快慢",
       "status": "stage_standard",
-      "source": "科学课标内容要求2.2"
+      "source": "科学课标内容要求2.2",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-STD-SEP",
       "type": "standard",
       "name": "根据物体特征或材料性质分离混合物",
       "status": "stage_standard",
-      "source": "科学课标内容要求1.1"
+      "source": "科学课标内容要求1.1",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-STD-PHYS",
       "type": "standard",
       "name": "形状或大小改变但构成物体的物质没有改变",
       "status": "stage_standard",
-      "source": "科学课标内容要求2.3"
+      "source": "科学课标内容要求2.3",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-STD-WEATHER",
       "type": "standard",
       "name": "3—4年级天气和气候要求",
       "status": "stage_standard",
-      "source": "科学课标PDF82—86"
+      "source": "科学课标PDF82—86",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-STD-WX-DATA",
       "type": "standard",
       "name": "用仪器测量气温、风力、风向、降水量并描述天气",
       "status": "stage_standard",
-      "source": "科学课标内容要求10.1"
+      "source": "科学课标内容要求10.1",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-STD-TEMP-U",
       "type": "standard",
       "name": "描述测量温度的方法，知道摄氏度",
       "status": "stage_standard",
-      "source": "科学课标内容要求4.1"
+      "source": "科学课标内容要求4.1",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-LATER-AIR-MIX",
       "type": "standard",
       "name": "空气是混合物及主要成分",
       "status": "stage_later",
-      "source": "科学课标5—6年级内容要求1.2"
+      "source": "科学课标5—6年级内容要求1.2",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-LATER-EVAP",
       "type": "standard",
       "name": "水的蒸发与水蒸气凝结成水",
       "status": "stage_later",
-      "source": "科学课标5—6年级内容要求1.2"
+      "source": "科学课标5—6年级内容要求1.2",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-LATER-CHEM",
       "type": "standard",
       "name": "物体变化时构成物质也可能改变",
       "status": "stage_later",
-      "source": "科学课标5—6年级内容要求2.3"
+      "source": "科学课标5—6年级内容要求2.3",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-LATER-RAIN",
       "type": "standard",
       "name": "雨、雪、雾等天气现象的成因",
       "status": "stage_later",
-      "source": "科学课标5—6年级内容要求10.1"
+      "source": "科学课标5—6年级内容要求10.1",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-LATER-SOIL",
       "type": "standard",
       "name": "土壤成分、水体类型等本册未覆盖的3—4年级要求",
       "status": "stage_later",
-      "source": "科学课标3—4年级内容要求10.2、10.3"
+      "source": "科学课标3—4年级内容要求10.2、10.3",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-C-NUMBER",
       "type": "competency",
       "name": "数感与运算能力",
       "status": "stage_standard",
-      "source": "数学课标PDF8—12"
+      "source": "数学课标PDF8—12",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-C-MEASURE",
       "type": "competency",
       "name": "量感",
       "status": "stage_standard",
-      "source": "数学课标PDF8—12"
+      "source": "数学课标PDF8—12",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-C-SPACE",
       "type": "competency",
       "name": "几何直观与空间观念",
       "status": "stage_standard",
-      "source": "数学课标PDF8—12"
+      "source": "数学课标PDF8—12",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-C-DATA",
       "type": "competency",
       "name": "数据意识",
       "status": "stage_standard",
-      "source": "数学课标PDF8—12"
+      "source": "数学课标PDF8—12",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "M-C-MODEL",
       "type": "competency",
       "name": "推理意识、模型意识与应用意识",
       "status": "stage_standard",
-      "source": "数学课标PDF8—12"
+      "source": "数学课标PDF8—12",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-C-CONCEPT",
       "type": "competency",
       "name": "科学观念",
       "status": "stage_standard",
-      "source": "科学课标PDF7—9"
+      "source": "科学课标PDF7—9",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-C-THINK",
       "type": "competency",
       "name": "科学思维",
       "status": "stage_standard",
-      "source": "科学课标PDF7—9、13—14"
+      "source": "科学课标PDF7—9、13—14",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-C-INQUIRY",
       "type": "competency",
       "name": "探究实践",
       "status": "stage_standard",
-      "source": "科学课标PDF7—8、15—16"
+      "source": "科学课标PDF7—8、15—16",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "S-C-RESP",
       "type": "competency",
       "name": "态度责任",
       "status": "stage_standard",
-      "source": "科学课标PDF8—9、17—18"
+      "source": "科学课标PDF8—9、17—18",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "X-WEATHER-STATION",
       "type": "cross_disciplinary_theme",
       "name": "校园微型气象站",
-      "status": "recommended"
+      "status": "recommended",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "X-WATER-TEMP",
       "type": "cross_disciplinary_theme",
       "name": "水的温度与状态变化数据研究",
-      "status": "recommended"
+      "status": "recommended",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "X-DISSOLVE",
       "type": "cross_disciplinary_theme",
       "name": "溶解速度公平实验",
-      "status": "recommended"
+      "status": "recommended",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "X-AIR-MASS",
       "type": "cross_disciplinary_theme",
       "name": "一袋空气有多重",
-      "status": "recommended"
+      "status": "recommended",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "X-WIND-MAP",
       "type": "cross_disciplinary_theme",
       "name": "校园风向地图",
-      "status": "recommended"
+      "status": "recommended",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "X-CALENDAR",
       "type": "cross_disciplinary_theme",
       "name": "天气日历与年月日",
-      "status": "recommended"
+      "status": "recommended",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "X-MM-RAIN",
       "type": "cross_disciplinary_theme",
       "name": "毫米单位与降水量测量",
-      "status": "recommended"
+      "status": "recommended",
+      "grade": "三年级",
+      "semester": "上册"
     },
     {
       "id": "X-CLOCK-TEMP",
       "type": "cross_disciplinary_theme",
       "name": "24时记时与一天气温变化",
-      "status": "recommended"
+      "status": "recommended",
+      "grade": "三年级",
+      "semester": "上册"
+    },
+    {
+      "id": "M5",
+      "type": "subject",
+      "name": "数学五年级上",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "北师大版义务教育教科书数学五年级上册",
+      "order": 2
+    },
+    {
+      "id": "S5",
+      "type": "subject",
+      "name": "科学五年级上",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "教科版义务教育教科书科学五年级上册",
+      "order": 2
+    },
+    {
+      "id": "M5-D-N",
+      "type": "domain",
+      "name": "数与代数",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "order": 1
+    },
+    {
+      "id": "M5-D-G",
+      "type": "domain",
+      "name": "图形与几何",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "order": 2
+    },
+    {
+      "id": "M5-D-D",
+      "type": "domain",
+      "name": "统计与概率",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "order": 3
+    },
+    {
+      "id": "M5-D-P",
+      "type": "domain",
+      "name": "综合与实践",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "order": 4
+    },
+    {
+      "id": "M5-U1",
+      "type": "unit",
+      "name": "第一单元 小数的再认识和加减法",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内2—20",
+      "order": 1
+    },
+    {
+      "id": "M5-K-DEC",
+      "type": "knowledge",
+      "name": "小数按十分之一、百分之一、千分之一等单位计数，满十进1；比较大小从高位起，加减时小数点对齐",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内18"
+    },
+    {
+      "id": "M5-U1-L1",
+      "type": "lesson",
+      "name": "小数的再认识（一）",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内2—3",
+      "order": 1
+    },
+    {
+      "id": "M5-K-DEC-FRAC",
+      "type": "knowledge",
+      "name": "把1平均分成10份，其中1份是十分之一，可写成0.1；分成100份，其中1份是百分之一，可写成0.01",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内2"
+    },
+    {
+      "id": "M5-K-DEC-G",
+      "type": "knowledge",
+      "name": "1克等于一千分之一千克，也就是0.001千克",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内3"
+    },
+    {
+      "id": "M5-U1-L2",
+      "type": "lesson",
+      "name": "小数的再认识（二）",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内4—7",
+      "order": 2
+    },
+    {
+      "id": "M5-K-DEC-PLACE",
+      "type": "knowledge",
+      "name": "小数点右边第一位是十分位，第二位是百分位，第三位是千分位；小数部分的计数单位是0.1、0.01、0.001等",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内4"
+    },
+    {
+      "id": "M5-K-DEC-TEN",
+      "type": "knowledge",
+      "name": "小数的计数单位也是满十进1",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内5"
+    },
+    {
+      "id": "M5-K-DEC-ZERO",
+      "type": "knowledge",
+      "name": "小数的末尾添上0或去掉0，小数的大小不变",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内6"
+    },
+    {
+      "id": "M5-U1-L3",
+      "type": "lesson",
+      "name": "一起去买书",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内8",
+      "order": 3
+    },
+    {
+      "id": "M5-K-DEC-DIV",
+      "type": "knowledge",
+      "name": "整数除法有余数时，可以把余数继续平均分下去，得到小数商",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内8"
+    },
+    {
+      "id": "M5-U1-L4",
+      "type": "lesson",
+      "name": "比大小",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内9—11",
+      "order": 4
+    },
+    {
+      "id": "M5-K-DEC-CMP",
+      "type": "knowledge",
+      "name": "比较小数大小从高位比起：先比整数部分，再依次比十分位、百分位上的数",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内10"
+    },
+    {
+      "id": "M5-U1-L5",
+      "type": "lesson",
+      "name": "买菜",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内12—13",
+      "order": 5
+    },
+    {
+      "id": "M5-K-DEC-ADD",
+      "type": "knowledge",
+      "name": "小数加减法要把小数点对齐，再把相同数位上的数相加减",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内13"
+    },
+    {
+      "id": "M5-U1-L6",
+      "type": "lesson",
+      "name": "称体重",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内13—15",
+      "order": 6
+    },
+    {
+      "id": "M5-K-DEC-BORROW",
+      "type": "knowledge",
+      "name": "小数减法不够减时退1当十；整数减小数时，可以把整数写成末尾补0的小数再减",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内14"
+    },
+    {
+      "id": "M5-U1-L7",
+      "type": "lesson",
+      "name": "歌手大赛",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内16",
+      "order": 7
+    },
+    {
+      "id": "M5-K-DEC-MIX",
+      "type": "knowledge",
+      "name": "小数加减混合运算的运算顺序与整数相同",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内16"
+    },
+    {
+      "id": "M5-U2",
+      "type": "unit",
+      "name": "第二单元 三角形的再认识",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内21—30",
+      "order": 2
+    },
+    {
+      "id": "M5-K-TRI",
+      "type": "knowledge",
+      "name": "各种三角形的内角和都是180°，并且任意两边之和大于第三边",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内29"
+    },
+    {
+      "id": "M5-U2-L1",
+      "type": "lesson",
+      "name": "探索三角形内角和",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内21—23",
+      "order": 1
+    },
+    {
+      "id": "M5-K-TRI-SUM",
+      "type": "knowledge",
+      "name": "三角形内角和等于180°",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内21"
+    },
+    {
+      "id": "M5-U2-L2",
+      "type": "lesson",
+      "name": "探索三角形三边关系",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内24—26",
+      "order": 2
+    },
+    {
+      "id": "M5-K-TRI-SIDES",
+      "type": "knowledge",
+      "name": "三角形任意两边之和大于第三边",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内26"
+    },
+    {
+      "id": "M5-U2-L3",
+      "type": "lesson",
+      "name": "探索内角和的奥秘",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内27—28",
+      "order": 3
+    },
+    {
+      "id": "M5-K-RECT-SUM",
+      "type": "knowledge",
+      "name": "长方形的四个内角都是90°，内角和是360°",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内29"
+    },
+    {
+      "id": "M5-K-ANG-CONVERT",
+      "type": "knowledge",
+      "name": "根据三角形内角和是180°，可以把要研究的图形转化成三角形来研究内角和",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内29"
+    },
+    {
+      "id": "M5-P1",
+      "type": "unit",
+      "name": "综合实践 小小设计师",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内31—34",
+      "order": 3
+    },
+    {
+      "id": "M5-K-TESS-U",
+      "type": "knowledge",
+      "name": "密铺是图形之间不留空隙、也不重叠；能否密铺与角有关，变换时每一步要相同",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内31—33"
+    },
+    {
+      "id": "M5-P1-L1",
+      "type": "lesson",
+      "name": "小小设计师",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内31—34",
+      "order": 1
+    },
+    {
+      "id": "M5-K-TESS",
+      "type": "knowledge",
+      "name": "图形之间没有空隙，也不重叠，就是密铺",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内31"
+    },
+    {
+      "id": "M5-K-TESS-ANG",
+      "type": "knowledge",
+      "name": "图形能不能密铺和角有关",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内33"
+    },
+    {
+      "id": "M5-K-TESS-MOVE",
+      "type": "knowledge",
+      "name": "每一次变换都要一样，才能保证得到的作品是密铺图形",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内33"
+    },
+    {
+      "id": "M5-U3",
+      "type": "unit",
+      "name": "第三单元 小数乘法",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内35—49",
+      "order": 4
+    },
+    {
+      "id": "M5-K-DMUL",
+      "type": "knowledge",
+      "name": "小数乘法可以按整数乘法来算，再确定积的小数位数；整数的运算顺序和运算律在小数中也适用",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内47"
+    },
+    {
+      "id": "M5-U3-L1",
+      "type": "lesson",
+      "name": "买文具",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内35—36",
+      "order": 1
+    },
+    {
+      "id": "M5-K-DMUL-INT",
+      "type": "knowledge",
+      "name": "小数乘整数可以按计数单位来算，例如0.2是2个0.1，4个0.2是8个0.1，所以0.2×4=0.8",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内35"
+    },
+    {
+      "id": "M5-U3-L2",
+      "type": "lesson",
+      "name": "街心广场",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内37—38",
+      "order": 2
+    },
+    {
+      "id": "M5-K-DMUL-DEC",
+      "type": "knowledge",
+      "name": "小数乘小数可以先转化成整数相乘，再按两个因数扩大的倍数把积缩小，例如0.3×0.2=0.06",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内37"
+    },
+    {
+      "id": "M5-U3-L3",
+      "type": "lesson",
+      "name": "包装",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内39—40",
+      "order": 3
+    },
+    {
+      "id": "M5-K-DMUL-DIGITS",
+      "type": "knowledge",
+      "name": "积的小数位数是两个乘数的小数位数之和",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内40"
+    },
+    {
+      "id": "M5-U3-L4",
+      "type": "lesson",
+      "name": "蚕丝",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内41—42",
+      "order": 4
+    },
+    {
+      "id": "M5-K-DMUL-VERT",
+      "type": "knowledge",
+      "name": "小数乘法先按整数乘法计算，再数对积的小数位数；积末尾的0可以去掉",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内42"
+    },
+    {
+      "id": "M5-K-DMUL-SMALL",
+      "type": "knowledge",
+      "name": "积不一定比乘数大，例如2.3×0.9=2.07",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内42"
+    },
+    {
+      "id": "M5-U3-L5",
+      "type": "lesson",
+      "name": "手拉手",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内43—44",
+      "order": 5
+    },
+    {
+      "id": "M5-K-DMUL-LAW",
+      "type": "knowledge",
+      "name": "以前学过的运算顺序和运算律在小数中仍然适用",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内44"
+    },
+    {
+      "id": "M5-U3-L6",
+      "type": "lesson",
+      "name": "购物",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内45—46",
+      "order": 6
+    },
+    {
+      "id": "M5-K-EST",
+      "type": "knowledge",
+      "name": "有的问题用估算就能解决；判断剩下的钱够不够时，可以把用去的钱往大了估，有时也需要往小了估",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内46"
+    },
+    {
+      "id": "M5-U4",
+      "type": "unit",
+      "name": "第四单元 用字母表示（一）",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内50—59",
+      "order": 5
+    },
+    {
+      "id": "M5-K-LET",
+      "type": "knowledge",
+      "name": "字母可以表示数、数量关系和规律；等式两边同加、同减、同乘或除以同一个不为0的数，等式仍然成立",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内50—58"
+    },
+    {
+      "id": "M5-U4-L1",
+      "type": "lesson",
+      "name": "青蛙歌",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内50—51",
+      "order": 1
+    },
+    {
+      "id": "M5-K-LET-REL",
+      "type": "knowledge",
+      "name": "字母可以表示数，含有字母的式子可以表示数量关系，如a只青蛙有4×a条腿",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内50"
+    },
+    {
+      "id": "M5-U4-L2",
+      "type": "lesson",
+      "name": "回声测距离",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内52",
+      "order": 2
+    },
+    {
+      "id": "M5-K-LET-ECHO",
+      "type": "knowledge",
+      "name": "用t表示从发出声音到听到回声的时间，到对面山的距离是340×t÷2",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内53"
+    },
+    {
+      "id": "M5-U4-L3",
+      "type": "lesson",
+      "name": "用字母表示数量关系",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内53—54",
+      "order": 3
+    },
+    {
+      "id": "M5-K-LET-SVT",
+      "type": "knowledge",
+      "name": "路程、速度、时间的关系可以用字母写成s=vt",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内54"
+    },
+    {
+      "id": "M5-K-LET-NOTE",
+      "type": "knowledge",
+      "name": "4×a可以写成4a或4·a，数字一般写在字母前面；a×a可以写成a²，读作a的平方",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内54"
+    },
+    {
+      "id": "M5-K-LET-DIST",
+      "type": "knowledge",
+      "name": "乘法分配律是(a+b)c=ac+bc",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内54"
+    },
+    {
+      "id": "M5-U4-L4",
+      "type": "lesson",
+      "name": "用字母表示规律",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内55—56",
+      "order": 4
+    },
+    {
+      "id": "M5-K-LET-PAT",
+      "type": "knowledge",
+      "name": "图形排列的规律可以用含有字母的式子表示，如第n个图案的三角形个数是3n",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内56"
+    },
+    {
+      "id": "M5-U4-L5",
+      "type": "lesson",
+      "name": "等式中的规律",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内57—58",
+      "order": 5
+    },
+    {
+      "id": "M5-K-EQ-ADD",
+      "type": "knowledge",
+      "name": "等式两边都加或减同一个数，等式仍然成立",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内58"
+    },
+    {
+      "id": "M5-K-EQ-MUL",
+      "type": "knowledge",
+      "name": "等式两边都乘同一个数，或除以同一个不为0的数，等式仍然成立",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内58"
+    },
+    {
+      "id": "M5-U5",
+      "type": "unit",
+      "name": "第五单元 多边形的面积",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内60—79",
+      "order": 6
+    },
+    {
+      "id": "M5-K-AREA",
+      "type": "knowledge",
+      "name": "平行四边形、三角形和梯形的面积，都是把新图形转化成学过的图形，并用出入相补来推导",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内77"
+    },
+    {
+      "id": "M5-U5-L1",
+      "type": "lesson",
+      "name": "比较图形的面积",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内60",
+      "order": 1
+    },
+    {
+      "id": "M5-K-INOUT",
+      "type": "knowledge",
+      "name": "一个图形分割、移补前后面积不变，这就是出入相补原理，也叫以盈补虚",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内61"
+    },
+    {
+      "id": "M5-U5-L2",
+      "type": "lesson",
+      "name": "认识底和高",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内61—63",
+      "order": 2
+    },
+    {
+      "id": "M5-K-HEIGHT",
+      "type": "knowledge",
+      "name": "从平行四边形边上任意一点向对边画垂线，画出的线段都是高，也就是这组对边之间的距离",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内62"
+    },
+    {
+      "id": "M5-U5-L3",
+      "type": "lesson",
+      "name": "探索平行四边形面积",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内64—65",
+      "order": 3
+    },
+    {
+      "id": "M5-K-PARA-A",
+      "type": "knowledge",
+      "name": "平行四边形的面积等于底乘高",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内64"
+    },
+    {
+      "id": "M5-U5-L4",
+      "type": "lesson",
+      "name": "探索三角形面积",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内66—68",
+      "order": 4
+    },
+    {
+      "id": "M5-K-TRI-A",
+      "type": "knowledge",
+      "name": "三角形的面积等于底乘高再除以2",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内68"
+    },
+    {
+      "id": "M5-U5-L5",
+      "type": "lesson",
+      "name": "探索梯形面积",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内69—70",
+      "order": 5
+    },
+    {
+      "id": "M5-K-TRAP-A",
+      "type": "knowledge",
+      "name": "梯形的面积等于上底加下底的和乘高，再除以2",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内70"
+    },
+    {
+      "id": "M5-U5-L6",
+      "type": "lesson",
+      "name": "组合图形的面积",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内71—72",
+      "order": 6
+    },
+    {
+      "id": "M5-K-COMP-A",
+      "type": "knowledge",
+      "name": "计算组合图形的面积，要先转化成学过的图形，可以用分割，也可以添补",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内72"
+    },
+    {
+      "id": "M5-U5-L7",
+      "type": "lesson",
+      "name": "公顷、平方千米",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内73—74",
+      "order": 7
+    },
+    {
+      "id": "M5-K-HA",
+      "type": "knowledge",
+      "name": "1公顷等于10000平方米，边长100米的正方形面积是1公顷",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内73"
+    },
+    {
+      "id": "M5-K-KM2",
+      "type": "knowledge",
+      "name": "边长1000米的正方形面积是1平方千米",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内73"
+    },
+    {
+      "id": "M5-U5-L8",
+      "type": "lesson",
+      "name": "成长的脚印",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内75—76",
+      "order": 8
+    },
+    {
+      "id": "M5-K-IRREG",
+      "type": "knowledge",
+      "name": "不规则图形的面积可以在方格纸上估计：大于半格的记1格，不够半格的记为0",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内75"
+    },
+    {
+      "id": "M5-F1",
+      "type": "unit",
+      "name": "数学好玩 鸡兔同笼",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内80—81",
+      "order": 7
+    },
+    {
+      "id": "M5-K-CR-U",
+      "type": "knowledge",
+      "name": "鸡兔同笼可以列表尝试：先定头数，再按腿数多少调整鸡和兔的只数",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内81"
+    },
+    {
+      "id": "M5-F1-L1",
+      "type": "lesson",
+      "name": "鸡兔同笼",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内80—81",
+      "order": 1
+    },
+    {
+      "id": "M5-K-CR",
+      "type": "knowledge",
+      "name": "头数不变时，鸡增加1只、兔减少1只，腿数就减少2条；腿数太多要减少兔的只数，腿数太少要增加兔的只数",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内80"
+    },
+    {
+      "id": "M5-U6",
+      "type": "unit",
+      "name": "第六单元 图形的位置与运动（一）",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内82—88",
+      "order": 8
+    },
+    {
+      "id": "M5-K-POS",
+      "type": "knowledge",
+      "name": "数对可以确定位置；图形平移后大小和形状不变，对应点的数对按移动方向变化",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内88"
+    },
+    {
+      "id": "M5-U6-L1",
+      "type": "lesson",
+      "name": "确定位置",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内82—84",
+      "order": 1
+    },
+    {
+      "id": "M5-K-PAIR",
+      "type": "knowledge",
+      "name": "位置可以用数对表示，第2组第4排记作(2,4)，前一个数表示组，后一个数表示排",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内83"
+    },
+    {
+      "id": "M5-U6-L2",
+      "type": "lesson",
+      "name": "摆图案",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内85—86",
+      "order": 2
+    },
+    {
+      "id": "M5-K-PAIR-COL",
+      "type": "knowledge",
+      "name": "数对中第一个数相同的人站在同一列；沿水平方向移动时，数对中的第二个数不变",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内85"
+    },
+    {
+      "id": "M5-U6-L3",
+      "type": "lesson",
+      "name": "国庆阅兵",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内87",
+      "order": 3
+    },
+    {
+      "id": "M5-K-TRANS",
+      "type": "knowledge",
+      "name": "图形平移后大小和形状都不能改变；对应点向左平移几格，数对的第一个数就相差几",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内87"
+    },
+    {
+      "id": "M5-U6-L4",
+      "type": "lesson",
+      "name": "可爱的小猫",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内88",
+      "order": 4
+    },
+    {
+      "id": "M5-K-PAIR-FIG",
+      "type": "knowledge",
+      "name": "图形轮廓上的点可以用数对表示，按数对的变化规律可以在方格纸上画出新图形",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内88"
+    },
+    {
+      "id": "M5-U7",
+      "type": "unit",
+      "name": "第七单元 倍数与因数",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内89—101",
+      "order": 9
+    },
+    {
+      "id": "M5-K-NUM",
+      "type": "knowledge",
+      "name": "在非零自然数中研究倍数与因数，能按特征识别2、3、5的倍数，能求最大公因数和最小公倍数，并能区分质数与合数",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内100"
+    },
+    {
+      "id": "M5-U7-L1",
+      "type": "lesson",
+      "name": "倍数与因数",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内89—90",
+      "order": 1
+    },
+    {
+      "id": "M5-K-FAC",
+      "type": "knowledge",
+      "name": "在非零自然数范围内，若9×4=36，则36是9和4的倍数，9和4是36的因数",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内89"
+    },
+    {
+      "id": "M5-U7-L2",
+      "type": "lesson",
+      "name": "探索2、5的倍数特征",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内91—92",
+      "order": 2
+    },
+    {
+      "id": "M5-K-M5",
+      "type": "knowledge",
+      "name": "个位上是0或5的数，都是5的倍数",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内91"
+    },
+    {
+      "id": "M5-K-EVEN",
+      "type": "knowledge",
+      "name": "个位上是0、2、4、6、8的数都是2的倍数；2的倍数也叫偶数，不是2的倍数的数也叫奇数",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内91"
+    },
+    {
+      "id": "M5-U7-L3",
+      "type": "lesson",
+      "name": "探索3的倍数特征",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内93—95",
+      "order": 3
+    },
+    {
+      "id": "M5-K-M3",
+      "type": "knowledge",
+      "name": "一个数各个数位上的数字之和是3的倍数，这个数就是3的倍数",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内93"
+    },
+    {
+      "id": "M5-U7-L4",
+      "type": "lesson",
+      "name": "最大公因数和最小公倍数",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内96",
+      "order": 4
+    },
+    {
+      "id": "M5-K-GCD",
+      "type": "knowledge",
+      "name": "两个数的相同因数是它们的公因数，其中最大的一个是它们的最大公因数",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内96"
+    },
+    {
+      "id": "M5-K-LCM",
+      "type": "knowledge",
+      "name": "两个数的相同倍数是它们的公倍数，其中最小的一个是它们的最小公倍数",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内96"
+    },
+    {
+      "id": "M5-U7-L5",
+      "type": "lesson",
+      "name": "质数与合数",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内97—98",
+      "order": 5
+    },
+    {
+      "id": "M5-K-PRIME",
+      "type": "knowledge",
+      "name": "一个数只有1和它本身两个因数，这个数叫作质数；除了1和它本身以外还有别的因数，这个数叫作合数；1既不是质数，也不是合数",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内98"
+    },
+    {
+      "id": "M5-K-FACTORIZE",
+      "type": "knowledge",
+      "name": "任何一个大于1的整数，要么是一个质数，要么是若干个质数的乘积",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内99"
+    },
+    {
+      "id": "M5-U7-L6",
+      "type": "lesson",
+      "name": "寻找质数",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内99",
+      "order": 6
+    },
+    {
+      "id": "M5-K-SIEVE",
+      "type": "knowledge",
+      "name": "在百数表中先划掉1，再划掉2、3、5等的倍数并保留质数本身，剩下的就是质数；这种方法像筛子",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内100"
+    },
+    {
+      "id": "M5-U8",
+      "type": "unit",
+      "name": "第八单元 可能性",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内102—108",
+      "order": 10
+    },
+    {
+      "id": "M5-K-PROB",
+      "type": "knowledge",
+      "name": "事件的结果可能不确定，可能性有大有小；规则是否公平，要看双方对应结果的可能性是否相同",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内102—104"
+    },
+    {
+      "id": "M5-U8-L1",
+      "type": "lesson",
+      "name": "不确定性",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内102—103",
+      "order": 1
+    },
+    {
+      "id": "M5-K-CHANCE",
+      "type": "knowledge",
+      "name": "有些事情的结果不确定，可能发生也可能不发生，而且可能性有大有小",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内102"
+    },
+    {
+      "id": "M5-U8-L2",
+      "type": "lesson",
+      "name": "谁先走",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内104—106",
+      "order": 2
+    },
+    {
+      "id": "M5-K-FAIR",
+      "type": "knowledge",
+      "name": "抛硬币时正面朝上与反面朝上的可能性相同；掷骰子时点数大于3有3种可能，点数小于3有2种可能，两种规则并不同样公平",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内104"
+    },
+    {
+      "id": "M5-U8-L3",
+      "type": "lesson",
+      "name": "摸球游戏",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内107—108",
+      "order": 3
+    },
+    {
+      "id": "M5-K-FREQ",
+      "type": "knowledge",
+      "name": "每次摸到的球不确定，但多数次摸球并放回后，摸到次数较多的颜色可以用来推测盒子里这种颜色的球较多",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内107"
+    },
+    {
+      "id": "M5-P2",
+      "type": "unit",
+      "name": "综合实践 多少落叶能铺满",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内109—112",
+      "order": 11
+    },
+    {
+      "id": "M5-K-LEAF",
+      "type": "knowledge",
+      "name": "先得到地面面积，再估计一片有代表性落叶的面积，就可以估测多少片落叶能铺满这块地面",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内109—111"
+    },
+    {
+      "id": "M5-P2-L1",
+      "type": "lesson",
+      "name": "多少落叶能铺满",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内109—112",
+      "order": 1
+    },
+    {
+      "id": "M5-K-LEAF-LAND",
+      "type": "knowledge",
+      "name": "不规则地面可以分割成学过的图形再算面积，也可以用步长估计边长",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内110"
+    },
+    {
+      "id": "M5-K-LEAF-GRID",
+      "type": "knowledge",
+      "name": "无法逐片测量时，可选有代表性的落叶，用方格纸估计它的面积，再估测多少片能铺满地面",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学教材书内111"
+    },
+    {
+      "id": "S5-D-MOTION",
+      "type": "domain",
+      "name": "物质的运动与相互作用",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "order": 1
+    },
+    {
+      "id": "S5-D-EARTH",
+      "type": "domain",
+      "name": "地球系统",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "order": 2
+    },
+    {
+      "id": "S5-D-LIFE",
+      "type": "domain",
+      "name": "人体与健康",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "order": 3
+    },
+    {
+      "id": "S5-U-LIGHT",
+      "type": "unit",
+      "name": "第一单元 光",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内2—20",
+      "order": 1
+    },
+    {
+      "id": "S5-K-LIGHT",
+      "type": "knowledge",
+      "name": "有光才能看见周围事物；光可穿过透明物体，由空气斜射入水中会发生折射；白光经棱镜分成多种颜色；物体反射的光进入眼睛使人看见物体",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内2—18"
+    },
+    {
+      "id": "S5-U-LIGHT-L1",
+      "type": "lesson",
+      "name": "有关光的思考",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内2—4",
+      "order": 1
+    },
+    {
+      "id": "S5-K-LIGHT-SOURCE",
+      "type": "knowledge",
+      "name": "自身能发光的物体称为光源，太阳是最重要的光源",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内2"
+    },
+    {
+      "id": "S5-K-LIGHT-SEE",
+      "type": "knowledge",
+      "name": "因为有了光，我们才能看到周围的一切；太阳、激光笔等强光不能直接用肉眼看，会伤害眼睛",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内2"
+    },
+    {
+      "id": "S5-U-LIGHT-L2",
+      "type": "lesson",
+      "name": "光是怎样传播的",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内5—6",
+      "order": 2
+    },
+    {
+      "id": "S5-K-LIGHT-VS-SOUND",
+      "type": "knowledge",
+      "name": "光有自己的传播方式；人在幕前能听到幕后说话的声音，却看不见说话的人",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内5"
+    },
+    {
+      "id": "S5-U-LIGHT-L3",
+      "type": "lesson",
+      "name": "光的传播会遇到阻碍吗",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内7—9",
+      "order": 3
+    },
+    {
+      "id": "S5-K-LIGHT-PASS",
+      "type": "knowledge",
+      "name": "光遇到透明物体或半透明物体时，能穿过物体或部分穿过物体并继续传播",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内10"
+    },
+    {
+      "id": "S5-K-LIGHT-ECLIPSE",
+      "type": "knowledge",
+      "name": "月球运行到太阳和地球之间会部分或全部遮住太阳光，地球上可观测到日食；月球运行到地球阴影中时会发生月食",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内7"
+    },
+    {
+      "id": "S5-U-LIGHT-L4",
+      "type": "lesson",
+      "name": "光的传播方向会发生改变吗",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内10—11",
+      "order": 4
+    },
+    {
+      "id": "S5-K-LIGHT-REFRACT",
+      "type": "knowledge",
+      "name": "光由空气斜射入水中时，光的路线发生的变化叫作光的折射现象",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内12"
+    },
+    {
+      "id": "S5-U-LIGHT-L5",
+      "type": "lesson",
+      "name": "认识棱镜",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内12—14",
+      "order": 5
+    },
+    {
+      "id": "S5-K-LIGHT-SPECTRUM",
+      "type": "knowledge",
+      "name": "太阳光看上去几乎是白色的，由许多不同颜色的光组成；白光进入棱镜时，不同颜色的光折射程度不一样，出现红、橙、黄、绿、蓝、靛、紫",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内12"
+    },
+    {
+      "id": "S5-K-LIGHT-MIXCOLOR",
+      "type": "knowledge",
+      "name": "其他物体发出的光也具有不同的混合颜色",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内12"
+    },
+    {
+      "id": "S5-U-LIGHT-L6",
+      "type": "lesson",
+      "name": "光的反射现象",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内15—17",
+      "order": 6
+    },
+    {
+      "id": "S5-K-LIGHT-MIRROR",
+      "type": "knowledge",
+      "name": "照镜子时看到的镜子里的自己，是光反射形成的",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内15"
+    },
+    {
+      "id": "S5-K-LIGHT-REFLECT",
+      "type": "knowledge",
+      "name": "任何物体都能反射光，只是物体表面的反射情况不同；我们能看到物体，是因为它们反射的光进入了眼睛",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内15"
+    },
+    {
+      "id": "S5-U-LIGHT-L7",
+      "type": "lesson",
+      "name": "制作一个潜望镜",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内18—20",
+      "order": 7
+    },
+    {
+      "id": "S5-K-LIGHT-PERISCOPE",
+      "type": "knowledge",
+      "name": "同一方向放置的两面平面镜，使光照射下的物体经过两次反射后进入人的视野",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内18"
+    },
+    {
+      "id": "S5-U-EARTH",
+      "type": "unit",
+      "name": "第二单元 地球表面的变化",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内21—39",
+      "order": 2
+    },
+    {
+      "id": "S5-K-EARTH",
+      "type": "knowledge",
+      "name": "地球表面地形多样，内部从地表到地心分为地壳、地幔和地核；地壳运动以及地震、火山会改变地表，风和水也会搬运并堆积沙土",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内21—37"
+    },
+    {
+      "id": "S5-U-EARTH-L1",
+      "type": "lesson",
+      "name": "地球的表面",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内21—23",
+      "order": 1
+    },
+    {
+      "id": "S5-K-EARTH-LANDFORM",
+      "type": "knowledge",
+      "name": "地球表面的地形多种多样，有高原、群山、平原、丘陵、峡谷，以及四周群山环抱、中间低平的盆地",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内21"
+    },
+    {
+      "id": "S5-U-EARTH-L2",
+      "type": "lesson",
+      "name": "地球的结构",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内24—25",
+      "order": 2
+    },
+    {
+      "id": "S5-K-EARTH-LAYER",
+      "type": "knowledge",
+      "name": "地球从表面到地心可以分为地壳、地幔、地核三个圈层",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内24"
+    },
+    {
+      "id": "S5-K-EARTH-ROCK",
+      "type": "knowledge",
+      "name": "组成地壳的岩石分为岩浆岩、沉积岩和变质岩",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内24"
+    },
+    {
+      "id": "S5-K-EARTH-MOVE",
+      "type": "knowledge",
+      "name": "地壳在不断地运动，地球内部的岩浆在不停地涌动，有时会通过地震和火山喷发被我们感受到",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内24"
+    },
+    {
+      "id": "S5-U-EARTH-L3",
+      "type": "lesson",
+      "name": "地震的成因及作用",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内26—28",
+      "order": 3
+    },
+    {
+      "id": "S5-K-EARTH-QUAKE",
+      "type": "knowledge",
+      "name": "教材用岩层弯曲、断裂和错动的图示帮助解释地震；地震会使地面出现裂缝、塌陷，铁轨扭曲，并可能造成山体滑坡和堰塞湖",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内26"
+    },
+    {
+      "id": "S5-U-EARTH-L4",
+      "type": "lesson",
+      "name": "火山喷发的成因及作用",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内29—31",
+      "order": 4
+    },
+    {
+      "id": "S5-K-EARTH-VOLCANO-LAND",
+      "type": "knowledge",
+      "name": "熔岩沿火山口堆积可形成火山岩小山；长白山天池是火山口湖，熔岩喷出后火山口形成盆状凹陷并积水成湖",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内29"
+    },
+    {
+      "id": "S5-K-EARTH-VOLCANO-ENV",
+      "type": "knowledge",
+      "name": "火山喷发会烧毁森林和房屋、掩埋农田，也会带来肥沃火山灰和可利用的地热",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内29"
+    },
+    {
+      "id": "S5-U-EARTH-L5",
+      "type": "lesson",
+      "name": "风的作用",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内32—33",
+      "order": 5
+    },
+    {
+      "id": "S5-K-EARTH-WIND",
+      "type": "knowledge",
+      "name": "地球表面的大气层对改变地形发生着缓慢的作用，空气流动形成风",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内32"
+    },
+    {
+      "id": "S5-K-EARTH-DESERT",
+      "type": "knowledge",
+      "name": "大风或洪水可以把细小沙、土搬运到远方，留下砾石形成戈壁；沙子在风速减小时沉积下来，日积月累形成沙漠",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内32"
+    },
+    {
+      "id": "S5-U-EARTH-L6",
+      "type": "lesson",
+      "name": "水的作用",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内34—36",
+      "order": 6
+    },
+    {
+      "id": "S5-K-EARTH-RIVER",
+      "type": "knowledge",
+      "name": "水流从高处流向低处，把岩屑和土粒冲进河里，并磨削河岸、加深拓宽河床",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内34"
+    },
+    {
+      "id": "S5-K-EARTH-DELTA",
+      "type": "knowledge",
+      "name": "河流注入湖泊或海洋时，泥沙大量堆积成外形像三角形的平地，叫作三角洲",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内34"
+    },
+    {
+      "id": "S5-U-EARTH-L7",
+      "type": "lesson",
+      "name": "总结我们的认识",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内37—39",
+      "order": 7
+    },
+    {
+      "id": "S5-K-EARTH-EROSION",
+      "type": "knowledge",
+      "name": "地面的岩石、沙土在水、风、重力等作用下被破坏和搬走的现象叫作侵蚀",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内37"
+    },
+    {
+      "id": "S5-U-TIME",
+      "type": "unit",
+      "name": "第三单元 计量时间",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内40—57",
+      "order": 3
+    },
+    {
+      "id": "S5-K-TIME",
+      "type": "knowledge",
+      "name": "人类曾用昼夜、日影、燃香和水来计时；摆钟提高了精确度，其中的钟摆每分钟摆动60次；石英钟和原子钟更精确",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内40—54"
+    },
+    {
+      "id": "S5-U-TIME-L1",
+      "type": "lesson",
+      "name": "时间在流逝",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内40—42",
+      "order": 1
+    },
+    {
+      "id": "S5-K-TIME-DAY",
+      "type": "knowledge",
+      "name": "远古人类用太阳计时，昼夜交替成了人类最早使用的时间单位",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内40"
+    },
+    {
+      "id": "S5-K-TIME-GUI",
+      "type": "knowledge",
+      "name": "圭表是古代科学家发明的、度量日影长度的天文仪器",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内40"
+    },
+    {
+      "id": "S5-U-TIME-L2",
+      "type": "lesson",
+      "name": "用水计量时间",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内43—44",
+      "order": 2
+    },
+    {
+      "id": "S5-K-TIME-WATER",
+      "type": "knowledge",
+      "name": "日影、燃香、蜡烛都曾被用来计时，古代人们还利用水来计时",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内43"
+    },
+    {
+      "id": "S5-U-TIME-L3",
+      "type": "lesson",
+      "name": "我们的水钟",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内45—46",
+      "order": 3
+    },
+    {
+      "id": "S5-K-TIME-BOWL",
+      "type": "knowledge",
+      "name": "人们曾用底部钻有小孔的碗放在水中，让碗慢慢下沉来计量时间",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内45"
+    },
+    {
+      "id": "S5-U-TIME-L4",
+      "type": "lesson",
+      "name": "机械摆钟",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内47—49",
+      "order": 4
+    },
+    {
+      "id": "S5-K-TIME-ACCURACY",
+      "type": "knowledge",
+      "name": "日晷、水钟、沙漏等简易时钟可以让人知道大概的时间，摆钟的出现大大提高了钟表的精确度",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内47"
+    },
+    {
+      "id": "S5-U-TIME-L5",
+      "type": "lesson",
+      "name": "摆的快慢",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内50—51",
+      "order": 5
+    },
+    {
+      "id": "S5-K-TIME-SWING-COUNT",
+      "type": "knowledge",
+      "name": "不同的摆在一定时间内摆动的次数各不相同",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内50"
+    },
+    {
+      "id": "S5-U-TIME-L6",
+      "type": "lesson",
+      "name": "制作钟摆",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内52—53",
+      "order": 6
+    },
+    {
+      "id": "S5-K-TIME-SIXTY",
+      "type": "knowledge",
+      "name": "机械摆钟里的钟摆每分钟摆动60次",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内52"
+    },
+    {
+      "id": "S5-U-TIME-L7",
+      "type": "lesson",
+      "name": "计量时间和我们的生活",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内54—57",
+      "order": 7
+    },
+    {
+      "id": "S5-K-TIME-QUARTZ",
+      "type": "knowledge",
+      "name": "石英晶体受到电池电力影响时会有规律地振动，每个振动时间严格相同，所以石英钟一天之内的误差不会超过1秒",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内54"
+    },
+    {
+      "id": "S5-K-TIME-ATOMIC",
+      "type": "knowledge",
+      "name": "当今计时最精确的是原子钟，精度可以达到每2000万年才误差1秒",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内54"
+    },
+    {
+      "id": "S5-K-TIME-USE",
+      "type": "knowledge",
+      "name": "精确计时关系航天器发射、交通时刻表和百米赛跑是否打破纪录",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内54"
+    },
+    {
+      "id": "S5-U-HEALTH",
+      "type": "unit",
+      "name": "第四单元 健康生活",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内58—74",
+      "order": 4
+    },
+    {
+      "id": "S5-K-HEALTH",
+      "type": "knowledge",
+      "name": "人体靠吃东西和吸入氧气获得能量；骨、关节和肌肉配合运动，心脏和血管运输血液，脑和神经系统指挥反应；各系统相互影响",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内58—74"
+    },
+    {
+      "id": "S5-U-HEALTH-L1",
+      "type": "lesson",
+      "name": "我们的身体",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内58—60",
+      "order": 1
+    },
+    {
+      "id": "S5-K-HEALTH-ENERGY",
+      "type": "knowledge",
+      "name": "人必须吃东西、吸入氧气，才能获得能量，维持生命",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内58"
+    },
+    {
+      "id": "S5-K-HEALTH-BMI",
+      "type": "knowledge",
+      "name": "体重指数等于体重（千克）除以身高（米）乘身高（米）",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内58"
+    },
+    {
+      "id": "S5-K-HEALTH-GROW",
+      "type": "knowledge",
+      "name": "青少年时期是生长发育最旺盛的时期，养成良好的生活方式和习惯非常重要",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内58"
+    },
+    {
+      "id": "S5-U-HEALTH-L2",
+      "type": "lesson",
+      "name": "身体的运动",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内61—63",
+      "order": 2
+    },
+    {
+      "id": "S5-K-HEALTH-MOTION",
+      "type": "knowledge",
+      "name": "骨、关节和肌肉组成运动系统并相互配合；骨骼能支撑身体、保护内脏并参与运动，肌肉收缩带动骨骼运动",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内61"
+    },
+    {
+      "id": "S5-K-HEALTH-EXERCISE",
+      "type": "knowledge",
+      "name": "青少年时期骨骼和肌肉发育最快，要注意均衡负重和正确姿势；经常运动可使身体更强壮，免疫力也会增强",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内61"
+    },
+    {
+      "id": "S5-U-HEALTH-L3",
+      "type": "lesson",
+      "name": "心脏和血液",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内64—66",
+      "order": 3
+    },
+    {
+      "id": "S5-K-HEALTH-BLOOD",
+      "type": "knowledge",
+      "name": "食物中的营养和吸入的氧气进入血液后，通过心脏、血管运输到身体各个部分",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内64"
+    },
+    {
+      "id": "S5-K-HEALTH-REST",
+      "type": "knowledge",
+      "name": "心脏在两次跳动的间隙有短暂休息；睡眠时心跳次数减少，心脏得到较多休息；经常锻炼可以使心脏更强健",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内64"
+    },
+    {
+      "id": "S5-K-HEALTH-HARVEY",
+      "type": "knowledge",
+      "name": "教材用哈维的研究说明：心脏每次挤出的血量乘以每分钟跳动次数，可以得到一分钟送出的血液量",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内64"
+    },
+    {
+      "id": "S5-U-HEALTH-L4",
+      "type": "lesson",
+      "name": "身体的“总指挥”",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内67—68",
+      "order": 4
+    },
+    {
+      "id": "S5-K-HEALTH-BRAIN",
+      "type": "knowledge",
+      "name": "脑包括大脑、小脑和脑干等，并与脊髓相连；大脑是人体的控制中心，分左右两个大脑半球",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内67"
+    },
+    {
+      "id": "S5-K-HEALTH-BRAIN-CARE",
+      "type": "knowledge",
+      "name": "脑需要颅骨保护，不要让脑受到剧烈撞击；充足睡眠是大脑保持活力的前提",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内67"
+    },
+    {
+      "id": "S5-U-HEALTH-L5",
+      "type": "lesson",
+      "name": "身体的“联络员”",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内69—71",
+      "order": 5
+    },
+    {
+      "id": "S5-K-HEALTH-NERVE",
+      "type": "knowledge",
+      "name": "神经系统由脑、脊髓以及遍布全身的周围神经系统组成；各系统、器官在神经系统控制下相互配合",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内69"
+    },
+    {
+      "id": "S5-K-HEALTH-SIGNAL",
+      "type": "knowledge",
+      "name": "眼、耳、鼻、舌、皮肤感知环境刺激；信号由传入神经传到神经中枢，再由传出神经使身体反应",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内69"
+    },
+    {
+      "id": "S5-K-HEALTH-PROTECT-NERVE",
+      "type": "knowledge",
+      "name": "保持正确坐姿可以保护脊髓；乘车系好安全带，可以降低头部及背部受伤的危险",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内69"
+    },
+    {
+      "id": "S5-U-HEALTH-L6",
+      "type": "lesson",
+      "name": "学会管理和控制自己",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内72—73",
+      "order": 6
+    },
+    {
+      "id": "S5-K-HEALTH-STRESS",
+      "type": "knowledge",
+      "name": "长期的压力会损害身体健康，可能让人头疼、胃疼、睡不好，不能集中注意力",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内72"
+    },
+    {
+      "id": "S5-K-HEALTH-MANAGE",
+      "type": "knowledge",
+      "name": "体育锻炼可以减轻肌肉紧张并帮助睡眠；感到愤怒时要停下正在说的话和做的事，做几次深呼吸再行动",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内72"
+    },
+    {
+      "id": "S5-U-HEALTH-L7",
+      "type": "lesson",
+      "name": "制订健康生活计划",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内74",
+      "order": 7
+    },
+    {
+      "id": "S5-K-HEALTH-WHOLE",
+      "type": "knowledge",
+      "name": "身体是一个和谐统一的整体，一个系统出现问题，会导致其他系统也出现问题",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内74"
+    },
+    {
+      "id": "S5-K-HEALTH-LIFELONG",
+      "type": "knowledge",
+      "name": "有的运动终生都可以进行，如散步、游泳、慢跑、骑车",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内74"
+    },
+    {
+      "id": "M5-MT-ALIGN",
+      "type": "method",
+      "name": "小数点对齐，相同数位相加减",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册"
+    },
+    {
+      "id": "M5-MT-EST",
+      "type": "method",
+      "name": "按问题把数往大估或往小估",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册"
+    },
+    {
+      "id": "M5-MT-INTMUL",
+      "type": "method",
+      "name": "小数乘法先按整数乘法算，再确定小数点",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册"
+    },
+    {
+      "id": "M5-MT-INOUT",
+      "type": "method",
+      "name": "出入相补，把图形转化成已学图形",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册"
+    },
+    {
+      "id": "M5-MT-GRID",
+      "type": "method",
+      "name": "用方格估计不规则图形面积",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册"
+    },
+    {
+      "id": "M5-MT-PAIR",
+      "type": "method",
+      "name": "用数对确定位置并描述平移",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册"
+    },
+    {
+      "id": "M5-MT-LIST",
+      "type": "method",
+      "name": "列表尝试并调整",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册"
+    },
+    {
+      "id": "M5-MT-TRIAL",
+      "type": "method",
+      "name": "重复试验，根据结果次数作推测",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册"
+    },
+    {
+      "id": "S5-MT-EXPERIMENT",
+      "type": "method",
+      "name": "实验观察",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册"
+    },
+    {
+      "id": "S5-MT-MEASURE",
+      "type": "method",
+      "name": "测量记录",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册"
+    },
+    {
+      "id": "S5-MT-MAKE",
+      "type": "method",
+      "name": "设计制作",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册"
+    },
+    {
+      "id": "M5-STD-DEC-MEAN",
+      "type": "standard",
+      "name": "第三学段：结合具体情境探索并理解小数的意义，会比较小数大小",
+      "status": "stage_standard",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学课标第三学段数与运算",
+      "order": 1
+    },
+    {
+      "id": "M5-STD-DEC-OPS",
+      "type": "standard",
+      "name": "第三学段：能进行简单的小数四则运算和混合运算。本册系统学习加减和乘法，除法只到整数除得小数商",
+      "status": "stage_standard",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学课标第三学段数与运算",
+      "order": 2
+    },
+    {
+      "id": "M5-STD-FACTOR",
+      "type": "standard",
+      "name": "第三学段：知道2、3、5的倍数特征，了解公因数、公倍数、质数和合数",
+      "status": "stage_standard",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学课标第三学段数与运算",
+      "order": 3
+    },
+    {
+      "id": "M5-STD-LETTER",
+      "type": "standard",
+      "name": "第三学段：用字母表示事物的关系、性质和规律，理解等式的基本性质",
+      "status": "stage_standard",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学课标第三学段数量关系",
+      "order": 4
+    },
+    {
+      "id": "M5-STD-TRI",
+      "type": "standard",
+      "name": "第三学段：知道三角形任意两边之和大于第三边，知道三角形内角和是180°",
+      "status": "stage_standard",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学课标第三学段图形的认识与测量",
+      "order": 5
+    },
+    {
+      "id": "M5-STD-AREA",
+      "type": "standard",
+      "name": "第三学段：探索平行四边形、三角形和梯形的面积，知道公顷、平方千米，会估计不规则图形的面积",
+      "status": "stage_standard",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学课标第三学段图形的认识与测量",
+      "order": 6
+    },
+    {
+      "id": "M5-STD-POS",
+      "type": "standard",
+      "name": "第三学段：能用有序数对表示点的位置，能在方格纸上进行简单图形的平移。本册未系统学习旋转、轴对称和比例尺",
+      "status": "stage_standard",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学课标第三学段图形的位置与运动",
+      "order": 7
+    },
+    {
+      "id": "M5-STD-CHANCE",
+      "type": "standard",
+      "name": "第三学段：通过实例感受简单随机现象，对可能性大小作出定性描述",
+      "status": "stage_standard",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学课标第三学段随机现象发生的可能性",
+      "order": 8
+    },
+    {
+      "id": "M5-LATER-CIRCLE",
+      "type": "standard",
+      "name": "本册未学：圆和扇形、圆周率、圆的周长和面积",
+      "status": "stage_later",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学课标第三学段图形的认识与测量",
+      "order": 9
+    },
+    {
+      "id": "M5-LATER-VOL",
+      "type": "standard",
+      "name": "本册未学：体积、容积以及长方体、正方体、圆柱、圆锥",
+      "status": "stage_later",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学课标第三学段图形的认识与测量",
+      "order": 10
+    },
+    {
+      "id": "M5-LATER-RATIO",
+      "type": "standard",
+      "name": "本册未学：比和比例、按比例分配、成正比的量",
+      "status": "stage_later",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学课标第三学段数量关系",
+      "order": 11
+    },
+    {
+      "id": "M5-LATER-STAT",
+      "type": "standard",
+      "name": "本册未学：折线统计图、扇形统计图和百分数",
+      "status": "stage_later",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "数学课标第三学段数据的收集、整理与表达",
+      "order": 12
+    },
+    {
+      "id": "S5-STD-LIGHT",
+      "type": "standard",
+      "name": "5—6年级：来自光源或物体的反射光进入眼睛使人看见；光遇到物体会发生反射；太阳光穿过三棱镜形成彩色光带",
+      "status": "stage_standard",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学课标5—6年级3.3声音与光的传播",
+      "order": 1
+    },
+    {
+      "id": "S5-STD-LIGHT-LINE",
+      "type": "standard",
+      "name": "5—6年级要求知道光在空气中沿直线传播。本册用小孔实验探究传播方式，正文没有写成这条结论",
+      "status": "stage_standard",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学课标5—6年级3.3",
+      "order": 2
+    },
+    {
+      "id": "S5-STD-EARTH",
+      "type": "standard",
+      "name": "5—6年级：地球内部分为地壳、地幔和地核；火山喷发和地震是地球内部能量集中释放产生的自然现象",
+      "status": "stage_standard",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学课标5—6年级10.4",
+      "order": 3
+    },
+    {
+      "id": "S5-STD-WATER",
+      "type": "standard",
+      "name": "5—6年级：水在改变地表形态的过程中发挥着重要作用。本册还学习了风的作用，课标该条没有单列风",
+      "status": "stage_standard",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学课标5—6年级10.2",
+      "order": 4
+    },
+    {
+      "id": "S5-STD-HEALTH",
+      "type": "standard",
+      "name": "5—6年级：列举睡眠、饮食、运动等影响健康的因素，养成良好的生活习惯",
+      "status": "stage_standard",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学课标5—6年级7.3",
+      "order": 5
+    },
+    {
+      "id": "S5-STD-RESPONSE",
+      "type": "standard",
+      "name": "5—6年级：举例说出人体对某些环境刺激的反应方式和作用",
+      "status": "stage_standard",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学课标5—6年级6.3",
+      "order": 6
+    },
+    {
+      "id": "S5-STD-TIME",
+      "type": "standard",
+      "name": "测量时间的常用方法在3—4年级已提出。本册在五年级系统学习日影、水钟、摆钟和更精确的计时工具",
+      "status": "stage_standard",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学课标3—4年级3.1；本册为后续加深",
+      "order": 7
+    },
+    {
+      "id": "S5-LATER-SINK",
+      "type": "standard",
+      "name": "本册未学：5—6年级常见材料的沉浮、导热性，以及空气是混合物",
+      "status": "stage_later",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学课标5—6年级1.1、1.2",
+      "order": 8
+    },
+    {
+      "id": "S5-LATER-SKY",
+      "type": "standard",
+      "name": "本册未学：5—6年级地球自转与公转、月相、太阳系",
+      "status": "stage_later",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学课标5—6年级9.2—9.5",
+      "order": 9
+    },
+    {
+      "id": "X-G5-BODY",
+      "type": "cross_disciplinary_theme",
+      "name": "用数量关系认识身体",
+      "status": "current_book",
+      "grade": "五年级",
+      "semester": "上册",
+      "source": "科学教材书内58—64的体重指数和心跳血量计算，用到数学的字母式和小数运算"
     }
   ],
   "edges": [
@@ -4219,6 +7105,1706 @@
       "source": "X-CLOCK-TEMP",
       "relation": "cross_links",
       "target": "S-K-THERMO"
+    },
+    {
+      "source": "M5",
+      "relation": "contains",
+      "target": "M5-D-N"
+    },
+    {
+      "source": "M5",
+      "relation": "contains",
+      "target": "M5-D-G"
+    },
+    {
+      "source": "M5",
+      "relation": "contains",
+      "target": "M5-D-D"
+    },
+    {
+      "source": "M5",
+      "relation": "contains",
+      "target": "M5-D-P"
+    },
+    {
+      "source": "M5-D-N",
+      "relation": "contains",
+      "target": "M5-U1"
+    },
+    {
+      "source": "M5-U1",
+      "relation": "teaches",
+      "target": "M5-K-DEC"
+    },
+    {
+      "source": "M5-U1",
+      "relation": "contains",
+      "target": "M5-U1-L1"
+    },
+    {
+      "source": "M5-U1-L1",
+      "relation": "teaches",
+      "target": "M5-K-DEC-FRAC"
+    },
+    {
+      "source": "M5-U1-L1",
+      "relation": "teaches",
+      "target": "M5-K-DEC-G"
+    },
+    {
+      "source": "M5-U1",
+      "relation": "contains",
+      "target": "M5-U1-L2"
+    },
+    {
+      "source": "M5-U1-L2",
+      "relation": "teaches",
+      "target": "M5-K-DEC-PLACE"
+    },
+    {
+      "source": "M5-U1-L2",
+      "relation": "teaches",
+      "target": "M5-K-DEC-TEN"
+    },
+    {
+      "source": "M5-U1-L2",
+      "relation": "teaches",
+      "target": "M5-K-DEC-ZERO"
+    },
+    {
+      "source": "M5-U1",
+      "relation": "contains",
+      "target": "M5-U1-L3"
+    },
+    {
+      "source": "M5-U1-L3",
+      "relation": "teaches",
+      "target": "M5-K-DEC-DIV"
+    },
+    {
+      "source": "M5-U1",
+      "relation": "contains",
+      "target": "M5-U1-L4"
+    },
+    {
+      "source": "M5-U1-L4",
+      "relation": "teaches",
+      "target": "M5-K-DEC-CMP"
+    },
+    {
+      "source": "M5-U1",
+      "relation": "contains",
+      "target": "M5-U1-L5"
+    },
+    {
+      "source": "M5-U1-L5",
+      "relation": "teaches",
+      "target": "M5-K-DEC-ADD"
+    },
+    {
+      "source": "M5-U1",
+      "relation": "contains",
+      "target": "M5-U1-L6"
+    },
+    {
+      "source": "M5-U1-L6",
+      "relation": "teaches",
+      "target": "M5-K-DEC-BORROW"
+    },
+    {
+      "source": "M5-U1",
+      "relation": "contains",
+      "target": "M5-U1-L7"
+    },
+    {
+      "source": "M5-U1-L7",
+      "relation": "teaches",
+      "target": "M5-K-DEC-MIX"
+    },
+    {
+      "source": "M5-D-G",
+      "relation": "contains",
+      "target": "M5-U2"
+    },
+    {
+      "source": "M5-U2",
+      "relation": "teaches",
+      "target": "M5-K-TRI"
+    },
+    {
+      "source": "M5-U2",
+      "relation": "contains",
+      "target": "M5-U2-L1"
+    },
+    {
+      "source": "M5-U2-L1",
+      "relation": "teaches",
+      "target": "M5-K-TRI-SUM"
+    },
+    {
+      "source": "M5-U2",
+      "relation": "contains",
+      "target": "M5-U2-L2"
+    },
+    {
+      "source": "M5-U2-L2",
+      "relation": "teaches",
+      "target": "M5-K-TRI-SIDES"
+    },
+    {
+      "source": "M5-U2",
+      "relation": "contains",
+      "target": "M5-U2-L3"
+    },
+    {
+      "source": "M5-U2-L3",
+      "relation": "teaches",
+      "target": "M5-K-RECT-SUM"
+    },
+    {
+      "source": "M5-U2-L3",
+      "relation": "teaches",
+      "target": "M5-K-ANG-CONVERT"
+    },
+    {
+      "source": "M5-D-P",
+      "relation": "contains",
+      "target": "M5-P1"
+    },
+    {
+      "source": "M5-P1",
+      "relation": "teaches",
+      "target": "M5-K-TESS-U"
+    },
+    {
+      "source": "M5-P1",
+      "relation": "contains",
+      "target": "M5-P1-L1"
+    },
+    {
+      "source": "M5-P1-L1",
+      "relation": "teaches",
+      "target": "M5-K-TESS"
+    },
+    {
+      "source": "M5-P1-L1",
+      "relation": "teaches",
+      "target": "M5-K-TESS-ANG"
+    },
+    {
+      "source": "M5-P1-L1",
+      "relation": "teaches",
+      "target": "M5-K-TESS-MOVE"
+    },
+    {
+      "source": "M5-D-N",
+      "relation": "contains",
+      "target": "M5-U3"
+    },
+    {
+      "source": "M5-U3",
+      "relation": "teaches",
+      "target": "M5-K-DMUL"
+    },
+    {
+      "source": "M5-U3",
+      "relation": "contains",
+      "target": "M5-U3-L1"
+    },
+    {
+      "source": "M5-U3-L1",
+      "relation": "teaches",
+      "target": "M5-K-DMUL-INT"
+    },
+    {
+      "source": "M5-U3",
+      "relation": "contains",
+      "target": "M5-U3-L2"
+    },
+    {
+      "source": "M5-U3-L2",
+      "relation": "teaches",
+      "target": "M5-K-DMUL-DEC"
+    },
+    {
+      "source": "M5-U3",
+      "relation": "contains",
+      "target": "M5-U3-L3"
+    },
+    {
+      "source": "M5-U3-L3",
+      "relation": "teaches",
+      "target": "M5-K-DMUL-DIGITS"
+    },
+    {
+      "source": "M5-U3",
+      "relation": "contains",
+      "target": "M5-U3-L4"
+    },
+    {
+      "source": "M5-U3-L4",
+      "relation": "teaches",
+      "target": "M5-K-DMUL-VERT"
+    },
+    {
+      "source": "M5-U3-L4",
+      "relation": "teaches",
+      "target": "M5-K-DMUL-SMALL"
+    },
+    {
+      "source": "M5-U3",
+      "relation": "contains",
+      "target": "M5-U3-L5"
+    },
+    {
+      "source": "M5-U3-L5",
+      "relation": "teaches",
+      "target": "M5-K-DMUL-LAW"
+    },
+    {
+      "source": "M5-U3",
+      "relation": "contains",
+      "target": "M5-U3-L6"
+    },
+    {
+      "source": "M5-U3-L6",
+      "relation": "teaches",
+      "target": "M5-K-EST"
+    },
+    {
+      "source": "M5-D-N",
+      "relation": "contains",
+      "target": "M5-U4"
+    },
+    {
+      "source": "M5-U4",
+      "relation": "teaches",
+      "target": "M5-K-LET"
+    },
+    {
+      "source": "M5-U4",
+      "relation": "contains",
+      "target": "M5-U4-L1"
+    },
+    {
+      "source": "M5-U4-L1",
+      "relation": "teaches",
+      "target": "M5-K-LET-REL"
+    },
+    {
+      "source": "M5-U4",
+      "relation": "contains",
+      "target": "M5-U4-L2"
+    },
+    {
+      "source": "M5-U4-L2",
+      "relation": "teaches",
+      "target": "M5-K-LET-ECHO"
+    },
+    {
+      "source": "M5-U4",
+      "relation": "contains",
+      "target": "M5-U4-L3"
+    },
+    {
+      "source": "M5-U4-L3",
+      "relation": "teaches",
+      "target": "M5-K-LET-SVT"
+    },
+    {
+      "source": "M5-U4-L3",
+      "relation": "teaches",
+      "target": "M5-K-LET-NOTE"
+    },
+    {
+      "source": "M5-U4-L3",
+      "relation": "teaches",
+      "target": "M5-K-LET-DIST"
+    },
+    {
+      "source": "M5-U4",
+      "relation": "contains",
+      "target": "M5-U4-L4"
+    },
+    {
+      "source": "M5-U4-L4",
+      "relation": "teaches",
+      "target": "M5-K-LET-PAT"
+    },
+    {
+      "source": "M5-U4",
+      "relation": "contains",
+      "target": "M5-U4-L5"
+    },
+    {
+      "source": "M5-U4-L5",
+      "relation": "teaches",
+      "target": "M5-K-EQ-ADD"
+    },
+    {
+      "source": "M5-U4-L5",
+      "relation": "teaches",
+      "target": "M5-K-EQ-MUL"
+    },
+    {
+      "source": "M5-D-G",
+      "relation": "contains",
+      "target": "M5-U5"
+    },
+    {
+      "source": "M5-U5",
+      "relation": "teaches",
+      "target": "M5-K-AREA"
+    },
+    {
+      "source": "M5-U5",
+      "relation": "contains",
+      "target": "M5-U5-L1"
+    },
+    {
+      "source": "M5-U5-L1",
+      "relation": "teaches",
+      "target": "M5-K-INOUT"
+    },
+    {
+      "source": "M5-U5",
+      "relation": "contains",
+      "target": "M5-U5-L2"
+    },
+    {
+      "source": "M5-U5-L2",
+      "relation": "teaches",
+      "target": "M5-K-HEIGHT"
+    },
+    {
+      "source": "M5-U5",
+      "relation": "contains",
+      "target": "M5-U5-L3"
+    },
+    {
+      "source": "M5-U5-L3",
+      "relation": "teaches",
+      "target": "M5-K-PARA-A"
+    },
+    {
+      "source": "M5-U5",
+      "relation": "contains",
+      "target": "M5-U5-L4"
+    },
+    {
+      "source": "M5-U5-L4",
+      "relation": "teaches",
+      "target": "M5-K-TRI-A"
+    },
+    {
+      "source": "M5-U5",
+      "relation": "contains",
+      "target": "M5-U5-L5"
+    },
+    {
+      "source": "M5-U5-L5",
+      "relation": "teaches",
+      "target": "M5-K-TRAP-A"
+    },
+    {
+      "source": "M5-U5",
+      "relation": "contains",
+      "target": "M5-U5-L6"
+    },
+    {
+      "source": "M5-U5-L6",
+      "relation": "teaches",
+      "target": "M5-K-COMP-A"
+    },
+    {
+      "source": "M5-U5",
+      "relation": "contains",
+      "target": "M5-U5-L7"
+    },
+    {
+      "source": "M5-U5-L7",
+      "relation": "teaches",
+      "target": "M5-K-HA"
+    },
+    {
+      "source": "M5-U5-L7",
+      "relation": "teaches",
+      "target": "M5-K-KM2"
+    },
+    {
+      "source": "M5-U5",
+      "relation": "contains",
+      "target": "M5-U5-L8"
+    },
+    {
+      "source": "M5-U5-L8",
+      "relation": "teaches",
+      "target": "M5-K-IRREG"
+    },
+    {
+      "source": "M5-D-P",
+      "relation": "contains",
+      "target": "M5-F1"
+    },
+    {
+      "source": "M5-F1",
+      "relation": "teaches",
+      "target": "M5-K-CR-U"
+    },
+    {
+      "source": "M5-F1",
+      "relation": "contains",
+      "target": "M5-F1-L1"
+    },
+    {
+      "source": "M5-F1-L1",
+      "relation": "teaches",
+      "target": "M5-K-CR"
+    },
+    {
+      "source": "M5-D-G",
+      "relation": "contains",
+      "target": "M5-U6"
+    },
+    {
+      "source": "M5-U6",
+      "relation": "teaches",
+      "target": "M5-K-POS"
+    },
+    {
+      "source": "M5-U6",
+      "relation": "contains",
+      "target": "M5-U6-L1"
+    },
+    {
+      "source": "M5-U6-L1",
+      "relation": "teaches",
+      "target": "M5-K-PAIR"
+    },
+    {
+      "source": "M5-U6",
+      "relation": "contains",
+      "target": "M5-U6-L2"
+    },
+    {
+      "source": "M5-U6-L2",
+      "relation": "teaches",
+      "target": "M5-K-PAIR-COL"
+    },
+    {
+      "source": "M5-U6",
+      "relation": "contains",
+      "target": "M5-U6-L3"
+    },
+    {
+      "source": "M5-U6-L3",
+      "relation": "teaches",
+      "target": "M5-K-TRANS"
+    },
+    {
+      "source": "M5-U6",
+      "relation": "contains",
+      "target": "M5-U6-L4"
+    },
+    {
+      "source": "M5-U6-L4",
+      "relation": "teaches",
+      "target": "M5-K-PAIR-FIG"
+    },
+    {
+      "source": "M5-D-N",
+      "relation": "contains",
+      "target": "M5-U7"
+    },
+    {
+      "source": "M5-U7",
+      "relation": "teaches",
+      "target": "M5-K-NUM"
+    },
+    {
+      "source": "M5-U7",
+      "relation": "contains",
+      "target": "M5-U7-L1"
+    },
+    {
+      "source": "M5-U7-L1",
+      "relation": "teaches",
+      "target": "M5-K-FAC"
+    },
+    {
+      "source": "M5-U7",
+      "relation": "contains",
+      "target": "M5-U7-L2"
+    },
+    {
+      "source": "M5-U7-L2",
+      "relation": "teaches",
+      "target": "M5-K-M5"
+    },
+    {
+      "source": "M5-U7-L2",
+      "relation": "teaches",
+      "target": "M5-K-EVEN"
+    },
+    {
+      "source": "M5-U7",
+      "relation": "contains",
+      "target": "M5-U7-L3"
+    },
+    {
+      "source": "M5-U7-L3",
+      "relation": "teaches",
+      "target": "M5-K-M3"
+    },
+    {
+      "source": "M5-U7",
+      "relation": "contains",
+      "target": "M5-U7-L4"
+    },
+    {
+      "source": "M5-U7-L4",
+      "relation": "teaches",
+      "target": "M5-K-GCD"
+    },
+    {
+      "source": "M5-U7-L4",
+      "relation": "teaches",
+      "target": "M5-K-LCM"
+    },
+    {
+      "source": "M5-U7",
+      "relation": "contains",
+      "target": "M5-U7-L5"
+    },
+    {
+      "source": "M5-U7-L5",
+      "relation": "teaches",
+      "target": "M5-K-PRIME"
+    },
+    {
+      "source": "M5-U7-L5",
+      "relation": "teaches",
+      "target": "M5-K-FACTORIZE"
+    },
+    {
+      "source": "M5-U7",
+      "relation": "contains",
+      "target": "M5-U7-L6"
+    },
+    {
+      "source": "M5-U7-L6",
+      "relation": "teaches",
+      "target": "M5-K-SIEVE"
+    },
+    {
+      "source": "M5-D-D",
+      "relation": "contains",
+      "target": "M5-U8"
+    },
+    {
+      "source": "M5-U8",
+      "relation": "teaches",
+      "target": "M5-K-PROB"
+    },
+    {
+      "source": "M5-U8",
+      "relation": "contains",
+      "target": "M5-U8-L1"
+    },
+    {
+      "source": "M5-U8-L1",
+      "relation": "teaches",
+      "target": "M5-K-CHANCE"
+    },
+    {
+      "source": "M5-U8",
+      "relation": "contains",
+      "target": "M5-U8-L2"
+    },
+    {
+      "source": "M5-U8-L2",
+      "relation": "teaches",
+      "target": "M5-K-FAIR"
+    },
+    {
+      "source": "M5-U8",
+      "relation": "contains",
+      "target": "M5-U8-L3"
+    },
+    {
+      "source": "M5-U8-L3",
+      "relation": "teaches",
+      "target": "M5-K-FREQ"
+    },
+    {
+      "source": "M5-D-P",
+      "relation": "contains",
+      "target": "M5-P2"
+    },
+    {
+      "source": "M5-P2",
+      "relation": "teaches",
+      "target": "M5-K-LEAF"
+    },
+    {
+      "source": "M5-P2",
+      "relation": "contains",
+      "target": "M5-P2-L1"
+    },
+    {
+      "source": "M5-P2-L1",
+      "relation": "teaches",
+      "target": "M5-K-LEAF-LAND"
+    },
+    {
+      "source": "M5-P2-L1",
+      "relation": "teaches",
+      "target": "M5-K-LEAF-GRID"
+    },
+    {
+      "source": "S5",
+      "relation": "contains",
+      "target": "S5-D-MOTION"
+    },
+    {
+      "source": "S5",
+      "relation": "contains",
+      "target": "S5-D-EARTH"
+    },
+    {
+      "source": "S5",
+      "relation": "contains",
+      "target": "S5-D-LIFE"
+    },
+    {
+      "source": "S5-D-MOTION",
+      "relation": "contains",
+      "target": "S5-U-LIGHT"
+    },
+    {
+      "source": "S5-U-LIGHT",
+      "relation": "teaches",
+      "target": "S5-K-LIGHT"
+    },
+    {
+      "source": "S5-U-LIGHT",
+      "relation": "contains",
+      "target": "S5-U-LIGHT-L1"
+    },
+    {
+      "source": "S5-U-LIGHT-L1",
+      "relation": "teaches",
+      "target": "S5-K-LIGHT-SOURCE"
+    },
+    {
+      "source": "S5-U-LIGHT-L1",
+      "relation": "teaches",
+      "target": "S5-K-LIGHT-SEE"
+    },
+    {
+      "source": "S5-U-LIGHT",
+      "relation": "contains",
+      "target": "S5-U-LIGHT-L2"
+    },
+    {
+      "source": "S5-U-LIGHT-L2",
+      "relation": "teaches",
+      "target": "S5-K-LIGHT-VS-SOUND"
+    },
+    {
+      "source": "S5-U-LIGHT",
+      "relation": "contains",
+      "target": "S5-U-LIGHT-L3"
+    },
+    {
+      "source": "S5-U-LIGHT-L3",
+      "relation": "teaches",
+      "target": "S5-K-LIGHT-PASS"
+    },
+    {
+      "source": "S5-U-LIGHT-L3",
+      "relation": "teaches",
+      "target": "S5-K-LIGHT-ECLIPSE"
+    },
+    {
+      "source": "S5-U-LIGHT",
+      "relation": "contains",
+      "target": "S5-U-LIGHT-L4"
+    },
+    {
+      "source": "S5-U-LIGHT-L4",
+      "relation": "teaches",
+      "target": "S5-K-LIGHT-REFRACT"
+    },
+    {
+      "source": "S5-U-LIGHT",
+      "relation": "contains",
+      "target": "S5-U-LIGHT-L5"
+    },
+    {
+      "source": "S5-U-LIGHT-L5",
+      "relation": "teaches",
+      "target": "S5-K-LIGHT-SPECTRUM"
+    },
+    {
+      "source": "S5-U-LIGHT-L5",
+      "relation": "teaches",
+      "target": "S5-K-LIGHT-MIXCOLOR"
+    },
+    {
+      "source": "S5-U-LIGHT",
+      "relation": "contains",
+      "target": "S5-U-LIGHT-L6"
+    },
+    {
+      "source": "S5-U-LIGHT-L6",
+      "relation": "teaches",
+      "target": "S5-K-LIGHT-MIRROR"
+    },
+    {
+      "source": "S5-U-LIGHT-L6",
+      "relation": "teaches",
+      "target": "S5-K-LIGHT-REFLECT"
+    },
+    {
+      "source": "S5-U-LIGHT",
+      "relation": "contains",
+      "target": "S5-U-LIGHT-L7"
+    },
+    {
+      "source": "S5-U-LIGHT-L7",
+      "relation": "teaches",
+      "target": "S5-K-LIGHT-PERISCOPE"
+    },
+    {
+      "source": "S5-D-EARTH",
+      "relation": "contains",
+      "target": "S5-U-EARTH"
+    },
+    {
+      "source": "S5-U-EARTH",
+      "relation": "teaches",
+      "target": "S5-K-EARTH"
+    },
+    {
+      "source": "S5-U-EARTH",
+      "relation": "contains",
+      "target": "S5-U-EARTH-L1"
+    },
+    {
+      "source": "S5-U-EARTH-L1",
+      "relation": "teaches",
+      "target": "S5-K-EARTH-LANDFORM"
+    },
+    {
+      "source": "S5-U-EARTH",
+      "relation": "contains",
+      "target": "S5-U-EARTH-L2"
+    },
+    {
+      "source": "S5-U-EARTH-L2",
+      "relation": "teaches",
+      "target": "S5-K-EARTH-LAYER"
+    },
+    {
+      "source": "S5-U-EARTH-L2",
+      "relation": "teaches",
+      "target": "S5-K-EARTH-ROCK"
+    },
+    {
+      "source": "S5-U-EARTH-L2",
+      "relation": "teaches",
+      "target": "S5-K-EARTH-MOVE"
+    },
+    {
+      "source": "S5-U-EARTH",
+      "relation": "contains",
+      "target": "S5-U-EARTH-L3"
+    },
+    {
+      "source": "S5-U-EARTH-L3",
+      "relation": "teaches",
+      "target": "S5-K-EARTH-QUAKE"
+    },
+    {
+      "source": "S5-U-EARTH",
+      "relation": "contains",
+      "target": "S5-U-EARTH-L4"
+    },
+    {
+      "source": "S5-U-EARTH-L4",
+      "relation": "teaches",
+      "target": "S5-K-EARTH-VOLCANO-LAND"
+    },
+    {
+      "source": "S5-U-EARTH-L4",
+      "relation": "teaches",
+      "target": "S5-K-EARTH-VOLCANO-ENV"
+    },
+    {
+      "source": "S5-U-EARTH",
+      "relation": "contains",
+      "target": "S5-U-EARTH-L5"
+    },
+    {
+      "source": "S5-U-EARTH-L5",
+      "relation": "teaches",
+      "target": "S5-K-EARTH-WIND"
+    },
+    {
+      "source": "S5-U-EARTH-L5",
+      "relation": "teaches",
+      "target": "S5-K-EARTH-DESERT"
+    },
+    {
+      "source": "S5-U-EARTH",
+      "relation": "contains",
+      "target": "S5-U-EARTH-L6"
+    },
+    {
+      "source": "S5-U-EARTH-L6",
+      "relation": "teaches",
+      "target": "S5-K-EARTH-RIVER"
+    },
+    {
+      "source": "S5-U-EARTH-L6",
+      "relation": "teaches",
+      "target": "S5-K-EARTH-DELTA"
+    },
+    {
+      "source": "S5-U-EARTH",
+      "relation": "contains",
+      "target": "S5-U-EARTH-L7"
+    },
+    {
+      "source": "S5-U-EARTH-L7",
+      "relation": "teaches",
+      "target": "S5-K-EARTH-EROSION"
+    },
+    {
+      "source": "S5-D-MOTION",
+      "relation": "contains",
+      "target": "S5-U-TIME"
+    },
+    {
+      "source": "S5-U-TIME",
+      "relation": "teaches",
+      "target": "S5-K-TIME"
+    },
+    {
+      "source": "S5-U-TIME",
+      "relation": "contains",
+      "target": "S5-U-TIME-L1"
+    },
+    {
+      "source": "S5-U-TIME-L1",
+      "relation": "teaches",
+      "target": "S5-K-TIME-DAY"
+    },
+    {
+      "source": "S5-U-TIME-L1",
+      "relation": "teaches",
+      "target": "S5-K-TIME-GUI"
+    },
+    {
+      "source": "S5-U-TIME",
+      "relation": "contains",
+      "target": "S5-U-TIME-L2"
+    },
+    {
+      "source": "S5-U-TIME-L2",
+      "relation": "teaches",
+      "target": "S5-K-TIME-WATER"
+    },
+    {
+      "source": "S5-U-TIME",
+      "relation": "contains",
+      "target": "S5-U-TIME-L3"
+    },
+    {
+      "source": "S5-U-TIME-L3",
+      "relation": "teaches",
+      "target": "S5-K-TIME-BOWL"
+    },
+    {
+      "source": "S5-U-TIME",
+      "relation": "contains",
+      "target": "S5-U-TIME-L4"
+    },
+    {
+      "source": "S5-U-TIME-L4",
+      "relation": "teaches",
+      "target": "S5-K-TIME-ACCURACY"
+    },
+    {
+      "source": "S5-U-TIME",
+      "relation": "contains",
+      "target": "S5-U-TIME-L5"
+    },
+    {
+      "source": "S5-U-TIME-L5",
+      "relation": "teaches",
+      "target": "S5-K-TIME-SWING-COUNT"
+    },
+    {
+      "source": "S5-U-TIME",
+      "relation": "contains",
+      "target": "S5-U-TIME-L6"
+    },
+    {
+      "source": "S5-U-TIME-L6",
+      "relation": "teaches",
+      "target": "S5-K-TIME-SIXTY"
+    },
+    {
+      "source": "S5-U-TIME",
+      "relation": "contains",
+      "target": "S5-U-TIME-L7"
+    },
+    {
+      "source": "S5-U-TIME-L7",
+      "relation": "teaches",
+      "target": "S5-K-TIME-QUARTZ"
+    },
+    {
+      "source": "S5-U-TIME-L7",
+      "relation": "teaches",
+      "target": "S5-K-TIME-ATOMIC"
+    },
+    {
+      "source": "S5-U-TIME-L7",
+      "relation": "teaches",
+      "target": "S5-K-TIME-USE"
+    },
+    {
+      "source": "S5-D-LIFE",
+      "relation": "contains",
+      "target": "S5-U-HEALTH"
+    },
+    {
+      "source": "S5-U-HEALTH",
+      "relation": "teaches",
+      "target": "S5-K-HEALTH"
+    },
+    {
+      "source": "S5-U-HEALTH",
+      "relation": "contains",
+      "target": "S5-U-HEALTH-L1"
+    },
+    {
+      "source": "S5-U-HEALTH-L1",
+      "relation": "teaches",
+      "target": "S5-K-HEALTH-ENERGY"
+    },
+    {
+      "source": "S5-U-HEALTH-L1",
+      "relation": "teaches",
+      "target": "S5-K-HEALTH-BMI"
+    },
+    {
+      "source": "S5-U-HEALTH-L1",
+      "relation": "teaches",
+      "target": "S5-K-HEALTH-GROW"
+    },
+    {
+      "source": "S5-U-HEALTH",
+      "relation": "contains",
+      "target": "S5-U-HEALTH-L2"
+    },
+    {
+      "source": "S5-U-HEALTH-L2",
+      "relation": "teaches",
+      "target": "S5-K-HEALTH-MOTION"
+    },
+    {
+      "source": "S5-U-HEALTH-L2",
+      "relation": "teaches",
+      "target": "S5-K-HEALTH-EXERCISE"
+    },
+    {
+      "source": "S5-U-HEALTH",
+      "relation": "contains",
+      "target": "S5-U-HEALTH-L3"
+    },
+    {
+      "source": "S5-U-HEALTH-L3",
+      "relation": "teaches",
+      "target": "S5-K-HEALTH-BLOOD"
+    },
+    {
+      "source": "S5-U-HEALTH-L3",
+      "relation": "teaches",
+      "target": "S5-K-HEALTH-REST"
+    },
+    {
+      "source": "S5-U-HEALTH-L3",
+      "relation": "teaches",
+      "target": "S5-K-HEALTH-HARVEY"
+    },
+    {
+      "source": "S5-U-HEALTH",
+      "relation": "contains",
+      "target": "S5-U-HEALTH-L4"
+    },
+    {
+      "source": "S5-U-HEALTH-L4",
+      "relation": "teaches",
+      "target": "S5-K-HEALTH-BRAIN"
+    },
+    {
+      "source": "S5-U-HEALTH-L4",
+      "relation": "teaches",
+      "target": "S5-K-HEALTH-BRAIN-CARE"
+    },
+    {
+      "source": "S5-U-HEALTH",
+      "relation": "contains",
+      "target": "S5-U-HEALTH-L5"
+    },
+    {
+      "source": "S5-U-HEALTH-L5",
+      "relation": "teaches",
+      "target": "S5-K-HEALTH-NERVE"
+    },
+    {
+      "source": "S5-U-HEALTH-L5",
+      "relation": "teaches",
+      "target": "S5-K-HEALTH-SIGNAL"
+    },
+    {
+      "source": "S5-U-HEALTH-L5",
+      "relation": "teaches",
+      "target": "S5-K-HEALTH-PROTECT-NERVE"
+    },
+    {
+      "source": "S5-U-HEALTH",
+      "relation": "contains",
+      "target": "S5-U-HEALTH-L6"
+    },
+    {
+      "source": "S5-U-HEALTH-L6",
+      "relation": "teaches",
+      "target": "S5-K-HEALTH-STRESS"
+    },
+    {
+      "source": "S5-U-HEALTH-L6",
+      "relation": "teaches",
+      "target": "S5-K-HEALTH-MANAGE"
+    },
+    {
+      "source": "S5-U-HEALTH",
+      "relation": "contains",
+      "target": "S5-U-HEALTH-L7"
+    },
+    {
+      "source": "S5-U-HEALTH-L7",
+      "relation": "teaches",
+      "target": "S5-K-HEALTH-WHOLE"
+    },
+    {
+      "source": "S5-U-HEALTH-L7",
+      "relation": "teaches",
+      "target": "S5-K-HEALTH-LIFELONG"
+    },
+    {
+      "source": "M5-K-DEC-ADD",
+      "relation": "uses_method",
+      "target": "M5-MT-ALIGN"
+    },
+    {
+      "source": "M5-K-DEC-BORROW",
+      "relation": "uses_method",
+      "target": "M5-MT-ALIGN"
+    },
+    {
+      "source": "M5-K-DEC-MIX",
+      "relation": "uses_method",
+      "target": "M5-MT-ALIGN"
+    },
+    {
+      "source": "M5-K-EST",
+      "relation": "uses_method",
+      "target": "M5-MT-EST"
+    },
+    {
+      "source": "M5-K-DMUL-DEC",
+      "relation": "uses_method",
+      "target": "M5-MT-INTMUL"
+    },
+    {
+      "source": "M5-K-DMUL-DIGITS",
+      "relation": "uses_method",
+      "target": "M5-MT-INTMUL"
+    },
+    {
+      "source": "M5-K-DMUL-VERT",
+      "relation": "uses_method",
+      "target": "M5-MT-INTMUL"
+    },
+    {
+      "source": "M5-K-INOUT",
+      "relation": "uses_method",
+      "target": "M5-MT-INOUT"
+    },
+    {
+      "source": "M5-K-PARA-A",
+      "relation": "uses_method",
+      "target": "M5-MT-INOUT"
+    },
+    {
+      "source": "M5-K-TRI-A",
+      "relation": "uses_method",
+      "target": "M5-MT-INOUT"
+    },
+    {
+      "source": "M5-K-TRAP-A",
+      "relation": "uses_method",
+      "target": "M5-MT-INOUT"
+    },
+    {
+      "source": "M5-K-COMP-A",
+      "relation": "uses_method",
+      "target": "M5-MT-INOUT"
+    },
+    {
+      "source": "M5-K-IRREG",
+      "relation": "uses_method",
+      "target": "M5-MT-GRID"
+    },
+    {
+      "source": "M5-K-LEAF-GRID",
+      "relation": "uses_method",
+      "target": "M5-MT-GRID"
+    },
+    {
+      "source": "M5-K-PAIR",
+      "relation": "uses_method",
+      "target": "M5-MT-PAIR"
+    },
+    {
+      "source": "M5-K-TRANS",
+      "relation": "uses_method",
+      "target": "M5-MT-PAIR"
+    },
+    {
+      "source": "M5-K-CR",
+      "relation": "uses_method",
+      "target": "M5-MT-LIST"
+    },
+    {
+      "source": "M5-K-CHANCE",
+      "relation": "uses_method",
+      "target": "M5-MT-TRIAL"
+    },
+    {
+      "source": "M5-K-FAIR",
+      "relation": "uses_method",
+      "target": "M5-MT-TRIAL"
+    },
+    {
+      "source": "M5-K-FREQ",
+      "relation": "uses_method",
+      "target": "M5-MT-TRIAL"
+    },
+    {
+      "source": "S5-K-LIGHT-REFRACT",
+      "relation": "uses_method",
+      "target": "S5-MT-EXPERIMENT"
+    },
+    {
+      "source": "S5-K-LIGHT-REFLECT",
+      "relation": "uses_method",
+      "target": "S5-MT-EXPERIMENT"
+    },
+    {
+      "source": "S5-K-EARTH-EROSION",
+      "relation": "uses_method",
+      "target": "S5-MT-EXPERIMENT"
+    },
+    {
+      "source": "S5-K-TIME-SIXTY",
+      "relation": "uses_method",
+      "target": "S5-MT-MEASURE"
+    },
+    {
+      "source": "S5-K-HEALTH-BMI",
+      "relation": "uses_method",
+      "target": "S5-MT-MEASURE"
+    },
+    {
+      "source": "S5-K-TIME-SWING-COUNT",
+      "relation": "uses_method",
+      "target": "S5-MT-MEASURE"
+    },
+    {
+      "source": "S5-K-LIGHT-PERISCOPE",
+      "relation": "uses_method",
+      "target": "S5-MT-MAKE"
+    },
+    {
+      "source": "S5-K-TIME-BOWL",
+      "relation": "uses_method",
+      "target": "S5-MT-MAKE"
+    },
+    {
+      "source": "M5-K-DEC-FRAC",
+      "relation": "prerequisite_of",
+      "target": "M5-K-DEC-PLACE"
+    },
+    {
+      "source": "M5-K-DEC-PLACE",
+      "relation": "prerequisite_of",
+      "target": "M5-K-DEC-CMP"
+    },
+    {
+      "source": "M5-K-DEC-TEN",
+      "relation": "prerequisite_of",
+      "target": "M5-K-DEC-ADD"
+    },
+    {
+      "source": "M5-K-DEC-ADD",
+      "relation": "prerequisite_of",
+      "target": "M5-K-DEC-MIX"
+    },
+    {
+      "source": "M5-K-DEC-FRAC",
+      "relation": "prerequisite_of",
+      "target": "M5-K-DMUL-INT"
+    },
+    {
+      "source": "M5-K-DMUL-INT",
+      "relation": "prerequisite_of",
+      "target": "M5-K-DMUL-DEC"
+    },
+    {
+      "source": "M5-K-DMUL-DEC",
+      "relation": "prerequisite_of",
+      "target": "M5-K-DMUL-DIGITS"
+    },
+    {
+      "source": "M5-K-LET-REL",
+      "relation": "prerequisite_of",
+      "target": "M5-K-LET-SVT"
+    },
+    {
+      "source": "M5-K-TRI-SUM",
+      "relation": "prerequisite_of",
+      "target": "M5-K-ANG-CONVERT"
+    },
+    {
+      "source": "M5-K-INOUT",
+      "relation": "prerequisite_of",
+      "target": "M5-K-PARA-A"
+    },
+    {
+      "source": "M5-K-PARA-A",
+      "relation": "prerequisite_of",
+      "target": "M5-K-TRI-A"
+    },
+    {
+      "source": "M5-K-TRI-A",
+      "relation": "prerequisite_of",
+      "target": "M5-K-TRAP-A"
+    },
+    {
+      "source": "M5-K-PARA-A",
+      "relation": "prerequisite_of",
+      "target": "M5-K-COMP-A"
+    },
+    {
+      "source": "M5-K-IRREG",
+      "relation": "prerequisite_of",
+      "target": "M5-K-LEAF-GRID"
+    },
+    {
+      "source": "M5-K-PAIR",
+      "relation": "prerequisite_of",
+      "target": "M5-K-TRANS"
+    },
+    {
+      "source": "M5-K-FAC",
+      "relation": "prerequisite_of",
+      "target": "M5-K-GCD"
+    },
+    {
+      "source": "M5-K-PRIME",
+      "relation": "prerequisite_of",
+      "target": "M5-K-SIEVE"
+    },
+    {
+      "source": "M5-K-CHANCE",
+      "relation": "prerequisite_of",
+      "target": "M5-K-FAIR"
+    },
+    {
+      "source": "S5-K-LIGHT-PASS",
+      "relation": "prerequisite_of",
+      "target": "S5-K-LIGHT-REFRACT"
+    },
+    {
+      "source": "S5-K-LIGHT-REFRACT",
+      "relation": "prerequisite_of",
+      "target": "S5-K-LIGHT-SPECTRUM"
+    },
+    {
+      "source": "S5-K-LIGHT-REFLECT",
+      "relation": "prerequisite_of",
+      "target": "S5-K-LIGHT-PERISCOPE"
+    },
+    {
+      "source": "S5-K-EARTH-MOVE",
+      "relation": "prerequisite_of",
+      "target": "S5-K-EARTH-QUAKE"
+    },
+    {
+      "source": "S5-K-EARTH-RIVER",
+      "relation": "prerequisite_of",
+      "target": "S5-K-EARTH-EROSION"
+    },
+    {
+      "source": "S5-K-TIME-SWING-COUNT",
+      "relation": "prerequisite_of",
+      "target": "S5-K-TIME-SIXTY"
+    },
+    {
+      "source": "S5-K-HEALTH-ENERGY",
+      "relation": "prerequisite_of",
+      "target": "S5-K-HEALTH-BLOOD"
+    },
+    {
+      "source": "S5-K-HEALTH-BRAIN",
+      "relation": "prerequisite_of",
+      "target": "S5-K-HEALTH-NERVE"
+    },
+    {
+      "source": "M5-D-N",
+      "relation": "contains",
+      "target": "M5-LATER-RATIO"
+    },
+    {
+      "source": "M5-D-G",
+      "relation": "contains",
+      "target": "M5-LATER-CIRCLE"
+    },
+    {
+      "source": "M5-D-G",
+      "relation": "contains",
+      "target": "M5-LATER-VOL"
+    },
+    {
+      "source": "M5-D-D",
+      "relation": "contains",
+      "target": "M5-LATER-STAT"
+    },
+    {
+      "source": "S5-D-MOTION",
+      "relation": "contains",
+      "target": "S5-LATER-SKY"
+    },
+    {
+      "source": "S5-D-EARTH",
+      "relation": "contains",
+      "target": "S5-LATER-SINK"
+    },
+    {
+      "source": "M5-K-DEC",
+      "relation": "aligns_to",
+      "target": "M5-STD-DEC-MEAN",
+      "alignment": "direct"
+    },
+    {
+      "source": "M5-K-DEC-PLACE",
+      "relation": "aligns_to",
+      "target": "M5-STD-DEC-MEAN",
+      "alignment": "direct"
+    },
+    {
+      "source": "M5-K-DEC-CMP",
+      "relation": "aligns_to",
+      "target": "M5-STD-DEC-MEAN",
+      "alignment": "direct"
+    },
+    {
+      "source": "M5-K-DEC-ADD",
+      "relation": "aligns_to",
+      "target": "M5-STD-DEC-OPS",
+      "alignment": "partial"
+    },
+    {
+      "source": "M5-K-DMUL",
+      "relation": "aligns_to",
+      "target": "M5-STD-DEC-OPS",
+      "alignment": "partial"
+    },
+    {
+      "source": "M5-K-DEC-DIV",
+      "relation": "aligns_to",
+      "target": "M5-STD-DEC-OPS",
+      "alignment": "partial"
+    },
+    {
+      "source": "M5-K-NUM",
+      "relation": "aligns_to",
+      "target": "M5-STD-FACTOR",
+      "alignment": "direct"
+    },
+    {
+      "source": "M5-K-PRIME",
+      "relation": "aligns_to",
+      "target": "M5-STD-FACTOR",
+      "alignment": "direct"
+    },
+    {
+      "source": "M5-K-LET",
+      "relation": "aligns_to",
+      "target": "M5-STD-LETTER",
+      "alignment": "direct"
+    },
+    {
+      "source": "M5-K-EQ-MUL",
+      "relation": "aligns_to",
+      "target": "M5-STD-LETTER",
+      "alignment": "direct"
+    },
+    {
+      "source": "M5-K-EST",
+      "relation": "aligns_to",
+      "target": "M5-STD-LETTER",
+      "alignment": "partial"
+    },
+    {
+      "source": "M5-K-TRI",
+      "relation": "aligns_to",
+      "target": "M5-STD-TRI",
+      "alignment": "direct"
+    },
+    {
+      "source": "M5-K-AREA",
+      "relation": "aligns_to",
+      "target": "M5-STD-AREA",
+      "alignment": "direct"
+    },
+    {
+      "source": "M5-K-IRREG",
+      "relation": "aligns_to",
+      "target": "M5-STD-AREA",
+      "alignment": "direct"
+    },
+    {
+      "source": "M5-K-POS",
+      "relation": "aligns_to",
+      "target": "M5-STD-POS",
+      "alignment": "partial"
+    },
+    {
+      "source": "M5-K-TESS-U",
+      "relation": "aligns_to",
+      "target": "M5-STD-POS",
+      "alignment": "partial"
+    },
+    {
+      "source": "M5-K-PROB",
+      "relation": "aligns_to",
+      "target": "M5-STD-CHANCE",
+      "alignment": "direct"
+    },
+    {
+      "source": "S5-K-LIGHT-SEE",
+      "relation": "aligns_to",
+      "target": "S5-STD-LIGHT",
+      "alignment": "direct"
+    },
+    {
+      "source": "S5-K-LIGHT-REFLECT",
+      "relation": "aligns_to",
+      "target": "S5-STD-LIGHT",
+      "alignment": "direct"
+    },
+    {
+      "source": "S5-K-LIGHT-SPECTRUM",
+      "relation": "aligns_to",
+      "target": "S5-STD-LIGHT",
+      "alignment": "direct"
+    },
+    {
+      "source": "S5-K-LIGHT-REFRACT",
+      "relation": "aligns_to",
+      "target": "S5-STD-LIGHT",
+      "alignment": "partial"
+    },
+    {
+      "source": "S5-U-LIGHT-L2",
+      "relation": "aligns_to",
+      "target": "S5-STD-LIGHT-LINE",
+      "alignment": "partial"
+    },
+    {
+      "source": "S5-K-EARTH-LAYER",
+      "relation": "aligns_to",
+      "target": "S5-STD-EARTH",
+      "alignment": "direct"
+    },
+    {
+      "source": "S5-K-EARTH-MOVE",
+      "relation": "aligns_to",
+      "target": "S5-STD-EARTH",
+      "alignment": "direct"
+    },
+    {
+      "source": "S5-K-EARTH-RIVER",
+      "relation": "aligns_to",
+      "target": "S5-STD-WATER",
+      "alignment": "partial"
+    },
+    {
+      "source": "S5-K-EARTH-WIND",
+      "relation": "aligns_to",
+      "target": "S5-STD-WATER",
+      "alignment": "extension"
+    },
+    {
+      "source": "S5-K-HEALTH-MANAGE",
+      "relation": "aligns_to",
+      "target": "S5-STD-HEALTH",
+      "alignment": "direct"
+    },
+    {
+      "source": "S5-K-HEALTH-EXERCISE",
+      "relation": "aligns_to",
+      "target": "S5-STD-HEALTH",
+      "alignment": "partial"
+    },
+    {
+      "source": "S5-K-HEALTH-SIGNAL",
+      "relation": "aligns_to",
+      "target": "S5-STD-RESPONSE",
+      "alignment": "direct"
+    },
+    {
+      "source": "S5-K-TIME",
+      "relation": "aligns_to",
+      "target": "S5-STD-TIME",
+      "alignment": "extension"
+    },
+    {
+      "source": "M5-K-DEC",
+      "relation": "develops",
+      "target": "M-C-NUMBER"
+    },
+    {
+      "source": "M5-K-DMUL",
+      "relation": "develops",
+      "target": "M-C-NUMBER"
+    },
+    {
+      "source": "M5-K-NUM",
+      "relation": "develops",
+      "target": "M-C-NUMBER"
+    },
+    {
+      "source": "M5-K-LET",
+      "relation": "develops",
+      "target": "M-C-MODEL"
+    },
+    {
+      "source": "M5-K-AREA",
+      "relation": "develops",
+      "target": "M-C-MEASURE"
+    },
+    {
+      "source": "M5-K-TRI",
+      "relation": "develops",
+      "target": "M-C-SPACE"
+    },
+    {
+      "source": "M5-K-POS",
+      "relation": "develops",
+      "target": "M-C-SPACE"
+    },
+    {
+      "source": "M5-K-PROB",
+      "relation": "develops",
+      "target": "M-C-DATA"
+    },
+    {
+      "source": "S5-K-LIGHT",
+      "relation": "develops",
+      "target": "S-C-CONCEPT"
+    },
+    {
+      "source": "S5-K-EARTH",
+      "relation": "develops",
+      "target": "S-C-CONCEPT"
+    },
+    {
+      "source": "S5-K-TIME",
+      "relation": "develops",
+      "target": "S-C-INQUIRY"
+    },
+    {
+      "source": "S5-K-HEALTH",
+      "relation": "develops",
+      "target": "S-C-RESP"
+    },
+    {
+      "source": "X-G5-BODY",
+      "relation": "cross_links",
+      "target": "M5-K-LET"
+    },
+    {
+      "source": "X-G5-BODY",
+      "relation": "cross_links",
+      "target": "M5-K-LET-NOTE"
+    },
+    {
+      "source": "X-G5-BODY",
+      "relation": "cross_links",
+      "target": "M5-K-DMUL"
+    },
+    {
+      "source": "X-G5-BODY",
+      "relation": "cross_links",
+      "target": "S5-K-HEALTH-BMI"
+    },
+    {
+      "source": "X-G5-BODY",
+      "relation": "cross_links",
+      "target": "S5-K-HEALTH-HARVEY"
+    },
+    {
+      "source": "M5-K-IRREG",
+      "relation": "applies_to",
+      "target": "M5-K-LEAF"
+    },
+    {
+      "source": "M5-K-AREA",
+      "relation": "applies_to",
+      "target": "M5-P2"
+    },
+    {
+      "source": "M-K-DECIMAL",
+      "relation": "prerequisite_of",
+      "target": "M5-K-DEC"
+    },
+    {
+      "source": "M-K-DEC-POINT",
+      "relation": "prerequisite_of",
+      "target": "M5-K-DEC-PLACE"
+    },
+    {
+      "source": "M-K-ORDER",
+      "relation": "prerequisite_of",
+      "target": "M5-K-DEC-MIX"
+    },
+    {
+      "source": "M-K-ORDER",
+      "relation": "prerequisite_of",
+      "target": "M5-K-DMUL-LAW"
+    },
+    {
+      "source": "M-K-DECOPS",
+      "relation": "prerequisite_of",
+      "target": "M5-K-DEC-ADD"
     }
   ]
 }

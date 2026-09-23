@@ -75,7 +75,7 @@
 
   const OVERVIEW_TYPES = new Set(['subject', 'domain', 'unit'])
 
-  const POS_STORAGE_KEY = 'grade3-kg-node-positions-v10'
+  const POS_STORAGE_KEY = 'grade3-kg-node-positions-v11'
 
   const TYPE_LEVEL = {
     subject: 0,
@@ -274,10 +274,22 @@
       return savedPositions
     }
 
+    function bareNodeId(id) {
+      const text = String(id || '')
+      return text.startsWith('G5') ? text.slice(2) : text
+    }
+
+    function nodeGrade(n) {
+      if (n?.grade) return n.grade
+      if (String(n?.id || '').startsWith('G5')) return '五年级'
+      return '三年级'
+    }
+
     function getSubjectGroup(id) {
-      if (id.startsWith('X-')) return 'cross'
-      if (id.startsWith('M')) return 'math'
-      if (id.startsWith('S')) return 'science'
+      const bare = bareNodeId(id)
+      if (bare.startsWith('X')) return 'cross'
+      if (bare.startsWith('M')) return 'math'
+      if (bare.startsWith('S')) return 'science'
       return 'other'
     }
 
@@ -665,6 +677,9 @@
         const ta = TYPE_ORDER[nodeMap[a]?.type] ?? 9
         const tb = TYPE_ORDER[nodeMap[b]?.type] ?? 9
         if (ta !== tb) return ta - tb
+        const oa = nodeMap[a]?.order
+        const ob = nodeMap[b]?.order
+        if (oa != null && ob != null && oa !== ob) return oa - ob
         return (nodeMap[a]?.name || a).localeCompare(
           nodeMap[b]?.name || '',
           'zh-CN',
@@ -731,7 +746,7 @@
         return true
       }
       if (n.id === selectedNodeId) return true
-      if (layoutMode === 'force') {
+      if (layoutMode === 'force' || layoutMode === 'grade-bands') {
         // 力导向也显示知识点等标签；长标题在 getNodeLabel 里截短，悬停看全名
         if (searchQuery && nodeMatchesSearch(n, searchQuery)) return true
         return [
@@ -838,6 +853,7 @@
           // 教材结构：勾选的类型完整展示
           if (!activeTypes.has(n.type)) return false
           if (!matchesScope(n.id)) return false
+          if (!showAllDetail && n.type === 'knowledge' && n.overview === false) return false
         }
 
         // 搜索改为高亮淡化，不再从结果集里剔除（否则图会被搜残）
@@ -1303,40 +1319,63 @@
         const depthX = activeDepthX
         const positions = {}
 
-        const math = layoutTreeNoOverlap(
-          'M',
-          nodeIdSet,
-          childrenMap,
-          mathRootX,
-          depthX,
-          maxRowH(mathNodes),
-        )
-        Object.assign(positions, math.positions)
-        attachSatelliteNodes(positions, nodes, nodeIdSet, mathRootX)
-        finalizeOverviewSide(positions, mathNodes, mathRootX)
+        function layoutGradeBlock(rootId, subset, rootX, startY) {
+          if (!subset.length) return null
+          const localIds = new Set(subset.map((n) => n.id))
+          const laid = layoutTreeNoOverlap(
+            rootId,
+            localIds,
+            childrenMap,
+            rootX,
+            depthX,
+            maxRowH(subset),
+            startY,
+          )
+          const local = { ...laid.positions }
+          attachSatelliteNodes(local, subset, localIds, rootX)
+          finalizeOverviewSide(local, subset, rootX)
+          return local
+        }
 
-        const mathIds = mathNodes.map((n) => n.id)
-        const mathBox = sideBoundingBox(positions, mathIds)
+        function stackGrades(universe, subjectGroup, rootX, startY) {
+          const roots = universe
+            .filter(
+              (n) =>
+                n.type === 'subject' && getSubjectGroup(n.id) === subjectGroup,
+            )
+            .sort((a, b) => {
+              const ga = a.grade === '五年级' ? 1 : 0
+              const gb = b.grade === '五年级' ? 1 : 0
+              return ga - gb || (a.order ?? 0) - (b.order ?? 0)
+            })
+          let y = startY
+          const ids = []
+          roots.forEach((root) => {
+            const subset = collectTreeIds(root.id, universe)
+            const local = layoutGradeBlock(root.id, subset, rootX, y)
+            if (!local) return
+            Object.assign(positions, local)
+            subset.forEach((n) => ids.push(n.id))
+            const box = sideBoundingBox(local, Object.keys(local))
+            if (box) y = box.maxY + LAYOUT.scienceBelowGap
+          })
+          return { ids, bottom: y }
+        }
 
-        // 科学放在数学下方偏右，避免与数学知识点列横向挤在一起
+        const mathStack = stackGrades(mathNodes, 'math', mathRootX, 72)
+        const mathIds = mathStack.ids
+
+        // 科学放在全部数学下方偏右，避免与数学知识点列横向挤在一起
         const scienceRootX = mathRootX + depthX * 2
-        const scienceStartY =
-          (mathBox?.maxY ?? 480) + LAYOUT.scienceBelowGap
-
-        const science = layoutTreeNoOverlap(
-          'S',
-          nodeIdSet,
-          childrenMap,
+        const scienceStartY = (mathStack.bottom || 480) + LAYOUT.scienceBelowGap
+        const scienceStack = stackGrades(
+          sciNodes,
+          'science',
           scienceRootX,
-          depthX,
-          maxRowH(sciNodes),
           scienceStartY,
         )
-        Object.assign(positions, science.positions)
-        attachSatelliteNodes(positions, nodes, nodeIdSet, scienceRootX)
-        finalizeOverviewSide(positions, sciNodes, scienceRootX)
 
-        const sciIds = sciNodes.map((n) => n.id)
+        const sciIds = scienceStack.ids
 
         // 确保科学整体在数学包围盒之外（只移动科学侧）
         for (let pass = 0; pass < 16; pass++) {
@@ -1490,42 +1529,108 @@
       return positions
     }
 
+    function belongsToRoot(id, rootId) {
+      return id === rootId || String(id).startsWith(rootId + '-')
+    }
+
+    /** 从一个学科根走出本年级的教材树，不把另一个年级的节点牵进来 */
+    function collectTreeIds(rootId, universe) {
+      const allow = new Set(universe.map((n) => n.id))
+      const ids = new Set()
+      const stack = [rootId]
+      while (stack.length) {
+        const id = stack.pop()
+        if (!id || ids.has(id) || !allow.has(id)) continue
+        ids.add(id)
+        GRAPH_DATA.edges.forEach((e) => {
+          if (e.source !== id) return
+          if (!['contains', 'teaches', 'uses_method', 'develops'].includes(e.relation))
+            return
+          if (allow.has(e.target) && belongsToRoot(e.target, rootId)) stack.push(e.target)
+        })
+      }
+      GRAPH_DATA.edges.forEach((e) => {
+        if (!['aligns_to', 'uses_method'].includes(e.relation)) return
+        if (!ids.has(e.source) || !allow.has(e.target)) return
+        if (belongsToRoot(e.target, rootId)) ids.add(e.target)
+      })
+      universe.forEach((n) => {
+        if (!['knowledge', 'method'].includes(n.type)) return
+        if (belongsToRoot(n.id, rootId)) ids.add(n.id)
+      })
+      universe
+        .filter((n) => n.type === 'cross_disciplinary_theme')
+        .forEach((theme) => {
+          const hit = GRAPH_DATA.edges.some(
+            (e) =>
+              e.source === theme.id &&
+              e.relation === 'cross_links' &&
+              ids.has(e.target),
+          )
+          if (hit) ids.add(theme.id)
+        })
+      return universe.filter((n) => ids.has(n.id))
+    }
+
+    function layoutOneSubjectRoot(subset, rootId) {
+      return finalizeHierarchyLayout(
+        assignFullHierarchyLayout(subset, rootId),
+        subset,
+        60,
+      )
+    }
+
+    /** 同一学科里按年级分成上下两块，仍是一张图 */
+    function layoutStackedSubjects(universe, subjectGroup) {
+      const roots = universe
+        .filter(
+          (n) => n.type === 'subject' && getSubjectGroup(n.id) === subjectGroup,
+        )
+        .sort((a, b) => {
+          const ga = a.grade === '五年级' ? 1 : 0
+          const gb = b.grade === '五年级' ? 1 : 0
+          if (ga !== gb) return ga - gb
+          return (a.order ?? 0) - (b.order ?? 0)
+        })
+      const positions = {}
+      let yCursor = 40
+      const fallbackRoot = subjectGroup === 'science' ? 'S' : 'M'
+      const usable = roots.length
+        ? roots
+        : [{ id: fallbackRoot, grade: '三年级', order: 0 }]
+      usable.forEach((root) => {
+        const subset = roots.length ? collectTreeIds(root.id, universe) : universe
+        if (!subset.length) return
+        const local = layoutOneSubjectRoot(subset, root.id)
+        const box = sideBoundingBox(
+          local,
+          subset.map((n) => n.id),
+        )
+        const shift = box ? yCursor - box.minY : 0
+        Object.keys(local).forEach((id) => {
+          local[id].y += shift
+          positions[id] = local[id]
+        })
+        if (box) yCursor = shift + box.maxY + 160
+      })
+      return positions
+    }
+
     function computeHierarchyPositions(nodes) {
-      if (currentView === 'math') {
-        return finalizeHierarchyLayout(
-          assignFullHierarchyLayout(nodes, 'M'),
-          nodes,
-          60,
-        )
-      }
-      if (currentView === 'science') {
-        return finalizeHierarchyLayout(
-          assignFullHierarchyLayout(nodes, 'S'),
-          nodes,
-          60,
-        )
-      }
+      if (currentView === 'math') return layoutStackedSubjects(nodes, 'math')
+      if (currentView === 'science') return layoutStackedSubjects(nodes, 'science')
       if (currentView === 'all') {
-        // 全部范围：无论是否展开详细，数学在上、科学在下，禁止回落到单学科布局
-        // （否则两科节点挤进同一列，默认视图会叠成一条竖线）
+        // 全部范围：数学在上、科学在下；每一科内部再按年级分成上下两块
         const mathN = nodes.filter(
           (n) =>
             getSubjectGroup(n.id) === 'math' ||
             getSubjectGroup(n.id) === 'cross',
         )
         const sciN = nodes.filter((n) => getSubjectGroup(n.id) === 'science')
-        const mathPos = finalizeHierarchyLayout(
-          assignFullHierarchyLayout(mathN, 'M'),
-          mathN,
-          60,
-        )
-        const sciPos = finalizeHierarchyLayout(
-          assignFullHierarchyLayout(sciN, 'S'),
-          sciN,
-          60,
-        )
-        const mathBox = sideBoundingBox(mathPos, mathN.map((n) => n.id))
-        const sciBox = sideBoundingBox(sciPos, sciN.map((n) => n.id))
+        const mathPos = layoutStackedSubjects(mathN, 'math')
+        const sciPos = layoutStackedSubjects(sciN, 'science')
+        const mathBox = sideBoundingBox(mathPos, Object.keys(mathPos))
+        const sciBox = sideBoundingBox(sciPos, Object.keys(sciPos))
         if (mathBox && sciBox) {
           const dy = mathBox.maxY + 140 - sciBox.minY
           Object.keys(sciPos).forEach((id) => {
@@ -1534,11 +1639,7 @@
         }
         return { ...mathPos, ...sciPos }
       }
-      return finalizeHierarchyLayout(
-        assignFullHierarchyLayout(nodes, 'S'),
-        nodes,
-        60,
-      )
+      return layoutStackedSubjects(nodes, 'science')
     }
 
     function nodeRowHeight(n) {
@@ -2440,6 +2541,91 @@
       return positions
     }
 
+    function computeGradeBandPositions(nodes) {
+      const preferred = ['三年级', '五年级']
+      const present = []
+      nodes.forEach((n) => {
+        const g = nodeGrade(n)
+        if (!present.includes(g)) present.push(g)
+      })
+      present.sort((a, b) => {
+        const ia = preferred.indexOf(a)
+        const ib = preferred.indexOf(b)
+        return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib)
+      })
+      const typeX = {
+        subject: 80,
+        domain: 280,
+        unit: 520,
+        knowledge: 860,
+        method: 1280,
+        standard: 1620,
+        competency: 1960,
+        lesson: 2300,
+        cross_disciplinary_theme: 860,
+      }
+      const positions = {}
+      const rowH = 42
+      let y = 48
+      present.forEach((grade) => {
+        ;['math', 'science', 'cross'].forEach((group) => {
+          const items = nodes.filter(
+            (n) => nodeGrade(n) === grade && getSubjectGroup(n.id) === group,
+          )
+          if (!items.length) return
+          const byType = {}
+          items.forEach((n) => {
+            if (!byType[n.type]) byType[n.type] = []
+            byType[n.type].push(n)
+          })
+          let rows = 1
+          Object.values(byType).forEach((list) => {
+            list.sort((a, b) => String(a.name).localeCompare(String(b.name), 'zh'))
+            rows = Math.max(rows, list.length)
+          })
+          const baseY = y
+          Object.entries(byType).forEach(([type, list]) => {
+            const x = typeX[type] || 2940
+            list.forEach((n, i) => {
+              positions[n.id] = { x, y: baseY + i * rowH }
+            })
+          })
+          y += rows * rowH + 56
+        })
+        y += 90
+      })
+      nodes.forEach((n) => {
+        if (positions[n.id]) return
+        positions[n.id] = { x: 2940, y }
+        y += rowH
+      })
+      return positions
+    }
+
+    function computeForceSeedPositions(nodes) {
+      const positions = {}
+      const groups = { math: [], science: [], cross: [] }
+      nodes.forEach((n) => {
+        const g = getSubjectGroup(n.id)
+        const bucket = groups[g] ? g : 'cross'
+        groups[bucket].push(n)
+      })
+      const place = (list, cx, cy, spacing) => {
+        list.forEach((n, i) => {
+          const t = i * 2.399963229728653
+          const r = spacing * Math.sqrt(i + 0.5)
+          positions[n.id] = {
+            x: cx + r * Math.cos(t),
+            y: cy + r * Math.sin(t),
+          }
+        })
+      }
+      place(groups.math, 300, 420, 86)
+      place(groups.science, 1020, 390, 86)
+      place(groups.cross, 660, 260, 96)
+      return positions
+    }
+
     function buildGraphData() {
       const nodes = filterNodes()
       const nodeIds = nodes.map((n) => n.id)
@@ -2454,13 +2640,15 @@
         positions = buildOverviewPositions(nodes)
       } else if (layoutMode === 'hierarchy') {
         positions = computeHierarchyPositions(nodes)
+      } else if (layoutMode === 'grade-bands') {
+        positions = computeGradeBandPositions(nodes)
       } else if (layoutMode === 'force') {
         const saved = loadSavedPositions()
         if (Object.keys(saved).length) {
           positions = saved
         } else {
-          // 不预置坐标，让 ECharts force 自己初始化（更接近参考站 D3 的自由散开）
-          positions = {}
+          // 先按学科铺成两团，疏密接近线上力导向；力模拟只做微调，避免被推成空心大圈
+          positions = computeForceSeedPositions(nodes)
         }
       }
 

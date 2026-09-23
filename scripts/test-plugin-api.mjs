@@ -140,6 +140,22 @@ async function main() {
     )
   }
 
+  // 5b 五年级不串到三年级
+  {
+    const r = await call('knowledge-search.js', {
+      main_subject: '数学',
+      grade: '五年级',
+      semester: '上册',
+      query_terms: ['三角形内角和'],
+    })
+    const top = r.matches?.[0]?.candidates?.[0]
+    assert(
+      '五年级知识点可查且不串三年级',
+      top?.node_id === 'M5-K-TRI-SUM' && top?.scope?.grade === '五年级',
+      top?.node_id || r.status,
+    )
+  }
+
   // 5 跨年级拒绝
   {
     const r = await call('knowledge-search.js', {

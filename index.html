@@ -907,7 +907,7 @@
       <div>
         <h1 id="headerTitle">智启知识图谱</h1>
         <div class="meta" id="headerMeta">
-          版本 2.0 · 面向全学段全学科 · 当前首批：三年级上册 · 数学/科学
+          版本 2.1 · 面向全学段全学科 · 三年级上册、五年级上册 · 数学/科学
         </div>
       </div>
       <div class="header-actions">
@@ -976,7 +976,7 @@
 
         <section id="viewHintSection">
           <div class="subject-zone-hint" id="viewHint">
-            全部概要：上方数学、下方科学。橙色虚线连接两科有对应关系的知识点。
+            全部概要：力导向展示学科、单元、知识点、课标和核心素养。三年级与五年级在同一张图里。橙色虚线是跨学科关系。
           </div>
           <button type="button" class="toggle-detail" id="btnToggleDetail">
             展开课时等更细节点
@@ -1263,6 +1263,15 @@
 
       async function loadRemoteGraphData() {
         if (!REMOTE_SYNC.enabled) {
+          try {
+            const local = await fetchGraphJson('./data.json')
+            if (local?.nodes?.length) {
+              DEFAULT_GRAPH_DATA = cloneGraphData(local)
+              return cloneGraphData(local)
+            }
+          } catch (err) {
+            console.warn('本地 data.json 加载失败，使用基线数据', err)
+          }
           await ensureBaselineGraphData()
           return cloneGraphData(DEFAULT_GRAPH_DATA)
         }
@@ -1493,10 +1502,12 @@
           m.title || '智启知识图谱'
         document.title = m.title || '智启知识图谱'
         const subjects = Array.isArray(m.subjects) ? m.subjects.join('/') : ''
-        const coverage = [m.grade, m.semester, subjects].filter(Boolean).join(' · ')
-        const coverageText = coverage
-          ? ` · 当前首批：${coverage}`
-          : ''
+        const gradeText =
+          Array.isArray(m.grades) && m.grades.length
+            ? m.grades.map((g) => `${g}${m.semester || ''}`).join('、')
+            : [m.grade, m.semester].filter(Boolean).join('')
+        const coverage = [gradeText, subjects].filter(Boolean).join(' · ')
+        const coverageText = coverage ? ` · 已纳入：${coverage}` : ''
         document.getElementById('headerMeta').textContent =
           `版本 ${m.version || '—'} · ${m.generated_date || '—'} · 节点 ${GRAPH_DATA.nodes.length} · 关系 ${GRAPH_DATA.edges.length}${coverageText}`
       }
@@ -2169,6 +2180,17 @@
         })
       }
 
+      function hasSeveralGrades() {
+        const grades = new Set(
+          (GRAPH_DATA?.nodes || []).map((n) => n.grade).filter(Boolean),
+        )
+        return grades.size > 1
+      }
+
+      function structureLayout() {
+        return 'force'
+      }
+
       /** 按「镜头 × 学科范围」套用默认筛选与布局 */
       function applyLensAndScope(lens, view, { resetSelection = true } = {}) {
         currentLens = lens
@@ -2180,21 +2202,21 @@
         detailBtn.textContent = '展开课时等更细节点'
 
         if (currentLens === 'progression') {
-          layoutMode = 'force'
+          layoutMode = structureLayout()
           clearSavedPositions()
           activeTypes = new Set(['knowledge'])
           activeRelations = new Set(['prerequisite_of'])
           showScienceLessons = false
           document.getElementById('chkShowLessons').checked = false
         } else if (currentLens === 'standards') {
-          layoutMode = 'force'
+          layoutMode = structureLayout()
           clearSavedPositions()
           activeTypes = new Set(['knowledge', 'standard'])
           activeRelations = new Set(['aligns_to'])
           showScienceLessons = false
           document.getElementById('chkShowLessons').checked = false
         } else if (currentLens === 'cross') {
-          layoutMode = 'force'
+          layoutMode = structureLayout()
           clearSavedPositions()
           currentView = 'all'
           activeTypes = new Set([
@@ -2213,7 +2235,7 @@
           showScienceLessons = false
           document.getElementById('chkShowLessons').checked = false
         } else {
-          // 教材结构（全部 / 数学 / 科学）：统一力导向展示，学科范围只做节点过滤
+          // 与线上一致：力导向展示学科、单元、知识点、课标、核心素养
           layoutMode = 'force'
           clearSavedPositions()
           activeTypes = new Set([
@@ -2273,8 +2295,26 @@
         })
       }
 
-      function fitGraphToView() {
+      function syncForcePositions(data) {
+        const seriesData = chart.getModel()?.getSeries()?.[0]?.getData?.()
+        if (!seriesData || !data?.length) return
+        const byId = new Map()
+        for (let i = 0; i < seriesData.count(); i++) {
+          const raw = seriesData.getRawDataItem(i)
+          const layout = seriesData.getItemLayout(i)
+          if (raw?.id && layout) byId.set(raw.id, layout)
+        }
+        data.forEach((n) => {
+          const layout = byId.get(n.id)
+          if (!layout) return
+          n.x = layout[0]
+          n.y = layout[1]
+        })
+      }
+
+      function fitGraphToView(settle) {
         const data = liveGraphData || chart.getOption()?.series?.[0]?.data || []
+        if (layoutMode === 'force') syncForcePositions(data)
         const bounds = getGraphBounds(data)
         if (!bounds) return
         chart.resize()
@@ -2282,8 +2322,31 @@
         const dom = chart.getDom()
         const viewW = dom.clientWidth || 800
         const viewH = dom.clientHeight || 600
-        const cx = (bounds.minX + bounds.maxX) / 2
-        const cy = (bounds.minY + bounds.maxY) / 2
+        let cx = (bounds.minX + bounds.maxX) / 2
+        let cy = (bounds.minY + bounds.maxY) / 2
+        let fitBounds = bounds
+        if (layoutMode === 'force' && data.length > 220) {
+          const xs = data
+            .map((n) => n.x)
+            .filter((v) => v != null)
+            .sort((a, b) => a - b)
+          const ys = data
+            .map((n) => n.y)
+            .filter((v) => v != null)
+            .sort((a, b) => a - b)
+          if (xs.length > 8) {
+            const at = (arr, q) =>
+              arr[Math.min(arr.length - 1, Math.floor(arr.length * q))]
+            cx = at(xs, 0.5)
+            cy = at(ys, 0.5)
+            fitBounds = {
+              minX: at(xs, 0.18),
+              maxX: at(xs, 0.82),
+              minY: at(ys, 0.18),
+              maxY: at(ys, 0.82),
+            }
+          }
+        }
 
         chart.setOption(
           { series: [{ id: 'kg-graph', zoom: 1, center: [cx, cy] }] },
@@ -2291,10 +2354,10 @@
         )
 
         const corners = [
-          [bounds.minX, bounds.minY],
-          [bounds.minX, bounds.maxY],
-          [bounds.maxX, bounds.minY],
-          [bounds.maxX, bounds.maxY],
+          [fitBounds.minX, fitBounds.minY],
+          [fitBounds.minX, fitBounds.maxY],
+          [fitBounds.maxX, fitBounds.minY],
+          [fitBounds.maxX, fitBounds.maxY],
         ]
         let minPx = [Infinity, Infinity]
         let maxPx = [-Infinity, -Infinity]
@@ -2309,14 +2372,39 @@
         const boxW = maxPx[0] - minPx[0]
         const boxH = maxPx[1] - minPx[1]
         if (boxW <= 0 || boxH <= 0) return
-        const zoom = Math.min(
+        let zoom = Math.min(
           (viewW - pad * 2) / boxW,
           (viewH - pad * 2) / boxH,
         )
+        if (!Number.isFinite(zoom) || zoom <= 0) return
+        if (layoutMode === 'force' && data.length > 220 && !settle) {
+          zoom = Math.max(1.35, Math.min(zoom, 1.45))
+        }
         chart.setOption(
           { series: [{ id: 'kg-graph', zoom, center: [cx, cy] }] },
           false,
         )
+      }
+
+      function presentForceLayout() {
+        const data = liveGraphData
+        if (!data?.length || !chart) return
+        syncForcePositions(data)
+        chart.setOption(
+          {
+            series: [
+              {
+                id: 'kg-graph',
+                layout: 'none',
+                data,
+                roam: true,
+                draggable: true,
+              },
+            ],
+          },
+          false,
+        )
+        fitGraphToView()
       }
 
       function relayoutAndFit() {
@@ -2347,18 +2435,22 @@
       function renderChart() {
         const { nodes, edges, rawNodeCount, rawEdgeCount } = buildGraphData()
         const useForce = layoutMode === 'force'
+        const banded = layoutMode === 'grade-bands'
         const useLayoutNone = !useForce
         const anim = chartAnimOption()
         const nodeCount = nodes.length
-        // 节点多时略加大斥力，避免挤成一团；少时收紧便于看清结构
+        // 线上节点较少，用较大斥力正好铺满画布。两边年级合在一张图里时，斥力按同样观感缩小，避免空心大圈。
         const repulsion =
-          nodeCount > 160 ? 1200 : nodeCount > 80 ? 800 : 480
+          nodeCount > 280 ? 160 : nodeCount > 160 ? 1200 : nodeCount > 80 ? 800 : 480
         const edgeLen =
-          nodeCount > 160
-            ? [80, 200]
-            : nodeCount > 80
-              ? [100, 220]
-              : [120, 240]
+          nodeCount > 280
+            ? [48, 110]
+            : nodeCount > 160
+              ? [80, 200]
+              : nodeCount > 80
+                ? [100, 220]
+                : [120, 240]
+        const gravity = nodeCount > 280 ? 0.16 : 0.04
 
         const option = {
           graphic: useForce ? [] : buildHierarchyGraphics(),
@@ -2421,8 +2513,8 @@
               data: nodes,
               links: edges,
               // 力导向：交给 ECharts 原生漫游+拖拽（接近参考站 D3 体验）
-              // 分层布局：缩放交给 roam，平移用手势改坐标，避免与自研拖拽冲突
-              roam: useForce ? true : 'scale',
+              // 年级分区：可以平移缩放，节点保持在各自年级带里
+              roam: useForce || banded ? true : 'scale',
               draggable: useForce,
               ...anim,
               focusNodeAdjacency: false,
@@ -2453,10 +2545,10 @@
                   force: useForce
                 ? {
                     repulsion,
-                    gravity: 0.04,
+                    gravity,
                     edgeLength: edgeLen,
                     layoutAnimation: true,
-                    friction: 0.18,
+                    friction: nodeCount > 280 ? 0.62 : 0.18,
                   }
                 : undefined,
             },
@@ -2468,8 +2560,8 @@
         updateStats(rawNodeCount, rawEdgeCount)
         updateViewHint()
         if (useForce) {
-          // 等力导向充分散开后再适应窗口
-          setTimeout(() => fitGraphToView(), 1600)
+          // 等力导向从学科两团散开后定格，再把画面停在和线上接近的疏密
+          setTimeout(() => presentForceLayout(), 1400)
         } else {
           scheduleFitToView()
         }
@@ -2924,7 +3016,7 @@
 
       function regroupForceLayout() {
         clearSavedPositions()
-        if (layoutMode !== 'force') layoutMode = 'force'
+        layoutMode = 'force'
         renderChart()
       }
 
@@ -3370,7 +3462,7 @@
       })
 
       document.getElementById('btnFit').addEventListener('click', () => {
-        fitGraphToView()
+        fitGraphToView(true)
       })
 
       document
@@ -3638,7 +3730,7 @@
         initLegend()
         bindChartEvents()
         updateHeaderMeta()
-        updateScopeTabsUi()
+        applyLensAndScope('structure', 'all', { resetSelection: false })
         applyUrlParams()
         updateMainDisplay()
         if (searchQuery) {

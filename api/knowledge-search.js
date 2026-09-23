@@ -79,6 +79,8 @@ module.exports = async function handler(req, res) {
     const result = searchKnowledge(
       {
         main_subject: scope.scope.main_subject,
+        grade: scope.scope.grade,
+        semester: scope.scope.semester,
         query: raw.query,
         query_terms: raw.query_terms,
         limit: clampLimit(raw.limit),
