@@ -573,6 +573,10 @@
         background: #ecfdf5;
         border-left: 3px solid var(--science);
       }
+      .cross-kp.chinese {
+        background: #f5f3ff;
+        border-left: 3px solid #7c3aed;
+      }
       .toolbar button.active-hint {
         border-color: var(--accent);
         color: var(--accent);
@@ -590,6 +594,10 @@
       .view-tabs button[data-view='science'].active {
         background: var(--science);
         border-color: var(--science);
+      }
+      .view-tabs button[data-view='chinese'].active {
+        background: #7c3aed;
+        border-color: #7c3aed;
       }
       .view-tabs button[data-lens='cross'].active {
         background: var(--cross);
@@ -907,7 +915,7 @@
       <div>
         <h1 id="headerTitle">智启知识图谱</h1>
         <div class="meta" id="headerMeta">
-          版本 2.1 · 面向全学段全学科 · 三年级上册、五年级上册 · 数学/科学
+          版本 3.0 · 三至六年级 · 数学 / 科学 / 语文
         </div>
       </div>
       <div class="header-actions">
@@ -945,11 +953,23 @@
 
         <section>
           <h2>学科范围</h2>
-          <p class="sidebar-section-label" id="scopeHint">全部 / 数学 / 科学</p>
+          <p class="sidebar-section-label" id="scopeHint">全部 / 数学 / 科学 / 语文</p>
           <div class="view-tabs" id="scopeTabs">
             <button class="active" data-view="all">全部</button>
             <button data-view="math">数学</button>
             <button data-view="science">科学</button>
+            <button data-view="chinese">语文</button>
+          </div>
+          <p class="sidebar-section-label" style="margin-top: 10px">册次</p>
+          <div class="view-tabs" id="bookTabs">
+            <button class="active" data-book="all">全部</button>
+            <button data-book="三年级上册" title="三年级上册">三上</button>
+            <button data-book="四年级上册" title="四年级上册">四上</button>
+            <button data-book="四年级下册" title="四年级下册">四下</button>
+            <button data-book="五年级上册" title="五年级上册">五上</button>
+            <button data-book="五年级下册" title="五年级下册">五下</button>
+            <button data-book="六年级上册" title="六年级上册">六上</button>
+            <button data-book="六年级下册" title="六年级下册">六下</button>
           </div>
         </section>
 
@@ -976,14 +996,14 @@
 
         <section id="viewHintSection">
           <div class="subject-zone-hint" id="viewHint">
-            全部概要：力导向展示学科、单元、知识点、课标和核心素养。三年级与五年级在同一张图里。橙色虚线是跨学科关系。
+            全部概要：数学、科学、语文按册次排在同一张图里。橙色虚线是跨学科关系。
           </div>
           <button type="button" class="toggle-detail" id="btnToggleDetail">
             展开课时等更细节点
           </button>
           <label class="filter-item" style="margin-top: 8px">
             <input type="checkbox" id="chkShowLessons" />
-            显示科学课时节点
+            显示课时节点
           </label>
           <p class="drag-tip">
             提示：拖拽画布平移、滚轮缩放、拖节点带物理反馈；单击节点聚拢邻域并看详情。搜索支持模糊高亮，回车定位。
@@ -1391,6 +1411,7 @@
         POS_STORAGE_KEY,
         LAYOUT,
         SUBJECT_LABELS,
+        SUBJECT_COLORS,
         STATUS_OPTIONS,
         cloneGraphData,
       } = GraphCore
@@ -1403,6 +1424,7 @@
         const key = JSON.stringify([
           currentLens,
           currentView,
+          currentBook,
           layoutMode,
           showAllDetail,
           showScienceLessons,
@@ -1416,6 +1438,7 @@
         core = GraphCore.create(GRAPH_DATA, {
           lens: currentLens,
           view: currentView,
+          book: currentBook,
           layoutMode,
           showAllDetail,
           showScienceLessons,
@@ -1435,6 +1458,29 @@
 
       function getSubjectGroup(...args) {
         return syncCore().getSubjectGroup(...args)
+      }
+
+      function bookTitleOf(node) {
+        if (!node) return ''
+        const subjectName = SUBJECT_LABELS[getSubjectGroup(node.id)] || ''
+        const grade = node.grade || ''
+        const semester = node.semester || ''
+        if (grade && subjectName) return `${grade}${semester}${subjectName}`
+        const book = getAncestorByType(node.id, 'subject')
+        return book?.name || ''
+      }
+
+      function unitOf(node) {
+        if (!node) return null
+        if (node.type === 'unit') return node
+        const parent = GRAPH_DATA.edges.find(
+          (e) =>
+            e.target === node.id &&
+            (e.relation === 'teaches' || e.relation === 'contains') &&
+            nodeMap[e.source]?.type === 'unit',
+        )
+        if (parent) return nodeMap[parent.source]
+        return getAncestorByType(node.id, 'unit')
       }
 
       function getThemeClusters(...args) {
@@ -1502,9 +1548,13 @@
           m.title || '智启知识图谱'
         document.title = m.title || '智启知识图谱'
         const subjects = Array.isArray(m.subjects) ? m.subjects.join('/') : ''
-        const gradeText =
-          Array.isArray(m.grades) && m.grades.length
-            ? m.grades.map((g) => `${g}${m.semester || ''}`).join('、')
+        const bookLabels = Array.isArray(m.books)
+          ? [...new Set(m.books.map((b) => `${b.grade}${b.semester}`))]
+          : []
+        const gradeText = bookLabels.length
+          ? bookLabels.join('、')
+          : Array.isArray(m.grades) && m.grades.length
+            ? m.grades.join('、')
             : [m.grade, m.semester].filter(Boolean).join('')
         const coverage = [gradeText, subjects].filter(Boolean).join(' · ')
         const coverageText = coverage ? ` · 已纳入：${coverage}` : ''
@@ -2064,6 +2114,7 @@
 
       let currentLens = 'structure'
       let currentView = 'all'
+      let currentBook = 'all'
       let layoutMode = 'force'
       let showAllDetail = false
       let showScienceLessons = false
@@ -2094,7 +2145,7 @@
       function posStorageKey() {
         const mode = showAllDetail
           ? 'all-detail'
-          : `${currentLens}-${currentView}-${layoutMode}`
+          : `${currentLens}-${currentView}-${currentBook}-${layoutMode}`
         return `${POS_STORAGE_KEY}-${mode}`
       }
 
@@ -2170,10 +2221,13 @@
         const disabled = currentLens === 'cross'
         scopeTabs.classList.toggle('scope-tabs-disabled', disabled)
         scopeHint.textContent = disabled
-          ? '跨学科同时看两科，学科范围暂不生效'
-          : '全部 / 数学 / 科学'
+          ? '跨学科同时看数学、科学、语文，学科按钮暂不生效；册次仍然可以选'
+          : '学科选全部 / 数学 / 科学 / 语文，册次可再收窄'
         document.querySelectorAll('#scopeTabs button').forEach((b) => {
           b.classList.toggle('active', b.dataset.view === currentView)
+        })
+        document.querySelectorAll('#bookTabs button').forEach((b) => {
+          b.classList.toggle('active', b.dataset.book === currentBook)
         })
         document.querySelectorAll('#lensTabs button').forEach((b) => {
           b.classList.toggle('active', b.dataset.lens === currentLens)
@@ -2223,6 +2277,7 @@
             'subject',
             'domain',
             'unit',
+            'lesson',
             'knowledge',
             'method',
           ])
@@ -2486,7 +2541,16 @@
                 if (!src || !tgt) return '跨学科关联'
                 const srcSub = SUBJECT_LABELS[getSubjectGroup(src.id)] || ''
                 const tgtSub = SUBJECT_LABELS[getSubjectGroup(tgt.id)] || ''
-                return `<b>跨学科关联</b><br/>${srcSub}：${src.name}<br/>↔ ${tgtSub}：${tgt.name}`
+                const placeBrief = (n) => {
+                  const book = bookTitleOf(n)
+                  const unit = unitOf(n)
+                  const bits = [
+                    book,
+                    unit && n.type !== 'unit' ? unit.name : '',
+                  ].filter(Boolean)
+                  return bits.length ? `（${bits.join(' · ')}）` : ''
+                }
+                return `<b>跨学科关联</b><br/>${srcSub}：${src.name}${placeBrief(src)}<br/>↔ ${tgtSub}：${tgt.name}${placeBrief(tgt)}`
               }
               const node = nodeMap[params.data.id]
               if (!node) return params.name
@@ -2502,7 +2566,16 @@
               const peerLine = peers.length
                 ? `<br/>跨学科对应：${peers.map((p) => `${SUBJECT_LABELS[getSubjectGroup(p.id)] || ''} · ${p.name}`).join('、')}`
                 : ''
-              return `<b>${node.name}</b><br/>学科：${SUBJECT_LABELS[getSubjectGroup(node.id)] || '—'}<br/>层级：${levelNames[level] || TYPE_LABELS[node.type]}<br/>类型：${TYPE_LABELS[node.type]}${peerLine}`
+              const book = bookTitleOf(node)
+              const unit = unitOf(node)
+              const placeLine = [
+                book ? `教材：${book}` : '',
+                unit && node.type !== 'unit' ? `单元：${unit.name}` : '',
+              ]
+                .filter(Boolean)
+                .join('<br/>')
+              const placeHtml = placeLine ? `<br/>${placeLine}` : ''
+              return `<b>${node.name}</b>${placeHtml}<br/>学科：${SUBJECT_LABELS[getSubjectGroup(node.id)] || '—'}<br/>层级：${levelNames[level] || TYPE_LABELS[node.type]}<br/>类型：${TYPE_LABELS[node.type]}${peerLine}`
             },
           },
           series: [
@@ -3022,41 +3095,51 @@
 
       function updateViewHint() {
         const scopeLabel =
-          { all: '全部', math: '数学', science: '科学' }[currentView] || ''
+          { all: '全部', math: '数学', science: '科学', chinese: '语文' }[currentView] ||
+          ''
         const hints = {
           structure: {
             all: '教材结构 · 全部：力导向展示学科/单元/知识点/课标/核心素养。拖拽节点、滚轮缩放；单击节点会聚拢邻域。',
             math: '教材结构 · 数学：力导向展示本学科节点与关系，交互与「全部」一致。',
             science:
               '教材结构 · 科学：力导向展示本学科节点与关系，交互与「全部」一致。',
+            chinese:
+              '教材结构 · 语文：力导向展示本学科节点与关系，交互与「全部」一致。',
           },
           progression: {
             all: '学习进阶 · 全部：力导向展示有前置关系的知识点。橙色箭头从「先学」指向「后学」；可拖拽、缩放、单击聚拢。',
             math: '学习进阶 · 数学：力导向展示数学知识点前置依赖，橙色箭头指向后学。',
             science: '学习进阶 · 科学：力导向展示科学知识点前置依赖，橙色箭头指向后学。',
+            chinese: '学习进阶 · 语文：力导向展示语文知识点前置依赖，橙色箭头指向后学。',
           },
           standards: {
             all: '课标对齐 · 全部：力导向展示知识点与课标要求，紫色虚线表示对齐关系；可拖拽、缩放、单击聚拢。',
-            math: '课标对齐 · 数学：力导向展示本册数学知识点与第二学段课标对齐。',
-            science: '课标对齐 · 科学：力导向展示本册科学知识点与 3—4 年级课标对齐。',
+            math: '课标对齐 · 数学：力导向展示数学知识点与对应学段课标对齐。',
+            science: '课标对齐 · 科学：力导向展示科学知识点与对应学段课标对齐。',
+            chinese: '课标对齐 · 语文：力导向展示语文知识点与对应学段课标对齐。',
           },
           cross: {
-            all: '跨学科：只保留有对应关系的知识点及其单元路径，橙色虚线连接数学与科学两侧。',
-            math: '跨学科：只保留有对应关系的知识点及其单元路径，橙色虚线连接数学与科学两侧。',
+            all: '跨学科：只保留有对应关系的知识点、课次及其单元路径。橙色虚线连接数学、科学、语文。',
+            math: '跨学科：只保留有对应关系的知识点、课次及其单元路径。橙色虚线连接数学、科学、语文。',
             science:
-              '跨学科：只保留有对应关系的知识点及其单元路径，橙色虚线连接数学与科学两侧。',
+              '跨学科：只保留有对应关系的知识点、课次及其单元路径。橙色虚线连接数学、科学、语文。',
+            chinese:
+              '跨学科：只保留有对应关系的知识点、课次及其单元路径。橙色虚线连接数学、科学、语文。',
           },
         }
         const text =
           hints[currentLens]?.[currentView] ||
           hints[currentLens]?.all ||
           `当前：${currentLens} / ${scopeLabel}`
-        document.getElementById('viewHint').textContent = text
+        const bookPrefix = currentBook === 'all' ? '' : `${currentBook} · `
+        document.getElementById('viewHint').textContent = bookPrefix + text
         document.getElementById('btnToggleDetail').style.display =
           currentLens === 'structure' ? 'block' : 'none'
         const showLessons =
           currentLens === 'structure' &&
-          (currentView === 'all' || currentView === 'science')
+          (currentView === 'all' ||
+            currentView === 'science' ||
+            currentView === 'chinese')
         document.getElementById('chkShowLessons').parentElement.style.display =
           showLessons ? '' : 'none'
         const showCrossLegend =
@@ -3119,11 +3202,16 @@
           const cluster = getThemeClusters().find((c) => c.themeId === node.id)
           if (cluster) {
             bodyHtml += `<div class="detail-field"><div class="label">关联知识点</div>`
-            cluster.mathIds.forEach((id) => {
-              bodyHtml += `<div class="cross-kp math" data-jump="${id}">${nodeMap[id].name}</div>`
-            })
-            cluster.sciIds.forEach((id) => {
-              bodyHtml += `<div class="cross-kp science" data-jump="${id}">${nodeMap[id].name}</div>`
+            ;[
+              ['math', cluster.mathIds],
+              ['science', cluster.sciIds],
+              ['chinese', cluster.chineseIds || []],
+            ].forEach(([cls, ids]) => {
+              ids.forEach((id) => {
+                const peer = nodeMap[id]
+                if (!peer) return
+                bodyHtml += `<div class="cross-kp ${cls}" data-jump="${id}">${peer.name}</div>`
+              })
             })
             bodyHtml += `</div>`
           }
@@ -3200,7 +3288,10 @@
             bodyHtml += `</div>`
           }
 
-          if (node.type === 'unit' && getSubjectGroup(node.id) === 'science') {
+          if (
+            node.type === 'unit' &&
+            ['science', 'chinese', 'math'].includes(getSubjectGroup(node.id))
+          ) {
             const lessons = outEdges
               .filter((e) => e.relation === 'contains')
               .map((e) => nodeMap[e.target])
@@ -3359,14 +3450,10 @@
 
       function initLegend() {
         const subjectLegend = document.getElementById('subjectLegend')
-        ;[
-          { color: '#2563eb', label: '数学' },
-          { color: '#059669', label: '科学' },
-          { color: '#ea580c', label: '跨学科' },
-        ].forEach((s) => {
+        ;['math', 'science', 'chinese', 'cross'].forEach((key) => {
           const item = document.createElement('div')
           item.className = 'legend-item'
-          item.innerHTML = `<span class="swatch" style="background:${s.color}"></span>${s.label}`
+          item.innerHTML = `<span class="swatch" style="background:${SUBJECT_COLORS[key]}"></span>${SUBJECT_LABELS[key]}`
           subjectLegend.appendChild(item)
         })
 
@@ -3403,6 +3490,16 @@
         const btn = e.target.closest('button')
         if (!btn || currentLens === 'cross') return
         applyLensAndScope(currentLens, btn.dataset.view)
+      })
+
+      document.getElementById('bookTabs').addEventListener('click', (e) => {
+        const btn = e.target.closest('button')
+        if (!btn || btn.dataset.book === currentBook) return
+        currentBook = btn.dataset.book
+        selectedNodeId = null
+        updateDetailIdleState()
+        updateScopeTabsUi()
+        updateMainDisplay()
       })
 
       let searchTimer = null
@@ -3694,7 +3791,7 @@
         }
 
         const validLens = ['structure', 'progression', 'standards', 'cross']
-        const validView = ['all', 'math', 'science']
+        const validView = ['all', 'math', 'science', 'chinese']
         if (validLens.includes(lens) || validView.includes(view)) {
           applyLensAndScope(
             validLens.includes(lens) ? lens : 'structure',

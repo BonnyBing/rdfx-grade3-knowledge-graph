@@ -28,7 +28,7 @@ function buildSummary(info, resolved) {
   const scope = info.focus_name
     ? `以「${info.focus_name}」为中心、向外 ${info.depth} 层的关联子图`
     : `${
-        { all: '数学与科学全部概要', math: '数学', science: '科学', cross: '跨学科关联' }[
+        { all: '数学、科学与语文全部概要', math: '数学', science: '科学', chinese: '语文', cross: '跨学科关联' }[
           info.view
         ]
       }图谱`

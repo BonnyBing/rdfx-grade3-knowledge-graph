@@ -15,9 +15,12 @@ const { loadSnapshot, saveImage, saveSnapshot, shortId } = require('../lib/snaps
 const { renderGraph } = require('../lib/render-png.js')
 
 function pickSubgraph(snapshot, raw) {
-  let relationIds = Array.isArray(raw.relation_ids)
-    ? raw.relation_ids.map(String)
-    : []
+  const rawRelationIds = Array.isArray(raw.relation_ids)
+    ? raw.relation_ids
+    : Array.isArray(raw.Relation_ids)
+      ? raw.Relation_ids
+      : []
+  let relationIds = rawRelationIds.map(String)
   let subjectFilter = null
   if (raw.subject) {
     subjectFilter = normalizeSubject(raw.subject)

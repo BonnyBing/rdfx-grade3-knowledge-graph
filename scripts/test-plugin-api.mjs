@@ -156,7 +156,7 @@ async function main() {
     )
   }
 
-  // 5 跨年级拒绝
+  // 5 跨年级拒绝：四年级已入库，但不得把三年级的混合运算串过来
   {
     const r = await call('knowledge-search.js', {
       main_subject: '数学',
@@ -164,7 +164,29 @@ async function main() {
       semester: '上册',
       query: '混合运算',
     })
-    assert('同名不同年级不串范围', r.status === 'out_of_scope', r.status)
+    const leaked = (r.matches || []).some((m) =>
+      (m.candidates || []).some((c) => c.scope?.grade === '三年级'),
+    )
+    assert(
+      '同名不同年级不串范围',
+      r.status === 'not_found' && !leaked,
+      r.status,
+    )
+  }
+
+  {
+    const r = await call('knowledge-search.js', {
+      main_subject: '语文',
+      grade: '四年级',
+      semester: '上册',
+      query: '观潮',
+    })
+    const top = r.matches?.[0]?.candidates?.[0]
+    assert(
+      '四年级语文可查',
+      top?.node_id === 'C4-U01-L1' && top?.scope?.grade === '四年级',
+      top?.node_id || r.status,
+    )
   }
 
   // 6 活动主题
@@ -185,10 +207,10 @@ async function main() {
   // 7 未覆盖学科
   {
     const r = await call('knowledge-search.js', {
-      main_subject: '语文',
+      main_subject: '英语',
       grade: '三年级',
       semester: '上册',
-      query: '汉字',
+      query: '字母',
     })
     assert('未覆盖学科', r.status === 'out_of_scope', r.status)
   }

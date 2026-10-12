@@ -138,6 +138,14 @@
     '#6ee7b7',
   ]
 
+  const CHINESE_LEVEL_COLORS = [
+    '#4c1d95',
+    '#6d28d9',
+    '#7c3aed',
+    '#a78bfa',
+    '#ddd6fe',
+  ]
+
   const MATH_SHADES = {
     subject: '#1e3a8a',
     domain: '#1d4ed8',
@@ -160,11 +168,17 @@
     competency: '#a7f3d0',
   }
 
-  const SUBJECT_LABELS = { math: '数学', science: '科学', cross: '跨学科' }
+  const SUBJECT_LABELS = {
+    math: '数学',
+    science: '科学',
+    chinese: '语文',
+    cross: '跨学科',
+  }
 
   const SUBJECT_COLORS = {
     math: '#2563eb',
     science: '#059669',
+    chinese: '#7c3aed',
     cross: '#ea580c',
   }
 
@@ -201,6 +215,7 @@
     const currentLens =
       state.lens ?? (rawView === 'cross' ? 'cross' : 'structure')
     const currentView = rawView === 'cross' ? 'all' : rawView
+    const currentBook = state.book && state.book !== 'all' ? state.book : 'all'
     const layoutMode = state.layoutMode ?? 'overview'
     const showAllDetail = state.showAllDetail ?? false
     const showScienceLessons = state.showScienceLessons ?? false
@@ -285,12 +300,28 @@
       return '三年级'
     }
 
+    function bookRank(n) {
+      const grades = { 三年级: 3, 四年级: 4, 五年级: 5, 六年级: 6 }
+      const g = grades[n?.grade] || grades[nodeGrade(n)] || 9
+      const s = n?.semester === '下册' ? 1 : 0
+      return g * 10 + s
+    }
+
     function getSubjectGroup(id) {
       const bare = bareNodeId(id)
       if (bare.startsWith('X')) return 'cross'
       if (bare.startsWith('M')) return 'math'
       if (bare.startsWith('S')) return 'science'
+      if (bare.startsWith('C')) return 'chinese'
       return 'other'
+    }
+
+    function clusterMemberIds(cluster) {
+      return [
+        ...(cluster.mathIds || []),
+        ...(cluster.sciIds || []),
+        ...(cluster.chineseIds || []),
+      ]
     }
 
     function getThemeClusters() {
@@ -300,34 +331,45 @@
           const links = GRAPH_DATA.edges.filter(
             (e) => e.source === theme.id && e.relation === 'cross_links',
           )
-          const mathIds = sortChildIds(
-            links
-              .map((e) => e.target)
-              .filter((id) => getSubjectGroup(id) === 'math'),
-          )
-          const sciIds = sortChildIds(
-            links
-              .map((e) => e.target)
-              .filter((id) => getSubjectGroup(id) === 'science'),
-          )
-          return { themeId: theme.id, mathIds, sciIds }
+          const pick = (group) =>
+            sortChildIds(
+              links
+                .map((e) => e.target)
+                .filter((id) => getSubjectGroup(id) === group),
+            )
+          const mathIds = pick('math')
+          const sciIds = pick('science')
+          const chineseIds = pick('chinese')
+          return { themeId: theme.id, mathIds, sciIds, chineseIds }
         })
-        .filter((c) => c.mathIds.length && c.sciIds.length)
+        .filter((c) => {
+          const groups = [c.mathIds, c.sciIds, c.chineseIds].filter(
+            (ids) => ids.length,
+          )
+          return groups.length >= 2
+        })
     }
 
     function buildKnowledgeCrossEdges(nodeIdSet) {
       const edges = []
       const seen = new Set()
-      getThemeClusters().forEach(({ mathIds, sciIds }) => {
-        mathIds.forEach((m) => {
-          sciIds.forEach((s) => {
-            if (!nodeIdSet.has(m) || !nodeIdSet.has(s)) return
-            const key = m < s ? `${m}|${s}` : `${s}|${m}`
-            if (seen.has(key)) return
-            seen.add(key)
-            edges.push({ source: m, target: s, relation: 'cross_links' })
-          })
-        })
+      getThemeClusters().forEach((cluster) => {
+        const groups = [cluster.mathIds, cluster.sciIds, cluster.chineseIds].filter(
+          (ids) => ids.length,
+        )
+        for (let i = 0; i < groups.length; i++) {
+          for (let j = i + 1; j < groups.length; j++) {
+            groups[i].forEach((a) => {
+              groups[j].forEach((b) => {
+                if (!nodeIdSet.has(a) || !nodeIdSet.has(b)) return
+                const key = a < b ? `${a}|${b}` : `${b}|${a}`
+                if (seen.has(key)) return
+                seen.add(key)
+                edges.push({ source: a, target: b, relation: 'cross_links' })
+              })
+            })
+          }
+        }
       })
       return edges
     }
@@ -355,18 +397,14 @@
 
     function getCrossKnowledgePeers(nodeId) {
       const subject = getSubjectGroup(nodeId)
-      if (subject !== 'math' && subject !== 'science') return []
+      if (!['math', 'science', 'chinese'].includes(subject)) return []
       const peers = []
       const seen = new Set()
       getThemeClusters().forEach((cluster) => {
-        if (
-          !cluster.mathIds.includes(nodeId) &&
-          !cluster.sciIds.includes(nodeId)
-        )
-          return
-        const peerIds = subject === 'math' ? cluster.sciIds : cluster.mathIds
-        peerIds.forEach((id) => {
-          if (seen.has(id)) return
+        if (!clusterMemberIds(cluster).includes(nodeId)) return
+        clusterMemberIds(cluster).forEach((id) => {
+          if (id === nodeId || getSubjectGroup(id) === subject || seen.has(id))
+            return
           seen.add(id)
           const n = nodeMap[id]
           if (n) peers.push(n)
@@ -376,9 +414,7 @@
     }
 
     function isCrossLinkedNode(id) {
-      return getThemeClusters().some(
-        (c) => c.mathIds.includes(id) || c.sciIds.includes(id),
-      )
+      return getThemeClusters().some((c) => clusterMemberIds(c).includes(id))
     }
 
     function getCrossRelevantNodeIds() {
@@ -393,9 +429,11 @@
           current = containEdge?.source || null
         }
       }
-      getThemeClusters().forEach(({ mathIds, sciIds }) => {
-        ;[...mathIds, ...sciIds].forEach((kpId) => {
+      getThemeClusters().forEach((cluster) => {
+        clusterMemberIds(cluster).forEach((kpId) => {
           ids.add(kpId)
+          // 语文跨学科落在课次上，课次没有 teaches 父节点，要沿 contains 带回单元和学科
+          addStructuralAncestors(kpId)
           let parentId = getTeachingParent(kpId)
           while (parentId) {
             ids.add(parentId)
@@ -475,9 +513,17 @@
       return null
     }
 
+    function matchesBook(id) {
+      if (currentBook === 'all') return true
+      const n = nodeMap[id]
+      if (!n?.grade || !n?.semester) return false
+      return `${n.grade}${n.semester}` === currentBook
+    }
+
     function matchesScope(id) {
       if (currentView === 'math') return getSubjectGroup(id) === 'math'
       if (currentView === 'science') return getSubjectGroup(id) === 'science'
+      if (currentView === 'chinese') return getSubjectGroup(id) === 'chinese'
       return true
     }
 
@@ -500,6 +546,8 @@
           SCIENCE_SHADES[n.type] ||
           '#34d399'
         )
+      if (subject === 'chinese')
+        return CHINESE_LEVEL_COLORS[Math.min(level, 4)] || '#c4b5fd'
       if (n.type === 'cross_disciplinary_theme') return '#ea580c'
       return TYPE_COLORS[n.type]
     }
@@ -538,6 +586,7 @@
       const colors = {
         math: ['#1e3a8a', '#1e40af', '#1d4ed8', '#2563eb', '#3b82f6'],
         science: ['#064e3b', '#065f46', '#047857', '#059669', '#10b981'],
+        chinese: ['#4c1d95', '#5b21b6', '#6d28d9', '#7c3aed', '#a78bfa'],
         cross: ['#9a3412', '#9a3412', '#c2410c', '#ea580c', '#fb923c'],
       }
       const sub =
@@ -545,7 +594,9 @@
           ? 'math'
           : subject === 'science'
             ? 'science'
-            : 'cross'
+            : subject === 'chinese'
+              ? 'chinese'
+              : 'cross'
       const idx = Math.min(level, 4)
       return {
         fontSize: fontSizes[idx],
@@ -746,6 +797,7 @@
         return true
       }
       if (n.id === selectedNodeId) return true
+      if (currentLens === 'cross' && n.type === 'lesson') return true
       if (layoutMode === 'force' || layoutMode === 'grade-bands') {
         // 力导向也显示知识点等标签；长标题在 getNodeLabel 里截短，悬停看全名
         if (searchQuery && nodeMatchesSearch(n, searchQuery)) return true
@@ -834,6 +886,7 @@
       return GRAPH_DATA.nodes.filter((n) => {
         if (focusIds && !focusIds.has(n.id)) return false
         if (n.type === 'cross_disciplinary_theme') return false
+        if (!matchesBook(n.id)) return false
 
         if (currentLens === 'progression') {
           if (n.type !== 'knowledge') return false
@@ -1315,6 +1368,9 @@
         const sciNodes = nodes.filter(
           (n) => getSubjectGroup(n.id) === 'science',
         )
+        const chineseNodes = nodes.filter(
+          (n) => getSubjectGroup(n.id) === 'chinese',
+        )
         const mathRootX = LAYOUT.mathRootX
         const depthX = activeDepthX
         const positions = {}
@@ -1343,11 +1399,7 @@
               (n) =>
                 n.type === 'subject' && getSubjectGroup(n.id) === subjectGroup,
             )
-            .sort((a, b) => {
-              const ga = a.grade === '五年级' ? 1 : 0
-              const gb = b.grade === '五年级' ? 1 : 0
-              return ga - gb || (a.order ?? 0) - (b.order ?? 0)
-            })
+            .sort((a, b) => bookRank(a) - bookRank(b) || (a.order ?? 0) - (b.order ?? 0))
           let y = startY
           const ids = []
           roots.forEach((root) => {
@@ -1392,6 +1444,23 @@
           LAYOUT.overviewMinGap,
         )
         separateMathAndScience(positions, mathIds, sciIds)
+
+        const sciBoxAfter = sideBoundingBox(positions, sciIds)
+        const chineseStartY =
+          (sciBoxAfter ? sciBoxAfter.maxY : scienceStack.bottom || scienceStartY) +
+          LAYOUT.scienceBelowGap
+        const chineseStack = stackGrades(
+          chineseNodes,
+          'chinese',
+          mathRootX,
+          chineseStartY,
+        )
+        const chiIds = chineseStack.ids
+        resolveVisualBoxOverlaps(
+          positions,
+          [...mathIds, ...sciIds, ...chiIds],
+          LAYOUT.overviewMinGap,
+        )
 
         return positions
       } finally {
@@ -1586,12 +1655,7 @@
         .filter(
           (n) => n.type === 'subject' && getSubjectGroup(n.id) === subjectGroup,
         )
-        .sort((a, b) => {
-          const ga = a.grade === '五年级' ? 1 : 0
-          const gb = b.grade === '五年级' ? 1 : 0
-          if (ga !== gb) return ga - gb
-          return (a.order ?? 0) - (b.order ?? 0)
-        })
+        .sort((a, b) => bookRank(a) - bookRank(b) || (a.order ?? 0) - (b.order ?? 0))
       const positions = {}
       let yCursor = 40
       const fallbackRoot = subjectGroup === 'science' ? 'S' : 'M'
@@ -1619,16 +1683,18 @@
     function computeHierarchyPositions(nodes) {
       if (currentView === 'math') return layoutStackedSubjects(nodes, 'math')
       if (currentView === 'science') return layoutStackedSubjects(nodes, 'science')
+      if (currentView === 'chinese') return layoutStackedSubjects(nodes, 'chinese')
       if (currentView === 'all') {
-        // 全部范围：数学在上、科学在下；每一科内部再按年级分成上下两块
         const mathN = nodes.filter(
           (n) =>
             getSubjectGroup(n.id) === 'math' ||
             getSubjectGroup(n.id) === 'cross',
         )
         const sciN = nodes.filter((n) => getSubjectGroup(n.id) === 'science')
+        const chiN = nodes.filter((n) => getSubjectGroup(n.id) === 'chinese')
         const mathPos = layoutStackedSubjects(mathN, 'math')
         const sciPos = layoutStackedSubjects(sciN, 'science')
+        const chiPos = layoutStackedSubjects(chiN, 'chinese')
         const mathBox = sideBoundingBox(mathPos, Object.keys(mathPos))
         const sciBox = sideBoundingBox(sciPos, Object.keys(sciPos))
         if (mathBox && sciBox) {
@@ -1637,7 +1703,16 @@
             sciPos[id].y += Math.max(dy, 0)
           })
         }
-        return { ...mathPos, ...sciPos }
+        const placedSci = sideBoundingBox(sciPos, Object.keys(sciPos))
+        const chiBox = sideBoundingBox(chiPos, Object.keys(chiPos))
+        const floor = placedSci?.maxY ?? mathBox?.maxY ?? 0
+        if (chiBox) {
+          const dy = floor + 140 - chiBox.minY
+          Object.keys(chiPos).forEach((id) => {
+            chiPos[id].y += Math.max(dy, 0)
+          })
+        }
+        return { ...mathPos, ...sciPos, ...chiPos }
       }
       return layoutStackedSubjects(nodes, 'science')
     }
@@ -2026,11 +2101,11 @@
     }
 
     function getCrossCluster(nodeId, visibleIds) {
-      const cluster = getThemeClusters().find(
-        (c) => c.mathIds.includes(nodeId) || c.sciIds.includes(nodeId),
+      const cluster = getThemeClusters().find((c) =>
+        clusterMemberIds(c).includes(nodeId),
       )
       if (!cluster) return null
-      return [...cluster.mathIds, ...cluster.sciIds].filter((id) =>
+      return clusterMemberIds(cluster).filter((id) =>
         visibleIds.has(id),
       )
     }
@@ -2165,6 +2240,7 @@
       const subject = getSubjectGroup(n.id)
       if (subject === 'math') return '#2563eb'
       if (subject === 'science') return '#059669'
+      if (subject === 'chinese') return '#7c3aed'
       return '#ea580c'
     }
 
@@ -2223,7 +2299,8 @@
         }
       }
       if (e.relation === 'contains') {
-        const idle = sub === 'science' ? '#059669' : '#2563eb'
+        const idle =
+          sub === 'science' ? '#059669' : sub === 'chinese' ? '#7c3aed' : '#2563eb'
         return {
           color: onPath || !dim ? idle : '#c3d2e6',
           width: onPath ? 3.2 : dim ? 1 : 2.15,
@@ -2292,17 +2369,8 @@
 
     function styleEdge(e) {
       if (e.relation === 'cross_links') {
-        const srcSub = getSubjectGroup(e.source)
-        const tgtSub = getSubjectGroup(e.target)
-        const isMathSci =
-          (srcSub === 'math' && tgtSub === 'science') ||
-          (srcSub === 'science' && tgtSub === 'math')
         return {
-          color: isMathSci
-            ? '#ea580c'
-            : tgtSub === 'math'
-              ? '#2563eb'
-              : '#059669',
+          color: '#ea580c',
           width: 2,
           type: 'dashed',
           curveness: 0.2,
@@ -2318,7 +2386,9 @@
             ? MATH_LEVEL_COLORS
             : sub === 'science'
               ? SCIENCE_LEVEL_COLORS
-              : ['#94a3b8']
+              : sub === 'chinese'
+                ? CHINESE_LEVEL_COLORS
+                : ['#94a3b8']
         return {
           color: palette[Math.min(level, 2)] || '#94a3b8',
           width: Math.max(1.5, 3.2 - level * 0.5),
@@ -2335,7 +2405,9 @@
               ? '#93c5fd'
               : sub === 'science'
                 ? '#6ee7b7'
-                : '#cbd5e1',
+                : sub === 'chinese'
+                  ? '#c4b5fd'
+                  : '#cbd5e1',
           width: 1.5,
           type: 'dashed',
           curveness: layoutMode === 'overview' ? 0.14 : 0.04,
@@ -2412,7 +2484,7 @@
         if (!level.has(id)) level.set(id, 0)
       })
 
-      const bySubject = { math: [], science: [], other: [] }
+      const bySubject = { math: [], science: [], chinese: [], other: [] }
       nodes.forEach((n) => {
         const g = getSubjectGroup(n.id)
           ; (bySubject[g] || bySubject.other).push(n)
@@ -2423,7 +2495,7 @@
       const rowGap = 72
       let yBase = 80
 
-        ;['math', 'science', 'other'].forEach((sub) => {
+        ;['math', 'science', 'chinese', 'other'].forEach((sub) => {
           const group = bySubject[sub]
           if (!group.length) return
           const byLevel = new Map()
@@ -2473,7 +2545,7 @@
       const rowGap = 52
       let yBase = 80
 
-        ;['math', 'science'].forEach((sub) => {
+        ;['math', 'science', 'chinese'].forEach((sub) => {
           const kps = sortChildIds(
             knowledge
               .filter((n) => getSubjectGroup(n.id) === sub)
@@ -2542,10 +2614,18 @@
     }
 
     function computeGradeBandPositions(nodes) {
-      const preferred = ['三年级', '五年级']
+      const preferred = [
+        '三年级上册',
+        '四年级上册',
+        '四年级下册',
+        '五年级上册',
+        '五年级下册',
+        '六年级上册',
+        '六年级下册',
+      ]
       const present = []
       nodes.forEach((n) => {
-        const g = nodeGrade(n)
+        const g = `${nodeGrade(n)}${n.semester || '上册'}`
         if (!present.includes(g)) present.push(g)
       })
       present.sort((a, b) => {
@@ -2568,9 +2648,11 @@
       const rowH = 42
       let y = 48
       present.forEach((grade) => {
-        ;['math', 'science', 'cross'].forEach((group) => {
+        ;['math', 'science', 'chinese', 'cross'].forEach((group) => {
           const items = nodes.filter(
-            (n) => nodeGrade(n) === grade && getSubjectGroup(n.id) === group,
+            (n) =>
+              `${nodeGrade(n)}${n.semester || '上册'}` === grade &&
+              getSubjectGroup(n.id) === group,
           )
           if (!items.length) return
           const byType = {}
@@ -2604,7 +2686,7 @@
 
     function computeForceSeedPositions(nodes) {
       const positions = {}
-      const groups = { math: [], science: [], cross: [] }
+      const groups = { math: [], science: [], chinese: [], cross: [] }
       nodes.forEach((n) => {
         const g = getSubjectGroup(n.id)
         const bucket = groups[g] ? g : 'cross'
@@ -2622,6 +2704,7 @@
       }
       place(groups.math, 300, 420, 86)
       place(groups.science, 1020, 390, 86)
+      place(groups.chinese, 1680, 420, 86)
       place(groups.cross, 660, 260, 96)
       return positions
     }
