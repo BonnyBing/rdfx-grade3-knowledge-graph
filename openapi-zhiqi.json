@@ -7,8 +7,8 @@
   },
   "servers": [
     {
-      "url": "https://1304703298-cmqu6br21n.ap-hongkong.tencentscf.com",
-      "description": "智启专用腾讯云香港中转地址"
+      "url": "http://10.20.0.34:8099",
+      "description": "公司服务器 Docker 端口直出（知识图谱）"
     }
   ],
   "paths": {

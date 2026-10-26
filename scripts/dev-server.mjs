@@ -131,6 +131,7 @@ const server = http.createServer(async (req, res) => {
   }
 })
 
-server.listen(port, () => {
-  console.log(`知识图谱本地服务: http://127.0.0.1:${port}/`)
+const host = process.env.HOST || '0.0.0.0'
+server.listen(port, host, () => {
+  console.log(`知识图谱服务: http://${host}:${port}/`)
 })

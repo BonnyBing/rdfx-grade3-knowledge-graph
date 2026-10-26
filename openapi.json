@@ -2,17 +2,21 @@
   "openapi": "3.0.1",
   "info": {
     "title": "智启知识图谱插件",
-    "description": "供智启智能体调用智启知识图谱：知识点查询 → 跨学科关系查询（快照）→ 动态出图 → 快照读取。图谱正从三年级上册数学与科学起步，目标逐步覆盖全学段全学科。\n\n重要：平台外层 HTTP 200 / code=200 仅表示调用完成；业务是否成功必须检查本接口返回体中的 status 与 image_status。\n\n本接口不做大模型推理或 Embedding。活动主题（如「做月饼」）须由智启先拆解为本学科知识点候选，经教师确认后再查询。\n\n智启接入必须使用腾讯云香港中转 URL（见 servers[0]），原因：智启国内机房无法访问 *.vercel.app。",
+    "description": "供智启智能体调用智启知识图谱：知识点查询 → 跨学科关系查询（快照）→ 动态出图 → 快照读取。图谱正从三年级上册数学与科学起步，目标逐步覆盖全学段全学科。\n\n重要：平台外层 HTTP 200 / code=200 仅表示调用完成；业务是否成功必须检查本接口返回体中的 status 与 image_status。\n\n本接口不做大模型推理或 Embedding。活动主题（如「做月饼」）须由智启先拆解为本学科知识点候选，经教师确认后再查询。\n\n公司 Docker 部署时使用 servers[0]；旧 Vercel/腾讯云中转见其余项。",
     "version": "2.0.0"
   },
   "servers": [
     {
+      "url": "http://10.20.0.34:8099",
+      "description": "公司服务器 Docker 端口直出（优先导入）"
+    },
+    {
       "url": "https://1304703298-cmqu6br21n.ap-hongkong.tencentscf.com",
-      "description": "智启专用：腾讯云香港中转（请用此地址导入插件）"
+      "description": "旧：腾讯云香港中转"
     },
     {
       "url": "https://rdfx-grade3-kg-deploy.vercel.app",
-      "description": "Vercel 源站（浏览器/本地；智启机房通常不可用）"
+      "description": "旧：Vercel 源站"
     }
   ],
   "components": {

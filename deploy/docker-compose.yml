@@ -1,0 +1,73 @@
+# 智启双插件：知识图谱 :8099 + Markdown→Word :8100
+# 用法见 ../docs/docker-deploy.md；在 deploy/ 目录下执行 docker compose
+
+name: zhiqi-plugins
+
+services:
+  kg-api:
+    build:
+      context: ${KG_DIR:-..}
+      dockerfile: Dockerfile
+    container_name: zhiqi-kg-api
+    ports:
+      - "8099:8099"
+    environment:
+      HOST: "0.0.0.0"
+      PORT: "8099"
+      PLUGIN_API_KEY: ${PLUGIN_API_KEY}
+      PUBLIC_BASE_URL: ${PUBLIC_BASE_URL_KG:-http://10.20.0.34:8099}
+      SNAPSHOT_DIR: /data
+    volumes:
+      - kg-data:/data
+    restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:8099/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+  word-api:
+    build:
+      context: ${WORD_DIR:-../../word}
+      dockerfile: Dockerfile
+    container_name: zhiqi-word-api
+    ports:
+      - "8100:8100"
+    environment:
+      HOST: "0.0.0.0"
+      PORT: "8100"
+      DOCX_API_KEY: ${DOCX_API_KEY}
+      PUBLIC_BASE_URL: ${PUBLIC_BASE_URL_WORD:-http://10.20.0.34:8100}
+      LOCAL_STORAGE_DIR: /data
+      TRUSTED_IMAGE_HOSTS: ${TRUSTED_IMAGE_HOSTS:-10.20.0.34}
+      FILE_RETENTION_HOURS: ${FILE_RETENTION_HOURS:-72}
+      CLEANUP_ENABLED: ${CLEANUP_ENABLED:-false}
+      CRON_SECRET: ${CRON_SECRET:-}
+      MAX_MARKDOWN_BYTES: ${MAX_MARKDOWN_BYTES:-122880}
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-}
+    volumes:
+      - word-data:/data
+    restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:8100/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 25s
+
+volumes:
+  kg-data:
+  word-data:

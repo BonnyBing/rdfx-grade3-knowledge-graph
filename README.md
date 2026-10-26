@@ -18,9 +18,9 @@
 | 节点检索（兼容） | `POST /api/search` | 旧版名称模糊匹配 |
 | 云端保存 | `POST /api/save-graph` | 页面编辑后写回 GitHub（需配置令牌） |
 
-智启接入说明见 [docs/zhiqi-plugin-guide.md](docs/zhiqi-plugin-guide.md)。部署步骤见 [docs/deployment.md](docs/deployment.md)。本地回归：`npm run test:plugin`。
+智启接入说明见 [docs/zhiqi-plugin-guide.md](docs/zhiqi-plugin-guide.md)。Vercel 部署见 [docs/deployment.md](docs/deployment.md)。**公司 Docker 部署**见 [docs/docker-deploy.md](docs/docker-deploy.md)。本地回归：`npm run test:plugin`。
 
-生产域名：`https://rdfx-grade3-kg-deploy.vercel.app`（需配置 `BLOB_READ_WRITE_TOKEN` 后快照出图才可持久化）。
+公司机示例：`http://10.20.0.34:8099`。旧 Vercel：`https://rdfx-grade3-kg-deploy.vercel.app`。
 
 ## 快速开始
 
