@@ -915,7 +915,7 @@
       <div>
         <h1 id="headerTitle">智启知识图谱</h1>
         <div class="meta" id="headerMeta">
-          版本 3.0 · 三至六年级 · 数学 / 科学 / 语文
+          版本 3.2 · 三至六年级 · 数学 / 科学 / 语文 / 英语 / 道德与法治
         </div>
       </div>
       <div class="header-actions">
@@ -953,17 +953,20 @@
 
         <section>
           <h2>学科范围</h2>
-          <p class="sidebar-section-label" id="scopeHint">全部 / 数学 / 科学 / 语文</p>
+          <p class="sidebar-section-label" id="scopeHint">全部 / 数学 / 科学 / 语文 / 英语 / 道法</p>
           <div class="view-tabs" id="scopeTabs">
             <button class="active" data-view="all">全部</button>
             <button data-view="math">数学</button>
             <button data-view="science">科学</button>
             <button data-view="chinese">语文</button>
+            <button data-view="english">英语</button>
+            <button data-view="moral">道法</button>
           </div>
           <p class="sidebar-section-label" style="margin-top: 10px">册次</p>
           <div class="view-tabs" id="bookTabs">
             <button class="active" data-book="all">全部</button>
             <button data-book="三年级上册" title="三年级上册">三上</button>
+            <button data-book="三年级下册" title="三年级下册">三下</button>
             <button data-book="四年级上册" title="四年级上册">四上</button>
             <button data-book="四年级下册" title="四年级下册">四下</button>
             <button data-book="五年级上册" title="五年级上册">五上</button>
@@ -996,7 +999,7 @@
 
         <section id="viewHintSection">
           <div class="subject-zone-hint" id="viewHint">
-            全部概要：数学、科学、语文按册次排在同一张图里。橙色虚线是跨学科关系。
+            全部概要：数学、科学、语文、英语、道德与法治按册次排在同一张图里。橙色虚线是跨学科关系。
           </div>
           <button type="button" class="toggle-detail" id="btnToggleDetail">
             展开课时等更细节点
@@ -2221,8 +2224,8 @@
         const disabled = currentLens === 'cross'
         scopeTabs.classList.toggle('scope-tabs-disabled', disabled)
         scopeHint.textContent = disabled
-          ? '跨学科同时看数学、科学、语文，学科按钮暂不生效；册次仍然可以选'
-          : '学科选全部 / 数学 / 科学 / 语文，册次可再收窄'
+          ? '跨学科同时看各学科，学科按钮暂不生效；册次仍然可以选'
+          : '学科选全部 / 数学 / 科学 / 语文 / 英语 / 道法，册次可再收窄'
         document.querySelectorAll('#scopeTabs button').forEach((b) => {
           b.classList.toggle('active', b.dataset.view === currentView)
         })

@@ -146,6 +146,22 @@
     '#ddd6fe',
   ]
 
+  const ENGLISH_LEVEL_COLORS = [
+    '#164e63',
+    '#0e7490',
+    '#0891b2',
+    '#22d3ee',
+    '#a5f3fc',
+  ]
+
+  const MORAL_LEVEL_COLORS = [
+    '#7c2d12',
+    '#9a3412',
+    '#c2410c',
+    '#ea580c',
+    '#fdba74',
+  ]
+
   const MATH_SHADES = {
     subject: '#1e3a8a',
     domain: '#1d4ed8',
@@ -172,6 +188,8 @@
     math: '数学',
     science: '科学',
     chinese: '语文',
+    english: '英语',
+    moral: '道德与法治',
     cross: '跨学科',
   }
 
@@ -179,8 +197,12 @@
     math: '#2563eb',
     science: '#059669',
     chinese: '#7c3aed',
+    english: '#0891b2',
+    moral: '#c2410c',
     cross: '#ea580c',
   }
+
+  const SUBJECT_GROUPS = ['math', 'science', 'chinese', 'english', 'moral']
 
   const STATUS_OPTIONS = Object.keys(STATUS_LABELS)
 
@@ -313,6 +335,8 @@
       if (bare.startsWith('M')) return 'math'
       if (bare.startsWith('S')) return 'science'
       if (bare.startsWith('C')) return 'chinese'
+      if (bare.startsWith('E')) return 'english'
+      if (bare.startsWith('D')) return 'moral'
       return 'other'
     }
 
@@ -321,6 +345,8 @@
         ...(cluster.mathIds || []),
         ...(cluster.sciIds || []),
         ...(cluster.chineseIds || []),
+        ...(cluster.englishIds || []),
+        ...(cluster.moralIds || []),
       ]
     }
 
@@ -340,10 +366,12 @@
           const mathIds = pick('math')
           const sciIds = pick('science')
           const chineseIds = pick('chinese')
-          return { themeId: theme.id, mathIds, sciIds, chineseIds }
+          const englishIds = pick('english')
+          const moralIds = pick('moral')
+          return { themeId: theme.id, mathIds, sciIds, chineseIds, englishIds, moralIds }
         })
         .filter((c) => {
-          const groups = [c.mathIds, c.sciIds, c.chineseIds].filter(
+          const groups = [c.mathIds, c.sciIds, c.chineseIds, c.englishIds, c.moralIds].filter(
             (ids) => ids.length,
           )
           return groups.length >= 2
@@ -354,7 +382,7 @@
       const edges = []
       const seen = new Set()
       getThemeClusters().forEach((cluster) => {
-        const groups = [cluster.mathIds, cluster.sciIds, cluster.chineseIds].filter(
+        const groups = [cluster.mathIds, cluster.sciIds, cluster.chineseIds, cluster.englishIds, cluster.moralIds].filter(
           (ids) => ids.length,
         )
         for (let i = 0; i < groups.length; i++) {
@@ -397,7 +425,7 @@
 
     function getCrossKnowledgePeers(nodeId) {
       const subject = getSubjectGroup(nodeId)
-      if (!['math', 'science', 'chinese'].includes(subject)) return []
+      if (!SUBJECT_GROUPS.includes(subject)) return []
       const peers = []
       const seen = new Set()
       getThemeClusters().forEach((cluster) => {
@@ -521,9 +549,7 @@
     }
 
     function matchesScope(id) {
-      if (currentView === 'math') return getSubjectGroup(id) === 'math'
-      if (currentView === 'science') return getSubjectGroup(id) === 'science'
-      if (currentView === 'chinese') return getSubjectGroup(id) === 'chinese'
+      if (SUBJECT_GROUPS.includes(currentView)) return getSubjectGroup(id) === currentView
       return true
     }
 
@@ -548,6 +574,10 @@
         )
       if (subject === 'chinese')
         return CHINESE_LEVEL_COLORS[Math.min(level, 4)] || '#c4b5fd'
+      if (subject === 'english')
+        return ENGLISH_LEVEL_COLORS[Math.min(level, 4)] || '#67e8f9'
+      if (subject === 'moral')
+        return MORAL_LEVEL_COLORS[Math.min(level, 4)] || '#fdba74'
       if (n.type === 'cross_disciplinary_theme') return '#ea580c'
       return TYPE_COLORS[n.type]
     }
@@ -559,6 +589,12 @@
         return MATH_LEVEL_COLORS[Math.min(level, 2)] || '#1d4ed8'
       if (subject === 'science')
         return SCIENCE_LEVEL_COLORS[Math.min(level, 2)] || '#047857'
+      if (subject === 'chinese')
+        return CHINESE_LEVEL_COLORS[Math.min(level, 2)] || '#6d28d9'
+      if (subject === 'english')
+        return ENGLISH_LEVEL_COLORS[Math.min(level, 2)] || '#0e7490'
+      if (subject === 'moral')
+        return MORAL_LEVEL_COLORS[Math.min(level, 2)] || '#9a3412'
       return '#c2410c'
     }
 
@@ -587,16 +623,11 @@
         math: ['#1e3a8a', '#1e40af', '#1d4ed8', '#2563eb', '#3b82f6'],
         science: ['#064e3b', '#065f46', '#047857', '#059669', '#10b981'],
         chinese: ['#4c1d95', '#5b21b6', '#6d28d9', '#7c3aed', '#a78bfa'],
+        english: ['#164e63', '#155e75', '#0e7490', '#0891b2', '#22d3ee'],
+        moral: ['#7c2d12', '#9a3412', '#c2410c', '#ea580c', '#fb923c'],
         cross: ['#9a3412', '#9a3412', '#c2410c', '#ea580c', '#fb923c'],
       }
-      const sub =
-        subject === 'math'
-          ? 'math'
-          : subject === 'science'
-            ? 'science'
-            : subject === 'chinese'
-              ? 'chinese'
-              : 'cross'
+      const sub = SUBJECT_GROUPS.includes(subject) ? subject : 'cross'
       const idx = Math.min(level, 4)
       return {
         fontSize: fontSizes[idx],
@@ -1371,6 +1402,12 @@
         const chineseNodes = nodes.filter(
           (n) => getSubjectGroup(n.id) === 'chinese',
         )
+        const englishNodes = nodes.filter(
+          (n) => getSubjectGroup(n.id) === 'english',
+        )
+        const moralNodes = nodes.filter(
+          (n) => getSubjectGroup(n.id) === 'moral',
+        )
         const mathRootX = LAYOUT.mathRootX
         const depthX = activeDepthX
         const positions = {}
@@ -1459,6 +1496,40 @@
         resolveVisualBoxOverlaps(
           positions,
           [...mathIds, ...sciIds, ...chiIds],
+          LAYOUT.overviewMinGap,
+        )
+
+        const chiBoxAfter = sideBoundingBox(positions, chiIds)
+        const englishStartY =
+          (chiBoxAfter ? chiBoxAfter.maxY : chineseStack.bottom || chineseStartY) +
+          LAYOUT.scienceBelowGap
+        const englishStack = stackGrades(
+          englishNodes,
+          'english',
+          scienceRootX,
+          englishStartY,
+        )
+        const engIds = englishStack.ids
+        resolveVisualBoxOverlaps(
+          positions,
+          [...mathIds, ...sciIds, ...chiIds, ...engIds],
+          LAYOUT.overviewMinGap,
+        )
+
+        const engBoxAfter = sideBoundingBox(positions, engIds)
+        const moralStartY =
+          (engBoxAfter ? engBoxAfter.maxY : englishStack.bottom || englishStartY) +
+          LAYOUT.scienceBelowGap
+        const moralStack = stackGrades(
+          moralNodes,
+          'moral',
+          mathRootX,
+          moralStartY,
+        )
+        const moralIds = moralStack.ids
+        resolveVisualBoxOverlaps(
+          positions,
+          [...mathIds, ...sciIds, ...chiIds, ...engIds, ...moralIds],
           LAYOUT.overviewMinGap,
         )
 
@@ -1681,38 +1752,34 @@
     }
 
     function computeHierarchyPositions(nodes) {
-      if (currentView === 'math') return layoutStackedSubjects(nodes, 'math')
-      if (currentView === 'science') return layoutStackedSubjects(nodes, 'science')
-      if (currentView === 'chinese') return layoutStackedSubjects(nodes, 'chinese')
+      if (SUBJECT_GROUPS.includes(currentView)) {
+        return layoutStackedSubjects(nodes, currentView)
+      }
       if (currentView === 'all') {
-        const mathN = nodes.filter(
-          (n) =>
-            getSubjectGroup(n.id) === 'math' ||
-            getSubjectGroup(n.id) === 'cross',
-        )
-        const sciN = nodes.filter((n) => getSubjectGroup(n.id) === 'science')
-        const chiN = nodes.filter((n) => getSubjectGroup(n.id) === 'chinese')
-        const mathPos = layoutStackedSubjects(mathN, 'math')
-        const sciPos = layoutStackedSubjects(sciN, 'science')
-        const chiPos = layoutStackedSubjects(chiN, 'chinese')
-        const mathBox = sideBoundingBox(mathPos, Object.keys(mathPos))
-        const sciBox = sideBoundingBox(sciPos, Object.keys(sciPos))
-        if (mathBox && sciBox) {
-          const dy = mathBox.maxY + 140 - sciBox.minY
-          Object.keys(sciPos).forEach((id) => {
-            sciPos[id].y += Math.max(dy, 0)
+        const order = ['math', 'science', 'chinese', 'english', 'moral']
+        const parts = {}
+        order.forEach((sub) => {
+          const subset = nodes.filter((n) => {
+            const g = getSubjectGroup(n.id)
+            return g === sub || (sub === 'math' && g === 'cross')
           })
-        }
-        const placedSci = sideBoundingBox(sciPos, Object.keys(sciPos))
-        const chiBox = sideBoundingBox(chiPos, Object.keys(chiPos))
-        const floor = placedSci?.maxY ?? mathBox?.maxY ?? 0
-        if (chiBox) {
-          const dy = floor + 140 - chiBox.minY
-          Object.keys(chiPos).forEach((id) => {
-            chiPos[id].y += Math.max(dy, 0)
-          })
-        }
-        return { ...mathPos, ...sciPos, ...chiPos }
+          parts[sub] = layoutStackedSubjects(subset, sub)
+        })
+        let floor = null
+        order.forEach((sub) => {
+          const pos = parts[sub]
+          const box = sideBoundingBox(pos, Object.keys(pos))
+          if (!box) return
+          if (floor != null) {
+            const dy = floor + 140 - box.minY
+            Object.keys(pos).forEach((id) => {
+              pos[id].y += Math.max(dy, 0)
+            })
+          }
+          const placed = sideBoundingBox(pos, Object.keys(pos))
+          floor = placed?.maxY ?? floor
+        })
+        return Object.assign({}, ...order.map((sub) => parts[sub]))
       }
       return layoutStackedSubjects(nodes, 'science')
     }
@@ -2238,10 +2305,7 @@
 
     function silkStroke(n) {
       const subject = getSubjectGroup(n.id)
-      if (subject === 'math') return '#2563eb'
-      if (subject === 'science') return '#059669'
-      if (subject === 'chinese') return '#7c3aed'
-      return '#ea580c'
+      return SUBJECT_COLORS[subject] || '#ea580c'
     }
 
     function silkNodeSize(n) {
@@ -2388,7 +2452,11 @@
               ? SCIENCE_LEVEL_COLORS
               : sub === 'chinese'
                 ? CHINESE_LEVEL_COLORS
-                : ['#94a3b8']
+                : sub === 'english'
+                  ? ENGLISH_LEVEL_COLORS
+                  : sub === 'moral'
+                    ? MORAL_LEVEL_COLORS
+                    : ['#94a3b8']
         return {
           color: palette[Math.min(level, 2)] || '#94a3b8',
           width: Math.max(1.5, 3.2 - level * 0.5),
@@ -2484,7 +2552,7 @@
         if (!level.has(id)) level.set(id, 0)
       })
 
-      const bySubject = { math: [], science: [], chinese: [], other: [] }
+      const bySubject = { math: [], science: [], chinese: [], english: [], moral: [], other: [] }
       nodes.forEach((n) => {
         const g = getSubjectGroup(n.id)
           ; (bySubject[g] || bySubject.other).push(n)
@@ -2495,7 +2563,7 @@
       const rowGap = 72
       let yBase = 80
 
-        ;['math', 'science', 'chinese', 'other'].forEach((sub) => {
+        ;['math', 'science', 'chinese', 'english', 'moral', 'other'].forEach((sub) => {
           const group = bySubject[sub]
           if (!group.length) return
           const byLevel = new Map()
@@ -2545,7 +2613,7 @@
       const rowGap = 52
       let yBase = 80
 
-        ;['math', 'science', 'chinese'].forEach((sub) => {
+        ;['math', 'science', 'chinese', 'english', 'moral'].forEach((sub) => {
           const kps = sortChildIds(
             knowledge
               .filter((n) => getSubjectGroup(n.id) === sub)
@@ -2648,7 +2716,7 @@
       const rowH = 42
       let y = 48
       present.forEach((grade) => {
-        ;['math', 'science', 'chinese', 'cross'].forEach((group) => {
+        ;['math', 'science', 'chinese', 'english', 'moral', 'cross'].forEach((group) => {
           const items = nodes.filter(
             (n) =>
               `${nodeGrade(n)}${n.semester || '上册'}` === grade &&
@@ -2686,7 +2754,7 @@
 
     function computeForceSeedPositions(nodes) {
       const positions = {}
-      const groups = { math: [], science: [], chinese: [], cross: [] }
+      const groups = { math: [], science: [], chinese: [], english: [], moral: [], cross: [] }
       nodes.forEach((n) => {
         const g = getSubjectGroup(n.id)
         const bucket = groups[g] ? g : 'cross'
@@ -2705,6 +2773,8 @@
       place(groups.math, 300, 420, 86)
       place(groups.science, 1020, 390, 86)
       place(groups.chinese, 1680, 420, 86)
+      place(groups.english, 300, 980, 86)
+      place(groups.moral, 1020, 980, 86)
       place(groups.cross, 660, 260, 96)
       return positions
     }

@@ -1,8 +1,8 @@
 {
   "metadata": {
     "title": "智启知识图谱",
-    "version": "3.1",
-    "generated_date": "2026-09-29",
+    "version": "3.2",
+    "generated_date": "2026-10-28",
     "grade": "三年级、四年级、五年级、六年级",
     "semester": "上册、下册",
     "grades": [
@@ -14,9 +14,11 @@
     "subjects": [
       "数学",
       "科学",
-      "语文"
+      "语文",
+      "英语",
+      "道德与法治"
     ],
-    "scope_note": "总图包含三年级上册和五年级上册的数学、科学，以及新加入的四年级上册数学和语文、四年级下册科学、五年级上册语文、五年级下册科学、六年级上册数学科学语文、六年级下册科学。全部视角按数学、科学、语文分成三块，每一科内部按年级和册次从上到下排列。未传年级时仍默认三年级。status=stage_later 不是本册已经掌握。语文四上对齐第二学段，五上和六上对齐第三学段；本册没有系统完成的学段要求仍是 stage_later。",
+    "scope_note": "总图在原有数学、科学、语文基础上，新增三年级下册英语，以及三年级上/下册道德与法治。全部视角按学科分块，学科内部按年级和册次排列。未传年级时仍默认三年级。status=stage_later 不是本册已经掌握。英语对齐 3～4 年级/一级；道德与法治对齐第二学段（3～4年级）。",
     "page_reference": "书内页来自教材目录和课题页。Markdown 教材未提供可靠 PDF 页，不编造 PDF 页码。",
     "source_files": [
       "三年级上数学.md",
@@ -35,27 +37,12 @@
       "四年级上语文.md",
       "五年级上语文.md",
       "六年级上语文.md",
-      "四年级上数学.md",
-      "六年级上数学.md",
-      "四年级上科学.md",
-      "四年级下科学.md",
-      "五年级下科学.md",
-      "六年级上科学.md",
-      "六年级下科学.md",
-      "四年级上语文.md",
-      "五年级上语文.md",
-      "六年级上语文.md",
-      "四年级上数学.md",
-      "六年级上数学.md",
-      "四年级上科学.md",
-      "四年级下科学.md",
-      "五年级下科学.md",
-      "六年级上科学.md",
-      "六年级下科学.md",
-      "四年级上语文.md",
-      "五年级上语文.md",
-      "六年级上语文.md",
-      "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md"
+      "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md",
+      "三年级下英语.md",
+      "三年级上道德与法治.md",
+      "三年级下道德与法治.md",
+      "（6）义务教育英语课程标准日常修订版（2022年版2025年修订）.md",
+      "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md"
     ],
     "books": [
       {
@@ -63,7 +50,16 @@
         "semester": "上册",
         "subjects": [
           "数学",
-          "科学"
+          "科学",
+          "道德与法治"
+        ]
+      },
+      {
+        "grade": "三年级",
+        "semester": "下册",
+        "subjects": [
+          "英语",
+          "道德与法治"
         ]
       },
       {
@@ -115,15 +111,15 @@
       }
     ],
     "node_type_counts": {
-      "subject": 14,
-      "domain": 42,
-      "unit": 94,
-      "lesson": 418,
-      "knowledge": 411,
-      "method": 49,
-      "standard": 182,
-      "competency": 51,
-      "cross_disciplinary_theme": 16
+      "subject": 17,
+      "domain": 45,
+      "unit": 110,
+      "lesson": 463,
+      "knowledge": 456,
+      "method": 52,
+      "standard": 230,
+      "competency": 65,
+      "cross_disciplinary_theme": 23
     }
   },
   "node_types": [
@@ -11697,6 +11693,1662 @@
       "grade": "六年级",
       "semester": "上册",
       "source": "教材课次之间的真实任务或相同研究对象"
+    },
+    {
+      "id": "E3D",
+      "type": "subject",
+      "name": "英语三年级下",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md封面｜人民教育出版社",
+      "order": 10
+    },
+    {
+      "id": "E3D-STD-THEME-SCHOOL",
+      "type": "standard",
+      "name": "围绕学校生活等熟悉主题，进行简单交流",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（6）义务教育英语课程标准日常修订版（2022年版2025年修订）.md｜一级主题·人与社会｜学校生活"
+    },
+    {
+      "id": "E3D-STD-THEME-FAMILY",
+      "type": "standard",
+      "name": "围绕家庭成员等熟悉主题，介绍基本信息",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（6）义务教育英语课程标准日常修订版（2022年版2025年修订）.md｜一级主题·人与自我｜家庭生活"
+    },
+    {
+      "id": "E3D-STD-THEME-ANIMAL",
+      "type": "standard",
+      "name": "围绕动物等熟悉主题，用简单语句描述外形特征",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（6）义务教育英语课程标准日常修订版（2022年版2025年修订）.md｜一级主题·人与自然｜动物"
+    },
+    {
+      "id": "E3D-STD-VOCAB",
+      "type": "standard",
+      "name": "借助图片、实物理解词汇意思，根据提示说出单词和短语",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（6）义务教育英语课程标准日常修订版（2022年版2025年修订）.md｜一级语言知识·词汇"
+    },
+    {
+      "id": "E3D-STD-SENTENCE",
+      "type": "standard",
+      "name": "在语境中理解简单句的表意功能，交流个人信息与喜好",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（6）义务教育英语课程标准日常修订版（2022年版2025年修订）.md｜一级语言知识·语法/语用"
+    },
+    {
+      "id": "E3D-STD-LISTEN",
+      "type": "standard",
+      "name": "理解课堂简单指令并作出反应；听懂日常问候与简单对话",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（6）义务教育英语课程标准日常修订版（2022年版2025年修订）.md｜一级语言技能·理解性技能"
+    },
+    {
+      "id": "E3D-STD-SPEAK",
+      "type": "standard",
+      "name": "互致问候，交流姓名、家庭、喜好等简单信息；跟读并朗读所学对话",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（6）义务教育英语课程标准日常修订版（2022年版2025年修订）.md｜一级语言技能·表达性技能"
+    },
+    {
+      "id": "E3D-STD-WRITE",
+      "type": "standard",
+      "name": "正确书写字母、单词和句子；根据图片或语境仿写简单句子",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（6）义务教育英语课程标准日常修订版（2022年版2025年修订）.md｜一级语言技能·表达性技能"
+    },
+    {
+      "id": "E3D-STD-CULTURE",
+      "type": "standard",
+      "name": "感知中外姓名、称谓、问候及学校/家庭生活等表达异同",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（6）义务教育英语课程标准日常修订版（2022年版2025年修订）.md｜一级文化知识"
+    },
+    {
+      "id": "E3D-LATER-PHONICS",
+      "type": "standard",
+      "name": "本册未系统完成：感知简单拼读规则并尝试借助规则拼读单词",
+      "status": "stage_later",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（6）义务教育英语课程标准日常修订版（2022年版2025年修订）.md｜一级语音"
+    },
+    {
+      "id": "E3D-LATER-READING-VOL",
+      "type": "standard",
+      "name": "本册未核验：课外阅读量累计达到 1500～2000 词",
+      "status": "stage_later",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（6）义务教育英语课程标准日常修订版（2022年版2025年修订）.md｜一级理解性技能"
+    },
+    {
+      "id": "E3D-LATER-VIEWING",
+      "type": "standard",
+      "name": "本册未核验：课外视听活动每周不少于 30 分钟",
+      "status": "stage_later",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（6）义务教育英语课程标准日常修订版（2022年版2025年修订）.md｜一级理解性技能"
+    },
+    {
+      "id": "E3D-LATER-ROLEPLAY-EXT",
+      "type": "standard",
+      "name": "本册未系统教学：在画面提示下为所学对话/故事配音等“级别+”要求",
+      "status": "stage_later",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（6）义务教育英语课程标准日常修订版（2022年版2025年修订）.md｜一级表达性技能+"
+    },
+    {
+      "id": "E3D-LATER-STORY-TELL",
+      "type": "standard",
+      "name": "本册未系统教学：口头描述事件或讲述小故事（级别+）",
+      "status": "stage_later",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（6）义务教育英语课程标准日常修订版（2022年版2025年修订）.md｜一级表达性技能+"
+    },
+    {
+      "id": "E3D-C-LANG",
+      "type": "competency",
+      "name": "语言能力",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（6）义务教育英语课程标准日常修订版（2022年版2025年修订）.md｜核心素养内涵：语言能力"
+    },
+    {
+      "id": "E3D-C-CUL",
+      "type": "competency",
+      "name": "文化意识",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（6）义务教育英语课程标准日常修订版（2022年版2025年修订）.md｜核心素养内涵：文化意识"
+    },
+    {
+      "id": "E3D-C-THINK",
+      "type": "competency",
+      "name": "思维品质",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（6）义务教育英语课程标准日常修订版（2022年版2025年修订）.md｜核心素养内涵：思维品质"
+    },
+    {
+      "id": "E3D-C-LEARN",
+      "type": "competency",
+      "name": "学习能力",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（6）义务教育英语课程标准日常修订版（2022年版2025年修订）.md｜核心素养内涵：学习能力"
+    },
+    {
+      "id": "E3D-D-THEME",
+      "type": "domain",
+      "name": "主题与语篇交际",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册"
+    },
+    {
+      "id": "E3D-M-LISTEN-SPEAK",
+      "type": "method",
+      "name": "听音模仿、跟读对话、看图说词句",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内2｜Let’s talk / Let’s learn 活动"
+    },
+    {
+      "id": "E3D-U01",
+      "type": "unit",
+      "name": "Unit 1 Welcome back to school!",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内2｜Welcome back to school!"
+    },
+    {
+      "id": "E3D-U01-L1",
+      "type": "lesson",
+      "name": "Let’s talk：欢迎返校与新朋友",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内3｜Let’s talk：欢迎返校与新朋友"
+    },
+    {
+      "id": "E3D-U01-L2",
+      "type": "lesson",
+      "name": "Let’s learn：China / USA / Canada / UK",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内5｜Let’s learn：China / USA / Canada / UK"
+    },
+    {
+      "id": "E3D-U01-L3",
+      "type": "lesson",
+      "name": "Let’s talk：Where are you from?",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内7｜Let’s talk：Where are you from?"
+    },
+    {
+      "id": "E3D-U01-K1",
+      "type": "knowledge",
+      "name": "用 Welcome! 欢迎同学返校",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内4｜用 Welcome! 欢迎同学返校"
+    },
+    {
+      "id": "E3D-U01-K2",
+      "type": "knowledge",
+      "name": "询问并回答 Where are you from? / I’m from …",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内7｜询问并回答 Where are you from? / I’m from …"
+    },
+    {
+      "id": "E3D-U01-K3",
+      "type": "knowledge",
+      "name": "认读 China、USA、Canada、UK 等国名",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内5｜认读 China、USA、Canada、UK 等国名"
+    },
+    {
+      "id": "E3D-U01-K4",
+      "type": "knowledge",
+      "name": "用 he/she、teacher、student 等介绍人物身份",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内8｜用 he/she、teacher、student 等介绍人物身份"
+    },
+    {
+      "id": "E3D-U02",
+      "type": "unit",
+      "name": "Unit 2 My family",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内12｜My family"
+    },
+    {
+      "id": "E3D-U02-L1",
+      "type": "lesson",
+      "name": "Let’s talk：Who’s that man/woman?",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内14｜Let’s talk：Who’s that man/woman?"
+    },
+    {
+      "id": "E3D-U02-L2",
+      "type": "lesson",
+      "name": "Let’s learn：father / mother 等家庭成员",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内15｜Let’s learn：father / mother 等家庭成员"
+    },
+    {
+      "id": "E3D-U02-L3",
+      "type": "lesson",
+      "name": "Let’s talk：Is she your mother?",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内17｜Let’s talk：Is she your mother?"
+    },
+    {
+      "id": "E3D-U02-K1",
+      "type": "knowledge",
+      "name": "询问 Who’s that …? 并介绍父母",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内14｜询问 Who’s that …? 并介绍父母"
+    },
+    {
+      "id": "E3D-U02-K2",
+      "type": "knowledge",
+      "name": "认读 father、mother、brother、sister、grandparents、family",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内15｜认读 father、mother、brother、sister、grandparents、family"
+    },
+    {
+      "id": "E3D-U02-K3",
+      "type": "knowledge",
+      "name": "用 Yes, she is. / No, he isn’t. 确认家庭成员",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内17｜用 Yes, she is. / No, he isn’t. 确认家庭成员"
+    },
+    {
+      "id": "E3D-U03",
+      "type": "unit",
+      "name": "Unit 3 At the zoo",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内22｜At the zoo"
+    },
+    {
+      "id": "E3D-U03-L1",
+      "type": "lesson",
+      "name": "Let’s talk：It’s so tall!",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内24｜Let’s talk：It’s so tall!"
+    },
+    {
+      "id": "E3D-U03-L2",
+      "type": "lesson",
+      "name": "Let’s learn：tall / short / fat / thin",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内25｜Let’s learn：tall / short / fat / thin"
+    },
+    {
+      "id": "E3D-U03-L3",
+      "type": "lesson",
+      "name": "Let’s talk：It has …",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内27｜Let’s talk：It has …"
+    },
+    {
+      "id": "E3D-U03-K1",
+      "type": "knowledge",
+      "name": "用 tall/short/fat/thin/big/small/long 描述动物外形",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内25｜用 tall/short/fat/thin/big/small/long 描述动物外形"
+    },
+    {
+      "id": "E3D-U03-K2",
+      "type": "knowledge",
+      "name": "用 It has … 描述身体部位特征",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内27｜用 It has … 描述身体部位特征"
+    },
+    {
+      "id": "E3D-U03-K3",
+      "type": "knowledge",
+      "name": "认读 giraffe、children、tail 等词汇",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内24｜认读 giraffe、children、tail 等词汇"
+    },
+    {
+      "id": "E3D-U04",
+      "type": "unit",
+      "name": "Recycle 1",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内32｜Recycle 1"
+    },
+    {
+      "id": "E3D-U04-L1",
+      "type": "lesson",
+      "name": "综合复习 Unit 1—3",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内32｜综合复习 Unit 1—3"
+    },
+    {
+      "id": "E3D-U04-K1",
+      "type": "knowledge",
+      "name": "综合运用返校、家庭、动物主题的听说表达",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内32｜综合运用返校、家庭、动物主题的听说表达"
+    },
+    {
+      "id": "E3D-U05",
+      "type": "unit",
+      "name": "Unit 4 Where is my car?",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内36｜Where is my car?"
+    },
+    {
+      "id": "E3D-U05-L1",
+      "type": "lesson",
+      "name": "Let’s talk：Where is …?",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内38｜Let’s talk：Where is …?"
+    },
+    {
+      "id": "E3D-U05-L2",
+      "type": "lesson",
+      "name": "Let’s learn：in / on / under",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内39｜Let’s learn：in / on / under"
+    },
+    {
+      "id": "E3D-U05-L3",
+      "type": "lesson",
+      "name": "Let’s talk：Is it in your bag?",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内41｜Let’s talk：Is it in your bag?"
+    },
+    {
+      "id": "E3D-U05-K1",
+      "type": "knowledge",
+      "name": "用 Where is …? 询问物品位置",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内38｜用 Where is …? 询问物品位置"
+    },
+    {
+      "id": "E3D-U05-K2",
+      "type": "knowledge",
+      "name": "用 in / on / under 描述位置",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内39｜用 in / on / under 描述位置"
+    },
+    {
+      "id": "E3D-U05-K3",
+      "type": "knowledge",
+      "name": "用 Yes, it is. / No, it isn’t. 确认位置",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内41｜用 Yes, it is. / No, it isn’t. 确认位置"
+    },
+    {
+      "id": "E3D-U06",
+      "type": "unit",
+      "name": "Unit 5 Do you like pears?",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内46｜Do you like pears?"
+    },
+    {
+      "id": "E3D-U06-L1",
+      "type": "lesson",
+      "name": "Let’s talk：Do you like …?",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内48｜Let’s talk：Do you like …?"
+    },
+    {
+      "id": "E3D-U06-L2",
+      "type": "lesson",
+      "name": "Let’s learn：pear / apple / orange / banana",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内49｜Let’s learn：pear / apple / orange / banana"
+    },
+    {
+      "id": "E3D-U06-L3",
+      "type": "lesson",
+      "name": "Let’s talk：Sorry, I don’t like … / Me, neither.",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内51｜Let’s talk：Sorry, I don’t like … / Me, neither."
+    },
+    {
+      "id": "E3D-U06-K1",
+      "type": "knowledge",
+      "name": "用 Do you like …? Yes, I do. / No, I don’t. 表达喜好",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内48｜用 Do you like …? Yes, I do. / No, I don’t. 表达喜好"
+    },
+    {
+      "id": "E3D-U06-K2",
+      "type": "knowledge",
+      "name": "认读 pear、apple、orange、banana、watermelon、strawberry、grape、fruit",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内49｜认读 pear、apple、orange、banana、watermelon、strawberry、grape、fruit"
+    },
+    {
+      "id": "E3D-U06-K3",
+      "type": "knowledge",
+      "name": "在买水果情境中使用 Let’s buy some fruit.",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内48｜在买水果情境中使用 Let’s buy some fruit."
+    },
+    {
+      "id": "E3D-U07",
+      "type": "unit",
+      "name": "Unit 6 How many?",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内56｜How many?"
+    },
+    {
+      "id": "E3D-U07-L1",
+      "type": "lesson",
+      "name": "Let’s talk：How many … do you see?",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内58｜Let’s talk：How many … do you see?"
+    },
+    {
+      "id": "E3D-U07-L2",
+      "type": "lesson",
+      "name": "Let’s learn：eleven—fifteen",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内59｜Let’s learn：eleven—fifteen"
+    },
+    {
+      "id": "E3D-U07-L3",
+      "type": "lesson",
+      "name": "Let’s talk：How many … do you have?",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内61｜Let’s talk：How many … do you have?"
+    },
+    {
+      "id": "E3D-U07-K1",
+      "type": "knowledge",
+      "name": "用 How many … do you see/have? 询问数量",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内58｜用 How many … do you see/have? 询问数量"
+    },
+    {
+      "id": "E3D-U07-K2",
+      "type": "knowledge",
+      "name": "认读 eleven 到 twenty",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内59｜认读 eleven 到 twenty"
+    },
+    {
+      "id": "E3D-U08",
+      "type": "unit",
+      "name": "Recycle 2",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内66｜Recycle 2"
+    },
+    {
+      "id": "E3D-U08-L1",
+      "type": "lesson",
+      "name": "综合复习 Unit 4—6",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内66｜综合复习 Unit 4—6"
+    },
+    {
+      "id": "E3D-U08-K1",
+      "type": "knowledge",
+      "name": "综合运用方位、喜好、数量主题的听说表达",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下英语.md书内66｜综合运用方位、喜好、数量主题的听说表达"
+    },
+    {
+      "id": "D3U",
+      "type": "subject",
+      "name": "道德与法治三年级上",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "三年级上道德与法治.md封面｜人民教育出版社",
+      "order": 11
+    },
+    {
+      "id": "D3U-STD-LEARN",
+      "type": "standard",
+      "name": "主动学习、合理安排学习，做学习的主人",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·道德教育（学习习惯与学习态度）"
+    },
+    {
+      "id": "D3U-STD-SCHOOL",
+      "type": "standard",
+      "name": "尊重老师，与同学平等友好相处，关心集体荣誉",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·道德教育（学校生活）"
+    },
+    {
+      "id": "D3U-STD-FAMILY",
+      "type": "standard",
+      "name": "关心家庭生活，体贴父母，主动分担力所能及的家务",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·道德教育（家庭生活）"
+    },
+    {
+      "id": "D3U-STD-SELF",
+      "type": "standard",
+      "name": "了解自己、悦纳自己；正确对待他人评价与差异",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·生命安全与健康教育 / 道德教育"
+    },
+    {
+      "id": "D3U-STD-HONEST",
+      "type": "standard",
+      "name": "学习分辨是非，做了错事勇于承认和改正，不撒谎",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·道德教育（诚实）"
+    },
+    {
+      "id": "D3U-STD-NEIGHBOR",
+      "type": "standard",
+      "name": "懂得邻里和睦相处；了解家乡并关注家乡发展变化",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·道德教育（邻里与家乡）"
+    },
+    {
+      "id": "D3U-STD-PUBLIC",
+      "type": "standard",
+      "name": "体验公共设施便利，形成爱护公共设施人人有责的意识",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·道德教育（公共生活）"
+    },
+    {
+      "id": "D3U-STD-RULE",
+      "type": "standard",
+      "name": "懂得遵守规则的重要性，自觉遵守与生活密切相关的规则",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·法治教育 / 道德教育"
+    },
+    {
+      "id": "D3U-STD-HELP",
+      "type": "standard",
+      "name": "懂得感恩，乐于助人，传递爱心",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·道德教育（助人）"
+    },
+    {
+      "id": "D3U-STD-LIFE",
+      "type": "standard",
+      "name": "珍爱生命，掌握基本安全保健常识，遇险懂得求助",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·生命安全与健康教育"
+    },
+    {
+      "id": "D3U-STD-TRAFFIC",
+      "type": "standard",
+      "name": "了解交通安全常识与标识，安全出行",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·生命安全与健康教育 / 法治教育"
+    },
+    {
+      "id": "D3U-STD-COMM",
+      "type": "standard",
+      "name": "了解通信给生活带来的便利与联系",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·道德教育（社会生活扩展）"
+    },
+    {
+      "id": "D3U-LATER-NETWORK",
+      "type": "standard",
+      "name": "本册未系统教学：正确运用网络和电子产品，文明上网",
+      "status": "stage_later",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·道德教育"
+    },
+    {
+      "id": "D3U-LATER-NATION",
+      "type": "standard",
+      "name": "本册未系统完成：初步感知基本国情、国家统一与民族团结等国情教育专题",
+      "status": "stage_later",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·国情教育"
+    },
+    {
+      "id": "D3U-LATER-TRADITION",
+      "type": "standard",
+      "name": "本册未系统完成：中华优秀传统文化代表性成果与革命传统专题",
+      "status": "stage_later",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·中华优秀传统文化与革命传统教育"
+    },
+    {
+      "id": "D3U-LATER-CONSUME",
+      "type": "standard",
+      "name": "本册未系统教学：合理消费、勤俭节约与劳动创造财富",
+      "status": "stage_later",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·道德教育"
+    },
+    {
+      "id": "D3U-LATER-CORE-VALUES",
+      "type": "standard",
+      "name": "本册未单列专题：初步理解并在集体活动中系统践行社会主义核心价值观",
+      "status": "stage_later",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·道德教育"
+    },
+    {
+      "id": "D3U-C-POL",
+      "type": "competency",
+      "name": "政治认同",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜核心素养内涵：政治认同"
+    },
+    {
+      "id": "D3U-C-MOR",
+      "type": "competency",
+      "name": "道德修养",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜核心素养内涵：道德修养"
+    },
+    {
+      "id": "D3U-C-LAW",
+      "type": "competency",
+      "name": "法治观念",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜核心素养内涵：法治观念"
+    },
+    {
+      "id": "D3U-C-PERSON",
+      "type": "competency",
+      "name": "健全人格",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜核心素养内涵：健全人格"
+    },
+    {
+      "id": "D3U-C-RESP",
+      "type": "competency",
+      "name": "责任意识",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜核心素养内涵：责任意识"
+    },
+    {
+      "id": "D3U-D-LIFE",
+      "type": "domain",
+      "name": "成长中的生活主题",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册"
+    },
+    {
+      "id": "D3U-M-DISCUSS",
+      "type": "method",
+      "name": "交流园讨论、活动园实践与调查体验",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "三年级上道德与法治.md书内2｜交流园 / 活动园"
+    },
+    {
+      "id": "D3U-U01",
+      "type": "unit",
+      "name": "第1单元 快乐学习",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "三年级上道德与法治.md书内2｜快乐学习"
+    },
+    {
+      "id": "D3U-U01-L1",
+      "type": "lesson",
+      "name": "学习伴我成长",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "三年级上道德与法治.md书内2｜学习伴我成长"
+    },
+    {
+      "id": "D3U-U01-L2",
+      "type": "lesson",
+      "name": "我学习，我快乐",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "三年级上道德与法治.md书内8｜我学习，我快乐"
+    },
+    {
+      "id": "D3U-U01-L3",
+      "type": "lesson",
+      "name": "做学习的主人",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "三年级上道德与法治.md书内14｜做学习的主人"
+    },
+    {
+      "id": "D3U-U01-K1",
+      "type": "knowledge",
+      "name": "成长的每一步都离不开学习",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "三年级上道德与法治.md书内2｜成长的每一步都离不开学习"
+    },
+    {
+      "id": "D3U-U01-K2",
+      "type": "knowledge",
+      "name": "体会学习带来的本领与快乐",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "三年级上道德与法治.md书内8｜体会学习带来的本领与快乐"
+    },
+    {
+      "id": "D3U-U01-K3",
+      "type": "knowledge",
+      "name": "做学习的主人：主动学习、合理安排",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "三年级上道德与法治.md书内14｜做学习的主人：主动学习、合理安排"
+    },
+    {
+      "id": "D3U-U02",
+      "type": "unit",
+      "name": "第2单元 我们的学校",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "三年级上道德与法治.md书内24｜我们的学校"
+    },
+    {
+      "id": "D3U-U02-L1",
+      "type": "lesson",
+      "name": "说说我们的学校",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "三年级上道德与法治.md书内24｜说说我们的学校"
+    },
+    {
+      "id": "D3U-U02-L2",
+      "type": "lesson",
+      "name": "走近我们的老师",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "三年级上道德与法治.md书内32｜走近我们的老师"
+    },
+    {
+      "id": "D3U-U02-L3",
+      "type": "lesson",
+      "name": "让我们的学校更美好",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "三年级上道德与法治.md书内40｜让我们的学校更美好"
+    },
+    {
+      "id": "D3U-U02-K1",
+      "type": "knowledge",
+      "name": "认识学校环境与校园生活",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "三年级上道德与法治.md书内24｜认识学校环境与校园生活"
+    },
+    {
+      "id": "D3U-U02-K2",
+      "type": "knowledge",
+      "name": "感受老师辛劳并尊敬老师",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "三年级上道德与法治.md书内32｜感受老师辛劳并尊敬老师"
+    },
+    {
+      "id": "D3U-U02-K3",
+      "type": "knowledge",
+      "name": "关心集体，用行动让学校更美好",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "三年级上道德与法治.md书内40｜关心集体，用行动让学校更美好"
+    },
+    {
+      "id": "D3U-U03",
+      "type": "unit",
+      "name": "第3单元 安全护我成长",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "三年级上道德与法治.md书内46｜安全护我成长"
+    },
+    {
+      "id": "D3U-U03-L1",
+      "type": "lesson",
+      "name": "生命最宝贵",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "三年级上道德与法治.md书内46｜生命最宝贵"
+    },
+    {
+      "id": "D3U-U03-L2",
+      "type": "lesson",
+      "name": "安全记心上",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "三年级上道德与法治.md书内54｜安全记心上"
+    },
+    {
+      "id": "D3U-U03-L3",
+      "type": "lesson",
+      "name": "心中的“110”",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "三年级上道德与法治.md书内62｜心中的“110”"
+    },
+    {
+      "id": "D3U-U03-K1",
+      "type": "knowledge",
+      "name": "珍爱生命，感受家人对生命的呵护",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "三年级上道德与法治.md书内46｜珍爱生命，感受家人对生命的呵护"
+    },
+    {
+      "id": "D3U-U03-K2",
+      "type": "knowledge",
+      "name": "记住生活中的安全注意事项",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "三年级上道德与法治.md书内54｜记住生活中的安全注意事项"
+    },
+    {
+      "id": "D3U-U03-K3",
+      "type": "knowledge",
+      "name": "遇险懂得求助，了解报警与自我保护",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "三年级上道德与法治.md书内62｜遇险懂得求助，了解报警与自我保护"
+    },
+    {
+      "id": "D3U-U04",
+      "type": "unit",
+      "name": "第4单元 家是最温暖的地方",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "三年级上道德与法治.md书内66｜家是最温暖的地方"
+    },
+    {
+      "id": "D3U-U04-L1",
+      "type": "lesson",
+      "name": "父母多爱我",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "三年级上道德与法治.md书内66｜父母多爱我"
+    },
+    {
+      "id": "D3U-U04-L2",
+      "type": "lesson",
+      "name": "爸爸妈妈在我心中",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "三年级上道德与法治.md书内72｜爸爸妈妈在我心中"
+    },
+    {
+      "id": "D3U-U04-L3",
+      "type": "lesson",
+      "name": "家庭的记忆",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "三年级上道德与法治.md书内78｜家庭的记忆"
+    },
+    {
+      "id": "D3U-U04-K1",
+      "type": "knowledge",
+      "name": "感受父母的关爱与辛苦",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "三年级上道德与法治.md书内66｜感受父母的关爱与辛苦"
+    },
+    {
+      "id": "D3U-U04-K2",
+      "type": "knowledge",
+      "name": "了解并体谅父母的心事与习惯",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "三年级上道德与法治.md书内72｜了解并体谅父母的心事与习惯"
+    },
+    {
+      "id": "D3U-U04-K3",
+      "type": "knowledge",
+      "name": "珍惜家庭记忆与家庭温暖",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "三年级上道德与法治.md书内78｜珍惜家庭记忆与家庭温暖"
+    },
+    {
+      "id": "D3D",
+      "type": "subject",
+      "name": "道德与法治三年级下",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md封面｜人民教育出版社",
+      "order": 12
+    },
+    {
+      "id": "D3D-STD-LEARN",
+      "type": "standard",
+      "name": "主动学习、合理安排学习，做学习的主人",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·道德教育（学习习惯与学习态度）"
+    },
+    {
+      "id": "D3D-STD-SCHOOL",
+      "type": "standard",
+      "name": "尊重老师，与同学平等友好相处，关心集体荣誉",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·道德教育（学校生活）"
+    },
+    {
+      "id": "D3D-STD-FAMILY",
+      "type": "standard",
+      "name": "关心家庭生活，体贴父母，主动分担力所能及的家务",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·道德教育（家庭生活）"
+    },
+    {
+      "id": "D3D-STD-SELF",
+      "type": "standard",
+      "name": "了解自己、悦纳自己；正确对待他人评价与差异",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·生命安全与健康教育 / 道德教育"
+    },
+    {
+      "id": "D3D-STD-HONEST",
+      "type": "standard",
+      "name": "学习分辨是非，做了错事勇于承认和改正，不撒谎",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·道德教育（诚实）"
+    },
+    {
+      "id": "D3D-STD-NEIGHBOR",
+      "type": "standard",
+      "name": "懂得邻里和睦相处；了解家乡并关注家乡发展变化",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·道德教育（邻里与家乡）"
+    },
+    {
+      "id": "D3D-STD-PUBLIC",
+      "type": "standard",
+      "name": "体验公共设施便利，形成爱护公共设施人人有责的意识",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·道德教育（公共生活）"
+    },
+    {
+      "id": "D3D-STD-RULE",
+      "type": "standard",
+      "name": "懂得遵守规则的重要性，自觉遵守与生活密切相关的规则",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·法治教育 / 道德教育"
+    },
+    {
+      "id": "D3D-STD-HELP",
+      "type": "standard",
+      "name": "懂得感恩，乐于助人，传递爱心",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·道德教育（助人）"
+    },
+    {
+      "id": "D3D-STD-LIFE",
+      "type": "standard",
+      "name": "珍爱生命，掌握基本安全保健常识，遇险懂得求助",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·生命安全与健康教育"
+    },
+    {
+      "id": "D3D-STD-TRAFFIC",
+      "type": "standard",
+      "name": "了解交通安全常识与标识，安全出行",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·生命安全与健康教育 / 法治教育"
+    },
+    {
+      "id": "D3D-STD-COMM",
+      "type": "standard",
+      "name": "了解通信给生活带来的便利与联系",
+      "status": "stage_standard",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·道德教育（社会生活扩展）"
+    },
+    {
+      "id": "D3D-LATER-NETWORK",
+      "type": "standard",
+      "name": "本册未系统教学：正确运用网络和电子产品，文明上网",
+      "status": "stage_later",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·道德教育"
+    },
+    {
+      "id": "D3D-LATER-NATION",
+      "type": "standard",
+      "name": "本册未系统完成：初步感知基本国情、国家统一与民族团结等国情教育专题",
+      "status": "stage_later",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·国情教育"
+    },
+    {
+      "id": "D3D-LATER-TRADITION",
+      "type": "standard",
+      "name": "本册未系统完成：中华优秀传统文化代表性成果与革命传统专题",
+      "status": "stage_later",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·中华优秀传统文化与革命传统教育"
+    },
+    {
+      "id": "D3D-LATER-CONSUME",
+      "type": "standard",
+      "name": "本册未系统教学：合理消费、勤俭节约与劳动创造财富",
+      "status": "stage_later",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·道德教育"
+    },
+    {
+      "id": "D3D-LATER-CORE-VALUES",
+      "type": "standard",
+      "name": "本册未单列专题：初步理解并在集体活动中系统践行社会主义核心价值观",
+      "status": "stage_later",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜第二学段·道德教育"
+    },
+    {
+      "id": "D3D-C-POL",
+      "type": "competency",
+      "name": "政治认同",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜核心素养内涵：政治认同"
+    },
+    {
+      "id": "D3D-C-MOR",
+      "type": "competency",
+      "name": "道德修养",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜核心素养内涵：道德修养"
+    },
+    {
+      "id": "D3D-C-LAW",
+      "type": "competency",
+      "name": "法治观念",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜核心素养内涵：法治观念"
+    },
+    {
+      "id": "D3D-C-PERSON",
+      "type": "competency",
+      "name": "健全人格",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜核心素养内涵：健全人格"
+    },
+    {
+      "id": "D3D-C-RESP",
+      "type": "competency",
+      "name": "责任意识",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "（2）义务教育道德与法治课程标准日常修订版（2022年版2025年修订）.md｜核心素养内涵：责任意识"
+    },
+    {
+      "id": "D3D-D-LIFE",
+      "type": "domain",
+      "name": "成长中的生活主题",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册"
+    },
+    {
+      "id": "D3D-M-DISCUSS",
+      "type": "method",
+      "name": "交流园讨论、活动园实践与调查体验",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内2｜交流园 / 活动园"
+    },
+    {
+      "id": "D3D-U01",
+      "type": "unit",
+      "name": "第1单元 我和我的同伴",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内2｜我和我的同伴"
+    },
+    {
+      "id": "D3D-U01-L1",
+      "type": "lesson",
+      "name": "我是独特的",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内2｜我是独特的"
+    },
+    {
+      "id": "D3D-U01-L2",
+      "type": "lesson",
+      "name": "不一样的你我他",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内10｜不一样的你我他"
+    },
+    {
+      "id": "D3D-U01-L3",
+      "type": "lesson",
+      "name": "我很诚实",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内16｜我很诚实"
+    },
+    {
+      "id": "D3D-U01-L4",
+      "type": "lesson",
+      "name": "同学相伴",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内22｜同学相伴"
+    },
+    {
+      "id": "D3D-U01-K1",
+      "type": "knowledge",
+      "name": "认识并悦纳自己的特点",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内2｜认识并悦纳自己的特点"
+    },
+    {
+      "id": "D3D-U01-K2",
+      "type": "knowledge",
+      "name": "尊重同学之间的差异",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内10｜尊重同学之间的差异"
+    },
+    {
+      "id": "D3D-U01-K3",
+      "type": "knowledge",
+      "name": "诚实守信，知错就改",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内16｜诚实守信，知错就改"
+    },
+    {
+      "id": "D3D-U01-K4",
+      "type": "knowledge",
+      "name": "珍惜同学相伴的友好交往",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内22｜珍惜同学相伴的友好交往"
+    },
+    {
+      "id": "D3D-U02",
+      "type": "unit",
+      "name": "第2单元 我在这里长大",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内28｜我在这里长大"
+    },
+    {
+      "id": "D3D-U02-L1",
+      "type": "lesson",
+      "name": "我的家在这里",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内28｜我的家在这里"
+    },
+    {
+      "id": "D3D-U02-L2",
+      "type": "lesson",
+      "name": "我家的好邻居",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内34｜我家的好邻居"
+    },
+    {
+      "id": "D3D-U02-L3",
+      "type": "lesson",
+      "name": "请到我的家乡来",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内42｜请到我的家乡来"
+    },
+    {
+      "id": "D3D-U02-K1",
+      "type": "knowledge",
+      "name": "认识自己生活的地方与家乡",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内28｜认识自己生活的地方与家乡"
+    },
+    {
+      "id": "D3D-U02-K2",
+      "type": "knowledge",
+      "name": "邻里之间要和睦相处",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内34｜邻里之间要和睦相处"
+    },
+    {
+      "id": "D3D-U02-K3",
+      "type": "knowledge",
+      "name": "介绍家乡并感受家乡变化",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内42｜介绍家乡并感受家乡变化"
+    },
+    {
+      "id": "D3D-U03",
+      "type": "unit",
+      "name": "第3单元 我们的公共生活",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内50｜我们的公共生活"
+    },
+    {
+      "id": "D3D-U03-L1",
+      "type": "lesson",
+      "name": "大家的“朋友”",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内50｜大家的“朋友”"
+    },
+    {
+      "id": "D3D-U03-L2",
+      "type": "lesson",
+      "name": "生活离不开规则",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内58｜生活离不开规则"
+    },
+    {
+      "id": "D3D-U03-L3",
+      "type": "lesson",
+      "name": "爱心的传递者",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内64｜爱心的传递者"
+    },
+    {
+      "id": "D3D-U03-K1",
+      "type": "knowledge",
+      "name": "公共设施方便生活，人人爱护",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内50｜公共设施方便生活，人人爱护"
+    },
+    {
+      "id": "D3D-U03-K2",
+      "type": "knowledge",
+      "name": "生活离不开规则，自觉遵守公共规则",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内58｜生活离不开规则，自觉遵守公共规则"
+    },
+    {
+      "id": "D3D-U03-K3",
+      "type": "knowledge",
+      "name": "做爱心的传递者，乐于助人",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内64｜做爱心的传递者，乐于助人"
+    },
+    {
+      "id": "D3D-U04",
+      "type": "unit",
+      "name": "第4单元 多样的交通和通信",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内70｜多样的交通和通信"
+    },
+    {
+      "id": "D3D-U04-L1",
+      "type": "lesson",
+      "name": "四通八达的交通",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内70｜四通八达的交通"
+    },
+    {
+      "id": "D3D-U04-L2",
+      "type": "lesson",
+      "name": "慧眼看交通",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内78｜慧眼看交通"
+    },
+    {
+      "id": "D3D-U04-L3",
+      "type": "lesson",
+      "name": "万里一线牵",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内82｜万里一线牵"
+    },
+    {
+      "id": "D3D-U04-K1",
+      "type": "knowledge",
+      "name": "认识多样交通方式给生活带来便利",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内70｜认识多样交通方式给生活带来便利"
+    },
+    {
+      "id": "D3D-U04-K2",
+      "type": "knowledge",
+      "name": "识别交通安全要点与相关标识",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内78｜识别交通安全要点与相关标识"
+    },
+    {
+      "id": "D3D-U04-K3",
+      "type": "knowledge",
+      "name": "理解通信把远方的人连在一起",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "三年级下道德与法治.md书内82｜理解通信把远方的人连在一起"
+    },
+    {
+      "id": "X-EMO-SCHOOL",
+      "type": "cross_disciplinary_theme",
+      "name": "返校与学校生活",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "教材课次之间的真实任务或相同研究对象"
+    },
+    {
+      "id": "X-EMO-FAMILY",
+      "type": "cross_disciplinary_theme",
+      "name": "家庭成员与亲情",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "教材课次之间的真实任务或相同研究对象"
+    },
+    {
+      "id": "X-EMO-HOWMANY",
+      "type": "cross_disciplinary_theme",
+      "name": "数量表达与数量关系",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "教材课次之间的真实任务或相同研究对象"
+    },
+    {
+      "id": "X-EMO-FRUIT-PRICE",
+      "type": "cross_disciplinary_theme",
+      "name": "买水果与数量单价",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "教材课次之间的真实任务或相同研究对象"
+    },
+    {
+      "id": "X-EMO-ZOO",
+      "type": "cross_disciplinary_theme",
+      "name": "动物外形与多样动物",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "教材课次之间的真实任务或相同研究对象"
+    },
+    {
+      "id": "X-EMO-SAFETY",
+      "type": "cross_disciplinary_theme",
+      "name": "生命安全与乘车防护",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "上册",
+      "source": "教材课次之间的真实任务或相同研究对象"
+    },
+    {
+      "id": "X-EMO-TRAFFIC",
+      "type": "cross_disciplinary_theme",
+      "name": "交通安全与出行防护",
+      "status": "current_book",
+      "grade": "三年级",
+      "semester": "下册",
+      "source": "教材课次之间的真实任务或相同研究对象"
     }
   ],
   "edges": [
@@ -22071,17 +23723,2132 @@
       "source": "X-UNIVERSE",
       "relation": "cross_links",
       "target": "S6D-U-UNI-L7"
+    },
+    {
+      "source": "E3D",
+      "relation": "contains",
+      "target": "E3D-STD-THEME-SCHOOL"
+    },
+    {
+      "source": "E3D",
+      "relation": "contains",
+      "target": "E3D-STD-THEME-FAMILY"
+    },
+    {
+      "source": "E3D",
+      "relation": "contains",
+      "target": "E3D-STD-THEME-ANIMAL"
+    },
+    {
+      "source": "E3D",
+      "relation": "contains",
+      "target": "E3D-STD-VOCAB"
+    },
+    {
+      "source": "E3D",
+      "relation": "contains",
+      "target": "E3D-STD-SENTENCE"
+    },
+    {
+      "source": "E3D",
+      "relation": "contains",
+      "target": "E3D-STD-LISTEN"
+    },
+    {
+      "source": "E3D",
+      "relation": "contains",
+      "target": "E3D-STD-SPEAK"
+    },
+    {
+      "source": "E3D",
+      "relation": "contains",
+      "target": "E3D-STD-WRITE"
+    },
+    {
+      "source": "E3D",
+      "relation": "contains",
+      "target": "E3D-STD-CULTURE"
+    },
+    {
+      "source": "E3D",
+      "relation": "contains",
+      "target": "E3D-LATER-PHONICS"
+    },
+    {
+      "source": "E3D",
+      "relation": "contains",
+      "target": "E3D-LATER-READING-VOL"
+    },
+    {
+      "source": "E3D",
+      "relation": "contains",
+      "target": "E3D-LATER-VIEWING"
+    },
+    {
+      "source": "E3D",
+      "relation": "contains",
+      "target": "E3D-LATER-ROLEPLAY-EXT"
+    },
+    {
+      "source": "E3D",
+      "relation": "contains",
+      "target": "E3D-LATER-STORY-TELL"
+    },
+    {
+      "source": "E3D",
+      "relation": "develops",
+      "target": "E3D-C-LANG"
+    },
+    {
+      "source": "E3D",
+      "relation": "develops",
+      "target": "E3D-C-CUL"
+    },
+    {
+      "source": "E3D",
+      "relation": "develops",
+      "target": "E3D-C-THINK"
+    },
+    {
+      "source": "E3D",
+      "relation": "develops",
+      "target": "E3D-C-LEARN"
+    },
+    {
+      "source": "E3D",
+      "relation": "contains",
+      "target": "E3D-D-THEME"
+    },
+    {
+      "source": "E3D",
+      "relation": "contains",
+      "target": "E3D-M-LISTEN-SPEAK"
+    },
+    {
+      "source": "E3D-D-THEME",
+      "relation": "contains",
+      "target": "E3D-U01"
+    },
+    {
+      "source": "E3D-U01",
+      "relation": "uses_method",
+      "target": "E3D-M-LISTEN-SPEAK"
+    },
+    {
+      "source": "E3D-U01",
+      "relation": "contains",
+      "target": "E3D-U01-L1"
+    },
+    {
+      "source": "E3D-U01",
+      "relation": "contains",
+      "target": "E3D-U01-L2"
+    },
+    {
+      "source": "E3D-U01",
+      "relation": "contains",
+      "target": "E3D-U01-L3"
+    },
+    {
+      "source": "E3D-U01",
+      "relation": "teaches",
+      "target": "E3D-U01-K1"
+    },
+    {
+      "source": "E3D-U01-K1",
+      "relation": "uses_method",
+      "target": "E3D-M-LISTEN-SPEAK"
+    },
+    {
+      "source": "E3D-U01-K1",
+      "relation": "aligns_to",
+      "target": "E3D-STD-SPEAK",
+      "alignment": "direct"
+    },
+    {
+      "source": "E3D-U01-K1",
+      "relation": "develops",
+      "target": "E3D-C-LANG"
+    },
+    {
+      "source": "E3D-U01-K1",
+      "relation": "develops",
+      "target": "E3D-C-LEARN"
+    },
+    {
+      "source": "E3D-U01",
+      "relation": "teaches",
+      "target": "E3D-U01-K2"
+    },
+    {
+      "source": "E3D-U01-K2",
+      "relation": "uses_method",
+      "target": "E3D-M-LISTEN-SPEAK"
+    },
+    {
+      "source": "E3D-U01-K2",
+      "relation": "aligns_to",
+      "target": "E3D-STD-THEME-SCHOOL",
+      "alignment": "direct"
+    },
+    {
+      "source": "E3D-U01-K2",
+      "relation": "develops",
+      "target": "E3D-C-LANG"
+    },
+    {
+      "source": "E3D-U01-K2",
+      "relation": "develops",
+      "target": "E3D-C-LEARN"
+    },
+    {
+      "source": "E3D-U01",
+      "relation": "teaches",
+      "target": "E3D-U01-K3"
+    },
+    {
+      "source": "E3D-U01-K3",
+      "relation": "uses_method",
+      "target": "E3D-M-LISTEN-SPEAK"
+    },
+    {
+      "source": "E3D-U01-K3",
+      "relation": "aligns_to",
+      "target": "E3D-STD-VOCAB",
+      "alignment": "direct"
+    },
+    {
+      "source": "E3D-U01-K3",
+      "relation": "develops",
+      "target": "E3D-C-LANG"
+    },
+    {
+      "source": "E3D-U01-K3",
+      "relation": "develops",
+      "target": "E3D-C-LEARN"
+    },
+    {
+      "source": "E3D-U01",
+      "relation": "teaches",
+      "target": "E3D-U01-K4"
+    },
+    {
+      "source": "E3D-U01-K4",
+      "relation": "uses_method",
+      "target": "E3D-M-LISTEN-SPEAK"
+    },
+    {
+      "source": "E3D-U01-K4",
+      "relation": "aligns_to",
+      "target": "E3D-STD-SENTENCE",
+      "alignment": "partial"
+    },
+    {
+      "source": "E3D-U01-K4",
+      "relation": "develops",
+      "target": "E3D-C-LANG"
+    },
+    {
+      "source": "E3D-U01-K4",
+      "relation": "develops",
+      "target": "E3D-C-LEARN"
+    },
+    {
+      "source": "E3D-D-THEME",
+      "relation": "contains",
+      "target": "E3D-U02"
+    },
+    {
+      "source": "E3D-U02",
+      "relation": "uses_method",
+      "target": "E3D-M-LISTEN-SPEAK"
+    },
+    {
+      "source": "E3D-U02",
+      "relation": "contains",
+      "target": "E3D-U02-L1"
+    },
+    {
+      "source": "E3D-U02",
+      "relation": "contains",
+      "target": "E3D-U02-L2"
+    },
+    {
+      "source": "E3D-U02",
+      "relation": "contains",
+      "target": "E3D-U02-L3"
+    },
+    {
+      "source": "E3D-U02",
+      "relation": "teaches",
+      "target": "E3D-U02-K1"
+    },
+    {
+      "source": "E3D-U02-K1",
+      "relation": "uses_method",
+      "target": "E3D-M-LISTEN-SPEAK"
+    },
+    {
+      "source": "E3D-U02-K1",
+      "relation": "aligns_to",
+      "target": "E3D-STD-THEME-FAMILY",
+      "alignment": "direct"
+    },
+    {
+      "source": "E3D-U02-K1",
+      "relation": "develops",
+      "target": "E3D-C-LANG"
+    },
+    {
+      "source": "E3D-U02-K1",
+      "relation": "develops",
+      "target": "E3D-C-LEARN"
+    },
+    {
+      "source": "E3D-U02",
+      "relation": "teaches",
+      "target": "E3D-U02-K2"
+    },
+    {
+      "source": "E3D-U02-K2",
+      "relation": "uses_method",
+      "target": "E3D-M-LISTEN-SPEAK"
+    },
+    {
+      "source": "E3D-U02-K2",
+      "relation": "aligns_to",
+      "target": "E3D-STD-VOCAB",
+      "alignment": "direct"
+    },
+    {
+      "source": "E3D-U02-K2",
+      "relation": "develops",
+      "target": "E3D-C-LANG"
+    },
+    {
+      "source": "E3D-U02-K2",
+      "relation": "develops",
+      "target": "E3D-C-LEARN"
+    },
+    {
+      "source": "E3D-U02",
+      "relation": "teaches",
+      "target": "E3D-U02-K3"
+    },
+    {
+      "source": "E3D-U02-K3",
+      "relation": "uses_method",
+      "target": "E3D-M-LISTEN-SPEAK"
+    },
+    {
+      "source": "E3D-U02-K3",
+      "relation": "aligns_to",
+      "target": "E3D-STD-SENTENCE",
+      "alignment": "direct"
+    },
+    {
+      "source": "E3D-U02-K3",
+      "relation": "develops",
+      "target": "E3D-C-LANG"
+    },
+    {
+      "source": "E3D-U02-K3",
+      "relation": "develops",
+      "target": "E3D-C-LEARN"
+    },
+    {
+      "source": "E3D-D-THEME",
+      "relation": "contains",
+      "target": "E3D-U03"
+    },
+    {
+      "source": "E3D-U03",
+      "relation": "uses_method",
+      "target": "E3D-M-LISTEN-SPEAK"
+    },
+    {
+      "source": "E3D-U03",
+      "relation": "contains",
+      "target": "E3D-U03-L1"
+    },
+    {
+      "source": "E3D-U03",
+      "relation": "contains",
+      "target": "E3D-U03-L2"
+    },
+    {
+      "source": "E3D-U03",
+      "relation": "contains",
+      "target": "E3D-U03-L3"
+    },
+    {
+      "source": "E3D-U03",
+      "relation": "teaches",
+      "target": "E3D-U03-K1"
+    },
+    {
+      "source": "E3D-U03-K1",
+      "relation": "uses_method",
+      "target": "E3D-M-LISTEN-SPEAK"
+    },
+    {
+      "source": "E3D-U03-K1",
+      "relation": "aligns_to",
+      "target": "E3D-STD-THEME-ANIMAL",
+      "alignment": "direct"
+    },
+    {
+      "source": "E3D-U03-K1",
+      "relation": "develops",
+      "target": "E3D-C-LANG"
+    },
+    {
+      "source": "E3D-U03-K1",
+      "relation": "develops",
+      "target": "E3D-C-LEARN"
+    },
+    {
+      "source": "E3D-U03",
+      "relation": "teaches",
+      "target": "E3D-U03-K2"
+    },
+    {
+      "source": "E3D-U03-K2",
+      "relation": "uses_method",
+      "target": "E3D-M-LISTEN-SPEAK"
+    },
+    {
+      "source": "E3D-U03-K2",
+      "relation": "aligns_to",
+      "target": "E3D-STD-SENTENCE",
+      "alignment": "direct"
+    },
+    {
+      "source": "E3D-U03-K2",
+      "relation": "develops",
+      "target": "E3D-C-LANG"
+    },
+    {
+      "source": "E3D-U03-K2",
+      "relation": "develops",
+      "target": "E3D-C-LEARN"
+    },
+    {
+      "source": "E3D-U03",
+      "relation": "teaches",
+      "target": "E3D-U03-K3"
+    },
+    {
+      "source": "E3D-U03-K3",
+      "relation": "uses_method",
+      "target": "E3D-M-LISTEN-SPEAK"
+    },
+    {
+      "source": "E3D-U03-K3",
+      "relation": "aligns_to",
+      "target": "E3D-STD-VOCAB",
+      "alignment": "partial"
+    },
+    {
+      "source": "E3D-U03-K3",
+      "relation": "develops",
+      "target": "E3D-C-LANG"
+    },
+    {
+      "source": "E3D-U03-K3",
+      "relation": "develops",
+      "target": "E3D-C-LEARN"
+    },
+    {
+      "source": "E3D-D-THEME",
+      "relation": "contains",
+      "target": "E3D-U04"
+    },
+    {
+      "source": "E3D-U04",
+      "relation": "uses_method",
+      "target": "E3D-M-LISTEN-SPEAK"
+    },
+    {
+      "source": "E3D-U04",
+      "relation": "contains",
+      "target": "E3D-U04-L1"
+    },
+    {
+      "source": "E3D-U04",
+      "relation": "teaches",
+      "target": "E3D-U04-K1"
+    },
+    {
+      "source": "E3D-U04-K1",
+      "relation": "uses_method",
+      "target": "E3D-M-LISTEN-SPEAK"
+    },
+    {
+      "source": "E3D-U04-K1",
+      "relation": "aligns_to",
+      "target": "E3D-STD-SPEAK",
+      "alignment": "partial"
+    },
+    {
+      "source": "E3D-U04-K1",
+      "relation": "develops",
+      "target": "E3D-C-LANG"
+    },
+    {
+      "source": "E3D-U04-K1",
+      "relation": "develops",
+      "target": "E3D-C-LEARN"
+    },
+    {
+      "source": "E3D-D-THEME",
+      "relation": "contains",
+      "target": "E3D-U05"
+    },
+    {
+      "source": "E3D-U05",
+      "relation": "uses_method",
+      "target": "E3D-M-LISTEN-SPEAK"
+    },
+    {
+      "source": "E3D-U05",
+      "relation": "contains",
+      "target": "E3D-U05-L1"
+    },
+    {
+      "source": "E3D-U05",
+      "relation": "contains",
+      "target": "E3D-U05-L2"
+    },
+    {
+      "source": "E3D-U05",
+      "relation": "contains",
+      "target": "E3D-U05-L3"
+    },
+    {
+      "source": "E3D-U05",
+      "relation": "teaches",
+      "target": "E3D-U05-K1"
+    },
+    {
+      "source": "E3D-U05-K1",
+      "relation": "uses_method",
+      "target": "E3D-M-LISTEN-SPEAK"
+    },
+    {
+      "source": "E3D-U05-K1",
+      "relation": "aligns_to",
+      "target": "E3D-STD-LISTEN",
+      "alignment": "direct"
+    },
+    {
+      "source": "E3D-U05-K1",
+      "relation": "develops",
+      "target": "E3D-C-LANG"
+    },
+    {
+      "source": "E3D-U05-K1",
+      "relation": "develops",
+      "target": "E3D-C-LEARN"
+    },
+    {
+      "source": "E3D-U05",
+      "relation": "teaches",
+      "target": "E3D-U05-K2"
+    },
+    {
+      "source": "E3D-U05-K2",
+      "relation": "uses_method",
+      "target": "E3D-M-LISTEN-SPEAK"
+    },
+    {
+      "source": "E3D-U05-K2",
+      "relation": "aligns_to",
+      "target": "E3D-STD-VOCAB",
+      "alignment": "direct"
+    },
+    {
+      "source": "E3D-U05-K2",
+      "relation": "develops",
+      "target": "E3D-C-LANG"
+    },
+    {
+      "source": "E3D-U05-K2",
+      "relation": "develops",
+      "target": "E3D-C-LEARN"
+    },
+    {
+      "source": "E3D-U05",
+      "relation": "teaches",
+      "target": "E3D-U05-K3"
+    },
+    {
+      "source": "E3D-U05-K3",
+      "relation": "uses_method",
+      "target": "E3D-M-LISTEN-SPEAK"
+    },
+    {
+      "source": "E3D-U05-K3",
+      "relation": "aligns_to",
+      "target": "E3D-STD-SENTENCE",
+      "alignment": "direct"
+    },
+    {
+      "source": "E3D-U05-K3",
+      "relation": "develops",
+      "target": "E3D-C-LANG"
+    },
+    {
+      "source": "E3D-U05-K3",
+      "relation": "develops",
+      "target": "E3D-C-LEARN"
+    },
+    {
+      "source": "E3D-D-THEME",
+      "relation": "contains",
+      "target": "E3D-U06"
+    },
+    {
+      "source": "E3D-U06",
+      "relation": "uses_method",
+      "target": "E3D-M-LISTEN-SPEAK"
+    },
+    {
+      "source": "E3D-U06",
+      "relation": "contains",
+      "target": "E3D-U06-L1"
+    },
+    {
+      "source": "E3D-U06",
+      "relation": "contains",
+      "target": "E3D-U06-L2"
+    },
+    {
+      "source": "E3D-U06",
+      "relation": "contains",
+      "target": "E3D-U06-L3"
+    },
+    {
+      "source": "E3D-U06",
+      "relation": "teaches",
+      "target": "E3D-U06-K1"
+    },
+    {
+      "source": "E3D-U06-K1",
+      "relation": "uses_method",
+      "target": "E3D-M-LISTEN-SPEAK"
+    },
+    {
+      "source": "E3D-U06-K1",
+      "relation": "aligns_to",
+      "target": "E3D-STD-SPEAK",
+      "alignment": "direct"
+    },
+    {
+      "source": "E3D-U06-K1",
+      "relation": "develops",
+      "target": "E3D-C-LANG"
+    },
+    {
+      "source": "E3D-U06-K1",
+      "relation": "develops",
+      "target": "E3D-C-LEARN"
+    },
+    {
+      "source": "E3D-U06",
+      "relation": "teaches",
+      "target": "E3D-U06-K2"
+    },
+    {
+      "source": "E3D-U06-K2",
+      "relation": "uses_method",
+      "target": "E3D-M-LISTEN-SPEAK"
+    },
+    {
+      "source": "E3D-U06-K2",
+      "relation": "aligns_to",
+      "target": "E3D-STD-VOCAB",
+      "alignment": "direct"
+    },
+    {
+      "source": "E3D-U06-K2",
+      "relation": "develops",
+      "target": "E3D-C-LANG"
+    },
+    {
+      "source": "E3D-U06-K2",
+      "relation": "develops",
+      "target": "E3D-C-LEARN"
+    },
+    {
+      "source": "E3D-U06",
+      "relation": "teaches",
+      "target": "E3D-U06-K3"
+    },
+    {
+      "source": "E3D-U06-K3",
+      "relation": "uses_method",
+      "target": "E3D-M-LISTEN-SPEAK"
+    },
+    {
+      "source": "E3D-U06-K3",
+      "relation": "aligns_to",
+      "target": "E3D-STD-THEME-SCHOOL",
+      "alignment": "partial"
+    },
+    {
+      "source": "E3D-U06-K3",
+      "relation": "develops",
+      "target": "E3D-C-LANG"
+    },
+    {
+      "source": "E3D-U06-K3",
+      "relation": "develops",
+      "target": "E3D-C-LEARN"
+    },
+    {
+      "source": "E3D-D-THEME",
+      "relation": "contains",
+      "target": "E3D-U07"
+    },
+    {
+      "source": "E3D-U07",
+      "relation": "uses_method",
+      "target": "E3D-M-LISTEN-SPEAK"
+    },
+    {
+      "source": "E3D-U07",
+      "relation": "contains",
+      "target": "E3D-U07-L1"
+    },
+    {
+      "source": "E3D-U07",
+      "relation": "contains",
+      "target": "E3D-U07-L2"
+    },
+    {
+      "source": "E3D-U07",
+      "relation": "contains",
+      "target": "E3D-U07-L3"
+    },
+    {
+      "source": "E3D-U07",
+      "relation": "teaches",
+      "target": "E3D-U07-K1"
+    },
+    {
+      "source": "E3D-U07-K1",
+      "relation": "uses_method",
+      "target": "E3D-M-LISTEN-SPEAK"
+    },
+    {
+      "source": "E3D-U07-K1",
+      "relation": "aligns_to",
+      "target": "E3D-STD-SENTENCE",
+      "alignment": "direct"
+    },
+    {
+      "source": "E3D-U07-K1",
+      "relation": "develops",
+      "target": "E3D-C-LANG"
+    },
+    {
+      "source": "E3D-U07-K1",
+      "relation": "develops",
+      "target": "E3D-C-LEARN"
+    },
+    {
+      "source": "E3D-U07",
+      "relation": "teaches",
+      "target": "E3D-U07-K2"
+    },
+    {
+      "source": "E3D-U07-K2",
+      "relation": "uses_method",
+      "target": "E3D-M-LISTEN-SPEAK"
+    },
+    {
+      "source": "E3D-U07-K2",
+      "relation": "aligns_to",
+      "target": "E3D-STD-VOCAB",
+      "alignment": "direct"
+    },
+    {
+      "source": "E3D-U07-K2",
+      "relation": "develops",
+      "target": "E3D-C-LANG"
+    },
+    {
+      "source": "E3D-U07-K2",
+      "relation": "develops",
+      "target": "E3D-C-LEARN"
+    },
+    {
+      "source": "E3D-D-THEME",
+      "relation": "contains",
+      "target": "E3D-U08"
+    },
+    {
+      "source": "E3D-U08",
+      "relation": "uses_method",
+      "target": "E3D-M-LISTEN-SPEAK"
+    },
+    {
+      "source": "E3D-U08",
+      "relation": "contains",
+      "target": "E3D-U08-L1"
+    },
+    {
+      "source": "E3D-U08",
+      "relation": "teaches",
+      "target": "E3D-U08-K1"
+    },
+    {
+      "source": "E3D-U08-K1",
+      "relation": "uses_method",
+      "target": "E3D-M-LISTEN-SPEAK"
+    },
+    {
+      "source": "E3D-U08-K1",
+      "relation": "aligns_to",
+      "target": "E3D-STD-SPEAK",
+      "alignment": "partial"
+    },
+    {
+      "source": "E3D-U08-K1",
+      "relation": "develops",
+      "target": "E3D-C-LANG"
+    },
+    {
+      "source": "E3D-U08-K1",
+      "relation": "develops",
+      "target": "E3D-C-LEARN"
+    },
+    {
+      "source": "D3U",
+      "relation": "contains",
+      "target": "D3U-STD-LEARN"
+    },
+    {
+      "source": "D3U",
+      "relation": "contains",
+      "target": "D3U-STD-SCHOOL"
+    },
+    {
+      "source": "D3U",
+      "relation": "contains",
+      "target": "D3U-STD-FAMILY"
+    },
+    {
+      "source": "D3U",
+      "relation": "contains",
+      "target": "D3U-STD-SELF"
+    },
+    {
+      "source": "D3U",
+      "relation": "contains",
+      "target": "D3U-STD-HONEST"
+    },
+    {
+      "source": "D3U",
+      "relation": "contains",
+      "target": "D3U-STD-NEIGHBOR"
+    },
+    {
+      "source": "D3U",
+      "relation": "contains",
+      "target": "D3U-STD-PUBLIC"
+    },
+    {
+      "source": "D3U",
+      "relation": "contains",
+      "target": "D3U-STD-RULE"
+    },
+    {
+      "source": "D3U",
+      "relation": "contains",
+      "target": "D3U-STD-HELP"
+    },
+    {
+      "source": "D3U",
+      "relation": "contains",
+      "target": "D3U-STD-LIFE"
+    },
+    {
+      "source": "D3U",
+      "relation": "contains",
+      "target": "D3U-STD-TRAFFIC"
+    },
+    {
+      "source": "D3U",
+      "relation": "contains",
+      "target": "D3U-STD-COMM"
+    },
+    {
+      "source": "D3U",
+      "relation": "contains",
+      "target": "D3U-LATER-NETWORK"
+    },
+    {
+      "source": "D3U",
+      "relation": "contains",
+      "target": "D3U-LATER-NATION"
+    },
+    {
+      "source": "D3U",
+      "relation": "contains",
+      "target": "D3U-LATER-TRADITION"
+    },
+    {
+      "source": "D3U",
+      "relation": "contains",
+      "target": "D3U-LATER-CONSUME"
+    },
+    {
+      "source": "D3U",
+      "relation": "contains",
+      "target": "D3U-LATER-CORE-VALUES"
+    },
+    {
+      "source": "D3U",
+      "relation": "develops",
+      "target": "D3U-C-POL"
+    },
+    {
+      "source": "D3U",
+      "relation": "develops",
+      "target": "D3U-C-MOR"
+    },
+    {
+      "source": "D3U",
+      "relation": "develops",
+      "target": "D3U-C-LAW"
+    },
+    {
+      "source": "D3U",
+      "relation": "develops",
+      "target": "D3U-C-PERSON"
+    },
+    {
+      "source": "D3U",
+      "relation": "develops",
+      "target": "D3U-C-RESP"
+    },
+    {
+      "source": "D3U",
+      "relation": "contains",
+      "target": "D3U-D-LIFE"
+    },
+    {
+      "source": "D3U",
+      "relation": "contains",
+      "target": "D3U-M-DISCUSS"
+    },
+    {
+      "source": "D3U-D-LIFE",
+      "relation": "contains",
+      "target": "D3U-U01"
+    },
+    {
+      "source": "D3U-U01",
+      "relation": "uses_method",
+      "target": "D3U-M-DISCUSS"
+    },
+    {
+      "source": "D3U-U01",
+      "relation": "contains",
+      "target": "D3U-U01-L1"
+    },
+    {
+      "source": "D3U-U01-L1",
+      "relation": "aligns_to",
+      "target": "D3U-STD-LEARN",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3U-U01",
+      "relation": "contains",
+      "target": "D3U-U01-L2"
+    },
+    {
+      "source": "D3U-U01-L2",
+      "relation": "aligns_to",
+      "target": "D3U-STD-LEARN",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3U-U01",
+      "relation": "contains",
+      "target": "D3U-U01-L3"
+    },
+    {
+      "source": "D3U-U01-L3",
+      "relation": "aligns_to",
+      "target": "D3U-STD-LEARN",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3U-U01",
+      "relation": "teaches",
+      "target": "D3U-U01-K1"
+    },
+    {
+      "source": "D3U-U01-K1",
+      "relation": "uses_method",
+      "target": "D3U-M-DISCUSS"
+    },
+    {
+      "source": "D3U-U01-K1",
+      "relation": "aligns_to",
+      "target": "D3U-STD-LEARN",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3U-U01-K1",
+      "relation": "develops",
+      "target": "D3U-C-MOR"
+    },
+    {
+      "source": "D3U-U01-K1",
+      "relation": "develops",
+      "target": "D3U-C-RESP"
+    },
+    {
+      "source": "D3U-U01",
+      "relation": "teaches",
+      "target": "D3U-U01-K2"
+    },
+    {
+      "source": "D3U-U01-K2",
+      "relation": "uses_method",
+      "target": "D3U-M-DISCUSS"
+    },
+    {
+      "source": "D3U-U01-K2",
+      "relation": "aligns_to",
+      "target": "D3U-STD-LEARN",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3U-U01-K2",
+      "relation": "develops",
+      "target": "D3U-C-MOR"
+    },
+    {
+      "source": "D3U-U01-K2",
+      "relation": "develops",
+      "target": "D3U-C-RESP"
+    },
+    {
+      "source": "D3U-U01",
+      "relation": "teaches",
+      "target": "D3U-U01-K3"
+    },
+    {
+      "source": "D3U-U01-K3",
+      "relation": "uses_method",
+      "target": "D3U-M-DISCUSS"
+    },
+    {
+      "source": "D3U-U01-K3",
+      "relation": "aligns_to",
+      "target": "D3U-STD-LEARN",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3U-U01-K3",
+      "relation": "develops",
+      "target": "D3U-C-MOR"
+    },
+    {
+      "source": "D3U-U01-K3",
+      "relation": "develops",
+      "target": "D3U-C-RESP"
+    },
+    {
+      "source": "D3U-D-LIFE",
+      "relation": "contains",
+      "target": "D3U-U02"
+    },
+    {
+      "source": "D3U-U02",
+      "relation": "uses_method",
+      "target": "D3U-M-DISCUSS"
+    },
+    {
+      "source": "D3U-U02",
+      "relation": "contains",
+      "target": "D3U-U02-L1"
+    },
+    {
+      "source": "D3U-U02-L1",
+      "relation": "aligns_to",
+      "target": "D3U-STD-SCHOOL",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3U-U02",
+      "relation": "contains",
+      "target": "D3U-U02-L2"
+    },
+    {
+      "source": "D3U-U02-L2",
+      "relation": "aligns_to",
+      "target": "D3U-STD-SCHOOL",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3U-U02",
+      "relation": "contains",
+      "target": "D3U-U02-L3"
+    },
+    {
+      "source": "D3U-U02-L3",
+      "relation": "aligns_to",
+      "target": "D3U-STD-SCHOOL",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3U-U02",
+      "relation": "teaches",
+      "target": "D3U-U02-K1"
+    },
+    {
+      "source": "D3U-U02-K1",
+      "relation": "uses_method",
+      "target": "D3U-M-DISCUSS"
+    },
+    {
+      "source": "D3U-U02-K1",
+      "relation": "aligns_to",
+      "target": "D3U-STD-SCHOOL",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3U-U02-K1",
+      "relation": "develops",
+      "target": "D3U-C-MOR"
+    },
+    {
+      "source": "D3U-U02-K1",
+      "relation": "develops",
+      "target": "D3U-C-RESP"
+    },
+    {
+      "source": "D3U-U02",
+      "relation": "teaches",
+      "target": "D3U-U02-K2"
+    },
+    {
+      "source": "D3U-U02-K2",
+      "relation": "uses_method",
+      "target": "D3U-M-DISCUSS"
+    },
+    {
+      "source": "D3U-U02-K2",
+      "relation": "aligns_to",
+      "target": "D3U-STD-SCHOOL",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3U-U02-K2",
+      "relation": "develops",
+      "target": "D3U-C-MOR"
+    },
+    {
+      "source": "D3U-U02-K2",
+      "relation": "develops",
+      "target": "D3U-C-RESP"
+    },
+    {
+      "source": "D3U-U02",
+      "relation": "teaches",
+      "target": "D3U-U02-K3"
+    },
+    {
+      "source": "D3U-U02-K3",
+      "relation": "uses_method",
+      "target": "D3U-M-DISCUSS"
+    },
+    {
+      "source": "D3U-U02-K3",
+      "relation": "aligns_to",
+      "target": "D3U-STD-SCHOOL",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3U-U02-K3",
+      "relation": "develops",
+      "target": "D3U-C-MOR"
+    },
+    {
+      "source": "D3U-U02-K3",
+      "relation": "develops",
+      "target": "D3U-C-RESP"
+    },
+    {
+      "source": "D3U-D-LIFE",
+      "relation": "contains",
+      "target": "D3U-U03"
+    },
+    {
+      "source": "D3U-U03",
+      "relation": "uses_method",
+      "target": "D3U-M-DISCUSS"
+    },
+    {
+      "source": "D3U-U03",
+      "relation": "contains",
+      "target": "D3U-U03-L1"
+    },
+    {
+      "source": "D3U-U03-L1",
+      "relation": "aligns_to",
+      "target": "D3U-STD-LIFE",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3U-U03",
+      "relation": "contains",
+      "target": "D3U-U03-L2"
+    },
+    {
+      "source": "D3U-U03-L2",
+      "relation": "aligns_to",
+      "target": "D3U-STD-LIFE",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3U-U03",
+      "relation": "contains",
+      "target": "D3U-U03-L3"
+    },
+    {
+      "source": "D3U-U03-L3",
+      "relation": "aligns_to",
+      "target": "D3U-STD-LIFE",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3U-U03",
+      "relation": "teaches",
+      "target": "D3U-U03-K1"
+    },
+    {
+      "source": "D3U-U03-K1",
+      "relation": "uses_method",
+      "target": "D3U-M-DISCUSS"
+    },
+    {
+      "source": "D3U-U03-K1",
+      "relation": "aligns_to",
+      "target": "D3U-STD-LIFE",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3U-U03-K1",
+      "relation": "develops",
+      "target": "D3U-C-MOR"
+    },
+    {
+      "source": "D3U-U03-K1",
+      "relation": "develops",
+      "target": "D3U-C-RESP"
+    },
+    {
+      "source": "D3U-U03",
+      "relation": "teaches",
+      "target": "D3U-U03-K2"
+    },
+    {
+      "source": "D3U-U03-K2",
+      "relation": "uses_method",
+      "target": "D3U-M-DISCUSS"
+    },
+    {
+      "source": "D3U-U03-K2",
+      "relation": "aligns_to",
+      "target": "D3U-STD-LIFE",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3U-U03-K2",
+      "relation": "develops",
+      "target": "D3U-C-MOR"
+    },
+    {
+      "source": "D3U-U03-K2",
+      "relation": "develops",
+      "target": "D3U-C-RESP"
+    },
+    {
+      "source": "D3U-U03",
+      "relation": "teaches",
+      "target": "D3U-U03-K3"
+    },
+    {
+      "source": "D3U-U03-K3",
+      "relation": "uses_method",
+      "target": "D3U-M-DISCUSS"
+    },
+    {
+      "source": "D3U-U03-K3",
+      "relation": "aligns_to",
+      "target": "D3U-STD-LIFE",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3U-U03-K3",
+      "relation": "develops",
+      "target": "D3U-C-MOR"
+    },
+    {
+      "source": "D3U-U03-K3",
+      "relation": "develops",
+      "target": "D3U-C-RESP"
+    },
+    {
+      "source": "D3U-D-LIFE",
+      "relation": "contains",
+      "target": "D3U-U04"
+    },
+    {
+      "source": "D3U-U04",
+      "relation": "uses_method",
+      "target": "D3U-M-DISCUSS"
+    },
+    {
+      "source": "D3U-U04",
+      "relation": "contains",
+      "target": "D3U-U04-L1"
+    },
+    {
+      "source": "D3U-U04-L1",
+      "relation": "aligns_to",
+      "target": "D3U-STD-FAMILY",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3U-U04",
+      "relation": "contains",
+      "target": "D3U-U04-L2"
+    },
+    {
+      "source": "D3U-U04-L2",
+      "relation": "aligns_to",
+      "target": "D3U-STD-FAMILY",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3U-U04",
+      "relation": "contains",
+      "target": "D3U-U04-L3"
+    },
+    {
+      "source": "D3U-U04-L3",
+      "relation": "aligns_to",
+      "target": "D3U-STD-FAMILY",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3U-U04",
+      "relation": "teaches",
+      "target": "D3U-U04-K1"
+    },
+    {
+      "source": "D3U-U04-K1",
+      "relation": "uses_method",
+      "target": "D3U-M-DISCUSS"
+    },
+    {
+      "source": "D3U-U04-K1",
+      "relation": "aligns_to",
+      "target": "D3U-STD-FAMILY",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3U-U04-K1",
+      "relation": "develops",
+      "target": "D3U-C-MOR"
+    },
+    {
+      "source": "D3U-U04-K1",
+      "relation": "develops",
+      "target": "D3U-C-RESP"
+    },
+    {
+      "source": "D3U-U04",
+      "relation": "teaches",
+      "target": "D3U-U04-K2"
+    },
+    {
+      "source": "D3U-U04-K2",
+      "relation": "uses_method",
+      "target": "D3U-M-DISCUSS"
+    },
+    {
+      "source": "D3U-U04-K2",
+      "relation": "aligns_to",
+      "target": "D3U-STD-FAMILY",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3U-U04-K2",
+      "relation": "develops",
+      "target": "D3U-C-MOR"
+    },
+    {
+      "source": "D3U-U04-K2",
+      "relation": "develops",
+      "target": "D3U-C-RESP"
+    },
+    {
+      "source": "D3U-U04",
+      "relation": "teaches",
+      "target": "D3U-U04-K3"
+    },
+    {
+      "source": "D3U-U04-K3",
+      "relation": "uses_method",
+      "target": "D3U-M-DISCUSS"
+    },
+    {
+      "source": "D3U-U04-K3",
+      "relation": "aligns_to",
+      "target": "D3U-STD-FAMILY",
+      "alignment": "partial"
+    },
+    {
+      "source": "D3U-U04-K3",
+      "relation": "develops",
+      "target": "D3U-C-MOR"
+    },
+    {
+      "source": "D3U-U04-K3",
+      "relation": "develops",
+      "target": "D3U-C-RESP"
+    },
+    {
+      "source": "D3D",
+      "relation": "contains",
+      "target": "D3D-STD-LEARN"
+    },
+    {
+      "source": "D3D",
+      "relation": "contains",
+      "target": "D3D-STD-SCHOOL"
+    },
+    {
+      "source": "D3D",
+      "relation": "contains",
+      "target": "D3D-STD-FAMILY"
+    },
+    {
+      "source": "D3D",
+      "relation": "contains",
+      "target": "D3D-STD-SELF"
+    },
+    {
+      "source": "D3D",
+      "relation": "contains",
+      "target": "D3D-STD-HONEST"
+    },
+    {
+      "source": "D3D",
+      "relation": "contains",
+      "target": "D3D-STD-NEIGHBOR"
+    },
+    {
+      "source": "D3D",
+      "relation": "contains",
+      "target": "D3D-STD-PUBLIC"
+    },
+    {
+      "source": "D3D",
+      "relation": "contains",
+      "target": "D3D-STD-RULE"
+    },
+    {
+      "source": "D3D",
+      "relation": "contains",
+      "target": "D3D-STD-HELP"
+    },
+    {
+      "source": "D3D",
+      "relation": "contains",
+      "target": "D3D-STD-LIFE"
+    },
+    {
+      "source": "D3D",
+      "relation": "contains",
+      "target": "D3D-STD-TRAFFIC"
+    },
+    {
+      "source": "D3D",
+      "relation": "contains",
+      "target": "D3D-STD-COMM"
+    },
+    {
+      "source": "D3D",
+      "relation": "contains",
+      "target": "D3D-LATER-NETWORK"
+    },
+    {
+      "source": "D3D",
+      "relation": "contains",
+      "target": "D3D-LATER-NATION"
+    },
+    {
+      "source": "D3D",
+      "relation": "contains",
+      "target": "D3D-LATER-TRADITION"
+    },
+    {
+      "source": "D3D",
+      "relation": "contains",
+      "target": "D3D-LATER-CONSUME"
+    },
+    {
+      "source": "D3D",
+      "relation": "contains",
+      "target": "D3D-LATER-CORE-VALUES"
+    },
+    {
+      "source": "D3D",
+      "relation": "develops",
+      "target": "D3D-C-POL"
+    },
+    {
+      "source": "D3D",
+      "relation": "develops",
+      "target": "D3D-C-MOR"
+    },
+    {
+      "source": "D3D",
+      "relation": "develops",
+      "target": "D3D-C-LAW"
+    },
+    {
+      "source": "D3D",
+      "relation": "develops",
+      "target": "D3D-C-PERSON"
+    },
+    {
+      "source": "D3D",
+      "relation": "develops",
+      "target": "D3D-C-RESP"
+    },
+    {
+      "source": "D3D",
+      "relation": "contains",
+      "target": "D3D-D-LIFE"
+    },
+    {
+      "source": "D3D",
+      "relation": "contains",
+      "target": "D3D-M-DISCUSS"
+    },
+    {
+      "source": "D3D-D-LIFE",
+      "relation": "contains",
+      "target": "D3D-U01"
+    },
+    {
+      "source": "D3D-U01",
+      "relation": "uses_method",
+      "target": "D3D-M-DISCUSS"
+    },
+    {
+      "source": "D3D-U01",
+      "relation": "contains",
+      "target": "D3D-U01-L1"
+    },
+    {
+      "source": "D3D-U01-L1",
+      "relation": "aligns_to",
+      "target": "D3D-STD-SELF",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3D-U01",
+      "relation": "contains",
+      "target": "D3D-U01-L2"
+    },
+    {
+      "source": "D3D-U01-L2",
+      "relation": "aligns_to",
+      "target": "D3D-STD-SELF",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3D-U01",
+      "relation": "contains",
+      "target": "D3D-U01-L3"
+    },
+    {
+      "source": "D3D-U01-L3",
+      "relation": "aligns_to",
+      "target": "D3D-STD-HONEST",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3D-U01",
+      "relation": "contains",
+      "target": "D3D-U01-L4"
+    },
+    {
+      "source": "D3D-U01-L4",
+      "relation": "aligns_to",
+      "target": "D3D-STD-SCHOOL",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3D-U01",
+      "relation": "teaches",
+      "target": "D3D-U01-K1"
+    },
+    {
+      "source": "D3D-U01-K1",
+      "relation": "uses_method",
+      "target": "D3D-M-DISCUSS"
+    },
+    {
+      "source": "D3D-U01-K1",
+      "relation": "aligns_to",
+      "target": "D3D-STD-SELF",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3D-U01-K1",
+      "relation": "develops",
+      "target": "D3D-C-MOR"
+    },
+    {
+      "source": "D3D-U01-K1",
+      "relation": "develops",
+      "target": "D3D-C-RESP"
+    },
+    {
+      "source": "D3D-U01",
+      "relation": "teaches",
+      "target": "D3D-U01-K2"
+    },
+    {
+      "source": "D3D-U01-K2",
+      "relation": "uses_method",
+      "target": "D3D-M-DISCUSS"
+    },
+    {
+      "source": "D3D-U01-K2",
+      "relation": "aligns_to",
+      "target": "D3D-STD-SELF",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3D-U01-K2",
+      "relation": "develops",
+      "target": "D3D-C-MOR"
+    },
+    {
+      "source": "D3D-U01-K2",
+      "relation": "develops",
+      "target": "D3D-C-RESP"
+    },
+    {
+      "source": "D3D-U01",
+      "relation": "teaches",
+      "target": "D3D-U01-K3"
+    },
+    {
+      "source": "D3D-U01-K3",
+      "relation": "uses_method",
+      "target": "D3D-M-DISCUSS"
+    },
+    {
+      "source": "D3D-U01-K3",
+      "relation": "aligns_to",
+      "target": "D3D-STD-HONEST",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3D-U01-K3",
+      "relation": "develops",
+      "target": "D3D-C-MOR"
+    },
+    {
+      "source": "D3D-U01-K3",
+      "relation": "develops",
+      "target": "D3D-C-RESP"
+    },
+    {
+      "source": "D3D-U01",
+      "relation": "teaches",
+      "target": "D3D-U01-K4"
+    },
+    {
+      "source": "D3D-U01-K4",
+      "relation": "uses_method",
+      "target": "D3D-M-DISCUSS"
+    },
+    {
+      "source": "D3D-U01-K4",
+      "relation": "aligns_to",
+      "target": "D3D-STD-SCHOOL",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3D-U01-K4",
+      "relation": "develops",
+      "target": "D3D-C-MOR"
+    },
+    {
+      "source": "D3D-U01-K4",
+      "relation": "develops",
+      "target": "D3D-C-RESP"
+    },
+    {
+      "source": "D3D-D-LIFE",
+      "relation": "contains",
+      "target": "D3D-U02"
+    },
+    {
+      "source": "D3D-U02",
+      "relation": "uses_method",
+      "target": "D3D-M-DISCUSS"
+    },
+    {
+      "source": "D3D-U02",
+      "relation": "contains",
+      "target": "D3D-U02-L1"
+    },
+    {
+      "source": "D3D-U02-L1",
+      "relation": "aligns_to",
+      "target": "D3D-STD-NEIGHBOR",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3D-U02",
+      "relation": "contains",
+      "target": "D3D-U02-L2"
+    },
+    {
+      "source": "D3D-U02-L2",
+      "relation": "aligns_to",
+      "target": "D3D-STD-NEIGHBOR",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3D-U02",
+      "relation": "contains",
+      "target": "D3D-U02-L3"
+    },
+    {
+      "source": "D3D-U02-L3",
+      "relation": "aligns_to",
+      "target": "D3D-STD-NEIGHBOR",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3D-U02",
+      "relation": "teaches",
+      "target": "D3D-U02-K1"
+    },
+    {
+      "source": "D3D-U02-K1",
+      "relation": "uses_method",
+      "target": "D3D-M-DISCUSS"
+    },
+    {
+      "source": "D3D-U02-K1",
+      "relation": "aligns_to",
+      "target": "D3D-STD-NEIGHBOR",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3D-U02-K1",
+      "relation": "develops",
+      "target": "D3D-C-MOR"
+    },
+    {
+      "source": "D3D-U02-K1",
+      "relation": "develops",
+      "target": "D3D-C-RESP"
+    },
+    {
+      "source": "D3D-U02",
+      "relation": "teaches",
+      "target": "D3D-U02-K2"
+    },
+    {
+      "source": "D3D-U02-K2",
+      "relation": "uses_method",
+      "target": "D3D-M-DISCUSS"
+    },
+    {
+      "source": "D3D-U02-K2",
+      "relation": "aligns_to",
+      "target": "D3D-STD-NEIGHBOR",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3D-U02-K2",
+      "relation": "develops",
+      "target": "D3D-C-MOR"
+    },
+    {
+      "source": "D3D-U02-K2",
+      "relation": "develops",
+      "target": "D3D-C-RESP"
+    },
+    {
+      "source": "D3D-U02",
+      "relation": "teaches",
+      "target": "D3D-U02-K3"
+    },
+    {
+      "source": "D3D-U02-K3",
+      "relation": "uses_method",
+      "target": "D3D-M-DISCUSS"
+    },
+    {
+      "source": "D3D-U02-K3",
+      "relation": "aligns_to",
+      "target": "D3D-STD-NEIGHBOR",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3D-U02-K3",
+      "relation": "develops",
+      "target": "D3D-C-MOR"
+    },
+    {
+      "source": "D3D-U02-K3",
+      "relation": "develops",
+      "target": "D3D-C-RESP"
+    },
+    {
+      "source": "D3D-D-LIFE",
+      "relation": "contains",
+      "target": "D3D-U03"
+    },
+    {
+      "source": "D3D-U03",
+      "relation": "uses_method",
+      "target": "D3D-M-DISCUSS"
+    },
+    {
+      "source": "D3D-U03",
+      "relation": "contains",
+      "target": "D3D-U03-L1"
+    },
+    {
+      "source": "D3D-U03-L1",
+      "relation": "aligns_to",
+      "target": "D3D-STD-PUBLIC",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3D-U03",
+      "relation": "contains",
+      "target": "D3D-U03-L2"
+    },
+    {
+      "source": "D3D-U03-L2",
+      "relation": "aligns_to",
+      "target": "D3D-STD-RULE",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3D-U03",
+      "relation": "contains",
+      "target": "D3D-U03-L3"
+    },
+    {
+      "source": "D3D-U03-L3",
+      "relation": "aligns_to",
+      "target": "D3D-STD-HELP",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3D-U03",
+      "relation": "teaches",
+      "target": "D3D-U03-K1"
+    },
+    {
+      "source": "D3D-U03-K1",
+      "relation": "uses_method",
+      "target": "D3D-M-DISCUSS"
+    },
+    {
+      "source": "D3D-U03-K1",
+      "relation": "aligns_to",
+      "target": "D3D-STD-PUBLIC",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3D-U03-K1",
+      "relation": "develops",
+      "target": "D3D-C-MOR"
+    },
+    {
+      "source": "D3D-U03-K1",
+      "relation": "develops",
+      "target": "D3D-C-RESP"
+    },
+    {
+      "source": "D3D-U03",
+      "relation": "teaches",
+      "target": "D3D-U03-K2"
+    },
+    {
+      "source": "D3D-U03-K2",
+      "relation": "uses_method",
+      "target": "D3D-M-DISCUSS"
+    },
+    {
+      "source": "D3D-U03-K2",
+      "relation": "aligns_to",
+      "target": "D3D-STD-RULE",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3D-U03-K2",
+      "relation": "develops",
+      "target": "D3D-C-MOR"
+    },
+    {
+      "source": "D3D-U03-K2",
+      "relation": "develops",
+      "target": "D3D-C-RESP"
+    },
+    {
+      "source": "D3D-U03",
+      "relation": "teaches",
+      "target": "D3D-U03-K3"
+    },
+    {
+      "source": "D3D-U03-K3",
+      "relation": "uses_method",
+      "target": "D3D-M-DISCUSS"
+    },
+    {
+      "source": "D3D-U03-K3",
+      "relation": "aligns_to",
+      "target": "D3D-STD-HELP",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3D-U03-K3",
+      "relation": "develops",
+      "target": "D3D-C-MOR"
+    },
+    {
+      "source": "D3D-U03-K3",
+      "relation": "develops",
+      "target": "D3D-C-RESP"
+    },
+    {
+      "source": "D3D-D-LIFE",
+      "relation": "contains",
+      "target": "D3D-U04"
+    },
+    {
+      "source": "D3D-U04",
+      "relation": "uses_method",
+      "target": "D3D-M-DISCUSS"
+    },
+    {
+      "source": "D3D-U04",
+      "relation": "contains",
+      "target": "D3D-U04-L1"
+    },
+    {
+      "source": "D3D-U04-L1",
+      "relation": "aligns_to",
+      "target": "D3D-STD-TRAFFIC",
+      "alignment": "partial"
+    },
+    {
+      "source": "D3D-U04",
+      "relation": "contains",
+      "target": "D3D-U04-L2"
+    },
+    {
+      "source": "D3D-U04-L2",
+      "relation": "aligns_to",
+      "target": "D3D-STD-TRAFFIC",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3D-U04",
+      "relation": "contains",
+      "target": "D3D-U04-L3"
+    },
+    {
+      "source": "D3D-U04-L3",
+      "relation": "aligns_to",
+      "target": "D3D-STD-COMM",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3D-U04",
+      "relation": "teaches",
+      "target": "D3D-U04-K1"
+    },
+    {
+      "source": "D3D-U04-K1",
+      "relation": "uses_method",
+      "target": "D3D-M-DISCUSS"
+    },
+    {
+      "source": "D3D-U04-K1",
+      "relation": "aligns_to",
+      "target": "D3D-STD-TRAFFIC",
+      "alignment": "partial"
+    },
+    {
+      "source": "D3D-U04-K1",
+      "relation": "develops",
+      "target": "D3D-C-MOR"
+    },
+    {
+      "source": "D3D-U04-K1",
+      "relation": "develops",
+      "target": "D3D-C-RESP"
+    },
+    {
+      "source": "D3D-U04",
+      "relation": "teaches",
+      "target": "D3D-U04-K2"
+    },
+    {
+      "source": "D3D-U04-K2",
+      "relation": "uses_method",
+      "target": "D3D-M-DISCUSS"
+    },
+    {
+      "source": "D3D-U04-K2",
+      "relation": "aligns_to",
+      "target": "D3D-STD-TRAFFIC",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3D-U04-K2",
+      "relation": "develops",
+      "target": "D3D-C-MOR"
+    },
+    {
+      "source": "D3D-U04-K2",
+      "relation": "develops",
+      "target": "D3D-C-RESP"
+    },
+    {
+      "source": "D3D-U04",
+      "relation": "teaches",
+      "target": "D3D-U04-K3"
+    },
+    {
+      "source": "D3D-U04-K3",
+      "relation": "uses_method",
+      "target": "D3D-M-DISCUSS"
+    },
+    {
+      "source": "D3D-U04-K3",
+      "relation": "aligns_to",
+      "target": "D3D-STD-COMM",
+      "alignment": "direct"
+    },
+    {
+      "source": "D3D-U04-K3",
+      "relation": "develops",
+      "target": "D3D-C-MOR"
+    },
+    {
+      "source": "D3D-U04-K3",
+      "relation": "develops",
+      "target": "D3D-C-RESP"
+    },
+    {
+      "source": "X-EMO-SCHOOL",
+      "relation": "cross_links",
+      "target": "E3D-U01-K1"
+    },
+    {
+      "source": "X-EMO-SCHOOL",
+      "relation": "cross_links",
+      "target": "D3U-U02-K1"
+    },
+    {
+      "source": "X-EMO-FAMILY",
+      "relation": "cross_links",
+      "target": "E3D-U02-K1"
+    },
+    {
+      "source": "X-EMO-FAMILY",
+      "relation": "cross_links",
+      "target": "D3U-U04-K1"
+    },
+    {
+      "source": "X-EMO-HOWMANY",
+      "relation": "cross_links",
+      "target": "E3D-U07-K1"
+    },
+    {
+      "source": "X-EMO-HOWMANY",
+      "relation": "cross_links",
+      "target": "M-K-QUANTITY"
+    },
+    {
+      "source": "X-EMO-FRUIT-PRICE",
+      "relation": "cross_links",
+      "target": "E3D-U06-K1"
+    },
+    {
+      "source": "X-EMO-FRUIT-PRICE",
+      "relation": "cross_links",
+      "target": "M-K-PRICE"
+    },
+    {
+      "source": "X-EMO-ZOO",
+      "relation": "cross_links",
+      "target": "E3D-U03-K1"
+    },
+    {
+      "source": "X-EMO-ZOO",
+      "relation": "cross_links",
+      "target": "S6D-U-BIO-L4"
+    },
+    {
+      "source": "X-EMO-SAFETY",
+      "relation": "cross_links",
+      "target": "D3U-U03-K2"
+    },
+    {
+      "source": "X-EMO-SAFETY",
+      "relation": "cross_links",
+      "target": "S5-K-HEALTH-PROTECT-NERVE"
+    },
+    {
+      "source": "X-EMO-TRAFFIC",
+      "relation": "cross_links",
+      "target": "D3D-U04-K2"
+    },
+    {
+      "source": "X-EMO-TRAFFIC",
+      "relation": "cross_links",
+      "target": "S5-K-HEALTH-PROTECT-NERVE"
     }
   ],
   "node_type_counts": {
-    "subject": 14,
-    "domain": 42,
-    "unit": 94,
-    "lesson": 418,
-    "knowledge": 411,
-    "method": 49,
-    "standard": 182,
-    "competency": 51,
-    "cross_disciplinary_theme": 16
+    "subject": 17,
+    "domain": 45,
+    "unit": 110,
+    "lesson": 463,
+    "knowledge": 456,
+    "method": 52,
+    "standard": 230,
+    "competency": 65,
+    "cross_disciplinary_theme": 23
   }
 }

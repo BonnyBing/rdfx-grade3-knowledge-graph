@@ -1,0 +1,1563 @@
+{
+  "metadata": {
+    "title": "六年级上册语文知识图谱",
+    "version": "1.0",
+    "generated_date": "2026-09-29",
+    "grade": "六年级",
+    "semester": "上册",
+    "subjects": [
+      "语文"
+    ],
+    "textbook_file": "六年级上语文.md",
+    "edition": "人民教育出版社义务教育教科书",
+    "standard_file": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md",
+    "scope_note": "按本册所在学段对齐。学段里本册尚未系统完成的要求标为 stage_later。",
+    "page_reference": "书内页来自教材目录和课题页。这些 Markdown 没有可靠的 PDF 页码，不编造 PDF 页。",
+    "source_files": [
+      "六年级上语文.md",
+      "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md"
+    ],
+    "limits": "语文课标是 2022 年版、2025 年修订。四年级上对齐第二学段（3～4年级），五、六年级上对齐第三学段（5～6年级）。学段要求跨学期，本册没有系统安排的条目标为 stage_later，不写成已经掌握。知识点仍只采用教材单元导语和课题里写出的学习要求。六年级文言文相对第三学段最低要求标为 extension。",
+    "cross_note": "跨学科边只在总图中建立，且只连接教材内容确实相关的课。"
+  },
+  "node_types": [
+    "subject",
+    "domain",
+    "unit",
+    "lesson",
+    "knowledge",
+    "method",
+    "standard",
+    "competency",
+    "cross_disciplinary_theme"
+  ],
+  "relation_types": [
+    "contains",
+    "teaches",
+    "uses_method",
+    "aligns_to",
+    "develops",
+    "prerequisite_of",
+    "applies_to",
+    "cross_links"
+  ],
+  "nodes": [
+    {
+      "id": "C6",
+      "type": "subject",
+      "name": "六年级上册语文",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md封面｜人民教育出版社",
+      "order": 5
+    },
+    {
+      "id": "C6-STD-NATURE",
+      "type": "standard",
+      "name": "阅读表现人与自然的诗歌、散文，体会人与自然和谐相处的意义",
+      "status": "stage_standard",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜第三学段（5～6年级）文学阅读与创意表达（2）"
+    },
+    {
+      "id": "C6-STD-JUDGE",
+      "type": "standard",
+      "name": "在交流和讨论中，敢于提出看法，作出自己的判断",
+      "status": "stage_standard",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜第三学段（5～6年级）阅读与鉴赏3"
+    },
+    {
+      "id": "C6-STD-REV",
+      "type": "standard",
+      "name": "阅读表现革命先烈事迹的诗歌、小说，感受革命先烈伟大的精神世界",
+      "status": "stage_standard",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜第三学段（5～6年级）文学阅读与创意表达（1）"
+    },
+    {
+      "id": "C6-STD-SPEAK",
+      "type": "standard",
+      "name": "能根据对象和场合，稍作准备，作简单的发言",
+      "status": "stage_standard",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜第三学段（5～6年级）表达与交流2"
+    },
+    {
+      "id": "C6-STD-METHOD",
+      "type": "standard",
+      "name": "初步领悟文章的基本表达方法",
+      "status": "stage_standard",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜第三学段（5～6年级）阅读与鉴赏3"
+    },
+    {
+      "id": "C6-STD-PURPOSE",
+      "type": "standard",
+      "name": "学习浏览，根据需要搜集信息",
+      "status": "stage_standard",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜第三学段（5～6年级）阅读与鉴赏1"
+    },
+    {
+      "id": "C6-STD-SCI",
+      "type": "standard",
+      "name": "阅读有关科学发现、技术发明的故事",
+      "status": "stage_standard",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜第三学段（5～6年级）思辨性阅读与表达（3）"
+    },
+    {
+      "id": "C6-STD-NOVEL",
+      "type": "standard",
+      "name": "阅读叙事性作品，了解事件梗概，能简单描述印象最深的场景、人物、细节",
+      "status": "stage_standard",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜第三学段（5～6年级）阅读与鉴赏4"
+    },
+    {
+      "id": "C6-STD-STORY",
+      "type": "standard",
+      "name": "复述印象深刻的故事情节，尝试富有创意地表达",
+      "status": "stage_standard",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜第三学段（5～6年级）文学阅读与创意表达（3）"
+    },
+    {
+      "id": "C6-STD-WRITE",
+      "type": "standard",
+      "name": "能写简单的记实作文，内容具体，感情真实，分段表述",
+      "status": "stage_standard",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜第三学段（5～6年级）表达与交流4"
+    },
+    {
+      "id": "C6-STD-IMAGINE",
+      "type": "standard",
+      "name": "能写简单的想象作文",
+      "status": "stage_standard",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜第三学段（5～6年级）表达与交流4"
+    },
+    {
+      "id": "C6-STD-APP",
+      "type": "standard",
+      "name": "学写常见应用文",
+      "status": "stage_standard",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜第三学段（5～6年级）表达与交流4"
+    },
+    {
+      "id": "C6-STD-TOPIC",
+      "type": "standard",
+      "name": "对自己身边的、大家共同关注的问题开展专题探究",
+      "status": "stage_standard",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜第三学段（5～6年级）梳理与探究4"
+    },
+    {
+      "id": "C6-STD-GROW",
+      "type": "standard",
+      "name": "阅读反映少年成长的故事、小说、传记，交流自己获得的启示",
+      "status": "stage_standard",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜第三学段（5～6年级）文学阅读与创意表达（4）"
+    },
+    {
+      "id": "C6-STD-WHOLE",
+      "type": "standard",
+      "name": "梳理、反思小学阶段的阅读生活，分享整本书阅读的经历和体会",
+      "status": "stage_standard",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜第三学段（5～6年级）整本书阅读（3）"
+    },
+    {
+      "id": "C6-STD-CLASSIC",
+      "type": "standard",
+      "name": "学习短小的文言经典，理解作者的立场、观点与方法",
+      "status": "stage_standard",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜第四学段（7～9年级）思辨性阅读与表达（4）"
+    },
+    {
+      "id": "C6-LATER-COUNT",
+      "type": "standard",
+      "name": "本册未单列完成：累计认识常用汉字3000个左右，其中2500个左右会写",
+      "status": "stage_later",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜第三学段（5～6年级）识字与写字1"
+    },
+    {
+      "id": "C6-LATER-BRUSH",
+      "type": "standard",
+      "name": "本册未系统教学：能用毛笔书写楷书",
+      "status": "stage_later",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜第三学段（5～6年级）识字与写字2"
+    },
+    {
+      "id": "C6-LATER-RATE",
+      "type": "standard",
+      "name": "本册未核验：默读一般读物每分钟不少于300字",
+      "status": "stage_later",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜第三学段（5～6年级）阅读与鉴赏1"
+    },
+    {
+      "id": "C6-LATER-TONE",
+      "type": "standard",
+      "name": "本册未系统教学：辨别词语的感情色彩",
+      "status": "stage_later",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜第三学段（5～6年级）阅读与鉴赏2"
+    },
+    {
+      "id": "C6-LATER-PUNCT",
+      "type": "standard",
+      "name": "本册未系统教学：体会顿号与逗号、分号与句号的不同用法",
+      "status": "stage_later",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜第三学段（5～6年级）阅读与鉴赏2"
+    },
+    {
+      "id": "C6-LATER-NONLIN",
+      "type": "standard",
+      "name": "本册未系统教学：阅读简单的非连续性文本",
+      "status": "stage_later",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜第三学段（5～6年级）阅读与鉴赏5"
+    },
+    {
+      "id": "C6-LATER-VOLUME",
+      "type": "standard",
+      "name": "本册未核验：课外阅读总量不少于100万字",
+      "status": "stage_later",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜第三学段（5～6年级）阅读与鉴赏7"
+    },
+    {
+      "id": "C6-LATER-REVISE",
+      "type": "standard",
+      "name": "本册未系统教学：修改自己的习作，并主动与他人交换修改",
+      "status": "stage_later",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜第三学段（5～6年级）表达与交流5"
+    },
+    {
+      "id": "C6-LATER-REPORT",
+      "type": "standard",
+      "name": "本册未系统教学：尝试写简单的研究报告",
+      "status": "stage_later",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜第三学段（5～6年级）梳理与探究3"
+    },
+    {
+      "id": "C6-LATER-PLAN",
+      "type": "standard",
+      "name": "本册未系统教学：学写活动计划和活动总结",
+      "status": "stage_later",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜第三学段（5～6年级）梳理与探究4"
+    },
+    {
+      "id": "C6-LATER-SORT",
+      "type": "standard",
+      "name": "本册未系统教学：分类整理学过的字词",
+      "status": "stage_later",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜第三学段（5～6年级）梳理与探究1"
+    },
+    {
+      "id": "C6-C-CUL",
+      "type": "competency",
+      "name": "文化自信",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜核心素养内涵：文化自信"
+    },
+    {
+      "id": "C6-C-LANG",
+      "type": "competency",
+      "name": "语言运用",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜核心素养内涵：语言运用"
+    },
+    {
+      "id": "C6-C-THINK",
+      "type": "competency",
+      "name": "思维能力",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜核心素养内涵：思维能力"
+    },
+    {
+      "id": "C6-C-AES",
+      "type": "competency",
+      "name": "审美创造",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "（3）义务教育语文课程标准日常修订版（2022年版2025年修订）.md｜核心素养内涵：审美创造"
+    },
+    {
+      "id": "C6-D-READ",
+      "type": "domain",
+      "name": "阅读与表达",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册"
+    },
+    {
+      "id": "C6-M-READ",
+      "type": "method",
+      "name": "按单元要求朗读、阅读和表达",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内1｜单元导语中的学习要求"
+    },
+    {
+      "id": "C6-U01",
+      "type": "unit",
+      "name": "第1单元 亲近自然",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内1｜亲近自然"
+    },
+    {
+      "id": "C6-U01-L1",
+      "type": "lesson",
+      "name": "草原",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内2｜草原"
+    },
+    {
+      "id": "C6-U01-L2",
+      "type": "lesson",
+      "name": "丁香结",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内5｜丁香结"
+    },
+    {
+      "id": "C6-U01-L3",
+      "type": "lesson",
+      "name": "古诗词三首",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内8｜古诗词三首"
+    },
+    {
+      "id": "C6-U01-L4",
+      "type": "lesson",
+      "name": "习作：变形记",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内10｜习作：变形记"
+    },
+    {
+      "id": "C6-U01-K1",
+      "type": "knowledge",
+      "name": "亲近自然，热爱生活",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内1｜亲近自然，热爱生活"
+    },
+    {
+      "id": "C6-U01-K2",
+      "type": "knowledge",
+      "name": "从所读的内容想开去",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内1｜从所读的内容想开去"
+    },
+    {
+      "id": "C6-U02",
+      "type": "unit",
+      "name": "第2单元 革命岁月",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内13｜革命岁月"
+    },
+    {
+      "id": "C6-U02-L1",
+      "type": "lesson",
+      "name": "七律·长征",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内14｜七律·长征"
+    },
+    {
+      "id": "C6-U02-L2",
+      "type": "lesson",
+      "name": "狼牙山五壮士",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内16｜狼牙山五壮士"
+    },
+    {
+      "id": "C6-U02-L3",
+      "type": "lesson",
+      "name": "开国大典",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内19｜开国大典"
+    },
+    {
+      "id": "C6-U02-L4",
+      "type": "lesson",
+      "name": "我的战友邱少云",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内24｜我的战友邱少云"
+    },
+    {
+      "id": "C6-U02-L5",
+      "type": "lesson",
+      "name": "口语交际：演讲",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内27｜口语交际：演讲"
+    },
+    {
+      "id": "C6-U02-L6",
+      "type": "lesson",
+      "name": "习作：多彩的活动",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内28｜习作：多彩的活动"
+    },
+    {
+      "id": "C6-U02-K1",
+      "type": "knowledge",
+      "name": "体会革命前辈为理想奋斗的精神",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内13｜体会革命前辈为理想奋斗的精神"
+    },
+    {
+      "id": "C6-U02-K2",
+      "type": "knowledge",
+      "name": "了解文章怎样点面结合写场面",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内28｜了解文章怎样点面结合写场面"
+    },
+    {
+      "id": "C6-U03",
+      "type": "unit",
+      "name": "第3单元 有目的地阅读",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内31｜有目的地阅读"
+    },
+    {
+      "id": "C6-U03-L1",
+      "type": "lesson",
+      "name": "竹节人",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内32｜竹节人"
+    },
+    {
+      "id": "C6-U03-L2",
+      "type": "lesson",
+      "name": "宇宙生命之谜",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内36｜宇宙生命之谜"
+    },
+    {
+      "id": "C6-U03-L3",
+      "type": "lesson",
+      "name": "故宫博物院",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内40｜故宫博物院"
+    },
+    {
+      "id": "C6-U03-L4",
+      "type": "lesson",
+      "name": "习作：让生活更美好",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内46｜习作：让生活更美好"
+    },
+    {
+      "id": "C6-U03-K1",
+      "type": "knowledge",
+      "name": "根据阅读目的，选用恰当的阅读方法",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内31｜根据阅读目的，选用恰当的阅读方法"
+    },
+    {
+      "id": "C6-U04",
+      "type": "unit",
+      "name": "第4单元 小说",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内49｜小说"
+    },
+    {
+      "id": "C6-U04-L1",
+      "type": "lesson",
+      "name": "桥",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内50｜桥"
+    },
+    {
+      "id": "C6-U04-L2",
+      "type": "lesson",
+      "name": "穷人",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内53｜穷人"
+    },
+    {
+      "id": "C6-U04-L3",
+      "type": "lesson",
+      "name": "金色的鱼钩",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内58｜金色的鱼钩"
+    },
+    {
+      "id": "C6-U04-L4",
+      "type": "lesson",
+      "name": "习作：笔尖流出的故事",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内64｜习作：笔尖流出的故事"
+    },
+    {
+      "id": "C6-U04-L5",
+      "type": "lesson",
+      "name": "快乐读书吧：笑与泪，经历与成长",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内67｜快乐读书吧：笑与泪，经历与成长"
+    },
+    {
+      "id": "C6-U04-K1",
+      "type": "knowledge",
+      "name": "关注小说中的情节、环境，感受人物形象",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内49｜关注小说中的情节、环境，感受人物形象"
+    },
+    {
+      "id": "C6-U05",
+      "type": "unit",
+      "name": "第5单元 围绕中心意思写",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内69｜围绕中心意思写"
+    },
+    {
+      "id": "C6-U05-L1",
+      "type": "lesson",
+      "name": "灯光",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内70｜灯光"
+    },
+    {
+      "id": "C6-U05-L2",
+      "type": "lesson",
+      "name": "盼",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内73｜盼"
+    },
+    {
+      "id": "C6-U05-L3",
+      "type": "lesson",
+      "name": "习作：围绕中心意思写",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内77｜习作：围绕中心意思写"
+    },
+    {
+      "id": "C6-U05-K1",
+      "type": "knowledge",
+      "name": "围绕中心意思写",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内77｜围绕中心意思写"
+    },
+    {
+      "id": "C6-U06",
+      "type": "unit",
+      "name": "第6单元 人与自然",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内81｜人与自然"
+    },
+    {
+      "id": "C6-U06-L1",
+      "type": "lesson",
+      "name": "只有一个地球",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内82｜只有一个地球"
+    },
+    {
+      "id": "C6-U06-L2",
+      "type": "lesson",
+      "name": "青山不老",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内84｜青山不老"
+    },
+    {
+      "id": "C6-U06-L3",
+      "type": "lesson",
+      "name": "三黑和土地",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内86｜三黑和土地"
+    },
+    {
+      "id": "C6-U06-L4",
+      "type": "lesson",
+      "name": "古诗三首",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内91｜古诗三首"
+    },
+    {
+      "id": "C6-U06-L5",
+      "type": "lesson",
+      "name": "习作：学写倡议书",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内94｜习作：学写倡议书"
+    },
+    {
+      "id": "C6-U07",
+      "type": "unit",
+      "name": "第7单元 科学与想象",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内97｜科学与想象"
+    },
+    {
+      "id": "C6-U07-L1",
+      "type": "lesson",
+      "name": "文言文二则",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内98｜文言文二则"
+    },
+    {
+      "id": "C6-U07-L2",
+      "type": "lesson",
+      "name": "表里的生物",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内100｜表里的生物"
+    },
+    {
+      "id": "C6-U07-L3",
+      "type": "lesson",
+      "name": "他们那时候多有趣啊",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内103｜他们那时候多有趣啊"
+    },
+    {
+      "id": "C6-U07-L4",
+      "type": "lesson",
+      "name": "习作：插上科学的翅膀飞",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内106｜习作：插上科学的翅膀飞"
+    },
+    {
+      "id": "C6-U07-K1",
+      "type": "knowledge",
+      "name": "综合运用多种方法，把握文章的主要内容",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内97｜综合运用多种方法，把握文章的主要内容"
+    },
+    {
+      "id": "C6-U07-K2",
+      "type": "knowledge",
+      "name": "展开想象，试着写科幻故事",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内106｜展开想象，试着写科幻故事"
+    },
+    {
+      "id": "C6-U08",
+      "type": "unit",
+      "name": "第8单元 初识鲁迅",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内109｜初识鲁迅"
+    },
+    {
+      "id": "C6-U08-L1",
+      "type": "lesson",
+      "name": "少年闰土",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内110｜少年闰土"
+    },
+    {
+      "id": "C6-U08-L2",
+      "type": "lesson",
+      "name": "好的故事",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内114｜好的故事"
+    },
+    {
+      "id": "C6-U08-L3",
+      "type": "lesson",
+      "name": "我的伯父鲁迅先生",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内117｜我的伯父鲁迅先生"
+    },
+    {
+      "id": "C6-U08-L4",
+      "type": "lesson",
+      "name": "有的人",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内121｜有的人"
+    },
+    {
+      "id": "C6-U08-L5",
+      "type": "lesson",
+      "name": "习作：传承好家风",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内123｜习作：传承好家风"
+    },
+    {
+      "id": "C6-U08-K1",
+      "type": "knowledge",
+      "name": "初识鲁迅，感受鲁迅的魅力",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上语文.md书内109｜初识鲁迅，感受鲁迅的魅力"
+    }
+  ],
+  "edges": [
+    {
+      "source": "C6",
+      "relation": "contains",
+      "target": "C6-STD-NATURE"
+    },
+    {
+      "source": "C6",
+      "relation": "contains",
+      "target": "C6-STD-JUDGE"
+    },
+    {
+      "source": "C6",
+      "relation": "contains",
+      "target": "C6-STD-REV"
+    },
+    {
+      "source": "C6",
+      "relation": "contains",
+      "target": "C6-STD-SPEAK"
+    },
+    {
+      "source": "C6",
+      "relation": "contains",
+      "target": "C6-STD-METHOD"
+    },
+    {
+      "source": "C6",
+      "relation": "contains",
+      "target": "C6-STD-PURPOSE"
+    },
+    {
+      "source": "C6",
+      "relation": "contains",
+      "target": "C6-STD-SCI"
+    },
+    {
+      "source": "C6",
+      "relation": "contains",
+      "target": "C6-STD-NOVEL"
+    },
+    {
+      "source": "C6",
+      "relation": "contains",
+      "target": "C6-STD-STORY"
+    },
+    {
+      "source": "C6",
+      "relation": "contains",
+      "target": "C6-STD-WRITE"
+    },
+    {
+      "source": "C6",
+      "relation": "contains",
+      "target": "C6-STD-IMAGINE"
+    },
+    {
+      "source": "C6",
+      "relation": "contains",
+      "target": "C6-STD-APP"
+    },
+    {
+      "source": "C6",
+      "relation": "contains",
+      "target": "C6-STD-TOPIC"
+    },
+    {
+      "source": "C6",
+      "relation": "contains",
+      "target": "C6-STD-GROW"
+    },
+    {
+      "source": "C6",
+      "relation": "contains",
+      "target": "C6-STD-WHOLE"
+    },
+    {
+      "source": "C6",
+      "relation": "contains",
+      "target": "C6-STD-CLASSIC"
+    },
+    {
+      "source": "C6",
+      "relation": "contains",
+      "target": "C6-LATER-COUNT"
+    },
+    {
+      "source": "C6",
+      "relation": "contains",
+      "target": "C6-LATER-BRUSH"
+    },
+    {
+      "source": "C6",
+      "relation": "contains",
+      "target": "C6-LATER-RATE"
+    },
+    {
+      "source": "C6",
+      "relation": "contains",
+      "target": "C6-LATER-TONE"
+    },
+    {
+      "source": "C6",
+      "relation": "contains",
+      "target": "C6-LATER-PUNCT"
+    },
+    {
+      "source": "C6",
+      "relation": "contains",
+      "target": "C6-LATER-NONLIN"
+    },
+    {
+      "source": "C6",
+      "relation": "contains",
+      "target": "C6-LATER-VOLUME"
+    },
+    {
+      "source": "C6",
+      "relation": "contains",
+      "target": "C6-LATER-REVISE"
+    },
+    {
+      "source": "C6",
+      "relation": "contains",
+      "target": "C6-LATER-REPORT"
+    },
+    {
+      "source": "C6",
+      "relation": "contains",
+      "target": "C6-LATER-PLAN"
+    },
+    {
+      "source": "C6",
+      "relation": "contains",
+      "target": "C6-LATER-SORT"
+    },
+    {
+      "source": "C6",
+      "relation": "develops",
+      "target": "C6-C-CUL"
+    },
+    {
+      "source": "C6",
+      "relation": "develops",
+      "target": "C6-C-LANG"
+    },
+    {
+      "source": "C6",
+      "relation": "develops",
+      "target": "C6-C-THINK"
+    },
+    {
+      "source": "C6",
+      "relation": "develops",
+      "target": "C6-C-AES"
+    },
+    {
+      "source": "C6",
+      "relation": "contains",
+      "target": "C6-D-READ"
+    },
+    {
+      "source": "C6",
+      "relation": "contains",
+      "target": "C6-M-READ"
+    },
+    {
+      "source": "C6-D-READ",
+      "relation": "contains",
+      "target": "C6-U01"
+    },
+    {
+      "source": "C6-U01",
+      "relation": "uses_method",
+      "target": "C6-M-READ"
+    },
+    {
+      "source": "C6-U01",
+      "relation": "contains",
+      "target": "C6-U01-L1"
+    },
+    {
+      "source": "C6-U01-L1",
+      "relation": "aligns_to",
+      "target": "C6-STD-NATURE",
+      "alignment": "partial"
+    },
+    {
+      "source": "C6-U01",
+      "relation": "contains",
+      "target": "C6-U01-L2"
+    },
+    {
+      "source": "C6-U01-L2",
+      "relation": "aligns_to",
+      "target": "C6-STD-NATURE",
+      "alignment": "partial"
+    },
+    {
+      "source": "C6-U01",
+      "relation": "contains",
+      "target": "C6-U01-L3"
+    },
+    {
+      "source": "C6-U01-L3",
+      "relation": "aligns_to",
+      "target": "C6-STD-NATURE",
+      "alignment": "partial"
+    },
+    {
+      "source": "C6-U01",
+      "relation": "contains",
+      "target": "C6-U01-L4"
+    },
+    {
+      "source": "C6-U01",
+      "relation": "teaches",
+      "target": "C6-U01-K1"
+    },
+    {
+      "source": "C6-U01-K1",
+      "relation": "uses_method",
+      "target": "C6-M-READ"
+    },
+    {
+      "source": "C6-U01-K1",
+      "relation": "aligns_to",
+      "target": "C6-STD-NATURE",
+      "alignment": "partial"
+    },
+    {
+      "source": "C6-U01",
+      "relation": "teaches",
+      "target": "C6-U01-K2"
+    },
+    {
+      "source": "C6-U01-K2",
+      "relation": "uses_method",
+      "target": "C6-M-READ"
+    },
+    {
+      "source": "C6-U01-K2",
+      "relation": "aligns_to",
+      "target": "C6-STD-JUDGE",
+      "alignment": "partial"
+    },
+    {
+      "source": "C6-D-READ",
+      "relation": "contains",
+      "target": "C6-U02"
+    },
+    {
+      "source": "C6-U02",
+      "relation": "uses_method",
+      "target": "C6-M-READ"
+    },
+    {
+      "source": "C6-U02",
+      "relation": "contains",
+      "target": "C6-U02-L1"
+    },
+    {
+      "source": "C6-U02-L1",
+      "relation": "aligns_to",
+      "target": "C6-STD-REV",
+      "alignment": "partial"
+    },
+    {
+      "source": "C6-U02",
+      "relation": "contains",
+      "target": "C6-U02-L2"
+    },
+    {
+      "source": "C6-U02-L2",
+      "relation": "aligns_to",
+      "target": "C6-STD-REV",
+      "alignment": "partial"
+    },
+    {
+      "source": "C6-U02",
+      "relation": "contains",
+      "target": "C6-U02-L3"
+    },
+    {
+      "source": "C6-U02-L3",
+      "relation": "aligns_to",
+      "target": "C6-STD-REV",
+      "alignment": "partial"
+    },
+    {
+      "source": "C6-U02",
+      "relation": "contains",
+      "target": "C6-U02-L4"
+    },
+    {
+      "source": "C6-U02-L4",
+      "relation": "aligns_to",
+      "target": "C6-STD-REV",
+      "alignment": "partial"
+    },
+    {
+      "source": "C6-U02",
+      "relation": "contains",
+      "target": "C6-U02-L5"
+    },
+    {
+      "source": "C6-U02-L5",
+      "relation": "aligns_to",
+      "target": "C6-STD-SPEAK",
+      "alignment": "partial"
+    },
+    {
+      "source": "C6-U02",
+      "relation": "contains",
+      "target": "C6-U02-L6"
+    },
+    {
+      "source": "C6-U02",
+      "relation": "teaches",
+      "target": "C6-U02-K1"
+    },
+    {
+      "source": "C6-U02-K1",
+      "relation": "uses_method",
+      "target": "C6-M-READ"
+    },
+    {
+      "source": "C6-U02-K1",
+      "relation": "aligns_to",
+      "target": "C6-STD-REV",
+      "alignment": "direct"
+    },
+    {
+      "source": "C6-U02",
+      "relation": "teaches",
+      "target": "C6-U02-K2"
+    },
+    {
+      "source": "C6-U02-K2",
+      "relation": "uses_method",
+      "target": "C6-M-READ"
+    },
+    {
+      "source": "C6-U02-K2",
+      "relation": "aligns_to",
+      "target": "C6-STD-METHOD",
+      "alignment": "partial"
+    },
+    {
+      "source": "C6-D-READ",
+      "relation": "contains",
+      "target": "C6-U03"
+    },
+    {
+      "source": "C6-U03",
+      "relation": "uses_method",
+      "target": "C6-M-READ"
+    },
+    {
+      "source": "C6-U03",
+      "relation": "contains",
+      "target": "C6-U03-L1"
+    },
+    {
+      "source": "C6-U03",
+      "relation": "contains",
+      "target": "C6-U03-L2"
+    },
+    {
+      "source": "C6-U03-L2",
+      "relation": "aligns_to",
+      "target": "C6-STD-SCI",
+      "alignment": "partial"
+    },
+    {
+      "source": "C6-U03",
+      "relation": "contains",
+      "target": "C6-U03-L3"
+    },
+    {
+      "source": "C6-U03",
+      "relation": "contains",
+      "target": "C6-U03-L4"
+    },
+    {
+      "source": "C6-U03",
+      "relation": "teaches",
+      "target": "C6-U03-K1"
+    },
+    {
+      "source": "C6-U03-K1",
+      "relation": "uses_method",
+      "target": "C6-M-READ"
+    },
+    {
+      "source": "C6-U03-K1",
+      "relation": "aligns_to",
+      "target": "C6-STD-PURPOSE",
+      "alignment": "partial"
+    },
+    {
+      "source": "C6-D-READ",
+      "relation": "contains",
+      "target": "C6-U04"
+    },
+    {
+      "source": "C6-U04",
+      "relation": "uses_method",
+      "target": "C6-M-READ"
+    },
+    {
+      "source": "C6-U04",
+      "relation": "contains",
+      "target": "C6-U04-L1"
+    },
+    {
+      "source": "C6-U04-L1",
+      "relation": "aligns_to",
+      "target": "C6-STD-NOVEL",
+      "alignment": "partial"
+    },
+    {
+      "source": "C6-U04",
+      "relation": "contains",
+      "target": "C6-U04-L2"
+    },
+    {
+      "source": "C6-U04-L2",
+      "relation": "aligns_to",
+      "target": "C6-STD-NOVEL",
+      "alignment": "partial"
+    },
+    {
+      "source": "C6-U04",
+      "relation": "contains",
+      "target": "C6-U04-L3"
+    },
+    {
+      "source": "C6-U04-L3",
+      "relation": "aligns_to",
+      "target": "C6-STD-NOVEL",
+      "alignment": "partial"
+    },
+    {
+      "source": "C6-U04",
+      "relation": "contains",
+      "target": "C6-U04-L4"
+    },
+    {
+      "source": "C6-U04-L4",
+      "relation": "aligns_to",
+      "target": "C6-STD-STORY",
+      "alignment": "partial"
+    },
+    {
+      "source": "C6-U04",
+      "relation": "contains",
+      "target": "C6-U04-L5"
+    },
+    {
+      "source": "C6-U04-L5",
+      "relation": "aligns_to",
+      "target": "C6-STD-WHOLE",
+      "alignment": "partial"
+    },
+    {
+      "source": "C6-U04",
+      "relation": "teaches",
+      "target": "C6-U04-K1"
+    },
+    {
+      "source": "C6-U04-K1",
+      "relation": "uses_method",
+      "target": "C6-M-READ"
+    },
+    {
+      "source": "C6-U04-K1",
+      "relation": "aligns_to",
+      "target": "C6-STD-NOVEL",
+      "alignment": "partial"
+    },
+    {
+      "source": "C6-D-READ",
+      "relation": "contains",
+      "target": "C6-U05"
+    },
+    {
+      "source": "C6-U05",
+      "relation": "uses_method",
+      "target": "C6-M-READ"
+    },
+    {
+      "source": "C6-U05",
+      "relation": "contains",
+      "target": "C6-U05-L1"
+    },
+    {
+      "source": "C6-U05",
+      "relation": "contains",
+      "target": "C6-U05-L2"
+    },
+    {
+      "source": "C6-U05",
+      "relation": "contains",
+      "target": "C6-U05-L3"
+    },
+    {
+      "source": "C6-U05",
+      "relation": "teaches",
+      "target": "C6-U05-K1"
+    },
+    {
+      "source": "C6-U05-K1",
+      "relation": "uses_method",
+      "target": "C6-M-READ"
+    },
+    {
+      "source": "C6-U05-K1",
+      "relation": "aligns_to",
+      "target": "C6-STD-WRITE",
+      "alignment": "partial"
+    },
+    {
+      "source": "C6-D-READ",
+      "relation": "contains",
+      "target": "C6-U06"
+    },
+    {
+      "source": "C6-U06",
+      "relation": "uses_method",
+      "target": "C6-M-READ"
+    },
+    {
+      "source": "C6-U06",
+      "relation": "contains",
+      "target": "C6-U06-L1"
+    },
+    {
+      "source": "C6-U06-L1",
+      "relation": "aligns_to",
+      "target": "C6-STD-TOPIC",
+      "alignment": "partial"
+    },
+    {
+      "source": "C6-U06",
+      "relation": "contains",
+      "target": "C6-U06-L2"
+    },
+    {
+      "source": "C6-U06-L2",
+      "relation": "aligns_to",
+      "target": "C6-STD-NATURE",
+      "alignment": "partial"
+    },
+    {
+      "source": "C6-U06",
+      "relation": "contains",
+      "target": "C6-U06-L3"
+    },
+    {
+      "source": "C6-U06-L3",
+      "relation": "aligns_to",
+      "target": "C6-STD-NATURE",
+      "alignment": "partial"
+    },
+    {
+      "source": "C6-U06",
+      "relation": "contains",
+      "target": "C6-U06-L4"
+    },
+    {
+      "source": "C6-U06-L4",
+      "relation": "aligns_to",
+      "target": "C6-STD-NATURE",
+      "alignment": "partial"
+    },
+    {
+      "source": "C6-U06",
+      "relation": "contains",
+      "target": "C6-U06-L5"
+    },
+    {
+      "source": "C6-U06-L5",
+      "relation": "aligns_to",
+      "target": "C6-STD-APP",
+      "alignment": "partial"
+    },
+    {
+      "source": "C6-D-READ",
+      "relation": "contains",
+      "target": "C6-U07"
+    },
+    {
+      "source": "C6-U07",
+      "relation": "uses_method",
+      "target": "C6-M-READ"
+    },
+    {
+      "source": "C6-U07",
+      "relation": "contains",
+      "target": "C6-U07-L1"
+    },
+    {
+      "source": "C6-U07-L1",
+      "relation": "aligns_to",
+      "target": "C6-STD-CLASSIC",
+      "alignment": "extension"
+    },
+    {
+      "source": "C6-U07",
+      "relation": "contains",
+      "target": "C6-U07-L2"
+    },
+    {
+      "source": "C6-U07",
+      "relation": "contains",
+      "target": "C6-U07-L3"
+    },
+    {
+      "source": "C6-U07",
+      "relation": "contains",
+      "target": "C6-U07-L4"
+    },
+    {
+      "source": "C6-U07",
+      "relation": "teaches",
+      "target": "C6-U07-K1"
+    },
+    {
+      "source": "C6-U07-K1",
+      "relation": "uses_method",
+      "target": "C6-M-READ"
+    },
+    {
+      "source": "C6-U07-K1",
+      "relation": "aligns_to",
+      "target": "C6-STD-METHOD",
+      "alignment": "partial"
+    },
+    {
+      "source": "C6-U07",
+      "relation": "teaches",
+      "target": "C6-U07-K2"
+    },
+    {
+      "source": "C6-U07-K2",
+      "relation": "uses_method",
+      "target": "C6-M-READ"
+    },
+    {
+      "source": "C6-U07-K2",
+      "relation": "aligns_to",
+      "target": "C6-STD-IMAGINE",
+      "alignment": "partial"
+    },
+    {
+      "source": "C6-D-READ",
+      "relation": "contains",
+      "target": "C6-U08"
+    },
+    {
+      "source": "C6-U08",
+      "relation": "uses_method",
+      "target": "C6-M-READ"
+    },
+    {
+      "source": "C6-U08",
+      "relation": "contains",
+      "target": "C6-U08-L1"
+    },
+    {
+      "source": "C6-U08-L1",
+      "relation": "aligns_to",
+      "target": "C6-STD-GROW",
+      "alignment": "partial"
+    },
+    {
+      "source": "C6-U08",
+      "relation": "contains",
+      "target": "C6-U08-L2"
+    },
+    {
+      "source": "C6-U08-L2",
+      "relation": "aligns_to",
+      "target": "C6-STD-GROW",
+      "alignment": "partial"
+    },
+    {
+      "source": "C6-U08",
+      "relation": "contains",
+      "target": "C6-U08-L3"
+    },
+    {
+      "source": "C6-U08-L3",
+      "relation": "aligns_to",
+      "target": "C6-STD-GROW",
+      "alignment": "partial"
+    },
+    {
+      "source": "C6-U08",
+      "relation": "contains",
+      "target": "C6-U08-L4"
+    },
+    {
+      "source": "C6-U08",
+      "relation": "contains",
+      "target": "C6-U08-L5"
+    },
+    {
+      "source": "C6-U08",
+      "relation": "teaches",
+      "target": "C6-U08-K1"
+    },
+    {
+      "source": "C6-U08-K1",
+      "relation": "uses_method",
+      "target": "C6-M-READ"
+    },
+    {
+      "source": "C6-U08-K1",
+      "relation": "aligns_to",
+      "target": "C6-STD-GROW",
+      "alignment": "partial"
+    }
+  ]
+}

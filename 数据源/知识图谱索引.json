@@ -1,0 +1,322 @@
+{
+  "index_version": "3.2",
+  "generated_date": "2026-10-28",
+  "graphs": [
+    {
+      "graph_id": "ZHIQI-KG",
+      "title": "智启知识图谱",
+      "version": "3.2",
+      "grade": "三年级、四年级、五年级、六年级",
+      "grade_aliases": [
+        "三年级",
+        "四年级",
+        "五年级",
+        "六年级"
+      ],
+      "semester": "上册、下册",
+      "semester_aliases": [
+        "上册",
+        "下册"
+      ],
+      "subjects": [
+        "数学",
+        "科学",
+        "语文",
+        "英语",
+        "道德与法治"
+      ],
+      "files": [
+        "智启知识图谱.json"
+      ],
+      "source_graph_file": "智启知识图谱.json",
+      "node_count": 1461,
+      "edge_count": 2410,
+      "node_types": {
+        "subject": 17,
+        "domain": 45,
+        "unit": 110,
+        "lesson": 463,
+        "knowledge": 456,
+        "method": 52,
+        "standard": 230,
+        "competency": 65,
+        "cross_disciplinary_theme": 23
+      },
+      "coverage_status": "partial",
+      "scope_note": "总图在原有数学、科学、语文基础上，新增三年级下册英语，以及三年级上/下册道德与法治。全部视角按学科分块，学科内部按年级和册次排列。未传年级时仍默认三年级。status=stage_later 不是本册已经掌握。英语对齐 3～4 年级/一级；道德与法治对齐第二学段（3～4年级）。"
+    },
+    {
+      "graph_id": "GRADE5-S1-MATH-SCI",
+      "title": "五年级上册数学与科学知识图谱",
+      "version": "1.0",
+      "grade": "五年级",
+      "grade_aliases": [
+        "五年级",
+        "小学五年级",
+        "5年级"
+      ],
+      "semester": "上册",
+      "semester_aliases": [
+        "上册",
+        "上学期",
+        "第一学期"
+      ],
+      "subjects": [
+        "数学",
+        "科学"
+      ],
+      "files": [
+        "五年级上册数学与科学知识图谱.json"
+      ],
+      "source_graph_file": "五年级上册数学与科学知识图谱.json",
+      "node_count": 255,
+      "edge_count": 317,
+      "node_types": {
+        "subject": 2,
+        "domain": 7,
+        "unit": 15,
+        "knowledge": 125,
+        "lesson": 73,
+        "method": 11,
+        "standard": 21,
+        "cross_disciplinary_theme": 1
+      },
+      "coverage_status": "partial",
+      "scope_note": "五年级上册数学与科学。查询按年级分开。网站全部视角与三年级上册画在同一张图上。"
+    },
+    {
+      "graph_id": "四年级上册数学知识图谱",
+      "title": "四年级上册数学知识图谱",
+      "version": "1.0",
+      "grade": "四年级",
+      "semester": "上册",
+      "subjects": [
+        "数学"
+      ],
+      "files": [
+        "四年级上册数学.json"
+      ],
+      "source_graph_file": "四年级上册数学.json",
+      "node_count": 90,
+      "edge_count": 124,
+      "coverage_status": "partial",
+      "scope_note": "只把本册实际出现的内容标为 current_book。3～4 年级里本册没有系统学习的要求标为 stage_later。"
+    },
+    {
+      "graph_id": "六年级上册数学知识图谱",
+      "title": "六年级上册数学知识图谱",
+      "version": "1.0",
+      "grade": "六年级",
+      "semester": "上册",
+      "subjects": [
+        "数学"
+      ],
+      "files": [
+        "六年级上册数学.json"
+      ],
+      "source_graph_file": "六年级上册数学.json",
+      "node_count": 75,
+      "edge_count": 101,
+      "coverage_status": "partial",
+      "scope_note": "对齐 5～6 年级内容要求。本册没有系统学习的同学段要求标为 stage_later。"
+    },
+    {
+      "graph_id": "四年级上册科学知识图谱",
+      "title": "四年级上册科学知识图谱",
+      "version": "1.0",
+      "grade": "四年级",
+      "semester": "上册",
+      "subjects": [
+        "科学"
+      ],
+      "files": [
+        "四年级上册科学.json"
+      ],
+      "source_graph_file": "四年级上册科学.json",
+      "node_count": 68,
+      "edge_count": 97,
+      "coverage_status": "partial",
+      "scope_note": "课次与目录、正文课题一致。对齐状态按该册所在学段的内容要求判断。"
+    },
+    {
+      "graph_id": "四年级下册科学知识图谱",
+      "title": "四年级下册科学知识图谱",
+      "version": "1.0",
+      "grade": "四年级",
+      "semester": "下册",
+      "subjects": [
+        "科学"
+      ],
+      "files": [
+        "四年级下册科学.json"
+      ],
+      "source_graph_file": "四年级下册科学.json",
+      "node_count": 67,
+      "edge_count": 96,
+      "coverage_status": "partial",
+      "scope_note": "课次与目录、正文课题一致。对齐状态按该册所在学段的内容要求判断。"
+    },
+    {
+      "graph_id": "五年级下册科学知识图谱",
+      "title": "五年级下册科学知识图谱",
+      "version": "1.0",
+      "grade": "五年级",
+      "semester": "下册",
+      "subjects": [
+        "科学"
+      ],
+      "files": [
+        "五年级下册科学.json"
+      ],
+      "source_graph_file": "五年级下册科学.json",
+      "node_count": 79,
+      "edge_count": 114,
+      "coverage_status": "partial",
+      "scope_note": "课次与目录、正文课题一致。对齐状态按该册所在学段的内容要求判断。"
+    },
+    {
+      "graph_id": "六年级上册科学知识图谱",
+      "title": "六年级上册科学知识图谱",
+      "version": "1.0",
+      "grade": "六年级",
+      "semester": "上册",
+      "subjects": [
+        "科学"
+      ],
+      "files": [
+        "六年级上册科学.json"
+      ],
+      "source_graph_file": "六年级上册科学.json",
+      "node_count": 78,
+      "edge_count": 113,
+      "coverage_status": "partial",
+      "scope_note": "课次与目录、正文课题一致。对齐状态按该册所在学段的内容要求判断。"
+    },
+    {
+      "graph_id": "六年级下册科学知识图谱",
+      "title": "六年级下册科学知识图谱",
+      "version": "1.0",
+      "grade": "六年级",
+      "semester": "下册",
+      "subjects": [
+        "科学"
+      ],
+      "files": [
+        "六年级下册科学.json"
+      ],
+      "source_graph_file": "六年级下册科学.json",
+      "node_count": 78,
+      "edge_count": 113,
+      "coverage_status": "partial",
+      "scope_note": "课次与目录、正文课题一致。对齐状态按该册所在学段的内容要求判断。"
+    },
+    {
+      "graph_id": "四年级上册语文知识图谱",
+      "title": "四年级上册语文知识图谱",
+      "version": "1.0",
+      "grade": "四年级",
+      "semester": "上册",
+      "subjects": [
+        "语文"
+      ],
+      "files": [
+        "四年级上册语文.json"
+      ],
+      "source_graph_file": "四年级上册语文.json",
+      "node_count": 79,
+      "edge_count": 121,
+      "coverage_status": "partial",
+      "scope_note": "按本册所在学段对齐。学段里本册尚未系统完成的要求标为 stage_later。"
+    },
+    {
+      "graph_id": "五年级上册语文知识图谱",
+      "title": "五年级上册语文知识图谱",
+      "version": "1.0",
+      "grade": "五年级",
+      "semester": "上册",
+      "subjects": [
+        "语文"
+      ],
+      "files": [
+        "五年级上册语文.json"
+      ],
+      "source_graph_file": "五年级上册语文.json",
+      "node_count": 82,
+      "edge_count": 127,
+      "coverage_status": "partial",
+      "scope_note": "按本册所在学段对齐。学段里本册尚未系统完成的要求标为 stage_later。"
+    },
+    {
+      "graph_id": "六年级上册语文知识图谱",
+      "title": "六年级上册语文知识图谱",
+      "version": "1.0",
+      "grade": "六年级",
+      "semester": "上册",
+      "subjects": [
+        "语文"
+      ],
+      "files": [
+        "六年级上册语文.json"
+      ],
+      "source_graph_file": "六年级上册语文.json",
+      "node_count": 88,
+      "edge_count": 138,
+      "coverage_status": "partial",
+      "scope_note": "按本册所在学段对齐。学段里本册尚未系统完成的要求标为 stage_later。"
+    },
+    {
+      "graph_id": "三年级下册英语知识图谱",
+      "title": "三年级下册英语知识图谱",
+      "version": "1.0",
+      "grade": "三年级",
+      "semester": "下册",
+      "subjects": [
+        "英语"
+      ],
+      "files": [
+        "三年级下册英语.json"
+      ],
+      "source_graph_file": "三年级下册英语.json",
+      "node_count": 69,
+      "edge_count": 156,
+      "coverage_status": "partial",
+      "scope_note": "对齐英语课标 3～4 年级 / 一级。本册未系统完成的同学段要求标为 stage_later。"
+    },
+    {
+      "graph_id": "三年级上册道德与法治知识图谱",
+      "title": "三年级上册道德与法治知识图谱",
+      "version": "1.0",
+      "grade": "三年级",
+      "semester": "上册",
+      "subjects": [
+        "道德与法治"
+      ],
+      "files": [
+        "三年级上册道德与法治.json"
+      ],
+      "source_graph_file": "三年级上册道德与法治.json",
+      "node_count": 53,
+      "edge_count": 116,
+      "coverage_status": "partial",
+      "scope_note": "对齐道德与法治课标第二学段（3～4年级）。本册未系统完成的同学段要求标为 stage_later。"
+    },
+    {
+      "graph_id": "三年级下册道德与法治知识图谱",
+      "title": "三年级下册道德与法治知识图谱",
+      "version": "1.0",
+      "grade": "三年级",
+      "semester": "下册",
+      "subjects": [
+        "道德与法治"
+      ],
+      "files": [
+        "三年级下册道德与法治.json"
+      ],
+      "source_graph_file": "三年级下册道德与法治.json",
+      "node_count": 55,
+      "edge_count": 123,
+      "coverage_status": "partial",
+      "scope_note": "对齐道德与法治课标第二学段（3～4年级）。本册未系统完成的同学段要求标为 stage_later。"
+    }
+  ]
+}

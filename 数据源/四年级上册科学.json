@@ -1,0 +1,1167 @@
+{
+  "metadata": {
+    "title": "四年级上册科学知识图谱",
+    "version": "1.0",
+    "generated_date": "2026-09-29",
+    "grade": "四年级",
+    "semester": "上册",
+    "subjects": [
+      "科学"
+    ],
+    "textbook_file": "四年级上科学.md",
+    "edition": "教育科学出版社义务教育教科书",
+    "standard_file": "（10）义务教育科学课程标准日常修订版（2022年版2025年修订）.md",
+    "scope_note": "课次与目录、正文课题一致。对齐状态按该册所在学段的内容要求判断。",
+    "page_reference": "书内页来自教材目录和课题页。这些 Markdown 没有可靠的 PDF 页码，不编造 PDF 页。",
+    "source_files": [
+      "四年级上科学.md",
+      "（10）义务教育科学课程标准日常修订版（2022年版2025年修订）.md"
+    ],
+    "limits": "科学教材为教育科学出版社义务教育教科书。课标按六三学制 3～4 年级或 5～6 年级内容要求对齐。课次名称取自目录并在正文课题中出现。没有把练习情境写成核心知识点。",
+    "cross_note": "总图把「我们是怎样听到声音的」和四年级语文《夜间飞行的秘密》相连。"
+  },
+  "node_types": [
+    "subject",
+    "domain",
+    "unit",
+    "lesson",
+    "knowledge",
+    "method",
+    "standard",
+    "competency",
+    "cross_disciplinary_theme"
+  ],
+  "relation_types": [
+    "contains",
+    "teaches",
+    "uses_method",
+    "aligns_to",
+    "develops",
+    "prerequisite_of",
+    "applies_to",
+    "cross_links"
+  ],
+  "nodes": [
+    {
+      "id": "S4U",
+      "type": "subject",
+      "name": "四年级上册科学",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md封面｜教育科学出版社",
+      "order": 3
+    },
+    {
+      "id": "S4U-M-OBS",
+      "type": "method",
+      "name": "观察并记录",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "科学课标3～4年级学习活动：观察、测量、实验"
+    },
+    {
+      "id": "S4U-M-EXP",
+      "type": "method",
+      "name": "实验探究",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "科学课标3～4年级学习活动：实验探究"
+    },
+    {
+      "id": "S4U-M-MAKE",
+      "type": "method",
+      "name": "设计与制作",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "科学课标3～4年级学习活动：制作"
+    },
+    {
+      "id": "S4U-STD-SOUND",
+      "type": "standard",
+      "name": "举例说明声音因物体振动产生，能向各个方向传播，有高低和强弱",
+      "status": "stage_standard",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "科学课标3～4年级"
+    },
+    {
+      "id": "S4U-STD-BODY",
+      "type": "standard",
+      "name": "描述人体用于呼吸和摄取养分的器官，列举保护方法",
+      "status": "stage_standard",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "科学课标3～4年级"
+    },
+    {
+      "id": "S4U-STD-FORCE",
+      "type": "standard",
+      "name": "用速度描述运动快慢，描述直线和曲线等运动方式，知道测量距离和时间的常用方法",
+      "status": "stage_standard",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "科学课标3～4年级"
+    },
+    {
+      "id": "S4U-C-IDEA",
+      "type": "competency",
+      "name": "科学观念",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "科学课标核心素养：科学观念"
+    },
+    {
+      "id": "S4U-C-THINK",
+      "type": "competency",
+      "name": "科学思维",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "科学课标核心素养：科学思维"
+    },
+    {
+      "id": "S4U-C-INQ",
+      "type": "competency",
+      "name": "探究实践",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "科学课标核心素养：探究实践"
+    },
+    {
+      "id": "S4U-C-ATT",
+      "type": "competency",
+      "name": "态度责任",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "科学课标核心素养：态度责任"
+    },
+    {
+      "id": "S4U-LATER-CIR",
+      "type": "standard",
+      "name": "本册未学：电路、导体和绝缘体",
+      "status": "stage_later",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "科学课标3～4年级"
+    },
+    {
+      "id": "S4U-LATER-PLANT",
+      "type": "standard",
+      "name": "本册未学：绿色开花植物的一生",
+      "status": "stage_later",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "科学课标3～4年级"
+    },
+    {
+      "id": "S4U-LATER-SOIL",
+      "type": "standard",
+      "name": "本册未学：土壤的主要成分",
+      "status": "stage_later",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "科学课标3～4年级"
+    },
+    {
+      "id": "S4U-D-SOUND",
+      "type": "domain",
+      "name": "物质科学：声音",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册"
+    },
+    {
+      "id": "S4U-U-SOUND",
+      "type": "unit",
+      "name": "声音",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内2｜声音"
+    },
+    {
+      "id": "S4U-U-SOUND-L1",
+      "type": "lesson",
+      "name": "听听声音",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内2｜听听声音"
+    },
+    {
+      "id": "S4U-U-SOUND-K1",
+      "type": "knowledge",
+      "name": "听听声音",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内2｜听听声音"
+    },
+    {
+      "id": "S4U-U-SOUND-L2",
+      "type": "lesson",
+      "name": "声音是怎样产生的",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内4｜声音是怎样产生的"
+    },
+    {
+      "id": "S4U-U-SOUND-K2",
+      "type": "knowledge",
+      "name": "声音是怎样产生的",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内4｜声音是怎样产生的"
+    },
+    {
+      "id": "S4U-U-SOUND-L3",
+      "type": "lesson",
+      "name": "声音是怎样传播的",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内6｜声音是怎样传播的"
+    },
+    {
+      "id": "S4U-U-SOUND-K3",
+      "type": "knowledge",
+      "name": "声音是怎样传播的",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内6｜声音是怎样传播的"
+    },
+    {
+      "id": "S4U-U-SOUND-L4",
+      "type": "lesson",
+      "name": "我们是怎样听到声音的",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内9｜我们是怎样听到声音的"
+    },
+    {
+      "id": "S4U-U-SOUND-K4",
+      "type": "knowledge",
+      "name": "我们是怎样听到声音的",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内9｜我们是怎样听到声音的"
+    },
+    {
+      "id": "S4U-U-SOUND-L5",
+      "type": "lesson",
+      "name": "声音的强与弱",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内11｜声音的强与弱"
+    },
+    {
+      "id": "S4U-U-SOUND-K5",
+      "type": "knowledge",
+      "name": "声音的强与弱",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内11｜声音的强与弱"
+    },
+    {
+      "id": "S4U-U-SOUND-L6",
+      "type": "lesson",
+      "name": "声音的高与低",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内13｜声音的高与低"
+    },
+    {
+      "id": "S4U-U-SOUND-K6",
+      "type": "knowledge",
+      "name": "声音的高与低",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内13｜声音的高与低"
+    },
+    {
+      "id": "S4U-U-SOUND-L7",
+      "type": "lesson",
+      "name": "让弦发出高低不同的声音",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内16｜让弦发出高低不同的声音"
+    },
+    {
+      "id": "S4U-U-SOUND-K7",
+      "type": "knowledge",
+      "name": "让弦发出高低不同的声音",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内16｜让弦发出高低不同的声音"
+    },
+    {
+      "id": "S4U-U-SOUND-L8",
+      "type": "lesson",
+      "name": "制作我的小乐器",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内18｜制作我的小乐器"
+    },
+    {
+      "id": "S4U-U-SOUND-K8",
+      "type": "knowledge",
+      "name": "制作我的小乐器",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内18｜制作我的小乐器"
+    },
+    {
+      "id": "S4U-D-BODY",
+      "type": "domain",
+      "name": "生命科学：呼吸与消化",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册"
+    },
+    {
+      "id": "S4U-U-BODY",
+      "type": "unit",
+      "name": "呼吸与消化",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内21｜呼吸与消化"
+    },
+    {
+      "id": "S4U-U-BODY-L1",
+      "type": "lesson",
+      "name": "感受我们的呼吸",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内21｜感受我们的呼吸"
+    },
+    {
+      "id": "S4U-U-BODY-K1",
+      "type": "knowledge",
+      "name": "感受我们的呼吸",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内21｜感受我们的呼吸"
+    },
+    {
+      "id": "S4U-U-BODY-L2",
+      "type": "lesson",
+      "name": "呼吸与健康生活",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内23｜呼吸与健康生活"
+    },
+    {
+      "id": "S4U-U-BODY-K2",
+      "type": "knowledge",
+      "name": "呼吸与健康生活",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内23｜呼吸与健康生活"
+    },
+    {
+      "id": "S4U-U-BODY-L3",
+      "type": "lesson",
+      "name": "测量肺活量",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内25｜测量肺活量"
+    },
+    {
+      "id": "S4U-U-BODY-K3",
+      "type": "knowledge",
+      "name": "测量肺活量",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内25｜测量肺活量"
+    },
+    {
+      "id": "S4U-U-BODY-L4",
+      "type": "lesson",
+      "name": "一天的食物",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内27｜一天的食物"
+    },
+    {
+      "id": "S4U-U-BODY-K4",
+      "type": "knowledge",
+      "name": "一天的食物",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内27｜一天的食物"
+    },
+    {
+      "id": "S4U-U-BODY-L5",
+      "type": "lesson",
+      "name": "食物中的营养",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内30｜食物中的营养"
+    },
+    {
+      "id": "S4U-U-BODY-K5",
+      "type": "knowledge",
+      "name": "食物中的营养",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内30｜食物中的营养"
+    },
+    {
+      "id": "S4U-U-BODY-L6",
+      "type": "lesson",
+      "name": "营养要均衡",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内32｜营养要均衡"
+    },
+    {
+      "id": "S4U-U-BODY-K6",
+      "type": "knowledge",
+      "name": "营养要均衡",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内32｜营养要均衡"
+    },
+    {
+      "id": "S4U-U-BODY-L7",
+      "type": "lesson",
+      "name": "食物在口腔里的变化",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内34｜食物在口腔里的变化"
+    },
+    {
+      "id": "S4U-U-BODY-K7",
+      "type": "knowledge",
+      "name": "食物在口腔里的变化",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内34｜食物在口腔里的变化"
+    },
+    {
+      "id": "S4U-U-BODY-L8",
+      "type": "lesson",
+      "name": "食物在身体里的旅行",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内37｜食物在身体里的旅行"
+    },
+    {
+      "id": "S4U-U-BODY-K8",
+      "type": "knowledge",
+      "name": "食物在身体里的旅行",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内37｜食物在身体里的旅行"
+    },
+    {
+      "id": "S4U-D-FORCE",
+      "type": "domain",
+      "name": "物质科学：运动和力",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册"
+    },
+    {
+      "id": "S4U-U-FORCE",
+      "type": "unit",
+      "name": "运动和力",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内41｜运动和力"
+    },
+    {
+      "id": "S4U-U-FORCE-L1",
+      "type": "lesson",
+      "name": "让小车运动起来",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内41｜让小车运动起来"
+    },
+    {
+      "id": "S4U-U-FORCE-K1",
+      "type": "knowledge",
+      "name": "让小车运动起来",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内41｜让小车运动起来"
+    },
+    {
+      "id": "S4U-U-FORCE-L2",
+      "type": "lesson",
+      "name": "用气球驱动小车",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内44｜用气球驱动小车"
+    },
+    {
+      "id": "S4U-U-FORCE-K2",
+      "type": "knowledge",
+      "name": "用气球驱动小车",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内44｜用气球驱动小车"
+    },
+    {
+      "id": "S4U-U-FORCE-L3",
+      "type": "lesson",
+      "name": "用橡皮筋驱动小车",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内46｜用橡皮筋驱动小车"
+    },
+    {
+      "id": "S4U-U-FORCE-K3",
+      "type": "knowledge",
+      "name": "用橡皮筋驱动小车",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内46｜用橡皮筋驱动小车"
+    },
+    {
+      "id": "S4U-U-FORCE-L4",
+      "type": "lesson",
+      "name": "弹簧测力计",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内48｜弹簧测力计"
+    },
+    {
+      "id": "S4U-U-FORCE-K4",
+      "type": "knowledge",
+      "name": "弹簧测力计",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内48｜弹簧测力计"
+    },
+    {
+      "id": "S4U-U-FORCE-L5",
+      "type": "lesson",
+      "name": "运动与摩擦力",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内51｜运动与摩擦力"
+    },
+    {
+      "id": "S4U-U-FORCE-K5",
+      "type": "knowledge",
+      "name": "运动与摩擦力",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内51｜运动与摩擦力"
+    },
+    {
+      "id": "S4U-U-FORCE-L6",
+      "type": "lesson",
+      "name": "运动的小车",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内54｜运动的小车"
+    },
+    {
+      "id": "S4U-U-FORCE-K6",
+      "type": "knowledge",
+      "name": "运动的小车",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内54｜运动的小车"
+    },
+    {
+      "id": "S4U-U-FORCE-L7",
+      "type": "lesson",
+      "name": "设计制作小车（一）",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内56｜设计制作小车（一）"
+    },
+    {
+      "id": "S4U-U-FORCE-K7",
+      "type": "knowledge",
+      "name": "设计制作小车（一）",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内56｜设计制作小车（一）"
+    },
+    {
+      "id": "S4U-U-FORCE-L8",
+      "type": "lesson",
+      "name": "设计制作小车（二）",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内58｜设计制作小车（二）"
+    },
+    {
+      "id": "S4U-U-FORCE-K8",
+      "type": "knowledge",
+      "name": "设计制作小车（二）",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "上册",
+      "source": "四年级上科学.md书内58｜设计制作小车（二）"
+    }
+  ],
+  "edges": [
+    {
+      "source": "S4U",
+      "relation": "contains",
+      "target": "S4U-M-OBS"
+    },
+    {
+      "source": "S4U",
+      "relation": "contains",
+      "target": "S4U-M-EXP"
+    },
+    {
+      "source": "S4U",
+      "relation": "contains",
+      "target": "S4U-M-MAKE"
+    },
+    {
+      "source": "S4U",
+      "relation": "contains",
+      "target": "S4U-STD-SOUND"
+    },
+    {
+      "source": "S4U",
+      "relation": "contains",
+      "target": "S4U-STD-BODY"
+    },
+    {
+      "source": "S4U",
+      "relation": "contains",
+      "target": "S4U-STD-FORCE"
+    },
+    {
+      "source": "S4U",
+      "relation": "develops",
+      "target": "S4U-C-IDEA"
+    },
+    {
+      "source": "S4U",
+      "relation": "develops",
+      "target": "S4U-C-THINK"
+    },
+    {
+      "source": "S4U",
+      "relation": "develops",
+      "target": "S4U-C-INQ"
+    },
+    {
+      "source": "S4U",
+      "relation": "develops",
+      "target": "S4U-C-ATT"
+    },
+    {
+      "source": "S4U",
+      "relation": "contains",
+      "target": "S4U-LATER-CIR"
+    },
+    {
+      "source": "S4U",
+      "relation": "contains",
+      "target": "S4U-LATER-PLANT"
+    },
+    {
+      "source": "S4U",
+      "relation": "contains",
+      "target": "S4U-LATER-SOIL"
+    },
+    {
+      "source": "S4U",
+      "relation": "contains",
+      "target": "S4U-D-SOUND"
+    },
+    {
+      "source": "S4U-D-SOUND",
+      "relation": "contains",
+      "target": "S4U-U-SOUND"
+    },
+    {
+      "source": "S4U-U-SOUND",
+      "relation": "uses_method",
+      "target": "S4U-M-OBS"
+    },
+    {
+      "source": "S4U-U-SOUND",
+      "relation": "uses_method",
+      "target": "S4U-M-EXP"
+    },
+    {
+      "source": "S4U-U-SOUND",
+      "relation": "contains",
+      "target": "S4U-U-SOUND-L1"
+    },
+    {
+      "source": "S4U-U-SOUND-L1",
+      "relation": "teaches",
+      "target": "S4U-U-SOUND-K1"
+    },
+    {
+      "source": "S4U-U-SOUND-K1",
+      "relation": "aligns_to",
+      "target": "S4U-STD-SOUND",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4U-U-SOUND",
+      "relation": "contains",
+      "target": "S4U-U-SOUND-L2"
+    },
+    {
+      "source": "S4U-U-SOUND-L2",
+      "relation": "teaches",
+      "target": "S4U-U-SOUND-K2"
+    },
+    {
+      "source": "S4U-U-SOUND-K2",
+      "relation": "aligns_to",
+      "target": "S4U-STD-SOUND",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4U-U-SOUND",
+      "relation": "contains",
+      "target": "S4U-U-SOUND-L3"
+    },
+    {
+      "source": "S4U-U-SOUND-L3",
+      "relation": "teaches",
+      "target": "S4U-U-SOUND-K3"
+    },
+    {
+      "source": "S4U-U-SOUND-K3",
+      "relation": "aligns_to",
+      "target": "S4U-STD-SOUND",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4U-U-SOUND",
+      "relation": "contains",
+      "target": "S4U-U-SOUND-L4"
+    },
+    {
+      "source": "S4U-U-SOUND-L4",
+      "relation": "teaches",
+      "target": "S4U-U-SOUND-K4"
+    },
+    {
+      "source": "S4U-U-SOUND-K4",
+      "relation": "aligns_to",
+      "target": "S4U-STD-SOUND",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4U-U-SOUND",
+      "relation": "contains",
+      "target": "S4U-U-SOUND-L5"
+    },
+    {
+      "source": "S4U-U-SOUND-L5",
+      "relation": "teaches",
+      "target": "S4U-U-SOUND-K5"
+    },
+    {
+      "source": "S4U-U-SOUND-K5",
+      "relation": "aligns_to",
+      "target": "S4U-STD-SOUND",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4U-U-SOUND",
+      "relation": "contains",
+      "target": "S4U-U-SOUND-L6"
+    },
+    {
+      "source": "S4U-U-SOUND-L6",
+      "relation": "teaches",
+      "target": "S4U-U-SOUND-K6"
+    },
+    {
+      "source": "S4U-U-SOUND-K6",
+      "relation": "aligns_to",
+      "target": "S4U-STD-SOUND",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4U-U-SOUND",
+      "relation": "contains",
+      "target": "S4U-U-SOUND-L7"
+    },
+    {
+      "source": "S4U-U-SOUND-L7",
+      "relation": "teaches",
+      "target": "S4U-U-SOUND-K7"
+    },
+    {
+      "source": "S4U-U-SOUND-K7",
+      "relation": "aligns_to",
+      "target": "S4U-STD-SOUND",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4U-U-SOUND",
+      "relation": "contains",
+      "target": "S4U-U-SOUND-L8"
+    },
+    {
+      "source": "S4U-U-SOUND-L8",
+      "relation": "teaches",
+      "target": "S4U-U-SOUND-K8"
+    },
+    {
+      "source": "S4U-U-SOUND-K8",
+      "relation": "aligns_to",
+      "target": "S4U-STD-SOUND",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4U",
+      "relation": "contains",
+      "target": "S4U-D-BODY"
+    },
+    {
+      "source": "S4U-D-BODY",
+      "relation": "contains",
+      "target": "S4U-U-BODY"
+    },
+    {
+      "source": "S4U-U-BODY",
+      "relation": "uses_method",
+      "target": "S4U-M-OBS"
+    },
+    {
+      "source": "S4U-U-BODY",
+      "relation": "uses_method",
+      "target": "S4U-M-EXP"
+    },
+    {
+      "source": "S4U-U-BODY",
+      "relation": "contains",
+      "target": "S4U-U-BODY-L1"
+    },
+    {
+      "source": "S4U-U-BODY-L1",
+      "relation": "teaches",
+      "target": "S4U-U-BODY-K1"
+    },
+    {
+      "source": "S4U-U-BODY-K1",
+      "relation": "aligns_to",
+      "target": "S4U-STD-BODY",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4U-U-BODY",
+      "relation": "contains",
+      "target": "S4U-U-BODY-L2"
+    },
+    {
+      "source": "S4U-U-BODY-L2",
+      "relation": "teaches",
+      "target": "S4U-U-BODY-K2"
+    },
+    {
+      "source": "S4U-U-BODY-K2",
+      "relation": "aligns_to",
+      "target": "S4U-STD-BODY",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4U-U-BODY",
+      "relation": "contains",
+      "target": "S4U-U-BODY-L3"
+    },
+    {
+      "source": "S4U-U-BODY-L3",
+      "relation": "teaches",
+      "target": "S4U-U-BODY-K3"
+    },
+    {
+      "source": "S4U-U-BODY-K3",
+      "relation": "aligns_to",
+      "target": "S4U-STD-BODY",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4U-U-BODY",
+      "relation": "contains",
+      "target": "S4U-U-BODY-L4"
+    },
+    {
+      "source": "S4U-U-BODY-L4",
+      "relation": "teaches",
+      "target": "S4U-U-BODY-K4"
+    },
+    {
+      "source": "S4U-U-BODY-K4",
+      "relation": "aligns_to",
+      "target": "S4U-STD-BODY",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4U-U-BODY",
+      "relation": "contains",
+      "target": "S4U-U-BODY-L5"
+    },
+    {
+      "source": "S4U-U-BODY-L5",
+      "relation": "teaches",
+      "target": "S4U-U-BODY-K5"
+    },
+    {
+      "source": "S4U-U-BODY-K5",
+      "relation": "aligns_to",
+      "target": "S4U-STD-BODY",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4U-U-BODY",
+      "relation": "contains",
+      "target": "S4U-U-BODY-L6"
+    },
+    {
+      "source": "S4U-U-BODY-L6",
+      "relation": "teaches",
+      "target": "S4U-U-BODY-K6"
+    },
+    {
+      "source": "S4U-U-BODY-K6",
+      "relation": "aligns_to",
+      "target": "S4U-STD-BODY",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4U-U-BODY",
+      "relation": "contains",
+      "target": "S4U-U-BODY-L7"
+    },
+    {
+      "source": "S4U-U-BODY-L7",
+      "relation": "teaches",
+      "target": "S4U-U-BODY-K7"
+    },
+    {
+      "source": "S4U-U-BODY-K7",
+      "relation": "aligns_to",
+      "target": "S4U-STD-BODY",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4U-U-BODY",
+      "relation": "contains",
+      "target": "S4U-U-BODY-L8"
+    },
+    {
+      "source": "S4U-U-BODY-L8",
+      "relation": "teaches",
+      "target": "S4U-U-BODY-K8"
+    },
+    {
+      "source": "S4U-U-BODY-K8",
+      "relation": "aligns_to",
+      "target": "S4U-STD-BODY",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4U",
+      "relation": "contains",
+      "target": "S4U-D-FORCE"
+    },
+    {
+      "source": "S4U-D-FORCE",
+      "relation": "contains",
+      "target": "S4U-U-FORCE"
+    },
+    {
+      "source": "S4U-U-FORCE",
+      "relation": "uses_method",
+      "target": "S4U-M-OBS"
+    },
+    {
+      "source": "S4U-U-FORCE",
+      "relation": "uses_method",
+      "target": "S4U-M-EXP"
+    },
+    {
+      "source": "S4U-U-FORCE",
+      "relation": "contains",
+      "target": "S4U-U-FORCE-L1"
+    },
+    {
+      "source": "S4U-U-FORCE-L1",
+      "relation": "teaches",
+      "target": "S4U-U-FORCE-K1"
+    },
+    {
+      "source": "S4U-U-FORCE-K1",
+      "relation": "aligns_to",
+      "target": "S4U-STD-FORCE",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4U-U-FORCE",
+      "relation": "contains",
+      "target": "S4U-U-FORCE-L2"
+    },
+    {
+      "source": "S4U-U-FORCE-L2",
+      "relation": "teaches",
+      "target": "S4U-U-FORCE-K2"
+    },
+    {
+      "source": "S4U-U-FORCE-K2",
+      "relation": "aligns_to",
+      "target": "S4U-STD-FORCE",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4U-U-FORCE",
+      "relation": "contains",
+      "target": "S4U-U-FORCE-L3"
+    },
+    {
+      "source": "S4U-U-FORCE-L3",
+      "relation": "teaches",
+      "target": "S4U-U-FORCE-K3"
+    },
+    {
+      "source": "S4U-U-FORCE-K3",
+      "relation": "aligns_to",
+      "target": "S4U-STD-FORCE",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4U-U-FORCE",
+      "relation": "contains",
+      "target": "S4U-U-FORCE-L4"
+    },
+    {
+      "source": "S4U-U-FORCE-L4",
+      "relation": "teaches",
+      "target": "S4U-U-FORCE-K4"
+    },
+    {
+      "source": "S4U-U-FORCE-K4",
+      "relation": "aligns_to",
+      "target": "S4U-STD-FORCE",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4U-U-FORCE",
+      "relation": "contains",
+      "target": "S4U-U-FORCE-L5"
+    },
+    {
+      "source": "S4U-U-FORCE-L5",
+      "relation": "teaches",
+      "target": "S4U-U-FORCE-K5"
+    },
+    {
+      "source": "S4U-U-FORCE-K5",
+      "relation": "aligns_to",
+      "target": "S4U-STD-FORCE",
+      "alignment": "extension"
+    },
+    {
+      "source": "S4U-U-FORCE",
+      "relation": "contains",
+      "target": "S4U-U-FORCE-L6"
+    },
+    {
+      "source": "S4U-U-FORCE-L6",
+      "relation": "teaches",
+      "target": "S4U-U-FORCE-K6"
+    },
+    {
+      "source": "S4U-U-FORCE-K6",
+      "relation": "aligns_to",
+      "target": "S4U-STD-FORCE",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4U-U-FORCE",
+      "relation": "contains",
+      "target": "S4U-U-FORCE-L7"
+    },
+    {
+      "source": "S4U-U-FORCE-L7",
+      "relation": "teaches",
+      "target": "S4U-U-FORCE-K7"
+    },
+    {
+      "source": "S4U-U-FORCE-K7",
+      "relation": "aligns_to",
+      "target": "S4U-STD-FORCE",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4U-U-FORCE",
+      "relation": "contains",
+      "target": "S4U-U-FORCE-L8"
+    },
+    {
+      "source": "S4U-U-FORCE-L8",
+      "relation": "teaches",
+      "target": "S4U-U-FORCE-K8"
+    },
+    {
+      "source": "S4U-U-FORCE-K8",
+      "relation": "aligns_to",
+      "target": "S4U-STD-FORCE",
+      "alignment": "direct"
+    }
+  ]
+}

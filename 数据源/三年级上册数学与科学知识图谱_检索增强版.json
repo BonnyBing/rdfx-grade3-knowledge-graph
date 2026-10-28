@@ -1,0 +1,1697 @@
+{
+  "metadata": {
+    "title": "智启知识图谱（检索增强版 · 当前首批：三年级上册数学与科学）",
+    "version": "2.0",
+    "generated_date": "2026-09-09",
+    "source_graph": "三年级上册数学与科学知识图谱.json",
+    "grade": "三年级",
+    "grade_aliases": [
+      "三年级",
+      "小学三年级",
+      "3年级"
+    ],
+    "semester": "上册",
+    "semester_aliases": [
+      "上册",
+      "上学期",
+      "第一学期"
+    ],
+    "subjects": [
+      "数学",
+      "科学"
+    ],
+    "purpose": "供知识库按课题、单元、知识点和跨学科关系稳定召回。每条记录在同一片段内保留中文节点名称、原始关系边和完整证据路径。",
+    "scope_note": "教材节点表示本册实际学习内容；课标节点表示3—4年级第二学段要求。status=stage_later 的节点不能解释为本册已经完成。知识点按教材课次拆分，单元仍保留概括性知识点以便默认视图展示。",
+    "relation_semantics": {
+      "contains": "有向关系",
+      "teaches": "有向关系",
+      "uses_method": "有向关系",
+      "aligns_to": "有向关系",
+      "develops": "有向关系",
+      "prerequisite_of": "有向关系",
+      "applies_to": "有向关系",
+      "cross_links": "对称关系，检索证据路径时允许双向遍历"
+    }
+  },
+  "retrieval_records": [
+    {
+      "record_id": "RR-M-U6-X-DISSOLVE",
+      "record_title": "数学第六单元乘除法的应用（二）与科学溶解速度公平实验",
+      "search_terms": [
+        "第六单元",
+        "乘除法的应用（二）",
+        "倍",
+        "平均分",
+        "总价",
+        "数量关系",
+        "包饺子",
+        "需要多少钱",
+        "植树",
+        "科学",
+        "水能溶解多少物质",
+        "加快溶解",
+        "溶解速度",
+        "公平实验",
+        "控制变量",
+        "搅拌"
+      ],
+      "main_scope": {
+        "subject": "数学",
+        "grade": "三年级",
+        "semester": "上册",
+        "unit_id": "M-U6",
+        "unit_name": "第六单元 乘除法的应用（二）"
+      },
+      "cross_scope": {
+        "subject": "科学",
+        "grade": "三年级",
+        "semester": "上册",
+        "unit_id": "S-U-WATER",
+        "unit_name": "第一单元 水",
+        "lesson_ids": [
+          "S-W5",
+          "S-W6"
+        ],
+        "lesson_names": [
+          "水能溶解多少物质",
+          "加快溶解"
+        ]
+      },
+      "theme": {
+        "id": "X-DISSOLVE",
+        "name": "溶解速度公平实验",
+        "type": "cross_disciplinary_theme",
+        "status": "recommended"
+      },
+      "nodes": [
+        {
+          "id": "M-U6",
+          "type": "unit",
+          "name": "第六单元 乘除法的应用（二）",
+          "status": "current_book",
+          "source": "数学教材书内64—74/PDF68—78"
+        },
+        {
+          "id": "M-K-QUANTITY",
+          "type": "knowledge",
+          "name": "倍、平均分、总价等乘除数量关系",
+          "status": "current_book",
+          "source": "数学三年级上.md"
+        },
+        {
+          "id": "X-DISSOLVE",
+          "type": "cross_disciplinary_theme",
+          "name": "溶解速度公平实验",
+          "status": "recommended"
+        },
+        {
+          "id": "S-K-DISSOLVE",
+          "type": "knowledge",
+          "name": "溶解程度及搅拌、温度对溶解快慢的影响",
+          "status": "current_book",
+          "source": "三年级上科学.md"
+        },
+        {
+          "id": "S-M-CONTROL",
+          "type": "method",
+          "name": "控制变量与公平对比实验",
+          "status": "current_book"
+        },
+        {
+          "id": "S-W5",
+          "type": "lesson",
+          "name": "水能溶解多少物质",
+          "status": "current_book",
+          "source": "科学教材书内12—14/PDF18—20"
+        },
+        {
+          "id": "S-W6",
+          "type": "lesson",
+          "name": "加快溶解",
+          "status": "current_book",
+          "source": "科学教材书内15—16/PDF21—22"
+        },
+        {
+          "id": "S-K-SPEED",
+          "type": "knowledge",
+          "name": "搅拌和升高水温可以加快溶解",
+          "status": "current_book",
+          "source": "三年级上科学.md"
+        }
+      ],
+      "edges": [
+        {
+          "source": "M-U6",
+          "source_name": "第六单元 乘除法的应用（二）",
+          "relation": "teaches",
+          "target": "M-K-QUANTITY",
+          "target_name": "倍、平均分、总价等乘除数量关系",
+          "traversal": "forward"
+        },
+        {
+          "source": "X-DISSOLVE",
+          "source_name": "溶解速度公平实验",
+          "relation": "cross_links",
+          "target": "M-K-QUANTITY",
+          "target_name": "倍、平均分、总价等乘除数量关系",
+          "traversal": "bidirectional"
+        },
+        {
+          "source": "X-DISSOLVE",
+          "source_name": "溶解速度公平实验",
+          "relation": "cross_links",
+          "target": "S-K-DISSOLVE",
+          "target_name": "溶解程度及搅拌、温度对溶解快慢的影响",
+          "traversal": "bidirectional"
+        },
+        {
+          "source": "X-DISSOLVE",
+          "source_name": "溶解速度公平实验",
+          "relation": "cross_links",
+          "target": "S-M-CONTROL",
+          "target_name": "控制变量与公平对比实验",
+          "traversal": "bidirectional"
+        },
+        {
+          "source": "S-W5",
+          "source_name": "水能溶解多少物质",
+          "relation": "teaches",
+          "target": "S-K-DISSOLVE",
+          "target_name": "溶解程度及搅拌、温度对溶解快慢的影响",
+          "traversal": "forward"
+        },
+        {
+          "source": "S-W6",
+          "source_name": "加快溶解",
+          "relation": "teaches",
+          "target": "S-K-DISSOLVE",
+          "target_name": "溶解程度及搅拌、温度对溶解快慢的影响",
+          "traversal": "forward"
+        },
+        {
+          "source": "S-W6",
+          "source_name": "加快溶解",
+          "relation": "uses_method",
+          "target": "S-M-CONTROL",
+          "target_name": "控制变量与公平对比实验",
+          "traversal": "forward"
+        }
+      ],
+      "evidence_path": {
+        "path_id": "EP-M-U6-X-DISSOLVE",
+        "path_sequence": [
+          "M-U6",
+          "M-K-QUANTITY",
+          "X-DISSOLVE",
+          "S-K-DISSOLVE",
+          "S-W5"
+        ],
+        "path_names": [
+          "第六单元 乘除法的应用（二）",
+          "倍、平均分、总价等乘除数量关系",
+          "溶解速度公平实验",
+          "溶解程度及搅拌、温度对溶解快慢的影响",
+          "水能溶解多少物质"
+        ],
+        "evidence_summary": "数学第六单元中的倍、平均分和数量关系可用于设计科学溶解速度公平实验中的材料份数、倍数和分组计算。"
+      }
+    },
+    {
+      "record_id": "RR-M-U6-X-AIR-MASS",
+      "record_title": "数学第六单元乘除法的应用（二）与一袋空气质量探究",
+      "search_terms": [
+        "第六单元",
+        "乘除法应用",
+        "倍",
+        "平均分",
+        "数量关系",
+        "空气有质量吗",
+        "一袋空气的质量是多少",
+        "一袋空气有多重"
+      ],
+      "main_scope": {
+        "subject": "数学",
+        "grade": "三年级",
+        "semester": "上册",
+        "unit_id": "M-U6",
+        "unit_name": "第六单元 乘除法的应用（二）"
+      },
+      "cross_scope": {
+        "subject": "科学",
+        "grade": "三年级",
+        "semester": "上册",
+        "unit_id": "S-U-AIR",
+        "unit_name": "第二单元 空气",
+        "lesson_ids": [
+          "S-A4",
+          "S-A5"
+        ],
+        "lesson_names": [
+          "空气有质量吗",
+          "一袋空气的质量是多少"
+        ]
+      },
+      "theme": {
+        "id": "X-AIR-MASS",
+        "name": "一袋空气有多重",
+        "type": "cross_disciplinary_theme",
+        "status": "recommended"
+      },
+      "nodes": [
+        {
+          "id": "M-U6",
+          "type": "unit",
+          "name": "第六单元 乘除法的应用（二）",
+          "status": "current_book",
+          "source": "数学教材书内64—74/PDF68—78"
+        },
+        {
+          "id": "M-K-QUANTITY",
+          "type": "knowledge",
+          "name": "倍、平均分、总价等乘除数量关系",
+          "status": "current_book",
+          "source": "数学三年级上.md"
+        },
+        {
+          "id": "X-AIR-MASS",
+          "type": "cross_disciplinary_theme",
+          "name": "一袋空气有多重",
+          "status": "recommended"
+        },
+        {
+          "id": "S-K-AIR",
+          "type": "knowledge",
+          "name": "空气占据空间、具有质量、可压缩并会流动",
+          "status": "current_book",
+          "source": "三年级上科学.md"
+        },
+        {
+          "id": "S-A4",
+          "type": "lesson",
+          "name": "空气有质量吗",
+          "status": "current_book",
+          "source": "科学教材书内30—31/PDF36—37"
+        },
+        {
+          "id": "S-A5",
+          "type": "lesson",
+          "name": "一袋空气的质量是多少",
+          "status": "current_book",
+          "source": "科学教材书内32—33/PDF38—39"
+        },
+        {
+          "id": "S-K-MASS",
+          "type": "knowledge",
+          "name": "空气有质量",
+          "status": "current_book",
+          "source": "三年级上科学.md"
+        },
+        {
+          "id": "S-K-WEIGH",
+          "type": "knowledge",
+          "name": "一定量空气可用天平间接称量",
+          "status": "current_book",
+          "source": "三年级上科学.md"
+        }
+      ],
+      "edges": [
+        {
+          "source": "M-U6",
+          "source_name": "第六单元 乘除法的应用（二）",
+          "relation": "teaches",
+          "target": "M-K-QUANTITY",
+          "target_name": "倍、平均分、总价等乘除数量关系",
+          "traversal": "forward"
+        },
+        {
+          "source": "X-AIR-MASS",
+          "source_name": "一袋空气有多重",
+          "relation": "cross_links",
+          "target": "M-K-QUANTITY",
+          "target_name": "倍、平均分、总价等乘除数量关系",
+          "traversal": "bidirectional"
+        },
+        {
+          "source": "X-AIR-MASS",
+          "source_name": "一袋空气有多重",
+          "relation": "cross_links",
+          "target": "S-K-AIR",
+          "target_name": "空气占据空间、具有质量、可压缩并会流动",
+          "traversal": "bidirectional"
+        },
+        {
+          "source": "S-A4",
+          "source_name": "空气有质量吗",
+          "relation": "teaches",
+          "target": "S-K-AIR",
+          "target_name": "空气占据空间、具有质量、可压缩并会流动",
+          "traversal": "forward"
+        },
+        {
+          "source": "S-A5",
+          "source_name": "一袋空气的质量是多少",
+          "relation": "teaches",
+          "target": "S-K-AIR",
+          "target_name": "空气占据空间、具有质量、可压缩并会流动",
+          "traversal": "forward"
+        }
+      ],
+      "evidence_path": {
+        "path_id": "EP-M-U6-X-AIR-MASS",
+        "path_sequence": [
+          "M-U6",
+          "M-K-QUANTITY",
+          "X-AIR-MASS",
+          "S-K-AIR",
+          "S-A4"
+        ],
+        "path_names": [
+          "第六单元 乘除法的应用（二）",
+          "倍、平均分、总价等乘除数量关系",
+          "一袋空气有多重",
+          "空气占据空间、具有质量、可压缩并会流动",
+          "空气有质量吗"
+        ],
+        "evidence_summary": "数学乘除数量关系可用于比较多袋空气的总质量、平均质量和倍数关系。"
+      }
+    },
+    {
+      "record_id": "RR-M-U8-X-WEATHER-STATION",
+      "record_title": "数学第八单元调查与记录与校园微型气象站",
+      "search_terms": [
+        "第八单元",
+        "调查与记录",
+        "数据收集",
+        "分类记录",
+        "天气日历",
+        "校园微型气象站",
+        "气温计",
+        "雨量器"
+      ],
+      "main_scope": {
+        "subject": "数学",
+        "grade": "三年级",
+        "semester": "上册",
+        "unit_id": "M-U8",
+        "unit_name": "第八单元 调查与记录"
+      },
+      "cross_scope": {
+        "subject": "科学",
+        "grade": "三年级",
+        "semester": "上册",
+        "unit_id": "S-U-WEATHER",
+        "unit_name": "第三单元 天气",
+        "lesson_ids": [
+          "S-T2",
+          "S-T3",
+          "S-T4",
+          "S-T7"
+        ],
+        "lesson_names": [
+          "认识气温计",
+          "测量气温",
+          "测量降水量",
+          "整理我们的天气日历"
+        ]
+      },
+      "theme": {
+        "id": "X-WEATHER-STATION",
+        "name": "校园微型气象站",
+        "type": "cross_disciplinary_theme",
+        "status": "recommended"
+      },
+      "nodes": [
+        {
+          "id": "M-U8",
+          "type": "unit",
+          "name": "第八单元 调查与记录",
+          "status": "current_book",
+          "source": "数学教材书内90—94/PDF94—98"
+        },
+        {
+          "id": "M-K-SURVEY",
+          "type": "knowledge",
+          "name": "调查问题、数据收集和分类记录",
+          "status": "current_book",
+          "source": "数学三年级上.md"
+        },
+        {
+          "id": "M-K-DATA",
+          "type": "knowledge",
+          "name": "比较、解释数据并据此作出决策",
+          "status": "current_book",
+          "source": "数学三年级上.md"
+        },
+        {
+          "id": "X-WEATHER-STATION",
+          "type": "cross_disciplinary_theme",
+          "name": "校园微型气象站",
+          "status": "recommended"
+        },
+        {
+          "id": "S-K-INSTRUMENT",
+          "type": "knowledge",
+          "name": "气温计、雨量器、风旗和风向标的使用",
+          "status": "current_book",
+          "source": "三年级上科学.md"
+        },
+        {
+          "id": "S-K-WDATA",
+          "type": "knowledge",
+          "name": "天气日历、气象数据整理与变化描述",
+          "status": "current_book",
+          "source": "三年级上科学.md"
+        },
+        {
+          "id": "S-T2",
+          "type": "lesson",
+          "name": "认识气温计",
+          "status": "current_book",
+          "source": "科学教材书内43—44/PDF49—50"
+        },
+        {
+          "id": "S-T7",
+          "type": "lesson",
+          "name": "整理我们的天气日历",
+          "status": "current_book",
+          "source": "科学教材书内55—57/PDF61—63"
+        },
+        {
+          "id": "S-T3",
+          "type": "lesson",
+          "name": "测量气温",
+          "status": "current_book",
+          "source": "科学教材书内45—46/PDF51—52"
+        },
+        {
+          "id": "S-T4",
+          "type": "lesson",
+          "name": "测量降水量",
+          "status": "current_book",
+          "source": "科学教材书内47—49/PDF53—55"
+        }
+      ],
+      "edges": [
+        {
+          "source": "M-U8",
+          "source_name": "第八单元 调查与记录",
+          "relation": "teaches",
+          "target": "M-K-SURVEY",
+          "target_name": "调查问题、数据收集和分类记录",
+          "traversal": "forward"
+        },
+        {
+          "source": "M-U8",
+          "source_name": "第八单元 调查与记录",
+          "relation": "teaches",
+          "target": "M-K-DATA",
+          "target_name": "比较、解释数据并据此作出决策",
+          "traversal": "forward"
+        },
+        {
+          "source": "X-WEATHER-STATION",
+          "source_name": "校园微型气象站",
+          "relation": "cross_links",
+          "target": "M-K-DATA",
+          "target_name": "比较、解释数据并据此作出决策",
+          "traversal": "bidirectional"
+        },
+        {
+          "source": "X-WEATHER-STATION",
+          "source_name": "校园微型气象站",
+          "relation": "cross_links",
+          "target": "S-K-INSTRUMENT",
+          "target_name": "气温计、雨量器、风旗和风向标的使用",
+          "traversal": "bidirectional"
+        },
+        {
+          "source": "X-WEATHER-STATION",
+          "source_name": "校园微型气象站",
+          "relation": "cross_links",
+          "target": "S-K-WDATA",
+          "target_name": "天气日历、气象数据整理与变化描述",
+          "traversal": "bidirectional"
+        },
+        {
+          "source": "S-T2",
+          "source_name": "认识气温计",
+          "relation": "teaches",
+          "target": "S-K-INSTRUMENT",
+          "target_name": "气温计、雨量器、风旗和风向标的使用",
+          "traversal": "forward"
+        },
+        {
+          "source": "S-T7",
+          "source_name": "整理我们的天气日历",
+          "relation": "teaches",
+          "target": "S-K-WDATA",
+          "target_name": "天气日历、气象数据整理与变化描述",
+          "traversal": "forward"
+        }
+      ],
+      "evidence_path": {
+        "path_id": "EP-M-U8-X-WEATHER-STATION",
+        "path_sequence": [
+          "M-U8",
+          "M-K-DATA",
+          "X-WEATHER-STATION",
+          "S-K-WDATA",
+          "S-T7"
+        ],
+        "path_names": [
+          "第八单元 调查与记录",
+          "比较、解释数据并据此作出决策",
+          "校园微型气象站",
+          "天气日历、气象数据整理与变化描述",
+          "整理我们的天气日历"
+        ],
+        "evidence_summary": "数学调查、记录和数据解释可直接用于科学天气观测数据的采集、整理、比较与表达。"
+      }
+    },
+    {
+      "record_id": "RR-M-U8-X-WATER-TEMP",
+      "record_title": "数学第八单元调查与记录与水的温度状态变化数据研究",
+      "search_terms": [
+        "第八单元",
+        "调查与记录",
+        "沸腾",
+        "结冰",
+        "融化",
+        "水的温度与状态变化数据研究",
+        "100℃"
+      ],
+      "main_scope": {
+        "subject": "数学",
+        "grade": "三年级",
+        "semester": "上册",
+        "unit_id": "M-U8",
+        "unit_name": "第八单元 调查与记录"
+      },
+      "cross_scope": {
+        "subject": "科学",
+        "grade": "三年级",
+        "semester": "上册",
+        "unit_id": "S-U-WATER",
+        "unit_name": "第一单元 水",
+        "lesson_ids": [
+          "S-W2",
+          "S-W3",
+          "S-W4"
+        ],
+        "lesson_names": [
+          "水沸腾了",
+          "水结冰了",
+          "冰融化了"
+        ]
+      },
+      "theme": {
+        "id": "X-WATER-TEMP",
+        "name": "水的温度与状态变化数据研究",
+        "type": "cross_disciplinary_theme",
+        "status": "recommended"
+      },
+      "nodes": [
+        {
+          "id": "M-U8",
+          "type": "unit",
+          "name": "第八单元 调查与记录",
+          "status": "current_book",
+          "source": "数学教材书内90—94/PDF94—98"
+        },
+        {
+          "id": "M-K-DATA",
+          "type": "knowledge",
+          "name": "比较、解释数据并据此作出决策",
+          "status": "current_book",
+          "source": "数学三年级上.md"
+        },
+        {
+          "id": "X-WATER-TEMP",
+          "type": "cross_disciplinary_theme",
+          "name": "水的温度与状态变化数据研究",
+          "status": "recommended"
+        },
+        {
+          "id": "S-K-TEMP",
+          "type": "knowledge",
+          "name": "温度影响水的沸腾、结冰和融化",
+          "status": "current_book",
+          "source": "三年级上科学.md"
+        },
+        {
+          "id": "S-K-STATE",
+          "type": "knowledge",
+          "name": "水、冰、水蒸气的状态区别、同一性与相互转化",
+          "status": "current_book",
+          "source": "三年级上科学.md"
+        },
+        {
+          "id": "S-W2",
+          "type": "lesson",
+          "name": "水沸腾了",
+          "status": "current_book",
+          "source": "科学教材书内5—6/PDF11—12"
+        },
+        {
+          "id": "S-W4",
+          "type": "lesson",
+          "name": "冰融化了",
+          "status": "current_book",
+          "source": "科学教材书内10—11/PDF16—17"
+        },
+        {
+          "id": "S-K-BOIL",
+          "type": "knowledge",
+          "name": "水沸腾时温度约为100℃，变成水蒸气体积大大增加",
+          "status": "current_book",
+          "source": "三年级上科学.md"
+        },
+        {
+          "id": "S-W3",
+          "type": "lesson",
+          "name": "水结冰了",
+          "status": "current_book",
+          "source": "科学教材书内7—9/PDF13—15"
+        }
+      ],
+      "edges": [
+        {
+          "source": "M-U8",
+          "source_name": "第八单元 调查与记录",
+          "relation": "teaches",
+          "target": "M-K-DATA",
+          "target_name": "比较、解释数据并据此作出决策",
+          "traversal": "forward"
+        },
+        {
+          "source": "X-WATER-TEMP",
+          "source_name": "水的温度与状态变化数据研究",
+          "relation": "cross_links",
+          "target": "M-K-DATA",
+          "target_name": "比较、解释数据并据此作出决策",
+          "traversal": "bidirectional"
+        },
+        {
+          "source": "X-WATER-TEMP",
+          "source_name": "水的温度与状态变化数据研究",
+          "relation": "cross_links",
+          "target": "S-K-TEMP",
+          "target_name": "温度影响水的沸腾、结冰和融化",
+          "traversal": "bidirectional"
+        },
+        {
+          "source": "X-WATER-TEMP",
+          "source_name": "水的温度与状态变化数据研究",
+          "relation": "cross_links",
+          "target": "S-K-STATE",
+          "target_name": "水、冰、水蒸气的状态区别、同一性与相互转化",
+          "traversal": "bidirectional"
+        },
+        {
+          "source": "S-W2",
+          "source_name": "水沸腾了",
+          "relation": "teaches",
+          "target": "S-K-TEMP",
+          "target_name": "温度影响水的沸腾、结冰和融化",
+          "traversal": "forward"
+        },
+        {
+          "source": "S-W4",
+          "source_name": "冰融化了",
+          "relation": "teaches",
+          "target": "S-K-STATE",
+          "target_name": "水、冰、水蒸气的状态区别、同一性与相互转化",
+          "traversal": "forward"
+        }
+      ],
+      "evidence_path": {
+        "path_id": "EP-M-U8-X-WATER-TEMP",
+        "path_sequence": [
+          "M-U8",
+          "M-K-DATA",
+          "X-WATER-TEMP",
+          "S-K-TEMP",
+          "S-W2"
+        ],
+        "path_names": [
+          "第八单元 调查与记录",
+          "比较、解释数据并据此作出决策",
+          "水的温度与状态变化数据研究",
+          "温度影响水的沸腾、结冰和融化",
+          "水沸腾了"
+        ],
+        "evidence_summary": "数学数据收集与解释可用于记录水在沸腾、结冰和融化过程中的温度与状态变化。"
+      }
+    },
+    {
+      "record_id": "RR-M-U8-X-DISSOLVE",
+      "record_title": "数学第八单元调查与记录与溶解速度公平实验",
+      "search_terms": [
+        "第八单元",
+        "调查与记录",
+        "溶解",
+        "加快溶解",
+        "控制变量",
+        "画正字"
+      ],
+      "main_scope": {
+        "subject": "数学",
+        "grade": "三年级",
+        "semester": "上册",
+        "unit_id": "M-U8",
+        "unit_name": "第八单元 调查与记录"
+      },
+      "cross_scope": {
+        "subject": "科学",
+        "grade": "三年级",
+        "semester": "上册",
+        "unit_id": "S-U-WATER",
+        "unit_name": "第一单元 水",
+        "lesson_ids": [
+          "S-W5",
+          "S-W6"
+        ],
+        "lesson_names": [
+          "水能溶解多少物质",
+          "加快溶解"
+        ]
+      },
+      "theme": {
+        "id": "X-DISSOLVE",
+        "name": "溶解速度公平实验",
+        "type": "cross_disciplinary_theme",
+        "status": "recommended"
+      },
+      "nodes": [
+        {
+          "id": "M-U8",
+          "type": "unit",
+          "name": "第八单元 调查与记录",
+          "status": "current_book",
+          "source": "数学教材书内90—94/PDF94—98"
+        },
+        {
+          "id": "M-K-DATA",
+          "type": "knowledge",
+          "name": "比较、解释数据并据此作出决策",
+          "status": "current_book",
+          "source": "数学三年级上.md"
+        },
+        {
+          "id": "X-DISSOLVE",
+          "type": "cross_disciplinary_theme",
+          "name": "溶解速度公平实验",
+          "status": "recommended"
+        },
+        {
+          "id": "S-K-DISSOLVE",
+          "type": "knowledge",
+          "name": "溶解程度及搅拌、温度对溶解快慢的影响",
+          "status": "current_book",
+          "source": "三年级上科学.md"
+        },
+        {
+          "id": "S-W6",
+          "type": "lesson",
+          "name": "加快溶解",
+          "status": "current_book",
+          "source": "科学教材书内15—16/PDF21—22"
+        },
+        {
+          "id": "S-M-CONTROL",
+          "type": "method",
+          "name": "控制变量与公平对比实验",
+          "status": "current_book"
+        },
+        {
+          "id": "S-W5",
+          "type": "lesson",
+          "name": "水能溶解多少物质",
+          "status": "current_book",
+          "source": "科学教材书内12—14/PDF18—20"
+        },
+        {
+          "id": "S-K-SPEED",
+          "type": "knowledge",
+          "name": "搅拌和升高水温可以加快溶解",
+          "status": "current_book",
+          "source": "三年级上科学.md"
+        }
+      ],
+      "edges": [
+        {
+          "source": "M-U8",
+          "source_name": "第八单元 调查与记录",
+          "relation": "teaches",
+          "target": "M-K-DATA",
+          "target_name": "比较、解释数据并据此作出决策",
+          "traversal": "forward"
+        },
+        {
+          "source": "X-DISSOLVE",
+          "source_name": "溶解速度公平实验",
+          "relation": "cross_links",
+          "target": "M-K-DATA",
+          "target_name": "比较、解释数据并据此作出决策",
+          "traversal": "bidirectional"
+        },
+        {
+          "source": "X-DISSOLVE",
+          "source_name": "溶解速度公平实验",
+          "relation": "cross_links",
+          "target": "S-K-DISSOLVE",
+          "target_name": "溶解程度及搅拌、温度对溶解快慢的影响",
+          "traversal": "bidirectional"
+        },
+        {
+          "source": "S-W6",
+          "source_name": "加快溶解",
+          "relation": "teaches",
+          "target": "S-K-DISSOLVE",
+          "target_name": "溶解程度及搅拌、温度对溶解快慢的影响",
+          "traversal": "forward"
+        },
+        {
+          "source": "S-W6",
+          "source_name": "加快溶解",
+          "relation": "uses_method",
+          "target": "S-M-CONTROL",
+          "target_name": "控制变量与公平对比实验",
+          "traversal": "forward"
+        }
+      ],
+      "evidence_path": {
+        "path_id": "EP-M-U8-X-DISSOLVE",
+        "path_sequence": [
+          "M-U8",
+          "M-K-DATA",
+          "X-DISSOLVE",
+          "S-K-DISSOLVE",
+          "S-W6"
+        ],
+        "path_names": [
+          "第八单元 调查与记录",
+          "比较、解释数据并据此作出决策",
+          "溶解速度公平实验",
+          "溶解程度及搅拌、温度对溶解快慢的影响",
+          "加快溶解"
+        ],
+        "evidence_summary": "数学调查记录和数据解释可用于科学溶解实验的数据采集、组间比较和公平实验结论表达。"
+      }
+    },
+    {
+      "record_id": "RR-M-U2-X-AIR-MASS",
+      "record_title": "数学第二单元测量（二）与一袋空气质量探究",
+      "search_terms": [
+        "第二单元",
+        "测量（二）",
+        "估测",
+        "空气有质量吗",
+        "一袋空气的质量是多少"
+      ],
+      "main_scope": {
+        "subject": "数学",
+        "grade": "三年级",
+        "semester": "上册",
+        "unit_id": "M-U2",
+        "unit_name": "第二单元 测量（二）"
+      },
+      "cross_scope": {
+        "subject": "科学",
+        "grade": "三年级",
+        "semester": "上册",
+        "unit_id": "S-U-AIR",
+        "unit_name": "第二单元 空气",
+        "lesson_ids": [
+          "S-A4",
+          "S-A5"
+        ],
+        "lesson_names": [
+          "空气有质量吗",
+          "一袋空气的质量是多少"
+        ]
+      },
+      "theme": {
+        "id": "X-AIR-MASS",
+        "name": "一袋空气有多重",
+        "type": "cross_disciplinary_theme",
+        "status": "recommended"
+      },
+      "nodes": [
+        {
+          "id": "M-U2",
+          "type": "unit",
+          "name": "第二单元 测量（二）",
+          "status": "current_book",
+          "source": "数学教材书内13—23/PDF17—27"
+        },
+        {
+          "id": "M-K-ESTIMATE",
+          "type": "knowledge",
+          "name": "长度和数量的估测及结果合理性",
+          "status": "current_book",
+          "source": "数学三年级上.md"
+        },
+        {
+          "id": "X-AIR-MASS",
+          "type": "cross_disciplinary_theme",
+          "name": "一袋空气有多重",
+          "status": "recommended"
+        },
+        {
+          "id": "S-K-AIR",
+          "type": "knowledge",
+          "name": "空气占据空间、具有质量、可压缩并会流动",
+          "status": "current_book",
+          "source": "三年级上科学.md"
+        },
+        {
+          "id": "S-A4",
+          "type": "lesson",
+          "name": "空气有质量吗",
+          "status": "current_book",
+          "source": "科学教材书内30—31/PDF36—37"
+        },
+        {
+          "id": "S-A5",
+          "type": "lesson",
+          "name": "一袋空气的质量是多少",
+          "status": "current_book",
+          "source": "科学教材书内32—33/PDF38—39"
+        },
+        {
+          "id": "S-K-WEIGH",
+          "type": "knowledge",
+          "name": "一定量空气可用天平间接称量",
+          "status": "current_book",
+          "source": "三年级上科学.md"
+        }
+      ],
+      "edges": [
+        {
+          "source": "M-U2",
+          "source_name": "第二单元 测量（二）",
+          "relation": "teaches",
+          "target": "M-K-ESTIMATE",
+          "target_name": "长度和数量的估测及结果合理性",
+          "traversal": "forward"
+        },
+        {
+          "source": "X-AIR-MASS",
+          "source_name": "一袋空气有多重",
+          "relation": "cross_links",
+          "target": "M-K-ESTIMATE",
+          "target_name": "长度和数量的估测及结果合理性",
+          "traversal": "bidirectional"
+        },
+        {
+          "source": "X-AIR-MASS",
+          "source_name": "一袋空气有多重",
+          "relation": "cross_links",
+          "target": "S-K-AIR",
+          "target_name": "空气占据空间、具有质量、可压缩并会流动",
+          "traversal": "bidirectional"
+        },
+        {
+          "source": "S-A4",
+          "source_name": "空气有质量吗",
+          "relation": "teaches",
+          "target": "S-K-AIR",
+          "target_name": "空气占据空间、具有质量、可压缩并会流动",
+          "traversal": "forward"
+        },
+        {
+          "source": "S-A5",
+          "source_name": "一袋空气的质量是多少",
+          "relation": "teaches",
+          "target": "S-K-AIR",
+          "target_name": "空气占据空间、具有质量、可压缩并会流动",
+          "traversal": "forward"
+        }
+      ],
+      "evidence_path": {
+        "path_id": "EP-M-U2-X-AIR-MASS",
+        "path_sequence": [
+          "M-U2",
+          "M-K-ESTIMATE",
+          "X-AIR-MASS",
+          "S-K-AIR",
+          "S-A5"
+        ],
+        "path_names": [
+          "第二单元 测量（二）",
+          "长度和数量的估测及结果合理性",
+          "一袋空气有多重",
+          "空气占据空间、具有质量、可压缩并会流动",
+          "一袋空气的质量是多少"
+        ],
+        "evidence_summary": "数学估测和结果合理性可用于科学空气质量测量前的预测、测量后的合理性判断。"
+      }
+    },
+    {
+      "record_id": "RR-M-U2-X-WEATHER-STATION",
+      "record_title": "数学第二单元测量（二）与校园微型气象站",
+      "search_terms": [
+        "第二单元",
+        "测量",
+        "毫米",
+        "千米",
+        "单位选择",
+        "雨量器",
+        "气温计",
+        "降水量"
+      ],
+      "main_scope": {
+        "subject": "数学",
+        "grade": "三年级",
+        "semester": "上册",
+        "unit_id": "M-U2",
+        "unit_name": "第二单元 测量（二）"
+      },
+      "cross_scope": {
+        "subject": "科学",
+        "grade": "三年级",
+        "semester": "上册",
+        "unit_id": "S-U-WEATHER",
+        "unit_name": "第三单元 天气",
+        "lesson_ids": [
+          "S-T2",
+          "S-T4",
+          "S-T5"
+        ],
+        "lesson_names": [
+          "认识气温计",
+          "测量降水量",
+          "观测风"
+        ]
+      },
+      "theme": {
+        "id": "X-WEATHER-STATION",
+        "name": "校园微型气象站",
+        "type": "cross_disciplinary_theme",
+        "status": "recommended"
+      },
+      "nodes": [
+        {
+          "id": "M-U2",
+          "type": "unit",
+          "name": "第二单元 测量（二）",
+          "status": "current_book",
+          "source": "数学教材书内13—23/PDF17—27"
+        },
+        {
+          "id": "M-K-LENGTH",
+          "type": "knowledge",
+          "name": "毫米、厘米、分米、米、千米及单位换算",
+          "status": "current_book",
+          "source": "数学三年级上.md"
+        },
+        {
+          "id": "X-WEATHER-STATION",
+          "type": "cross_disciplinary_theme",
+          "name": "校园微型气象站",
+          "status": "recommended"
+        },
+        {
+          "id": "S-K-INSTRUMENT",
+          "type": "knowledge",
+          "name": "气温计、雨量器、风旗和风向标的使用",
+          "status": "current_book",
+          "source": "三年级上科学.md"
+        },
+        {
+          "id": "S-T2",
+          "type": "lesson",
+          "name": "认识气温计",
+          "status": "current_book",
+          "source": "科学教材书内43—44/PDF49—50"
+        },
+        {
+          "id": "S-T4",
+          "type": "lesson",
+          "name": "测量降水量",
+          "status": "current_book",
+          "source": "科学教材书内47—49/PDF53—55"
+        },
+        {
+          "id": "S-K-RAIN",
+          "type": "knowledge",
+          "name": "雨量器测量降水量，单位是毫米",
+          "status": "current_book",
+          "source": "三年级上科学.md"
+        },
+        {
+          "id": "S-T5",
+          "type": "lesson",
+          "name": "观测风",
+          "status": "current_book",
+          "source": "科学教材书内50—52/PDF56—58"
+        },
+        {
+          "id": "X-MM-RAIN",
+          "type": "cross_disciplinary_theme",
+          "name": "毫米单位与降水量测量",
+          "status": "recommended"
+        }
+      ],
+      "edges": [
+        {
+          "source": "M-U2",
+          "source_name": "第二单元 测量（二）",
+          "relation": "teaches",
+          "target": "M-K-LENGTH",
+          "target_name": "毫米、厘米、分米、米、千米及单位换算",
+          "traversal": "forward"
+        },
+        {
+          "source": "X-WEATHER-STATION",
+          "source_name": "校园微型气象站",
+          "relation": "cross_links",
+          "target": "M-K-LENGTH",
+          "target_name": "毫米、厘米、分米、米、千米及单位换算",
+          "traversal": "bidirectional"
+        },
+        {
+          "source": "X-WEATHER-STATION",
+          "source_name": "校园微型气象站",
+          "relation": "cross_links",
+          "target": "S-K-INSTRUMENT",
+          "target_name": "气温计、雨量器、风旗和风向标的使用",
+          "traversal": "bidirectional"
+        },
+        {
+          "source": "S-T2",
+          "source_name": "认识气温计",
+          "relation": "teaches",
+          "target": "S-K-INSTRUMENT",
+          "target_name": "气温计、雨量器、风旗和风向标的使用",
+          "traversal": "forward"
+        },
+        {
+          "source": "S-T4",
+          "source_name": "测量降水量",
+          "relation": "teaches",
+          "target": "S-K-INSTRUMENT",
+          "target_name": "气温计、雨量器、风旗和风向标的使用",
+          "traversal": "forward"
+        }
+      ],
+      "evidence_path": {
+        "path_id": "EP-M-U2-X-WEATHER-STATION",
+        "path_sequence": [
+          "M-U2",
+          "M-K-LENGTH",
+          "X-WEATHER-STATION",
+          "S-K-INSTRUMENT",
+          "S-T4"
+        ],
+        "path_names": [
+          "第二单元 测量（二）",
+          "毫米、厘米、分米、米、千米及单位换算",
+          "校园微型气象站",
+          "气温计、雨量器、风旗和风向标的使用",
+          "测量降水量"
+        ],
+        "evidence_summary": "数学测量、估测和单位选择可用于科学气象仪器制作、摆放和观测记录。"
+      }
+    },
+    {
+      "record_id": "RR-M-P-CAMPUS-X-WIND-MAP",
+      "record_title": "数学综合实践记录我们的校园与校园风向地图",
+      "search_terms": [
+        "记录我们的校园",
+        "八个方向",
+        "几点钟方向",
+        "风的成因",
+        "观测风",
+        "风向",
+        "风旗",
+        "校园风向地图"
+      ],
+      "main_scope": {
+        "subject": "数学",
+        "grade": "三年级",
+        "semester": "上册",
+        "unit_id": "M-P-CAMPUS",
+        "unit_name": "综合实践 记录我们的校园"
+      },
+      "cross_scope": {
+        "subject": "科学",
+        "grade": "三年级",
+        "semester": "上册",
+        "unit_ids": [
+          "S-U-AIR",
+          "S-U-WEATHER"
+        ],
+        "unit_names": [
+          "第二单元 空气",
+          "第三单元 天气"
+        ],
+        "lesson_ids": [
+          "S-A7",
+          "S-T5"
+        ],
+        "lesson_names": [
+          "风的成因",
+          "观测风"
+        ]
+      },
+      "theme": {
+        "id": "X-WIND-MAP",
+        "name": "校园风向地图",
+        "type": "cross_disciplinary_theme",
+        "status": "recommended"
+      },
+      "nodes": [
+        {
+          "id": "M-P-CAMPUS",
+          "type": "unit",
+          "name": "综合实践 记录我们的校园",
+          "status": "current_book",
+          "source": "数学教材书内24—27/PDF28—31"
+        },
+        {
+          "id": "M-K-DIRECTION",
+          "type": "knowledge",
+          "name": "八个方向与几点钟方向",
+          "status": "current_book",
+          "source": "数学三年级上.md"
+        },
+        {
+          "id": "X-WIND-MAP",
+          "type": "cross_disciplinary_theme",
+          "name": "校园风向地图",
+          "status": "recommended"
+        },
+        {
+          "id": "S-K-WIND",
+          "type": "knowledge",
+          "name": "空气受热上升与风的形成",
+          "status": "current_book",
+          "source": "三年级上科学.md"
+        },
+        {
+          "id": "S-K-INSTRUMENT",
+          "type": "knowledge",
+          "name": "气温计、雨量器、风旗和风向标的使用",
+          "status": "current_book",
+          "source": "三年级上科学.md"
+        },
+        {
+          "id": "S-A7",
+          "type": "lesson",
+          "name": "风的成因",
+          "status": "current_book",
+          "source": "科学教材书内36—37/PDF42—43"
+        },
+        {
+          "id": "S-T5",
+          "type": "lesson",
+          "name": "观测风",
+          "status": "current_book",
+          "source": "科学教材书内50—52/PDF56—58"
+        },
+        {
+          "id": "M-K-EIGHT",
+          "type": "knowledge",
+          "name": "东、南、西、北及东南、东北、西南、西北",
+          "status": "current_book",
+          "source": "数学三年级上.md"
+        },
+        {
+          "id": "S-K-WINDDIR",
+          "type": "knowledge",
+          "name": "风向是风吹来的方向，用八方位和风力等级记录",
+          "status": "current_book",
+          "source": "三年级上科学.md"
+        }
+      ],
+      "edges": [
+        {
+          "source": "M-P-CAMPUS",
+          "source_name": "综合实践 记录我们的校园",
+          "relation": "teaches",
+          "target": "M-K-DIRECTION",
+          "target_name": "八个方向与几点钟方向",
+          "traversal": "forward"
+        },
+        {
+          "source": "X-WIND-MAP",
+          "source_name": "校园风向地图",
+          "relation": "cross_links",
+          "target": "M-K-DIRECTION",
+          "target_name": "八个方向与几点钟方向",
+          "traversal": "bidirectional"
+        },
+        {
+          "source": "X-WIND-MAP",
+          "source_name": "校园风向地图",
+          "relation": "cross_links",
+          "target": "S-K-WIND",
+          "target_name": "空气受热上升与风的形成",
+          "traversal": "bidirectional"
+        },
+        {
+          "source": "X-WIND-MAP",
+          "source_name": "校园风向地图",
+          "relation": "cross_links",
+          "target": "S-K-INSTRUMENT",
+          "target_name": "气温计、雨量器、风旗和风向标的使用",
+          "traversal": "bidirectional"
+        },
+        {
+          "source": "S-A7",
+          "source_name": "风的成因",
+          "relation": "teaches",
+          "target": "S-K-WIND",
+          "target_name": "空气受热上升与风的形成",
+          "traversal": "forward"
+        },
+        {
+          "source": "S-T5",
+          "source_name": "观测风",
+          "relation": "teaches",
+          "target": "S-K-INSTRUMENT",
+          "target_name": "气温计、雨量器、风旗和风向标的使用",
+          "traversal": "forward"
+        }
+      ],
+      "evidence_path": {
+        "path_id": "EP-M-P-CAMPUS-X-WIND-MAP",
+        "path_sequence": [
+          "M-P-CAMPUS",
+          "M-K-DIRECTION",
+          "X-WIND-MAP",
+          "S-K-WIND",
+          "S-T5"
+        ],
+        "path_names": [
+          "综合实践 记录我们的校园",
+          "八个方向与几点钟方向",
+          "校园风向地图",
+          "空气受热上升与风的形成",
+          "观测风"
+        ],
+        "evidence_summary": "数学方向知识可用于科学校园风向观测点定位、风向记录和校园风向地图表达。"
+      }
+    },
+    {
+      "record_id": "RR-M-P-DATE-X-CALENDAR",
+      "record_title": "数学年月日与科学天气日历",
+      "search_terms": [
+        "年月日",
+        "大小月",
+        "平年",
+        "闰年",
+        "24时记时法",
+        "天气日历",
+        "一天中气温",
+        "气候"
+      ],
+      "main_scope": {
+        "subject": "数学",
+        "grade": "三年级",
+        "semester": "上册",
+        "unit_id": "M-P-DATE",
+        "unit_name": "综合实践 探索年月日的秘密"
+      },
+      "cross_scope": {
+        "subject": "科学",
+        "grade": "三年级",
+        "semester": "上册",
+        "unit_id": "S-U-WEATHER",
+        "unit_name": "第三单元 天气",
+        "lesson_ids": [
+          "S-T3",
+          "S-T7"
+        ],
+        "lesson_names": [
+          "测量气温",
+          "整理我们的天气日历"
+        ]
+      },
+      "theme": {
+        "id": "X-CALENDAR",
+        "name": "天气日历与年月日",
+        "type": "cross_disciplinary_theme",
+        "status": "recommended"
+      },
+      "nodes": [
+        {
+          "id": "M-P-DATE",
+          "type": "unit",
+          "name": "综合实践 探索年月日的秘密",
+          "status": "current_book",
+          "source": "数学教材书内95—98/PDF99—102"
+        },
+        {
+          "id": "M-K-DATE",
+          "type": "knowledge",
+          "name": "年、月、日、大小月和平闰年",
+          "status": "current_book",
+          "source": "数学三年级上.md"
+        },
+        {
+          "id": "M-K-24H",
+          "type": "knowledge",
+          "name": "24时记时法",
+          "status": "current_book",
+          "source": "数学三年级上.md"
+        },
+        {
+          "id": "X-CALENDAR",
+          "type": "cross_disciplinary_theme",
+          "name": "天气日历与年月日",
+          "status": "recommended"
+        },
+        {
+          "id": "S-K-WDATA",
+          "type": "knowledge",
+          "name": "天气日历、气象数据整理与变化描述",
+          "status": "current_book",
+          "source": "三年级上科学.md"
+        },
+        {
+          "id": "S-T7",
+          "type": "lesson",
+          "name": "整理我们的天气日历",
+          "status": "current_book",
+          "source": "科学教材书内55—57/PDF61—63"
+        },
+        {
+          "id": "S-K-DAILY-T",
+          "type": "knowledge",
+          "name": "一天中气温不断变化，最高多在午后、最低多在清晨",
+          "status": "current_book",
+          "source": "三年级上科学.md"
+        },
+        {
+          "id": "S-T3",
+          "type": "lesson",
+          "name": "测量气温",
+          "status": "current_book",
+          "source": "科学教材书内45—46/PDF51—52"
+        },
+        {
+          "id": "S-M-CALENDAR",
+          "type": "method",
+          "name": "长期观测并整理天气日历",
+          "status": "current_book"
+        }
+      ],
+      "edges": [
+        {
+          "source": "M-P-DATE",
+          "source_name": "综合实践 探索年月日的秘密",
+          "relation": "teaches",
+          "target": "M-K-DATE",
+          "target_name": "年、月、日、大小月和平闰年",
+          "traversal": "forward"
+        },
+        {
+          "source": "M-P-DATE",
+          "source_name": "综合实践 探索年月日的秘密",
+          "relation": "teaches",
+          "target": "M-K-24H",
+          "target_name": "24时记时法",
+          "traversal": "forward"
+        },
+        {
+          "source": "X-CALENDAR",
+          "source_name": "天气日历与年月日",
+          "relation": "cross_links",
+          "target": "M-K-DATE",
+          "target_name": "年、月、日、大小月和平闰年",
+          "traversal": "bidirectional"
+        },
+        {
+          "source": "X-CALENDAR",
+          "source_name": "天气日历与年月日",
+          "relation": "cross_links",
+          "target": "S-K-WDATA",
+          "target_name": "天气日历、气象数据整理与变化描述",
+          "traversal": "bidirectional"
+        },
+        {
+          "source": "S-T7",
+          "source_name": "整理我们的天气日历",
+          "relation": "teaches",
+          "target": "S-K-WDATA",
+          "target_name": "天气日历、气象数据整理与变化描述",
+          "traversal": "forward"
+        }
+      ],
+      "evidence_path": {
+        "path_id": "EP-M-P-DATE-X-CALENDAR",
+        "path_sequence": [
+          "M-P-DATE",
+          "M-K-DATE",
+          "X-CALENDAR",
+          "S-K-WDATA",
+          "S-T7"
+        ],
+        "path_names": [
+          "综合实践 探索年月日的秘密",
+          "年、月、日、大小月和平闰年",
+          "天气日历与年月日",
+          "天气日历、气象数据整理与变化描述",
+          "整理我们的天气日历"
+        ],
+        "evidence_summary": "年、月、日和24时记时法可用于科学天气日历的日期编排和一天中气温变化记录。"
+      }
+    },
+    {
+      "record_id": "RR-M-U2-X-MM-RAIN",
+      "record_title": "数学毫米单位与科学降水量测量",
+      "search_terms": [
+        "毫米",
+        "1厘米=10毫米",
+        "雨量器",
+        "降水量",
+        "降雨量",
+        "铅笔有多长"
+      ],
+      "main_scope": {
+        "subject": "数学",
+        "grade": "三年级",
+        "semester": "上册",
+        "unit_id": "M-U2",
+        "unit_name": "第二单元 测量（二）"
+      },
+      "cross_scope": {
+        "subject": "科学",
+        "grade": "三年级",
+        "semester": "上册",
+        "unit_id": "S-U-WEATHER",
+        "unit_name": "第三单元 天气",
+        "lesson_ids": [
+          "S-T4"
+        ],
+        "lesson_names": [
+          "测量降水量"
+        ]
+      },
+      "theme": {
+        "id": "X-MM-RAIN",
+        "name": "毫米单位与降水量测量",
+        "type": "cross_disciplinary_theme",
+        "status": "recommended"
+      },
+      "nodes": [
+        {
+          "id": "M-U2",
+          "type": "unit",
+          "name": "第二单元 测量（二）",
+          "status": "current_book",
+          "source": "数学教材书内13—23/PDF17—27"
+        },
+        {
+          "id": "M-K-MMDM",
+          "type": "knowledge",
+          "name": "1厘米=10毫米，10厘米=1分米",
+          "status": "current_book",
+          "source": "数学三年级上.md"
+        },
+        {
+          "id": "X-MM-RAIN",
+          "type": "cross_disciplinary_theme",
+          "name": "毫米单位与降水量测量",
+          "status": "recommended"
+        },
+        {
+          "id": "M-K-LENGTH",
+          "type": "knowledge",
+          "name": "毫米、厘米、分米、米、千米及单位换算",
+          "status": "current_book",
+          "source": "数学三年级上.md"
+        },
+        {
+          "id": "S-K-RAIN",
+          "type": "knowledge",
+          "name": "雨量器测量降水量，单位是毫米",
+          "status": "current_book",
+          "source": "三年级上科学.md"
+        },
+        {
+          "id": "S-T4",
+          "type": "lesson",
+          "name": "测量降水量",
+          "status": "current_book",
+          "source": "科学教材书内47—49/PDF53—55"
+        }
+      ],
+      "edges": [
+        {
+          "source": "M-U2",
+          "source_name": "第二单元 测量（二）",
+          "relation": "teaches",
+          "target": "M-K-MMDM",
+          "target_name": "1厘米=10毫米，10厘米=1分米",
+          "traversal": "forward"
+        },
+        {
+          "source": "X-MM-RAIN",
+          "source_name": "毫米单位与降水量测量",
+          "relation": "cross_links",
+          "target": "M-K-LENGTH",
+          "target_name": "毫米、厘米、分米、米、千米及单位换算",
+          "traversal": "bidirectional"
+        },
+        {
+          "source": "X-MM-RAIN",
+          "source_name": "毫米单位与降水量测量",
+          "relation": "cross_links",
+          "target": "S-K-RAIN",
+          "target_name": "雨量器测量降水量，单位是毫米",
+          "traversal": "bidirectional"
+        },
+        {
+          "source": "S-T4",
+          "source_name": "测量降水量",
+          "relation": "teaches",
+          "target": "S-K-RAIN",
+          "target_name": "雨量器测量降水量，单位是毫米",
+          "traversal": "forward"
+        }
+      ],
+      "evidence_path": {
+        "path_id": "EP-M-U2-X-MM-RAIN",
+        "path_sequence": [
+          "M-U2",
+          "M-K-MMDM",
+          "X-MM-RAIN",
+          "S-K-RAIN",
+          "S-T4"
+        ],
+        "path_names": [
+          "第二单元 测量（二）",
+          "1厘米=10毫米，10厘米=1分米",
+          "毫米单位与降水量测量",
+          "雨量器测量降水量，单位是毫米",
+          "测量降水量"
+        ],
+        "evidence_summary": "数学毫米单位直接对应科学雨量器读数单位，可用于理解和记录降水量。"
+      }
+    }
+  ]
+}

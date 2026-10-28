@@ -1,0 +1,1243 @@
+{
+  "metadata": {
+    "title": "六年级上册数学知识图谱",
+    "version": "1.0",
+    "generated_date": "2026-09-29",
+    "grade": "六年级",
+    "semester": "上册",
+    "subjects": [
+      "数学"
+    ],
+    "textbook_file": "六年级上数学.md",
+    "edition": "北京师范大学出版社组织编写，封面为 2026 秋季新教材",
+    "standard_file": "（5）义务教育数学课程标准日常修订版（2022年版2025年修订）.md",
+    "scope_note": "对齐 5～6 年级内容要求。本册没有系统学习的同学段要求标为 stage_later。",
+    "page_reference": "书内页来自教材目录和课题页。这些 Markdown 没有可靠的 PDF 页码，不编造 PDF 页。",
+    "source_files": [
+      "六年级上数学.md",
+      "（5）义务教育数学课程标准日常修订版（2022年版2025年修订）.md"
+    ],
+    "limits": "数学教材封面写明 2026 秋季新教材，课标是 2022 年版、2025 年修订。主题一致不等于逐条完全覆盖。Markdown 由教材转换而来，表格和个别标题有识别误差，知识点以正文和「我的收获」核对过的表述为准。",
+    "cross_note": "总图把制订节水方案、制订营养食谱、车轮为什么是圆的，分别连到科学相应课次。"
+  },
+  "node_types": [
+    "subject",
+    "domain",
+    "unit",
+    "lesson",
+    "knowledge",
+    "method",
+    "standard",
+    "competency",
+    "cross_disciplinary_theme"
+  ],
+  "relation_types": [
+    "contains",
+    "teaches",
+    "uses_method",
+    "aligns_to",
+    "develops",
+    "prerequisite_of",
+    "applies_to",
+    "cross_links"
+  ],
+  "nodes": [
+    {
+      "id": "M6",
+      "type": "subject",
+      "name": "数学六年级上",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md封面｜北京师范大学组织编写，六年级上册",
+      "order": 5
+    },
+    {
+      "id": "M6-M-INV",
+      "type": "method",
+      "name": "分数除以整数转化为乘倒数",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内2｜4/5÷2=4/5×1/2"
+    },
+    {
+      "id": "M6-M-CIRCLE",
+      "type": "method",
+      "name": "用圆规画圆",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内11｜圆的认识"
+    },
+    {
+      "id": "M6-M-LETTER",
+      "type": "method",
+      "name": "用字母表示数量关系和规律",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内33｜用字母表示数量关系"
+    },
+    {
+      "id": "M6-M-STAT",
+      "type": "method",
+      "name": "选择折线统计图或扇形统计图表达数据",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内91｜数据的表示和分析（三）"
+    },
+    {
+      "id": "M6-STD-FRAC",
+      "type": "standard",
+      "name": "能进行简单的分数四则运算，理解整数除法与分数的关系",
+      "status": "stage_standard",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "数学课标第三学段数与运算（3）（4）"
+    },
+    {
+      "id": "M6-STD-LET",
+      "type": "standard",
+      "name": "探索用字母表示事物的关系、性质和规律",
+      "status": "stage_standard",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "数学课标第三学段数量关系（3）"
+    },
+    {
+      "id": "M6-STD-RATIO",
+      "type": "standard",
+      "name": "在实际情境中理解比和比例，能解决简单问题",
+      "status": "stage_standard",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "数学课标第三学段数量关系（4）"
+    },
+    {
+      "id": "M6-STD-CIR",
+      "type": "standard",
+      "name": "认识圆和扇形，认识圆周率，探索圆的周长和面积",
+      "status": "stage_standard",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "数学课标第三学段图形的认识与测量（2）"
+    },
+    {
+      "id": "M6-STD-POS",
+      "type": "standard",
+      "name": "根据参照点的方向和距离确定位置，用有序数对表示点的位置",
+      "status": "stage_standard",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "数学课标第三学段图形的位置与运动（1）（2）"
+    },
+    {
+      "id": "M6-STD-VIEW",
+      "type": "standard",
+      "name": "辨认简单物体前面、侧面、上面的形状图",
+      "status": "stage_standard",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "数学课标第三学段图形的认识与测量（6）"
+    },
+    {
+      "id": "M6-STD-PCT",
+      "type": "standard",
+      "name": "探索百分数的意义，解决与百分数有关的简单实际问题",
+      "status": "stage_standard",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "数学课标第三学段数据的收集、整理与表达（4）"
+    },
+    {
+      "id": "M6-STD-GRAPH",
+      "type": "standard",
+      "name": "认识折线统计图、扇形统计图，解释所表达的意义",
+      "status": "stage_standard",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "数学课标第三学段数据的收集、整理与表达（2）"
+    },
+    {
+      "id": "M6-C-OP",
+      "type": "competency",
+      "name": "运算能力",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "数学课标第三学段学业要求"
+    },
+    {
+      "id": "M6-C-SYMBOL",
+      "type": "competency",
+      "name": "符号意识",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "数学课标第三学段用字母表示的教学提示"
+    },
+    {
+      "id": "M6-C-SPACE",
+      "type": "competency",
+      "name": "空间观念和几何直观",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "数学课标第三学段图形认识学业要求"
+    },
+    {
+      "id": "M6-C-DATA",
+      "type": "competency",
+      "name": "数据意识",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "数学课标第三学段百分数和统计图学业要求"
+    },
+    {
+      "id": "M6-C-MODEL",
+      "type": "competency",
+      "name": "模型意识",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "数学课标第三学段数量关系学业要求"
+    },
+    {
+      "id": "M6-LATER-PRIME",
+      "type": "standard",
+      "name": "本册未学：2、3、5的倍数特征，公因数、公倍数，质数和合数",
+      "status": "stage_later",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "数学课标第三学段数与运算（1）"
+    },
+    {
+      "id": "M6-LATER-PROP",
+      "type": "standard",
+      "name": "本册未学：成正比的量，以及按比例分配",
+      "status": "stage_later",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "数学课标第三学段数量关系（4）（5）"
+    },
+    {
+      "id": "M6-LATER-VOL",
+      "type": "standard",
+      "name": "本册未学：长方体、正方体、圆柱、圆锥的体积和表面积",
+      "status": "stage_later",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "数学课标第三学段图形的认识与测量（5）"
+    },
+    {
+      "id": "M6-LATER-SCALE",
+      "type": "standard",
+      "name": "本册未学：比例尺，以及方格纸上的平移、旋转和轴对称",
+      "status": "stage_later",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "数学课标第三学段图形的位置与运动（3）（4）"
+    },
+    {
+      "id": "M6-LATER-RAND",
+      "type": "standard",
+      "name": "本册未学：随机现象发生的可能性",
+      "status": "stage_later",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "数学课标第三学段随机现象发生的可能性"
+    },
+    {
+      "id": "M6-D-N",
+      "type": "domain",
+      "name": "数与代数",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册"
+    },
+    {
+      "id": "M6-U-DIV",
+      "type": "unit",
+      "name": "分数除法",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内2｜分数除法"
+    },
+    {
+      "id": "M6-U-DIV-L1",
+      "type": "lesson",
+      "name": "分数除法（一）",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内2｜分数除法（一）"
+    },
+    {
+      "id": "M6-K-DIV1",
+      "type": "knowledge",
+      "name": "分数除以整数，等于乘这个整数的倒数",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内2｜分数除以整数，等于乘这个整数的倒数"
+    },
+    {
+      "id": "M6-U-DIV-L2",
+      "type": "lesson",
+      "name": "分数除法（二）（三）",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内2｜分数除法（二）（三）"
+    },
+    {
+      "id": "M6-K-DIV2",
+      "type": "knowledge",
+      "name": "分数除法和分数乘法、整数除法有联系",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内2｜分数除法和分数乘法、整数除法有联系"
+    },
+    {
+      "id": "M6-U-LET",
+      "type": "unit",
+      "name": "用字母表示（二）",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内33｜用字母表示（二）"
+    },
+    {
+      "id": "M6-U-LET-L1",
+      "type": "lesson",
+      "name": "用字母表示数量关系",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内33｜用字母表示数量关系"
+    },
+    {
+      "id": "M6-K-LET",
+      "type": "knowledge",
+      "name": "用字母表示数量关系、规律和图形公式",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内33｜用字母表示数量关系、规律和图形公式"
+    },
+    {
+      "id": "M6-U-APP",
+      "type": "unit",
+      "name": "分数的应用",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内49｜分数的应用"
+    },
+    {
+      "id": "M6-U-APP-L1",
+      "type": "lesson",
+      "name": "分数的应用",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内49｜分数的应用"
+    },
+    {
+      "id": "M6-K-APP",
+      "type": "knowledge",
+      "name": "一个量是另一个量的几分之几时，可以分步求出未知量",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内49｜一个量是另一个量的几分之几时，可以分步求出未知量"
+    },
+    {
+      "id": "M6-U-RATIO",
+      "type": "unit",
+      "name": "比的认识",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内57｜比的认识"
+    },
+    {
+      "id": "M6-U-RATIO-L1",
+      "type": "lesson",
+      "name": "生活中的比",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内57｜生活中的比"
+    },
+    {
+      "id": "M6-K-RATIO",
+      "type": "knowledge",
+      "name": "比表示两个数量的倍数关系，比值可以由除法得到",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内57｜比表示两个数量的倍数关系，比值可以由除法得到"
+    },
+    {
+      "id": "M6-U-RATIO-L2",
+      "type": "lesson",
+      "name": "比的化简",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内57｜比的化简"
+    },
+    {
+      "id": "M6-K-RATIO2",
+      "type": "knowledge",
+      "name": "比的前项和后项同时乘或除以同一个不为 0 的数，比值不变",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内57｜比的前项和后项同时乘或除以同一个不为 0 的数，比值不变"
+    },
+    {
+      "id": "M6-U-PCT",
+      "type": "unit",
+      "name": "百分数的认识与应用（一）",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内75｜百分数的认识与应用（一）"
+    },
+    {
+      "id": "M6-U-PCT-L1",
+      "type": "lesson",
+      "name": "百分数的意义",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内75｜百分数的意义"
+    },
+    {
+      "id": "M6-K-PCT",
+      "type": "knowledge",
+      "name": "百分数表示一个数是另一个数的百分之几，也可以表示部分与整体的关系",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内75｜百分数表示一个数是另一个数的百分之几，也可以表示部分与整体的关系"
+    },
+    {
+      "id": "M6-D-G",
+      "type": "domain",
+      "name": "图形与几何",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册"
+    },
+    {
+      "id": "M6-U-CIR",
+      "type": "unit",
+      "name": "圆",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内11｜圆"
+    },
+    {
+      "id": "M6-U-CIR-L1",
+      "type": "lesson",
+      "name": "车轮为什么是圆的",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内11｜车轮为什么是圆的"
+    },
+    {
+      "id": "M6-K-WHYCIR",
+      "type": "knowledge",
+      "name": "圆上各点到圆心的距离相等，所以车轮做成圆形",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内11｜圆上各点到圆心的距离相等，所以车轮做成圆形"
+    },
+    {
+      "id": "M6-U-CIR-L2",
+      "type": "lesson",
+      "name": "圆的认识",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内11｜圆的认识"
+    },
+    {
+      "id": "M6-K-CIR",
+      "type": "knowledge",
+      "name": "圆有圆心、半径和直径，直径等于半径的 2 倍，圆是轴对称图形",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内11｜圆有圆心、半径和直径，直径等于半径的 2 倍，圆是轴对称图形"
+    },
+    {
+      "id": "M6-U-CIR-L3",
+      "type": "lesson",
+      "name": "圆的周长",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内11｜圆的周长"
+    },
+    {
+      "id": "M6-K-C",
+      "type": "knowledge",
+      "name": "圆的周长公式是 C=πd 或 C=2πr",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内11｜圆的周长公式是 C=πd 或 C=2πr"
+    },
+    {
+      "id": "M6-U-CIR-L4",
+      "type": "lesson",
+      "name": "圆的面积",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内11｜圆的面积"
+    },
+    {
+      "id": "M6-K-AREA",
+      "type": "knowledge",
+      "name": "把圆分成扇形再拼成近似平行四边形，探索圆的面积",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内11｜把圆分成扇形再拼成近似平行四边形，探索圆的面积"
+    },
+    {
+      "id": "M6-U-POS",
+      "type": "unit",
+      "name": "确定位置",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内67｜确定位置"
+    },
+    {
+      "id": "M6-U-POS-L1",
+      "type": "lesson",
+      "name": "象群北迁",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内67｜象群北迁"
+    },
+    {
+      "id": "M6-K-POS",
+      "type": "knowledge",
+      "name": "用方向描述位置，例如东北方向",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内67｜用方向描述位置，例如东北方向"
+    },
+    {
+      "id": "M6-U-POS-L2",
+      "type": "lesson",
+      "name": "用数对确定位置",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内67｜用数对确定位置"
+    },
+    {
+      "id": "M6-K-PAIR",
+      "type": "knowledge",
+      "name": "用数对表示方格图上的位置，需要两个要素",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内67｜用数对表示方格图上的位置，需要两个要素"
+    },
+    {
+      "id": "M6-U-VIEW",
+      "type": "unit",
+      "name": "观察物体（二）",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内86｜观察物体（二）"
+    },
+    {
+      "id": "M6-U-VIEW-L1",
+      "type": "lesson",
+      "name": "有趣的投影",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内86｜有趣的投影"
+    },
+    {
+      "id": "M6-K-VIEW",
+      "type": "knowledge",
+      "name": "从上面、正面和侧面观察圆柱和圆锥，看到的形状不同",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内86｜从上面、正面和侧面观察圆柱和圆锥，看到的形状不同"
+    },
+    {
+      "id": "M6-D-D",
+      "type": "domain",
+      "name": "统计与概率",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册"
+    },
+    {
+      "id": "M6-U-DATA",
+      "type": "unit",
+      "name": "数据的表示和分析（三）",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内91｜数据的表示和分析（三）"
+    },
+    {
+      "id": "M6-U-DATA-L1",
+      "type": "lesson",
+      "name": "选择统计图",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内91｜选择统计图"
+    },
+    {
+      "id": "M6-K-LINE",
+      "type": "knowledge",
+      "name": "折线统计图反映变化情况，扇形统计图表示各部分占总体的百分比",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内91｜折线统计图反映变化情况，扇形统计图表示各部分占总体的百分比"
+    },
+    {
+      "id": "M6-D-P",
+      "type": "domain",
+      "name": "综合与实践",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册"
+    },
+    {
+      "id": "M6-U-WATER",
+      "type": "unit",
+      "name": "制订节水方案",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内44｜制订节水方案"
+    },
+    {
+      "id": "M6-U-WATER-L1",
+      "type": "lesson",
+      "name": "调查用水并做滴水实验",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内44｜调查用水并做滴水实验"
+    },
+    {
+      "id": "M6-K-WATER",
+      "type": "knowledge",
+      "name": "调查用水情况，用滴水实验的数据制订节水方案",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内44｜调查用水情况，用滴水实验的数据制订节水方案"
+    },
+    {
+      "id": "M6-U-FOOD",
+      "type": "unit",
+      "name": "制订营养食谱",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内103｜制订营养食谱"
+    },
+    {
+      "id": "M6-U-FOOD-L1",
+      "type": "lesson",
+      "name": "一日三餐",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内103｜一日三餐"
+    },
+    {
+      "id": "M6-K-FOOD",
+      "type": "knowledge",
+      "name": "用扇形统计图整理饮食调查，分析怎样实现营养均衡",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内103｜用扇形统计图整理饮食调查，分析怎样实现营养均衡"
+    },
+    {
+      "id": "M6-U-GO",
+      "type": "unit",
+      "name": "五子棋",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内73｜五子棋"
+    },
+    {
+      "id": "M6-U-GO-L1",
+      "type": "lesson",
+      "name": "五子棋的规则",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内73｜五子棋的规则"
+    },
+    {
+      "id": "M6-K-GO",
+      "type": "knowledge",
+      "name": "五子棋双方轮流落子，先把五子连成一条直线的一方获胜",
+      "status": "current_book",
+      "grade": "六年级",
+      "semester": "上册",
+      "source": "六年级上数学.md书内73｜五子棋双方轮流落子，先把五子连成一条直线的一方获胜"
+    }
+  ],
+  "edges": [
+    {
+      "source": "M6",
+      "relation": "contains",
+      "target": "M6-M-INV"
+    },
+    {
+      "source": "M6",
+      "relation": "contains",
+      "target": "M6-M-CIRCLE"
+    },
+    {
+      "source": "M6",
+      "relation": "contains",
+      "target": "M6-M-LETTER"
+    },
+    {
+      "source": "M6",
+      "relation": "contains",
+      "target": "M6-M-STAT"
+    },
+    {
+      "source": "M6",
+      "relation": "contains",
+      "target": "M6-STD-FRAC"
+    },
+    {
+      "source": "M6",
+      "relation": "contains",
+      "target": "M6-STD-LET"
+    },
+    {
+      "source": "M6",
+      "relation": "contains",
+      "target": "M6-STD-RATIO"
+    },
+    {
+      "source": "M6",
+      "relation": "contains",
+      "target": "M6-STD-CIR"
+    },
+    {
+      "source": "M6",
+      "relation": "contains",
+      "target": "M6-STD-POS"
+    },
+    {
+      "source": "M6",
+      "relation": "contains",
+      "target": "M6-STD-VIEW"
+    },
+    {
+      "source": "M6",
+      "relation": "contains",
+      "target": "M6-STD-PCT"
+    },
+    {
+      "source": "M6",
+      "relation": "contains",
+      "target": "M6-STD-GRAPH"
+    },
+    {
+      "source": "M6",
+      "relation": "develops",
+      "target": "M6-C-OP"
+    },
+    {
+      "source": "M6",
+      "relation": "develops",
+      "target": "M6-C-SYMBOL"
+    },
+    {
+      "source": "M6",
+      "relation": "develops",
+      "target": "M6-C-SPACE"
+    },
+    {
+      "source": "M6",
+      "relation": "develops",
+      "target": "M6-C-DATA"
+    },
+    {
+      "source": "M6",
+      "relation": "develops",
+      "target": "M6-C-MODEL"
+    },
+    {
+      "source": "M6",
+      "relation": "contains",
+      "target": "M6-LATER-PRIME"
+    },
+    {
+      "source": "M6",
+      "relation": "contains",
+      "target": "M6-LATER-PROP"
+    },
+    {
+      "source": "M6",
+      "relation": "contains",
+      "target": "M6-LATER-VOL"
+    },
+    {
+      "source": "M6",
+      "relation": "contains",
+      "target": "M6-LATER-SCALE"
+    },
+    {
+      "source": "M6",
+      "relation": "contains",
+      "target": "M6-LATER-RAND"
+    },
+    {
+      "source": "M6",
+      "relation": "contains",
+      "target": "M6-D-N"
+    },
+    {
+      "source": "M6-D-N",
+      "relation": "contains",
+      "target": "M6-U-DIV"
+    },
+    {
+      "source": "M6-U-DIV",
+      "relation": "uses_method",
+      "target": "M6-M-INV"
+    },
+    {
+      "source": "M6-U-DIV",
+      "relation": "contains",
+      "target": "M6-U-DIV-L1"
+    },
+    {
+      "source": "M6-U-DIV-L1",
+      "relation": "teaches",
+      "target": "M6-K-DIV1"
+    },
+    {
+      "source": "M6-K-DIV1",
+      "relation": "aligns_to",
+      "target": "M6-STD-FRAC",
+      "alignment": "direct"
+    },
+    {
+      "source": "M6-U-DIV",
+      "relation": "contains",
+      "target": "M6-U-DIV-L2"
+    },
+    {
+      "source": "M6-U-DIV-L2",
+      "relation": "teaches",
+      "target": "M6-K-DIV2"
+    },
+    {
+      "source": "M6-K-DIV2",
+      "relation": "aligns_to",
+      "target": "M6-STD-FRAC",
+      "alignment": "direct"
+    },
+    {
+      "source": "M6-D-N",
+      "relation": "contains",
+      "target": "M6-U-LET"
+    },
+    {
+      "source": "M6-U-LET",
+      "relation": "uses_method",
+      "target": "M6-M-LETTER"
+    },
+    {
+      "source": "M6-U-LET",
+      "relation": "contains",
+      "target": "M6-U-LET-L1"
+    },
+    {
+      "source": "M6-U-LET-L1",
+      "relation": "teaches",
+      "target": "M6-K-LET"
+    },
+    {
+      "source": "M6-K-LET",
+      "relation": "aligns_to",
+      "target": "M6-STD-LET",
+      "alignment": "direct"
+    },
+    {
+      "source": "M6-D-N",
+      "relation": "contains",
+      "target": "M6-U-APP"
+    },
+    {
+      "source": "M6-U-APP",
+      "relation": "contains",
+      "target": "M6-U-APP-L1"
+    },
+    {
+      "source": "M6-U-APP-L1",
+      "relation": "teaches",
+      "target": "M6-K-APP"
+    },
+    {
+      "source": "M6-K-APP",
+      "relation": "aligns_to",
+      "target": "M6-STD-FRAC",
+      "alignment": "direct"
+    },
+    {
+      "source": "M6-D-N",
+      "relation": "contains",
+      "target": "M6-U-RATIO"
+    },
+    {
+      "source": "M6-U-RATIO",
+      "relation": "contains",
+      "target": "M6-U-RATIO-L1"
+    },
+    {
+      "source": "M6-U-RATIO-L1",
+      "relation": "teaches",
+      "target": "M6-K-RATIO"
+    },
+    {
+      "source": "M6-K-RATIO",
+      "relation": "aligns_to",
+      "target": "M6-STD-RATIO",
+      "alignment": "partial"
+    },
+    {
+      "source": "M6-U-RATIO",
+      "relation": "contains",
+      "target": "M6-U-RATIO-L2"
+    },
+    {
+      "source": "M6-U-RATIO-L2",
+      "relation": "teaches",
+      "target": "M6-K-RATIO2"
+    },
+    {
+      "source": "M6-K-RATIO2",
+      "relation": "aligns_to",
+      "target": "M6-STD-RATIO",
+      "alignment": "partial"
+    },
+    {
+      "source": "M6-D-N",
+      "relation": "contains",
+      "target": "M6-U-PCT"
+    },
+    {
+      "source": "M6-U-PCT",
+      "relation": "contains",
+      "target": "M6-U-PCT-L1"
+    },
+    {
+      "source": "M6-U-PCT-L1",
+      "relation": "teaches",
+      "target": "M6-K-PCT"
+    },
+    {
+      "source": "M6-K-PCT",
+      "relation": "aligns_to",
+      "target": "M6-STD-PCT",
+      "alignment": "direct"
+    },
+    {
+      "source": "M6",
+      "relation": "contains",
+      "target": "M6-D-G"
+    },
+    {
+      "source": "M6-D-G",
+      "relation": "contains",
+      "target": "M6-U-CIR"
+    },
+    {
+      "source": "M6-U-CIR",
+      "relation": "uses_method",
+      "target": "M6-M-CIRCLE"
+    },
+    {
+      "source": "M6-U-CIR",
+      "relation": "contains",
+      "target": "M6-U-CIR-L1"
+    },
+    {
+      "source": "M6-U-CIR-L1",
+      "relation": "teaches",
+      "target": "M6-K-WHYCIR"
+    },
+    {
+      "source": "M6-K-WHYCIR",
+      "relation": "aligns_to",
+      "target": "M6-STD-CIR",
+      "alignment": "direct"
+    },
+    {
+      "source": "M6-U-CIR",
+      "relation": "contains",
+      "target": "M6-U-CIR-L2"
+    },
+    {
+      "source": "M6-U-CIR-L2",
+      "relation": "teaches",
+      "target": "M6-K-CIR"
+    },
+    {
+      "source": "M6-K-CIR",
+      "relation": "aligns_to",
+      "target": "M6-STD-CIR",
+      "alignment": "direct"
+    },
+    {
+      "source": "M6-U-CIR",
+      "relation": "contains",
+      "target": "M6-U-CIR-L3"
+    },
+    {
+      "source": "M6-U-CIR-L3",
+      "relation": "teaches",
+      "target": "M6-K-C"
+    },
+    {
+      "source": "M6-K-C",
+      "relation": "aligns_to",
+      "target": "M6-STD-CIR",
+      "alignment": "direct"
+    },
+    {
+      "source": "M6-U-CIR",
+      "relation": "contains",
+      "target": "M6-U-CIR-L4"
+    },
+    {
+      "source": "M6-U-CIR-L4",
+      "relation": "teaches",
+      "target": "M6-K-AREA"
+    },
+    {
+      "source": "M6-K-AREA",
+      "relation": "aligns_to",
+      "target": "M6-STD-CIR",
+      "alignment": "direct"
+    },
+    {
+      "source": "M6-D-G",
+      "relation": "contains",
+      "target": "M6-U-POS"
+    },
+    {
+      "source": "M6-U-POS",
+      "relation": "contains",
+      "target": "M6-U-POS-L1"
+    },
+    {
+      "source": "M6-U-POS-L1",
+      "relation": "teaches",
+      "target": "M6-K-POS"
+    },
+    {
+      "source": "M6-K-POS",
+      "relation": "aligns_to",
+      "target": "M6-STD-POS",
+      "alignment": "direct"
+    },
+    {
+      "source": "M6-U-POS",
+      "relation": "contains",
+      "target": "M6-U-POS-L2"
+    },
+    {
+      "source": "M6-U-POS-L2",
+      "relation": "teaches",
+      "target": "M6-K-PAIR"
+    },
+    {
+      "source": "M6-K-PAIR",
+      "relation": "aligns_to",
+      "target": "M6-STD-POS",
+      "alignment": "direct"
+    },
+    {
+      "source": "M6-D-G",
+      "relation": "contains",
+      "target": "M6-U-VIEW"
+    },
+    {
+      "source": "M6-U-VIEW",
+      "relation": "contains",
+      "target": "M6-U-VIEW-L1"
+    },
+    {
+      "source": "M6-U-VIEW-L1",
+      "relation": "teaches",
+      "target": "M6-K-VIEW"
+    },
+    {
+      "source": "M6-K-VIEW",
+      "relation": "aligns_to",
+      "target": "M6-STD-VIEW",
+      "alignment": "direct"
+    },
+    {
+      "source": "M6",
+      "relation": "contains",
+      "target": "M6-D-D"
+    },
+    {
+      "source": "M6-D-D",
+      "relation": "contains",
+      "target": "M6-U-DATA"
+    },
+    {
+      "source": "M6-U-DATA",
+      "relation": "uses_method",
+      "target": "M6-M-STAT"
+    },
+    {
+      "source": "M6-U-DATA",
+      "relation": "contains",
+      "target": "M6-U-DATA-L1"
+    },
+    {
+      "source": "M6-U-DATA-L1",
+      "relation": "teaches",
+      "target": "M6-K-LINE"
+    },
+    {
+      "source": "M6-K-LINE",
+      "relation": "aligns_to",
+      "target": "M6-STD-GRAPH",
+      "alignment": "direct"
+    },
+    {
+      "source": "M6",
+      "relation": "contains",
+      "target": "M6-D-P"
+    },
+    {
+      "source": "M6-D-P",
+      "relation": "contains",
+      "target": "M6-U-WATER"
+    },
+    {
+      "source": "M6-U-WATER",
+      "relation": "contains",
+      "target": "M6-U-WATER-L1"
+    },
+    {
+      "source": "M6-U-WATER-L1",
+      "relation": "teaches",
+      "target": "M6-K-WATER"
+    },
+    {
+      "source": "M6-K-WATER",
+      "relation": "aligns_to",
+      "target": "M6-STD-GRAPH",
+      "alignment": "partial"
+    },
+    {
+      "source": "M6-D-P",
+      "relation": "contains",
+      "target": "M6-U-FOOD"
+    },
+    {
+      "source": "M6-U-FOOD",
+      "relation": "contains",
+      "target": "M6-U-FOOD-L1"
+    },
+    {
+      "source": "M6-U-FOOD-L1",
+      "relation": "teaches",
+      "target": "M6-K-FOOD"
+    },
+    {
+      "source": "M6-K-FOOD",
+      "relation": "aligns_to",
+      "target": "M6-STD-PCT",
+      "alignment": "partial"
+    },
+    {
+      "source": "M6-D-P",
+      "relation": "contains",
+      "target": "M6-U-GO"
+    },
+    {
+      "source": "M6-U-GO",
+      "relation": "contains",
+      "target": "M6-U-GO-L1"
+    },
+    {
+      "source": "M6-U-GO-L1",
+      "relation": "teaches",
+      "target": "M6-K-GO"
+    },
+    {
+      "source": "M6-K-GO",
+      "relation": "aligns_to",
+      "target": "M6-STD-POS",
+      "alignment": "extension"
+    },
+    {
+      "source": "M6-K-DIV1",
+      "relation": "prerequisite_of",
+      "target": "M6-K-APP"
+    },
+    {
+      "source": "M6-K-CIR",
+      "relation": "prerequisite_of",
+      "target": "M6-K-C"
+    },
+    {
+      "source": "M6-K-C",
+      "relation": "prerequisite_of",
+      "target": "M6-K-AREA"
+    },
+    {
+      "source": "M6-K-RATIO",
+      "relation": "prerequisite_of",
+      "target": "M6-K-RATIO2"
+    },
+    {
+      "source": "M6-K-PCT",
+      "relation": "prerequisite_of",
+      "target": "M6-K-LINE"
+    }
+  ]
+}

@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "智启知识图谱插件",
-    "description": "查询智启知识图谱中的真实知识点、跨学科关联，并按查询结果动态生成知识图谱图片。图谱正从三年级上册数学与科学起步，目标逐步覆盖全学段全学科。调用顺序：searchKnowledgePoints → 教师确认节点ID → queryCrossDisciplinaryRelations → renderSnapshotImage。业务成败看返回体 status / image_status，不要只看平台 code=200。活动主题须先拆成知识点并经教师确认，禁止直接硬匹配。",
+    "description": "查询智启知识图谱中的真实知识点、跨学科关联，并按查询结果动态生成知识图谱图片。图谱已覆盖三至六年级数学/科学/语文，以及三年级英语下册与道德与法治上/下册，目标逐步覆盖全学段全学科。调用顺序：searchKnowledgePoints → 教师确认节点ID → queryCrossDisciplinaryRelations → renderSnapshotImage。业务成败看返回体 status / image_status，不要只看平台 code=200。活动主题须先拆成知识点并经教师确认，禁止直接硬匹配。",
     "version": "2.0.0"
   },
   "servers": [

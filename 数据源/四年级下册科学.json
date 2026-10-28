@@ -1,0 +1,1153 @@
+{
+  "metadata": {
+    "title": "四年级下册科学知识图谱",
+    "version": "1.0",
+    "generated_date": "2026-09-29",
+    "grade": "四年级",
+    "semester": "下册",
+    "subjects": [
+      "科学"
+    ],
+    "textbook_file": "四年级下科学.md",
+    "edition": "教育科学出版社义务教育教科书",
+    "standard_file": "（10）义务教育科学课程标准日常修订版（2022年版2025年修订）.md",
+    "scope_note": "课次与目录、正文课题一致。对齐状态按该册所在学段的内容要求判断。",
+    "page_reference": "书内页来自教材目录和课题页。这些 Markdown 没有可靠的 PDF 页码，不编造 PDF 页。",
+    "source_files": [
+      "四年级下科学.md",
+      "（10）义务教育科学课程标准日常修订版（2022年版2025年修订）.md"
+    ],
+    "limits": "科学教材为教育科学出版社义务教育教科书。课标按六三学制 3～4 年级或 5～6 年级内容要求对齐。课次名称取自目录并在正文课题中出现。没有把练习情境写成核心知识点。",
+    "cross_note": "岩石由矿物组成超出 3～4 年级最低要求，对应 5～6 年级岩石与矿物，因此标为 extension。"
+  },
+  "node_types": [
+    "subject",
+    "domain",
+    "unit",
+    "lesson",
+    "knowledge",
+    "method",
+    "standard",
+    "competency",
+    "cross_disciplinary_theme"
+  ],
+  "relation_types": [
+    "contains",
+    "teaches",
+    "uses_method",
+    "aligns_to",
+    "develops",
+    "prerequisite_of",
+    "applies_to",
+    "cross_links"
+  ],
+  "nodes": [
+    {
+      "id": "S4D",
+      "type": "subject",
+      "name": "四年级下册科学",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md封面｜教育科学出版社",
+      "order": 4
+    },
+    {
+      "id": "S4D-M-OBS",
+      "type": "method",
+      "name": "观察并记录",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "科学课标3～4年级学习活动：观察、测量、实验"
+    },
+    {
+      "id": "S4D-M-EXP",
+      "type": "method",
+      "name": "实验探究",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "科学课标3～4年级学习活动：实验探究"
+    },
+    {
+      "id": "S4D-M-MAKE",
+      "type": "method",
+      "name": "设计与制作",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "科学课标3～4年级学习活动：制作"
+    },
+    {
+      "id": "S4D-STD-PLANT",
+      "type": "standard",
+      "name": "描述植物由根、茎、叶、花、果实和种子构成，说出植物通过种子或根茎叶繁殖",
+      "status": "stage_standard",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "科学课标3～4年级"
+    },
+    {
+      "id": "S4D-STD-ELEC",
+      "type": "standard",
+      "name": "知道电源、导线、用电器和开关是构成电路的必要元件，区分导体和绝缘体",
+      "status": "stage_standard",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "科学课标3～4年级"
+    },
+    {
+      "id": "S4D-STD-SOIL",
+      "type": "standard",
+      "name": "知道土壤的主要成分，观察并描述砂质土、黏质土、壤质土的特点",
+      "status": "stage_standard",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "科学课标3～4年级"
+    },
+    {
+      "id": "S4D-C-IDEA",
+      "type": "competency",
+      "name": "科学观念",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "科学课标核心素养：科学观念"
+    },
+    {
+      "id": "S4D-C-THINK",
+      "type": "competency",
+      "name": "科学思维",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "科学课标核心素养：科学思维"
+    },
+    {
+      "id": "S4D-C-INQ",
+      "type": "competency",
+      "name": "探究实践",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "科学课标核心素养：探究实践"
+    },
+    {
+      "id": "S4D-C-ATT",
+      "type": "competency",
+      "name": "态度责任",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "科学课标核心素养：态度责任"
+    },
+    {
+      "id": "S4D-LATER-SOUND",
+      "type": "standard",
+      "name": "本册未学：声音的产生、传播、高低和强弱",
+      "status": "stage_later",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "科学课标3～4年级"
+    },
+    {
+      "id": "S4D-LATER-WEA",
+      "type": "standard",
+      "name": "本册未学：用仪器测量气温、风力、风向和降水量",
+      "status": "stage_later",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "科学课标3～4年级"
+    },
+    {
+      "id": "S4D-D-PLANT",
+      "type": "domain",
+      "name": "生命科学：植物",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册"
+    },
+    {
+      "id": "S4D-U-PLANT",
+      "type": "unit",
+      "name": "植物的生长变化",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内2｜植物的生长变化"
+    },
+    {
+      "id": "S4D-U-PLANT-L1",
+      "type": "lesson",
+      "name": "种子里孕育着新生命",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内2｜种子里孕育着新生命"
+    },
+    {
+      "id": "S4D-U-PLANT-K1",
+      "type": "knowledge",
+      "name": "种子里孕育着新生命",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内2｜种子里孕育着新生命"
+    },
+    {
+      "id": "S4D-U-PLANT-L2",
+      "type": "lesson",
+      "name": "种植凤仙花",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内4｜种植凤仙花"
+    },
+    {
+      "id": "S4D-U-PLANT-K2",
+      "type": "knowledge",
+      "name": "种植凤仙花",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内4｜种植凤仙花"
+    },
+    {
+      "id": "S4D-U-PLANT-L3",
+      "type": "lesson",
+      "name": "种子长出了根",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内7｜种子长出了根"
+    },
+    {
+      "id": "S4D-U-PLANT-K3",
+      "type": "knowledge",
+      "name": "种子长出了根",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内7｜种子长出了根"
+    },
+    {
+      "id": "S4D-U-PLANT-L4",
+      "type": "lesson",
+      "name": "茎和叶",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内10｜茎和叶"
+    },
+    {
+      "id": "S4D-U-PLANT-K4",
+      "type": "knowledge",
+      "name": "茎和叶",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内10｜茎和叶"
+    },
+    {
+      "id": "S4D-U-PLANT-L5",
+      "type": "lesson",
+      "name": "凤仙花开花了",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内13｜凤仙花开花了"
+    },
+    {
+      "id": "S4D-U-PLANT-K5",
+      "type": "knowledge",
+      "name": "凤仙花开花了",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内13｜凤仙花开花了"
+    },
+    {
+      "id": "S4D-U-PLANT-L6",
+      "type": "lesson",
+      "name": "果实和种子",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内15｜果实和种子"
+    },
+    {
+      "id": "S4D-U-PLANT-K6",
+      "type": "knowledge",
+      "name": "果实和种子",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内15｜果实和种子"
+    },
+    {
+      "id": "S4D-U-PLANT-L7",
+      "type": "lesson",
+      "name": "种子的传播",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内17｜种子的传播"
+    },
+    {
+      "id": "S4D-U-PLANT-K7",
+      "type": "knowledge",
+      "name": "种子的传播",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内17｜种子的传播"
+    },
+    {
+      "id": "S4D-U-PLANT-L8",
+      "type": "lesson",
+      "name": "凤仙花的一生",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内19｜凤仙花的一生"
+    },
+    {
+      "id": "S4D-U-PLANT-K8",
+      "type": "knowledge",
+      "name": "凤仙花的一生",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内19｜凤仙花的一生"
+    },
+    {
+      "id": "S4D-D-ELEC",
+      "type": "domain",
+      "name": "物质科学：电路",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册"
+    },
+    {
+      "id": "S4D-U-ELEC",
+      "type": "unit",
+      "name": "电路",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内22｜电路"
+    },
+    {
+      "id": "S4D-U-ELEC-L1",
+      "type": "lesson",
+      "name": "电和我们的生活",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内22｜电和我们的生活"
+    },
+    {
+      "id": "S4D-U-ELEC-K1",
+      "type": "knowledge",
+      "name": "电和我们的生活",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内22｜电和我们的生活"
+    },
+    {
+      "id": "S4D-U-ELEC-L2",
+      "type": "lesson",
+      "name": "点亮小灯泡",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内24｜点亮小灯泡"
+    },
+    {
+      "id": "S4D-U-ELEC-K2",
+      "type": "knowledge",
+      "name": "点亮小灯泡",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内24｜点亮小灯泡"
+    },
+    {
+      "id": "S4D-U-ELEC-L3",
+      "type": "lesson",
+      "name": "简易电路",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内26｜简易电路"
+    },
+    {
+      "id": "S4D-U-ELEC-K3",
+      "type": "knowledge",
+      "name": "简易电路",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内26｜简易电路"
+    },
+    {
+      "id": "S4D-U-ELEC-L4",
+      "type": "lesson",
+      "name": "电路出故障了",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内29｜电路出故障了"
+    },
+    {
+      "id": "S4D-U-ELEC-K4",
+      "type": "knowledge",
+      "name": "电路出故障了",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内29｜电路出故障了"
+    },
+    {
+      "id": "S4D-U-ELEC-L5",
+      "type": "lesson",
+      "name": "里面是怎样连接的",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内31｜里面是怎样连接的"
+    },
+    {
+      "id": "S4D-U-ELEC-K5",
+      "type": "knowledge",
+      "name": "里面是怎样连接的",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内31｜里面是怎样连接的"
+    },
+    {
+      "id": "S4D-U-ELEC-L6",
+      "type": "lesson",
+      "name": "导体和绝缘体",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内33｜导体和绝缘体"
+    },
+    {
+      "id": "S4D-U-ELEC-K6",
+      "type": "knowledge",
+      "name": "导体和绝缘体",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内33｜导体和绝缘体"
+    },
+    {
+      "id": "S4D-U-ELEC-L7",
+      "type": "lesson",
+      "name": "电路中的开关",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内36｜电路中的开关"
+    },
+    {
+      "id": "S4D-U-ELEC-K7",
+      "type": "knowledge",
+      "name": "电路中的开关",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内36｜电路中的开关"
+    },
+    {
+      "id": "S4D-U-ELEC-L8",
+      "type": "lesson",
+      "name": "模拟安装照明电路",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内39｜模拟安装照明电路"
+    },
+    {
+      "id": "S4D-U-ELEC-K8",
+      "type": "knowledge",
+      "name": "模拟安装照明电路",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内39｜模拟安装照明电路"
+    },
+    {
+      "id": "S4D-D-SOIL",
+      "type": "domain",
+      "name": "地球系统：岩石与土壤",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册"
+    },
+    {
+      "id": "S4D-U-SOIL",
+      "type": "unit",
+      "name": "岩石与土壤",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内42｜岩石与土壤"
+    },
+    {
+      "id": "S4D-U-SOIL-L1",
+      "type": "lesson",
+      "name": "岩石与土壤的故事",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内42｜岩石与土壤的故事"
+    },
+    {
+      "id": "S4D-U-SOIL-K1",
+      "type": "knowledge",
+      "name": "岩石与土壤的故事",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内42｜岩石与土壤的故事"
+    },
+    {
+      "id": "S4D-U-SOIL-L2",
+      "type": "lesson",
+      "name": "认识几种常见的岩石",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内44｜认识几种常见的岩石"
+    },
+    {
+      "id": "S4D-U-SOIL-K2",
+      "type": "knowledge",
+      "name": "认识几种常见的岩石",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内44｜认识几种常见的岩石"
+    },
+    {
+      "id": "S4D-U-SOIL-L3",
+      "type": "lesson",
+      "name": "岩石的组成",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内47｜岩石的组成"
+    },
+    {
+      "id": "S4D-U-SOIL-K3",
+      "type": "knowledge",
+      "name": "岩石的组成",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内47｜岩石的组成"
+    },
+    {
+      "id": "S4D-U-SOIL-L4",
+      "type": "lesson",
+      "name": "制作岩石和矿物标本",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内50｜制作岩石和矿物标本"
+    },
+    {
+      "id": "S4D-U-SOIL-K4",
+      "type": "knowledge",
+      "name": "制作岩石和矿物标本",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内50｜制作岩石和矿物标本"
+    },
+    {
+      "id": "S4D-U-SOIL-L5",
+      "type": "lesson",
+      "name": "岩石、沙和黏土",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内52｜岩石、沙和黏土"
+    },
+    {
+      "id": "S4D-U-SOIL-K5",
+      "type": "knowledge",
+      "name": "岩石、沙和黏土",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内52｜岩石、沙和黏土"
+    },
+    {
+      "id": "S4D-U-SOIL-L6",
+      "type": "lesson",
+      "name": "观察土壤",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内54｜观察土壤"
+    },
+    {
+      "id": "S4D-U-SOIL-K6",
+      "type": "knowledge",
+      "name": "观察土壤",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内54｜观察土壤"
+    },
+    {
+      "id": "S4D-U-SOIL-L7",
+      "type": "lesson",
+      "name": "比较不同的土壤",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内56｜比较不同的土壤"
+    },
+    {
+      "id": "S4D-U-SOIL-K7",
+      "type": "knowledge",
+      "name": "比较不同的土壤",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内56｜比较不同的土壤"
+    },
+    {
+      "id": "S4D-U-SOIL-L8",
+      "type": "lesson",
+      "name": "岩石、土壤和我们",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内58｜岩石、土壤和我们"
+    },
+    {
+      "id": "S4D-U-SOIL-K8",
+      "type": "knowledge",
+      "name": "岩石、土壤和我们",
+      "status": "current_book",
+      "grade": "四年级",
+      "semester": "下册",
+      "source": "四年级下科学.md书内58｜岩石、土壤和我们"
+    }
+  ],
+  "edges": [
+    {
+      "source": "S4D",
+      "relation": "contains",
+      "target": "S4D-M-OBS"
+    },
+    {
+      "source": "S4D",
+      "relation": "contains",
+      "target": "S4D-M-EXP"
+    },
+    {
+      "source": "S4D",
+      "relation": "contains",
+      "target": "S4D-M-MAKE"
+    },
+    {
+      "source": "S4D",
+      "relation": "contains",
+      "target": "S4D-STD-PLANT"
+    },
+    {
+      "source": "S4D",
+      "relation": "contains",
+      "target": "S4D-STD-ELEC"
+    },
+    {
+      "source": "S4D",
+      "relation": "contains",
+      "target": "S4D-STD-SOIL"
+    },
+    {
+      "source": "S4D",
+      "relation": "develops",
+      "target": "S4D-C-IDEA"
+    },
+    {
+      "source": "S4D",
+      "relation": "develops",
+      "target": "S4D-C-THINK"
+    },
+    {
+      "source": "S4D",
+      "relation": "develops",
+      "target": "S4D-C-INQ"
+    },
+    {
+      "source": "S4D",
+      "relation": "develops",
+      "target": "S4D-C-ATT"
+    },
+    {
+      "source": "S4D",
+      "relation": "contains",
+      "target": "S4D-LATER-SOUND"
+    },
+    {
+      "source": "S4D",
+      "relation": "contains",
+      "target": "S4D-LATER-WEA"
+    },
+    {
+      "source": "S4D",
+      "relation": "contains",
+      "target": "S4D-D-PLANT"
+    },
+    {
+      "source": "S4D-D-PLANT",
+      "relation": "contains",
+      "target": "S4D-U-PLANT"
+    },
+    {
+      "source": "S4D-U-PLANT",
+      "relation": "uses_method",
+      "target": "S4D-M-OBS"
+    },
+    {
+      "source": "S4D-U-PLANT",
+      "relation": "uses_method",
+      "target": "S4D-M-EXP"
+    },
+    {
+      "source": "S4D-U-PLANT",
+      "relation": "contains",
+      "target": "S4D-U-PLANT-L1"
+    },
+    {
+      "source": "S4D-U-PLANT-L1",
+      "relation": "teaches",
+      "target": "S4D-U-PLANT-K1"
+    },
+    {
+      "source": "S4D-U-PLANT-K1",
+      "relation": "aligns_to",
+      "target": "S4D-STD-PLANT",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4D-U-PLANT",
+      "relation": "contains",
+      "target": "S4D-U-PLANT-L2"
+    },
+    {
+      "source": "S4D-U-PLANT-L2",
+      "relation": "teaches",
+      "target": "S4D-U-PLANT-K2"
+    },
+    {
+      "source": "S4D-U-PLANT-K2",
+      "relation": "aligns_to",
+      "target": "S4D-STD-PLANT",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4D-U-PLANT",
+      "relation": "contains",
+      "target": "S4D-U-PLANT-L3"
+    },
+    {
+      "source": "S4D-U-PLANT-L3",
+      "relation": "teaches",
+      "target": "S4D-U-PLANT-K3"
+    },
+    {
+      "source": "S4D-U-PLANT-K3",
+      "relation": "aligns_to",
+      "target": "S4D-STD-PLANT",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4D-U-PLANT",
+      "relation": "contains",
+      "target": "S4D-U-PLANT-L4"
+    },
+    {
+      "source": "S4D-U-PLANT-L4",
+      "relation": "teaches",
+      "target": "S4D-U-PLANT-K4"
+    },
+    {
+      "source": "S4D-U-PLANT-K4",
+      "relation": "aligns_to",
+      "target": "S4D-STD-PLANT",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4D-U-PLANT",
+      "relation": "contains",
+      "target": "S4D-U-PLANT-L5"
+    },
+    {
+      "source": "S4D-U-PLANT-L5",
+      "relation": "teaches",
+      "target": "S4D-U-PLANT-K5"
+    },
+    {
+      "source": "S4D-U-PLANT-K5",
+      "relation": "aligns_to",
+      "target": "S4D-STD-PLANT",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4D-U-PLANT",
+      "relation": "contains",
+      "target": "S4D-U-PLANT-L6"
+    },
+    {
+      "source": "S4D-U-PLANT-L6",
+      "relation": "teaches",
+      "target": "S4D-U-PLANT-K6"
+    },
+    {
+      "source": "S4D-U-PLANT-K6",
+      "relation": "aligns_to",
+      "target": "S4D-STD-PLANT",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4D-U-PLANT",
+      "relation": "contains",
+      "target": "S4D-U-PLANT-L7"
+    },
+    {
+      "source": "S4D-U-PLANT-L7",
+      "relation": "teaches",
+      "target": "S4D-U-PLANT-K7"
+    },
+    {
+      "source": "S4D-U-PLANT-K7",
+      "relation": "aligns_to",
+      "target": "S4D-STD-PLANT",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4D-U-PLANT",
+      "relation": "contains",
+      "target": "S4D-U-PLANT-L8"
+    },
+    {
+      "source": "S4D-U-PLANT-L8",
+      "relation": "teaches",
+      "target": "S4D-U-PLANT-K8"
+    },
+    {
+      "source": "S4D-U-PLANT-K8",
+      "relation": "aligns_to",
+      "target": "S4D-STD-PLANT",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4D",
+      "relation": "contains",
+      "target": "S4D-D-ELEC"
+    },
+    {
+      "source": "S4D-D-ELEC",
+      "relation": "contains",
+      "target": "S4D-U-ELEC"
+    },
+    {
+      "source": "S4D-U-ELEC",
+      "relation": "uses_method",
+      "target": "S4D-M-OBS"
+    },
+    {
+      "source": "S4D-U-ELEC",
+      "relation": "uses_method",
+      "target": "S4D-M-EXP"
+    },
+    {
+      "source": "S4D-U-ELEC",
+      "relation": "contains",
+      "target": "S4D-U-ELEC-L1"
+    },
+    {
+      "source": "S4D-U-ELEC-L1",
+      "relation": "teaches",
+      "target": "S4D-U-ELEC-K1"
+    },
+    {
+      "source": "S4D-U-ELEC-K1",
+      "relation": "aligns_to",
+      "target": "S4D-STD-ELEC",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4D-U-ELEC",
+      "relation": "contains",
+      "target": "S4D-U-ELEC-L2"
+    },
+    {
+      "source": "S4D-U-ELEC-L2",
+      "relation": "teaches",
+      "target": "S4D-U-ELEC-K2"
+    },
+    {
+      "source": "S4D-U-ELEC-K2",
+      "relation": "aligns_to",
+      "target": "S4D-STD-ELEC",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4D-U-ELEC",
+      "relation": "contains",
+      "target": "S4D-U-ELEC-L3"
+    },
+    {
+      "source": "S4D-U-ELEC-L3",
+      "relation": "teaches",
+      "target": "S4D-U-ELEC-K3"
+    },
+    {
+      "source": "S4D-U-ELEC-K3",
+      "relation": "aligns_to",
+      "target": "S4D-STD-ELEC",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4D-U-ELEC",
+      "relation": "contains",
+      "target": "S4D-U-ELEC-L4"
+    },
+    {
+      "source": "S4D-U-ELEC-L4",
+      "relation": "teaches",
+      "target": "S4D-U-ELEC-K4"
+    },
+    {
+      "source": "S4D-U-ELEC-K4",
+      "relation": "aligns_to",
+      "target": "S4D-STD-ELEC",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4D-U-ELEC",
+      "relation": "contains",
+      "target": "S4D-U-ELEC-L5"
+    },
+    {
+      "source": "S4D-U-ELEC-L5",
+      "relation": "teaches",
+      "target": "S4D-U-ELEC-K5"
+    },
+    {
+      "source": "S4D-U-ELEC-K5",
+      "relation": "aligns_to",
+      "target": "S4D-STD-ELEC",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4D-U-ELEC",
+      "relation": "contains",
+      "target": "S4D-U-ELEC-L6"
+    },
+    {
+      "source": "S4D-U-ELEC-L6",
+      "relation": "teaches",
+      "target": "S4D-U-ELEC-K6"
+    },
+    {
+      "source": "S4D-U-ELEC-K6",
+      "relation": "aligns_to",
+      "target": "S4D-STD-ELEC",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4D-U-ELEC",
+      "relation": "contains",
+      "target": "S4D-U-ELEC-L7"
+    },
+    {
+      "source": "S4D-U-ELEC-L7",
+      "relation": "teaches",
+      "target": "S4D-U-ELEC-K7"
+    },
+    {
+      "source": "S4D-U-ELEC-K7",
+      "relation": "aligns_to",
+      "target": "S4D-STD-ELEC",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4D-U-ELEC",
+      "relation": "contains",
+      "target": "S4D-U-ELEC-L8"
+    },
+    {
+      "source": "S4D-U-ELEC-L8",
+      "relation": "teaches",
+      "target": "S4D-U-ELEC-K8"
+    },
+    {
+      "source": "S4D-U-ELEC-K8",
+      "relation": "aligns_to",
+      "target": "S4D-STD-ELEC",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4D",
+      "relation": "contains",
+      "target": "S4D-D-SOIL"
+    },
+    {
+      "source": "S4D-D-SOIL",
+      "relation": "contains",
+      "target": "S4D-U-SOIL"
+    },
+    {
+      "source": "S4D-U-SOIL",
+      "relation": "uses_method",
+      "target": "S4D-M-OBS"
+    },
+    {
+      "source": "S4D-U-SOIL",
+      "relation": "uses_method",
+      "target": "S4D-M-EXP"
+    },
+    {
+      "source": "S4D-U-SOIL",
+      "relation": "contains",
+      "target": "S4D-U-SOIL-L1"
+    },
+    {
+      "source": "S4D-U-SOIL-L1",
+      "relation": "teaches",
+      "target": "S4D-U-SOIL-K1"
+    },
+    {
+      "source": "S4D-U-SOIL-K1",
+      "relation": "aligns_to",
+      "target": "S4D-STD-SOIL",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4D-U-SOIL",
+      "relation": "contains",
+      "target": "S4D-U-SOIL-L2"
+    },
+    {
+      "source": "S4D-U-SOIL-L2",
+      "relation": "teaches",
+      "target": "S4D-U-SOIL-K2"
+    },
+    {
+      "source": "S4D-U-SOIL-K2",
+      "relation": "aligns_to",
+      "target": "S4D-STD-SOIL",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4D-U-SOIL",
+      "relation": "contains",
+      "target": "S4D-U-SOIL-L3"
+    },
+    {
+      "source": "S4D-U-SOIL-L3",
+      "relation": "teaches",
+      "target": "S4D-U-SOIL-K3"
+    },
+    {
+      "source": "S4D-U-SOIL-K3",
+      "relation": "aligns_to",
+      "target": "S4D-STD-SOIL",
+      "alignment": "extension"
+    },
+    {
+      "source": "S4D-U-SOIL",
+      "relation": "contains",
+      "target": "S4D-U-SOIL-L4"
+    },
+    {
+      "source": "S4D-U-SOIL-L4",
+      "relation": "teaches",
+      "target": "S4D-U-SOIL-K4"
+    },
+    {
+      "source": "S4D-U-SOIL-K4",
+      "relation": "aligns_to",
+      "target": "S4D-STD-SOIL",
+      "alignment": "extension"
+    },
+    {
+      "source": "S4D-U-SOIL",
+      "relation": "contains",
+      "target": "S4D-U-SOIL-L5"
+    },
+    {
+      "source": "S4D-U-SOIL-L5",
+      "relation": "teaches",
+      "target": "S4D-U-SOIL-K5"
+    },
+    {
+      "source": "S4D-U-SOIL-K5",
+      "relation": "aligns_to",
+      "target": "S4D-STD-SOIL",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4D-U-SOIL",
+      "relation": "contains",
+      "target": "S4D-U-SOIL-L6"
+    },
+    {
+      "source": "S4D-U-SOIL-L6",
+      "relation": "teaches",
+      "target": "S4D-U-SOIL-K6"
+    },
+    {
+      "source": "S4D-U-SOIL-K6",
+      "relation": "aligns_to",
+      "target": "S4D-STD-SOIL",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4D-U-SOIL",
+      "relation": "contains",
+      "target": "S4D-U-SOIL-L7"
+    },
+    {
+      "source": "S4D-U-SOIL-L7",
+      "relation": "teaches",
+      "target": "S4D-U-SOIL-K7"
+    },
+    {
+      "source": "S4D-U-SOIL-K7",
+      "relation": "aligns_to",
+      "target": "S4D-STD-SOIL",
+      "alignment": "direct"
+    },
+    {
+      "source": "S4D-U-SOIL",
+      "relation": "contains",
+      "target": "S4D-U-SOIL-L8"
+    },
+    {
+      "source": "S4D-U-SOIL-L8",
+      "relation": "teaches",
+      "target": "S4D-U-SOIL-K8"
+    },
+    {
+      "source": "S4D-U-SOIL-K8",
+      "relation": "aligns_to",
+      "target": "S4D-STD-SOIL",
+      "alignment": "direct"
+    }
+  ]
+}
